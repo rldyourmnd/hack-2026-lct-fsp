@@ -99,22 +99,11 @@ fn paginate(lines: &[Line]) -> Vec<Vec<(f32, u8, String, f32)>> {
 }
 
 fn grade_label(grade: Option<fsp_domain::Grade>) -> String {
-    grade
-        .map(|grade| match grade {
-            fsp_domain::Grade::Junior => "Junior",
-            fsp_domain::Grade::Middle => "Middle",
-            fsp_domain::Grade::Senior => "Senior",
-        })
-        .unwrap_or("—")
-        .to_string()
+    grade.map_or("—", fsp_domain::Grade::label).to_string()
 }
 
 fn specialization_label(spec: fsp_domain::Specialization) -> &'static str {
-    match spec {
-        fsp_domain::Specialization::Backend => "Бэкенд",
-        fsp_domain::Specialization::Frontend => "Фронтенд",
-        fsp_domain::Specialization::Fullstack => "Фулстек",
-    }
+    spec.short_label()
 }
 
 pub fn profile_pdf(profile: &ProfileView) -> Result<Vec<u8>, String> {
@@ -160,6 +149,33 @@ pub fn profile_pdf(profile: &ProfileView) -> Result<Vec<u8>, String> {
             "Роль в команде",
             profile.team_role.clone(),
         );
+    }
+    let years = |value: u32| match (value % 10, value % 100) {
+        (_, 11..=14) => "лет",
+        (1, _) => "год",
+        (2..=4, _) => "года",
+        _ => "лет",
+    };
+    let tenure = match (profile.experience_since, profile.experience_months) {
+        (Some(since), months) => {
+            let count = months.map_or(0, |months| months / 12);
+            Some(format!("с {since} года — {count} {}", years(count)))
+        }
+        (None, Some(months)) if months >= 12 => Some(format!(
+            "{} {}{}",
+            months / 12,
+            years(months / 12),
+            if months % 12 > 0 {
+                format!(" {} мес.", months % 12)
+            } else {
+                String::new()
+            }
+        )),
+        (None, Some(months)) => Some(format!("{months} мес.")),
+        (None, None) => None,
+    };
+    if let Some(tenure) = tenure {
+        push(FONT_SIZE_TEXT, TEXT, "В IT", tenure);
     }
     if !profile.experience.is_empty() {
         push(FONT_SIZE_TEXT, TEXT, "Опыт", profile.experience.clone());

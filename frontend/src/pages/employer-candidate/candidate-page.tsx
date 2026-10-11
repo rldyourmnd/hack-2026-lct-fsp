@@ -12,7 +12,7 @@ import { companyQuery } from '@/entities/company';
 import { companyInvitationsQuery, InvitationStatusChip, isOpenInvitation } from '@/entities/invitation';
 import { skillLabel, useMeta } from '@/entities/meta';
 import { needsQuery } from '@/entities/need';
-import { FreshnessChip } from '@/entities/qualification';
+import { CategoryBadge, FreshnessChip } from '@/entities/qualification';
 import { useScope } from '@/entities/session';
 import { shortlistsQuery } from '@/entities/shortlist';
 import { SkillStatusChip, skillStatusView } from '@/entities/skill';
@@ -49,6 +49,7 @@ import {
   tabId,
 } from '@/shared/ui';
 import { CompetenceGraph } from '@/widgets/competence-graph';
+import { GitHubSignalCard } from '@/widgets/github-insights';
 import styles from './candidate-page.module.css';
 
 export type CandidateTab = 'match' | 'skills' | 'checks';
@@ -243,13 +244,53 @@ function ChecksTab({ candidateId }: { candidateId: string }) {
   const candidate = useQuery(candidateQuery(scope, candidateId));
   if (!candidate.data) return <LoadingState />;
   const confirmed = candidate.data.skills.filter((skill) => skill.evidenceSources.includes('assessment'));
+  const { specialization, grade, estimate, verifiedGrade, gradeConfirmedAt } = candidate.data;
+  const category = `${specializationLabel[specialization]} · ${gradeLabel[grade]}`;
   return (
     <div className="stack">
-      <p>
-        Категория «{specializationLabel[candidate.data.specialization]} · {gradeLabel[candidate.data.verifiedGrade]}»
-        зафиксирована проверкой платформы {formatDate(candidate.data.gradeConfirmedAt)}. Результат не подтверждает
-        практический опыт разработки.
-      </p>
+      {candidate.data.categorySource === 'assessment' ? (
+        <p>
+          Категория «{category}» подтверждена тестом знаний платформы
+          {gradeConfirmedAt ? ` ${formatDate(gradeConfirmedAt)}` : ''}. Результат не подтверждает практический опыт
+          разработки.
+        </p>
+      ) : (
+        <p>
+          Категория «{category}» — автоматическая оценка по открытым данным кандидата (GitHub, ФСП). Тестом она пока не
+          подтверждена{verifiedGrade ? `; подтверждённый грейд — «${gradeLabel[verifiedGrade]}»` : ''}.
+        </p>
+      )}
+      {estimate && (
+        <section className="stack" aria-label="Факторы оценки">
+          <strong>
+            Балл уровня: {estimate.score} из 100 · рассчитан {formatDate(estimate.computedAt)}
+          </strong>
+          <TableWrap label="Факторы оценки">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Фактор</th>
+                  <th scope="col">Баллы</th>
+                </tr>
+              </thead>
+              <tbody>
+                {estimate.factors.map((factor) => (
+                  <tr key={factor.id}>
+                    <td>{factor.label}</td>
+                    <td>
+                      {factor.points} из {factor.max}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </TableWrap>
+          <p className="small muted">
+            Пороги: до 20 — стажёр, 20–39 — джуниор, 40–59 — мидл, 60–79 — сеньор, от 80 — лид. Объём коммитов сам по
+            себе грейд не повышает.
+          </p>
+        </section>
+      )}
       <ul className="stack" style={{ margin: 0, paddingLeft: '1.25rem' }}>
         {confirmed.map((skill) => (
           <li key={skill.skillId}>
@@ -339,7 +380,7 @@ export function EmployerCandidatePage({ candidateId, needId, tab, shortlistId, o
   const tabs: TabItem<CandidateTab>[] = [
     { id: 'match', label: 'Соответствие' },
     { id: 'skills', label: 'Навыки' },
-    { id: 'checks', label: 'Проверки' },
+    { id: 'checks', label: 'Категория' },
   ];
   const member = membership.isMember(candidateId);
 
@@ -355,10 +396,15 @@ export function EmployerCandidatePage({ candidateId, needId, tab, shortlistId, o
             <div className="stack" style={{ gap: '0.5rem' }}>
               <h1 style={{ margin: 0, fontSize: '2rem' }}>{candidate.alias}</h1>
               <span className="muted">
-                {specializationLabel[candidate.specialization]} · {gradeLabel[candidate.verifiedGrade]}
+                {specializationLabel[candidate.specialization]} · {gradeLabel[candidate.grade]}
               </span>
               <div className="row">
-                <StatusChip tone="success">Грейд подтверждён {formatDate(candidate.gradeConfirmedAt)}</StatusChip>
+                <CategoryBadge
+                  specialization={candidate.specialization}
+                  grade={candidate.grade}
+                  source={candidate.categorySource}
+                  confidence={candidate.categoryConfidence}
+                />
                 <FreshnessChip freshness={candidate.freshness} />
                 {candidate.availableForOffers && (
                   <StatusChip tone="neutral" icon="chart">
@@ -455,6 +501,7 @@ export function EmployerCandidatePage({ candidateId, needId, tab, shortlistId, o
               <DisclosureCard candidateId={candidateId} />
             </div>
           </Card>
+          {candidate.github && <GitHubSignalCard signal={candidate.github} />}
         </div>
       </div>
       {company.data && composing && (

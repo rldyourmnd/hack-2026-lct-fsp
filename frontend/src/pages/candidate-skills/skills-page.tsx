@@ -15,7 +15,14 @@ import {
   SkillStatusChip,
 } from '@/entities/skill';
 import { isDemoReference } from '@/entities/source';
-import { evidenceSourceLabel, formatDate, gradeLabel, specializationLabel, useDocumentTitle } from '@/shared/lib';
+import {
+  evidenceSourceLabel,
+  formatDate,
+  gradeLabel,
+  gradeRank,
+  specializationLabel,
+  useDocumentTitle,
+} from '@/shared/lib';
 import {
   ButtonLink,
   Card,
@@ -142,21 +149,62 @@ function SkillInspector({ skill, profile }: { skill: SelfSkill; profile: Profile
   );
 }
 
-const gradeOrderIndex = (grade: Profile['selectedGrade']) => ['junior', 'middle', 'senior'].indexOf(grade);
+const gradeOrderIndex = (grade: Profile['selectedGrade']) => gradeRank(grade);
 
-function EvidenceNodeInspector({ graph, nodeId, skills }: { graph: Graph; nodeId: string; skills: SelfSkill[] }) {
-  const evidence = skills
-    .flatMap((skill) => skill.evidence.map((item) => ({ item, skill })))
-    .find(({ item }) => item.id === nodeId);
+const sourceText: Record<string, string> = {
+  'source-github':
+    'Публичные репозитории: технологии, масштаб проектов и инженерная культура. Анализ не видит закрытых проектов.',
+  'source-fsp': 'Результаты соревнований ФСП уточняют направление и уровень, но не подтверждают отдельные технологии.',
+  'source-assessment': 'Тест знаний подтверждает уровень навыков и категорию.',
+};
+
+/** A concept lists its technologies; a source says what it proves; an evidence node names its skill. */
+function GraphNodeInspector({ graph, nodeId, skills }: { graph: Graph; nodeId: string; skills: SelfSkill[] }) {
   const node = graph.nodes.find((item) => item.id === nodeId);
-  if (!evidence) return <p className="muted">{node?.label ?? 'Свидетельство не найдено'}</p>;
+  if (!node) return <p className="muted">Элемент не найден</p>;
+  if (node.kind === 'concept') {
+    const members = graph.edges
+      .filter((edge) => edge.from === node.id)
+      .map((edge) => graph.nodes.find((item) => item.id === edge.to))
+      .filter((item) => item?.kind === 'skill');
+    return (
+      <div className="stack">
+        <h2 style={{ margin: 0 }}>{node.label}</h2>
+        {node.detail && <p className="muted">{node.detail}</p>}
+        <ul className={styles.evidenceList}>
+          {members.map(
+            (member) =>
+              member && (
+                <li key={member.id}>
+                  <strong>{member.label}</strong>
+                  {member.detail && <span className="small muted"> · {member.detail}</span>}
+                </li>
+              ),
+          )}
+        </ul>
+      </div>
+    );
+  }
+  if (node.kind === 'evidence') {
+    const evidence = skills
+      .flatMap((skill) => skill.evidence.map((item) => ({ item, skill })))
+      .find(({ item }) => item.id === nodeId);
+    if (evidence)
+      return (
+        <div className="stack">
+          <h2 style={{ margin: 0 }}>{evidence.item.title}</h2>
+          <p className="muted">Подтверждает навык: {evidence.skill.label}</p>
+          <ul className={styles.evidenceList}>
+            <EvidenceItem evidence={evidence.item} assessmentIds={new Set()} />
+          </ul>
+        </div>
+      );
+  }
   return (
     <div className="stack">
-      <h2 style={{ margin: 0 }}>{evidence.item.title}</h2>
-      <p className="muted">Подтверждает навык: {evidence.skill.label}</p>
-      <ul className={styles.evidenceList}>
-        <EvidenceItem evidence={evidence.item} assessmentIds={new Set()} />
-      </ul>
+      <h2 style={{ margin: 0 }}>{node.label}</h2>
+      {node.detail && <p className="muted">{node.detail}</p>}
+      {sourceText[node.id] && <p className="small">{sourceText[node.id]}</p>}
     </div>
   );
 }
@@ -186,7 +234,11 @@ export function CandidateSkillsPage({ view, selected, onChange }: Props) {
 
   const subtitle = [
     specializationLabel[profile.verifiedSpecialization ?? profile.specialization],
-    profile.verifiedGrade ? `Подтверждён ${gradeLabel[profile.verifiedGrade]}` : 'Уровень не подтверждён',
+    profile.verifiedGrade
+      ? `Подтверждён ${gradeLabel[profile.verifiedGrade]}`
+      : profile.category.grade
+        ? `Оценка ${gradeLabel[profile.category.grade]}`
+        : 'Категории нет',
     `Цель ${gradeLabel[profile.selectedGrade]}`,
   ].join(' · ');
 
@@ -254,20 +306,20 @@ export function CandidateSkillsPage({ view, selected, onChange }: Props) {
                       selectedId={selectedId}
                       highlight={highlight}
                       onSelect={select}
-                      label="Граф компетенций: роль, навыки и свидетельства"
+                      label="Граф компетенций: категория, источники, понятия и технологии"
                     />
                   </Suspense>
                 )}
                 <div className={styles.legend}>
-                  <span>Связь «навык — свидетельство» показывает основание, а не силу навыка.</span>
                   <span>
-                    <Icon name="file" size={16} /> Внешнее свидетельство
+                    Сверху — источники (GitHub, ФСП, тест), под ними категория, ниже — понятия и технологии с уровнем:
+                    основная, регулярно, встречается или подтверждена тестом.
                   </span>
                   <span>
                     <Icon name="target" size={16} /> Тест знаний
                   </span>
                   <span>
-                    <Icon name="minusCircle" size={16} /> Недостаточно данных
+                    <Icon name="minusCircle" size={16} /> Нужно подтверждение
                   </span>
                 </div>
               </>
@@ -305,7 +357,7 @@ export function CandidateSkillsPage({ view, selected, onChange }: Props) {
                   <p className="muted">Выберите навык, чтобы увидеть основания и уровень, к которому они относятся.</p>
                 </div>
               ) : (
-                <EvidenceNodeInspector graph={graph.data} nodeId={selectedId} skills={skills.items} />
+                <GraphNodeInspector graph={graph.data} nodeId={selectedId} skills={skills.items} />
               )
             ) : (
               <p className="muted">Выберите навык в списке или на графе.</p>

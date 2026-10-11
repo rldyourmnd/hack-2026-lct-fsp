@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import { api, type components, requireData, type Scope } from '@/shared/api';
-import { gradeLabel } from '@/shared/lib';
+import { gradeLabel, gradeRank } from '@/shared/lib';
 
 export type SelfSkill = components['schemas']['SelfSkill'];
 export type Skill = components['schemas']['Skill'];
@@ -34,13 +34,11 @@ export const myGapPlanQuery = (scope: Scope, needId: string) =>
       requireData(await api.GET('/api/v1/me/gap-plan', { params: { query: { needId } }, signal })),
   });
 
-const rank: Record<Grade, number> = { junior: 1, middle: 2, senior: 3 };
-
 /** Names the level a claim covers, so "passed" is never ambiguous against the current target. */
 export function levelContext(skill: Pick<Skill, 'status' | 'evidenceGrade'>, target: Grade | null) {
   if (skill.status === 'confirmed' && skill.evidenceGrade) {
     const confirmed = `Подтверждено для уровня «${gradeLabel[skill.evidenceGrade]}»`;
-    if (target && rank[target] > rank[skill.evidenceGrade]) {
+    if (target && gradeRank(target) > gradeRank(skill.evidenceGrade)) {
       return `${confirmed}; для уровня «${gradeLabel[target]}» нужна проверка`;
     }
     return confirmed;

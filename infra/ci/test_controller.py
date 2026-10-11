@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import URLError
 
 import controller as ci
 
@@ -104,10 +105,44 @@ class ReleasePolicy(unittest.TestCase):
             self.assertFalse(path.with_suffix(".tmp").exists())
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 class DeploymentRecovery(unittest.TestCase):
+    def test_accepted_release_retries_status_without_redeployment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / "config"
+            config.mkdir()
+            (root / "evidence").mkdir()
+            for name, value in {"deploy-enabled": "", "public-url": "https://nddev.link", "auth-mode": "resend", "resend-acceptance-key": "test-key"}.items():
+                (config / name).write_text(value)
+            sha = "a" * 40
+            failed = False
+
+            def provider(path, body=None):
+                nonlocal failed
+                if path == "commits/main":
+                    return {"sha": sha}
+                self.assertEqual(path, f"statuses/{sha}")
+                if body["state"] == "success" and not failed:
+                    failed = True
+                    raise URLError("temporary GitHub outage")
+
+            with patch.object(ci, "ROOT", root), patch.object(ci, "CONFIG", config), \
+                 patch.object(ci, "api", side_effect=provider) as api, patch.object(ci, "run") as run:
+                with self.assertRaises(URLError):
+                    ci.deploy(sha, root / "source.git")
+                accepted = (root / "deployed.json").read_bytes()
+                receipt = root / "evidence" / f"status-{sha}-deployment.json"
+                self.assertEqual(json.loads(receipt.read_text())["state"], "pending")
+                runs = run.call_count
+                ci.deploy(sha, root / "source.git")
+                self.assertEqual(json.loads(receipt.read_text())["state"], "success")
+                self.assertEqual((root / "deployed.json").read_bytes(), accepted)
+                self.assertEqual(run.call_count, runs)
+                requests = api.call_count
+                ci.deploy(sha, root / "source.git")
+                self.assertEqual(api.call_count, requests)
+                self.assertEqual(run.call_count, runs)
+
     def test_failed_release_keeps_fix_prs_unblocked_and_bounds_retries(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -142,3 +177,7 @@ class DeploymentRecovery(unittest.TestCase):
                 before = run.call_count
                 ci.deploy(sha, root / "source.git")
                 self.assertEqual(run.call_count, before)
+
+
+if __name__ == "__main__":
+    unittest.main()

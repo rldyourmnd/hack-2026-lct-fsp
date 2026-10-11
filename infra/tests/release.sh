@@ -10,6 +10,7 @@ mkdir -p "$fixture/bin" "$FSP_RELEASE_ROOT/releases" "$FSP_SYSTEM_ROOT/etc/"{fsp
 export PATH="$fixture/bin:$PATH"
 printf 'rust\n' > "$FSP_SYSTEM_ROOT/etc/fsp/api-backend"
 printf 'FSP_PUBLIC_WEB_URL=https://192.0.2.1\n' > "$FSP_SYSTEM_ROOT/etc/fsp/rust-api.env"
+printf 'INTERVIEW_API_TOKEN=test-token\n' > "$FSP_SYSTEM_ROOT/etc/fsp/interview.env"
 old=1111111111111111111111111111111111111111
 new=2222222222222222222222222222222222222222
 export FSP_TEST_NEW="$new"
@@ -29,6 +30,8 @@ cat > "$fixture/bin/curl" <<'STUB'
 set -eu
 if [[ "${FSP_TEST_FAIL:-}" == health && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
 if [[ "${FSP_TEST_FAIL:-}" == fsp_health && "$*" == *':4020/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
+if [[ "${FSP_TEST_FAIL:-}" == insights_health && "$*" == *':4030/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
+if [[ "${FSP_TEST_FAIL:-}" == interview_health && "$*" == *':4040/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
 STUB
 cat > "$fixture/bin/nginx" <<'STUB'
 #!/usr/bin/env bash
@@ -63,6 +66,8 @@ mkdir "$FSP_RELEASE_ROOT/building"
 mkdir -p "$CARGO_TARGET_DIR/release"
 printf '#!/bin/sh\nexit 0\n' > "$CARGO_TARGET_DIR/release/fsp-career-api"
 printf '#!/bin/sh\nexit 0\n' > "$CARGO_TARGET_DIR/release/fsp-simulator"
+printf '#!/bin/sh\nexit 0\n' > "$CARGO_TARGET_DIR/release/fsp-github-insights"
+printf '#!/bin/sh\nexit 0\n' > "$CARGO_TARGET_DIR/release/fsp-interview-service"
 rmdir "$FSP_RELEASE_ROOT/building"
 STUB
 chmod +x "$fixture/bin/"* "$FSP_RUSTUP_ROOT/toolchains/1.99.0-x86_64-unknown-linux-gnu/bin/cargo"
@@ -88,6 +93,8 @@ make_release "$FSP_RELEASE_ROOT/releases/$old"
 rm "$FSP_RELEASE_ROOT/releases/$old/infra/fsp-simulator.service"
 make_release "$FSP_RELEASE_ROOT/releases/$new"
 cp "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-career-api" "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-simulator"
+cp "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-career-api" "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-github-insights"
+cp "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-career-api" "$FSP_RELEASE_ROOT/releases/$new/bin/fsp-interview-service"
 reset_previous
 
 bash "$HERE/release.sh" "$old"
@@ -95,7 +102,7 @@ bash "$HERE/release.sh" "$old"
 [[ -f "$FSP_RELEASE_ROOT/releases/$old/frontend/dist/index.html" ]]
 echo 'PASS: active SHA is not rebuilt or restarted'
 
-for failure in restart health fsp_health nginx; do
+for failure in restart health fsp_health insights_health interview_health nginx; do
   reset_previous
   if FSP_TEST_FAIL="$failure" bash "$HERE/release.sh" "$new" > "$fixture/output" 2>&1; then
     echo "Expected $failure failure" >&2; exit 1

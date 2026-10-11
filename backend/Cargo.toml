@@ -18,6 +18,11 @@ fsp-integration-email = { path = "crates/integration-email" }
 fsp-integration-github = { path = "crates/integration-github" }
 fsp-integration-bifrost = { path = "crates/integration-bifrost" }
 fsp-integration-fsp-synthetic = { path = "crates/integration-fsp-synthetic" }
+fsp-interview-service = { path = "crates/interview-service" }
+fsp-github-insights = { path = "crates/github-insights" }
+fsp-integration-interview = { path = "crates/integration-interview" }
+fsp-integration-speech = { path = "crates/integration-speech" }
+base64 = "0.22.1"
 axum = { version = "0.8.9", features = ["multipart"] }
 krilla = { version = "0.8.2", default-features = false, features = ["simple-text"] }
 async-trait = "0.1.89"
@@ -38,6 +43,7 @@ serde_path_to_error = "0.1.20"
 sha2 = "0.10.9"
 hmac = "0.12.1"
 getrandom = "0.4.3"
+toml = { version = "1.1.8", default-features = false, features = ["std", "serde", "parse"] }
 tokio = { version = "1.53.2", features = ["macros", "net", "rt-multi-thread", "signal", "time"] }
 tower = { version = "0.5.3", features = ["util"] }
 tower-http = { version = "0.6.11", features = ["fs", "catch-panic"] }

@@ -1,5 +1,9 @@
 # Stability audit and execution plan
 
+Owner policy update (2026-10-08, [#54](https://github.com/KirpaDmitriy/sport-programming-federation/issues/54)):
+backups, snapshots and redundant mirror copies are disabled; existing backup archives were deleted.
+Backup/mirror actions below are historical evidence, not instructions to repeat them.
+
 Historical delivery record. For current behavior, verification and explicit limits, read
 [current-state.md](current-state.md); completed baseline findings below are not open defects.
 

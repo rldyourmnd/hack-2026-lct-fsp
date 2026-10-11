@@ -1,0 +1,22 @@
+{
+  "id": "hiring-flow-bottleneck-v1",
+  "algorithmVersion": "hiring-flow-bottleneck-v1",
+  "change": "classify the hiring-flow bottleneck from tenant-scoped application states and timestamps before optional language-model explanation",
+  "expectedEffect": "an inbox with at least three unviewed applications comprising at least 25 percent of the flow is reported as a review queue while stage counts remain equal to the source application set",
+  "failureCondition": "the classifier reports another stage, changes a stage count, or includes an application from another company",
+  "verification": {
+    "command": "cargo test -p fsp-application analytics::tests::detects_review_queue_without_changing_counts",
+    "artifact": "backend/experiments/hiring-flow-bottleneck-v1.json"
+  },
+  "observed": {
+    "status": "passed",
+    "tests": [
+      "detects_review_queue_without_changing_counts"
+    ],
+    "offlineCpuPath": true
+  },
+  "measurementClaims": {
+    "businessOutcomeImprovement": "not_established_without_production_cohort_data",
+    "languageModelAccuracy": "not_applicable_to_computed_metrics"
+  }
+}

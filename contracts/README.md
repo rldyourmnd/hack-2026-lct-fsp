@@ -5,7 +5,7 @@ private dialect.
 
 | File | Contents |
 | --- | --- |
-| [`openapi.json`](openapi.json) | OpenAPI 3.1, contract `v0.1.0`: 74 application operations under `/api/v1`, `/health`, and four `/__mock__` development controls marked `x-mock-only: true` |
+| [`openapi.json`](openapi.json) | OpenAPI 3.1, contract `v0.1.0`: 79 application operations under `/api/v1`, `/health`, and four `/__mock__` development controls marked `x-mock-only: true` |
 | [`error-codes.json`](error-codes.json) | Error codes the mock implements, by scope (`http`, `job`) |
 | [`API_OPERATIONS.md`](API_OPERATIONS.md) | Generated operation index (do not edit by hand) |
 | [`API_INTEGRATION.md`](API_INTEGRATION.md) | API behavior on the wire and in the frontend: session, origin, validation, errors, idempotency, jobs, PDF, time, metadata, screen-to-operation map, backend cutover checklist |

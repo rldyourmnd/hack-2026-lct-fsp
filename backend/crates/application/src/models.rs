@@ -15,6 +15,139 @@ pub struct SessionView {
     pub display_name: String,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct InterviewStartInput {
+    pub blueprint_id: String,
+    pub max_turns: Option<u8>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct InterviewAnswerInput {
+    pub question_id: String,
+    pub answer: String,
+    pub response_mode: InterviewResponseMode,
+    pub revision: u32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct InterviewSpeechInput {
+    pub question_id: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeechAudioView {
+    pub audio_base64: String,
+    pub mime_type: String,
+    pub provider: String,
+    pub voice: String,
+}
+
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum InterviewResponseMode {
+    #[default]
+    Text,
+    Voice,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum InterviewStatusView {
+    Active,
+    Completed,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum EvidenceStateView {
+    Unknown,
+    Observed,
+    Partial,
+    Confirmed,
+    Contradicted,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CompetencyKindView {
+    Technical,
+    Behavioral,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewQuestionView {
+    pub id: String,
+    pub node_id: String,
+    pub prompt: String,
+    pub sequence: u8,
+    #[serde(default)]
+    pub recommended_response_mode: InterviewResponseMode,
+    pub delivery: InterviewDeliveryView,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewDeliveryView {
+    pub speech_text: String,
+    pub avatar_cue: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewNodeView {
+    pub id: String,
+    pub label: String,
+    pub kind: CompetencyKindView,
+    pub criticality: u8,
+    pub prerequisites: Vec<String>,
+    pub state: EvidenceStateView,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewEvidenceView {
+    pub node_id: String,
+    pub state: EvidenceStateView,
+    pub question_id: String,
+    pub answer_excerpt: String,
+    pub rationale: String,
+    pub evaluator: String,
+    pub rubric_version: String,
+    #[serde(default)]
+    pub response_mode: InterviewResponseMode,
+    #[serde(default = "default_interview_signal_strength")]
+    pub signal_strength: u8,
+}
+
+fn default_interview_signal_strength() -> u8 {
+    1
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewView {
+    pub id: String,
+    pub candidate_id: String,
+    pub blueprint_id: String,
+    pub status: InterviewStatusView,
+    pub revision: u32,
+    pub current_question: Option<InterviewQuestionView>,
+    pub nodes: Vec<InterviewNodeView>,
+    pub evidence: Vec<InterviewEvidenceView>,
+    pub model_mode: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InterviewsView {
+    pub items: Vec<InterviewView>,
+}
+
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct EmailChallengeInput {
@@ -69,6 +202,7 @@ pub struct ProfileView {
     pub stack: Vec<String>,
     pub team_role: String,
     pub experience_months: Option<u32>,
+    pub experience_since: Option<u16>,
     pub experience: String,
     pub soft_skills: Vec<String>,
     pub consents: fsp_domain::Consents,
@@ -76,6 +210,10 @@ pub struct ProfileView {
     pub verified_specialization: Option<Specialization>,
     pub grade_confirmed_at: Option<String>,
     pub category: CategoryView,
+    /// The estimate from GitHub and FSP evidence, with its factors and the LLM review.
+    pub estimate: Option<fsp_domain::ProfileEstimate>,
+    /// Questionnaire fields last filled from evidence.
+    pub auto_fields: Vec<String>,
     pub freshness: FreshnessView,
     pub onboarding: OnboardingView,
     pub assessment_eligibility: GradeEligibilityView,
@@ -89,6 +227,28 @@ pub struct CategoryView {
     pub specialization: Option<Specialization>,
     pub grade: Option<Grade>,
     pub eligible: bool,
+    /// A test result or an estimate; `None` without a category.
+    pub source: Option<fsp_domain::CategorySource>,
+    /// The estimate's confidence; `None` for a test result.
+    pub confidence: Option<fsp_domain::SignalConfidence>,
+}
+
+/// What employers see of an estimate: the score and its factors, without names or the LLM text.
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct EmployerEstimateView {
+    pub score: u8,
+    pub computed_at: String,
+    pub factors: Vec<EmployerEstimateFactorView>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct EmployerEstimateFactorView {
+    pub id: String,
+    pub label: String,
+    pub points: u8,
+    pub max: u8,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -141,6 +301,8 @@ pub struct ProfilePatch {
     pub team_role: Option<String>,
     #[serde(default, deserialize_with = "present_patch_value")]
     pub experience_months: Option<Option<u32>>,
+    #[serde(default, deserialize_with = "present_patch_value")]
+    pub experience_since: Option<Option<u16>>,
     #[serde(default, deserialize_with = "present_patch_value")]
     pub experience: Option<String>,
     #[serde(default, deserialize_with = "present_patch_value")]
@@ -369,6 +531,80 @@ pub struct ApplicationView {
 #[serde(rename_all = "camelCase")]
 pub struct ApplicationsView {
     pub items: Vec<ApplicationView>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HiringFlowStageView {
+    pub id: &'static str,
+    pub label: &'static str,
+    pub count: usize,
+    pub share_percent: u8,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VacancyFlowView {
+    pub vacancy_id: String,
+    pub title: String,
+    pub total: usize,
+    pub awaiting_review: usize,
+    pub awaiting_decision: usize,
+    pub accepted: usize,
+    pub closed: usize,
+    pub required_coverage_percent: u8,
+    pub grade_match_percent: u8,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HiringBottleneckView {
+    pub kind: &'static str,
+    pub severity: &'static str,
+    pub title: String,
+    pub evidence: String,
+    pub recommendation: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HiringAssistantView {
+    pub mode: &'static str,
+    pub summary: String,
+    pub actions: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HiringFlowAnalyticsView {
+    pub generated_at: String,
+    pub total: usize,
+    pub stages: Vec<HiringFlowStageView>,
+    pub median_time_to_view_hours: Option<u32>,
+    pub median_time_to_decision_hours: Option<u32>,
+    pub acceptance_rate_percent: u8,
+    pub vacancies: Vec<VacancyFlowView>,
+    pub bottlenecks: Vec<HiringBottleneckView>,
+    pub assistant: HiringAssistantView,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HiringFlowFacts {
+    pub total: usize,
+    pub stages: Vec<HiringFlowStageView>,
+    pub median_time_to_view_hours: Option<u32>,
+    pub median_time_to_decision_hours: Option<u32>,
+    pub acceptance_rate_percent: u8,
+    pub vacancies: Vec<VacancyFlowView>,
+    pub bottlenecks: Vec<HiringBottleneckView>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct HiringFlowNarrative {
+    pub summary: String,
+    pub actions: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -776,8 +1012,15 @@ pub struct AnonymousCandidateView {
     pub id: String,
     pub alias: String,
     pub specialization: Specialization,
-    pub verified_grade: Grade,
-    pub grade_confirmed_at: String,
+    /// The category grade: confirmed by a test or estimated from evidence.
+    pub grade: Grade,
+    pub category_source: fsp_domain::CategorySource,
+    /// The estimate's confidence; `None` for a test result.
+    pub category_confidence: Option<fsp_domain::SignalConfidence>,
+    /// The test-confirmed grade, when there is one.
+    pub verified_grade: Option<Grade>,
+    pub grade_confirmed_at: Option<String>,
+    pub estimate: Option<EmployerEstimateView>,
     pub work_modes: Vec<String>,
     pub available_for_offers: bool,
     pub skills: Vec<SkillView>,
@@ -785,6 +1028,8 @@ pub struct AnonymousCandidateView {
     pub fsp_verified: bool,
     pub freshness: FreshnessView,
     pub r#match: Option<CandidateMatchView>,
+    /// Anonymous public-GitHub signal: no login, names, links or calendars.
+    pub github: Option<fsp_domain::GitHubSignal>,
     pub simulation: bool,
 }
 
@@ -832,6 +1077,8 @@ pub struct CandidateSearch {
     pub recommended: bool,
     pub specialization: Option<Specialization>,
     pub grade: Option<Grade>,
+    /// Test-confirmed or estimated categories only.
+    pub category_source: Option<fsp_domain::CategorySource>,
     pub skill: Option<String>,
     pub fsp_verified: bool,
     pub page: usize,
@@ -892,6 +1139,38 @@ pub struct SourceView {
     pub competition_ids: Vec<String>,
     pub notice: String,
     pub fsp_results: Vec<fsp_domain::FspResult>,
+    /// GitHub only: ownership state, the public-activity report and the employer projection.
+    pub github: Option<GitHubSourceView>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubSourceView {
+    pub ownership: GitHubOwnershipView,
+    pub report: Option<fsp_domain::GitHubReport>,
+    /// Exactly what employers see before any disclosure.
+    pub employer_preview: Option<fsp_domain::GitHubSignal>,
+    /// The background analysis while it runs; `None` when none is in flight.
+    pub analysis: Option<GitHubAnalysisView>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubAnalysisView {
+    /// `queued`, `running` or `failed`.
+    pub state: &'static str,
+    pub stage: String,
+    pub progress: u8,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GitHubOwnershipView {
+    pub verified: bool,
+    pub method: Option<fsp_domain::OwnershipMethod>,
+    pub verified_at: Option<String>,
+    /// The candidate's code; adding it to the GitHub bio proves ownership on the next update.
+    pub code: String,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -971,8 +1250,33 @@ pub struct JobErrorView {
     pub retryable: bool,
 }
 
-pub fn source_view(record: SourceRecord) -> SourceView {
+pub fn source_view(
+    record: SourceRecord,
+    ownership_code: &str,
+    progress: Option<GitHubAnalysisView>,
+) -> SourceView {
     let analysis = record.analysis;
+    let github = (record.provider == SourceProvider::Github).then(|| {
+        let ownership = analysis
+            .as_ref()
+            .and_then(|analysis| analysis.ownership.clone());
+        let report = analysis
+            .as_ref()
+            .and_then(|analysis| analysis.report.clone());
+        GitHubSourceView {
+            employer_preview: report
+                .as_ref()
+                .map(|report| report.employer_signal(ownership.is_some())),
+            report,
+            analysis: progress,
+            ownership: GitHubOwnershipView {
+                verified: ownership.is_some(),
+                method: ownership.as_ref().map(|ownership| ownership.method),
+                verified_at: ownership.map(|ownership| ownership.verified_at),
+                code: ownership_code.into(),
+            },
+        }
+    });
     let repositories = analysis
         .as_ref()
         .map(|value| {
@@ -1023,17 +1327,23 @@ pub fn source_view(record: SourceRecord) -> SourceView {
         notice: if record.synthetic {
             "Вымышленные данные ФСП. Командный результат не подтверждает индивидуальные навыки или грейд.".into()
         } else if analysis.is_some() {
-            "Метрики рассчитаны по данным GitHub".into()
+            "Только публичные данные GitHub: приватные репозитории не анализируются. Метрики — сигналы активности, а не оценка навыков.".into()
         } else {
             String::new()
         },
+        github,
     }
 }
 
 pub fn job_view(record: JobRecord, source: Option<SourceView>) -> JobView {
-    // The mock asks clients to poll in-flight jobs every 250 ms and stops
-    // polling once a job is terminal.
+    // The mock asks clients to poll in-flight jobs every 250 ms and stops polling once a job is
+    // terminal. A GitHub analysis runs for minutes, so its source sync is polled every two seconds.
     let terminal = record.status == "succeeded" || record.status == "failed";
+    let poll_after_ms = match (terminal, record.kind.as_str()) {
+        (true, _) => 0,
+        (false, "source_sync") => 2_000,
+        (false, _) => 250,
+    };
     let result = record
         .result_json
         .as_deref()
@@ -1073,7 +1383,7 @@ pub fn job_view(record: JobRecord, source: Option<SourceView>) -> JobView {
             message: record.error_message.unwrap_or_default(),
             retryable: true,
         }),
-        poll_after_ms: if terminal { 0 } else { 250 },
+        poll_after_ms,
         simulation,
     }
 }
@@ -1125,10 +1435,13 @@ pub struct GraphView {
 #[serde(rename_all = "camelCase")]
 pub struct GraphNodeView {
     pub id: String,
+    /// `role`, `concept` (a catalog skill category), `skill`, `source` (GitHub, FSP, a test).
     pub kind: String,
     pub label: String,
     pub skill_id: Option<String>,
     pub status: Option<String>,
+    /// The level or the scale behind the node, e.g. «Основная · 49 проектов».
+    pub detail: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize)]

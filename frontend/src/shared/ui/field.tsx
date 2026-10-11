@@ -133,7 +133,31 @@ export function TextareaField({
   );
 }
 
-export type Option<T extends string> = { value: T; label: string; disabled?: boolean };
+/** `group` names an optgroup; options of one group should be adjacent. */
+export type Option<T extends string> = { value: T; label: string; disabled?: boolean; group?: string };
+
+function OptionList<T extends string>({ options }: { options: Option<T>[] }) {
+  const groups: { label: string | undefined; options: Option<T>[] }[] = [];
+  for (const option of options) {
+    const last = groups.at(-1);
+    if (last && last.label === option.group) last.options.push(option);
+    else groups.push({ label: option.group, options: [option] });
+  }
+  const render = (option: Option<T>) => (
+    <option key={option.value} value={option.value} disabled={option.disabled}>
+      {option.label}
+    </option>
+  );
+  return groups.map((group, index) =>
+    group.label === undefined ? (
+      group.options.map(render)
+    ) : (
+      <optgroup key={`${group.label}-${String(index)}`} label={group.label}>
+        {group.options.map(render)}
+      </optgroup>
+    ),
+  );
+}
 
 export function SelectField<T extends string>({
   id,
@@ -171,11 +195,7 @@ export function SelectField<T extends string>({
             {placeholder}
           </option>
         )}
-        {options.map((option) => (
-          <option key={option.value} value={option.value} disabled={option.disabled}>
-            {option.label}
-          </option>
-        ))}
+        <OptionList options={options} />
       </select>
     </FieldShell>
   );
@@ -307,6 +327,144 @@ type TokenInputProps = {
   aside?: ReactNode;
   error?: string | undefined;
 };
+
+type TokenPickerProps<T extends string> = {
+  id: string;
+  label: string;
+  options: Option<T>[];
+  selected: T[];
+  onChange: (values: T[]) => void;
+  max: number;
+  hint?: string | undefined;
+  placeholder?: string | undefined;
+  error?: string | undefined;
+};
+
+const PICKER_RESULTS = 12;
+
+/**
+ * Picks several values from a long catalog: type to filter, arrows and Enter to add, the chips remove. The input is a
+ * combobox controlling a listbox of suggestions grouped like the options.
+ */
+export function TokenPicker<T extends string>({
+  id,
+  label,
+  options,
+  selected,
+  onChange,
+  max,
+  hint,
+  placeholder,
+  error,
+}: TokenPickerProps<T>) {
+  const [query, setQuery] = useState('');
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const listId = `${id}-suggestions`;
+  const needle = query.trim().toLocaleLowerCase('ru');
+  const suggestions = options
+    .filter((option) => !selected.includes(option.value) && !option.disabled)
+    .filter(
+      (option) =>
+        !needle ||
+        option.label.toLocaleLowerCase('ru').includes(needle) ||
+        option.value.toLowerCase().includes(needle) ||
+        option.group?.toLocaleLowerCase('ru').includes(needle),
+    )
+    .slice(0, PICKER_RESULTS);
+  const full = selected.length >= max;
+  const labelOf = (value: T) => options.find((option) => option.value === value)?.label ?? value;
+  const add = (value: T) => {
+    if (full || selected.includes(value)) return;
+    onChange([...selected, value]);
+    setQuery('');
+    setActive(0);
+  };
+  const expanded = open && !full && suggestions.length > 0;
+  return (
+    <FieldShell id={id} label={label} hint={hint} error={error}>
+      {selected.length > 0 && (
+        <ul className={styles.tokenList} aria-label={`${label}: выбрано ${selected.length} из ${max}`}>
+          {selected.map((value) => (
+            <li key={value} className={styles.token}>
+              {labelOf(value)}
+              <button
+                type="button"
+                className={styles.tokenRemove}
+                aria-label={`Удалить «${labelOf(value)}»`}
+                onClick={() => onChange(selected.filter((item) => item !== value))}
+              >
+                <Icon name="x" size={14} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className={styles.picker}>
+        <input
+          id={id}
+          className={styles.control}
+          role="combobox"
+          aria-expanded={expanded}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          aria-activedescendant={expanded ? `${listId}-${String(active)}` : undefined}
+          aria-describedby={describedBy(id, hint, error)}
+          aria-invalid={error ? true : undefined}
+          value={query}
+          disabled={full}
+          placeholder={full ? `Выбрано максимум: ${max}` : placeholder}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setActive(0);
+            setOpen(true);
+          }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+              event.preventDefault();
+              setOpen(true);
+              const delta = event.key === 'ArrowDown' ? 1 : -1;
+              setActive((current) => (current + delta + suggestions.length) % Math.max(suggestions.length, 1));
+            } else if (event.key === 'Enter') {
+              const choice = suggestions[active];
+              if (expanded && choice) {
+                event.preventDefault();
+                add(choice.value);
+              }
+            } else if (event.key === 'Escape') {
+              setOpen(false);
+            }
+          }}
+        />
+        {expanded && (
+          <div id={listId} role="listbox" aria-label={label} className={styles.suggestions}>
+            {suggestions.map((option, index) => (
+              <div
+                key={option.value}
+                id={`${listId}-${String(index)}`}
+                role="option"
+                tabIndex={-1}
+                aria-selected={index === active}
+                className={styles.suggestion}
+                onMouseDown={(event) => {
+                  // Keep focus in the input so the list stays open for the next pick.
+                  event.preventDefault();
+                  add(option.value);
+                }}
+                onMouseEnter={() => setActive(index)}
+              >
+                <span>{option.label}</span>
+                {option.group && <span className={styles.suggestionGroup}>{option.group}</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </FieldShell>
+  );
+}
 
 export function TokenInput({ id, label, values, onChange, max, maxLength, hint, aside, error }: TokenInputProps) {
   const [draft, setDraft] = useState('');

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
-import { type Browser, expect, type Page, test } from '@playwright/test';
+import { test as base, expect, type Page } from '@playwright/test';
 import { answerKnowledgeTest } from '../knowledge';
+import { acceptanceActors } from './actors';
 
 import { testEmail, verificationCode } from './mail';
 
@@ -19,60 +20,109 @@ async function signIn(page: Page, email: string, role: 'candidate' | 'employer')
   await page.waitForURL(new RegExp(`/${role}/`));
 }
 
-async function newPage(browser: Browser) {
-  const context = await browser.newContext({ locale: 'ru-RU', viewport: { width: 1440, height: 900 } });
-  return context.newPage();
-}
+const test = base.extend<{ actors: ReturnType<typeof acceptanceActors> }>({
+  actors: [
+    async ({ browser }, use) => {
+      const actors = acceptanceActors(browser);
+      try {
+        await use(actors);
+      } finally {
+        await actors.dispose();
+      }
+    },
+    { timeout: 90_000 },
+  ],
+});
 
 test('HTTPS stand serves the app and deep links without mock controls', async ({ page, request }) => {
   const home = await request.get('/');
   expect(home.status()).toBe(200);
   expect(home.headers()['content-security-policy']).toContain("default-src 'self'");
-  expect((await request.post('/__mock__/session', { data: { actor: 'candidate024' } })).status()).toBe(404);
+  expect(home.headers()['permissions-policy']).toContain('microphone=(self)');
+  expect(home.headers()['permissions-policy']).toContain('camera=()');
+  expect(
+    (
+      await request.post('/__mock__/session', {
+        data: { actor: 'candidate024' },
+      })
+    ).status(),
+  ).toBe(404);
   expect((await request.get('/__mock__/email-codes')).status()).toBe(404);
   const metaResponse = await request.get('/api/v1/meta');
   expect(metaResponse.status()).toBe(200);
-  expect((await metaResponse.json()).capabilities.realEmail).toBe(process.env.FSP_AUTH_MODE === 'resend');
+  const meta = await metaResponse.json();
+  expect(meta.capabilities.realEmail).toBe(process.env.FSP_AUTH_MODE === 'resend');
+  expect(meta.capabilities.graphInterviews).toBe(true);
   expect(metaResponse.headers()['cache-control']).toContain('no-store');
   await page.goto('/employer/candidates?needId=need-001');
   await page.waitForURL(/\/login\?redirect=/);
   await expect(page.getByRole('heading', { name: 'Вход и регистрация' })).toBeVisible();
+  expect(
+    await page.evaluate(() => {
+      const policy = (document as Document & { featurePolicy?: { allowsFeature: (name: string) => boolean } })
+        .featurePolicy;
+      return policy?.allowsFeature('microphone');
+    }),
+  ).toBe(true);
 });
 
-test('a new candidate and two companies complete the reverse-hiring flow', async ({ browser }) => {
+test('a new candidate and two companies complete the reverse-hiring flow', async ({ actors }) => {
   test.setTimeout(480_000);
-  const candidate = await newPage(browser);
-  await signIn(candidate, testEmail('candidate'), 'candidate');
+  const candidate = await actors.newPage();
+  const candidateEmail = testEmail('candidate');
+  await signIn(candidate, candidateEmail, 'candidate');
+  actors.authenticated(candidate, candidateEmail, 'candidate');
   await candidate.waitForURL('**/candidate/onboarding');
   await candidate.getByLabel('Согласен на обработку данных').click();
   await expect(candidate.getByLabel('Согласен на обработку данных')).toBeChecked();
-  const publication = candidate.getByRole('switch', { name: 'Показывать профиль работодателям' });
+  const publication = candidate.getByRole('switch', {
+    name: 'Показывать профиль работодателям',
+  });
   await publication.click();
   await expect(publication).toHaveAttribute('aria-checked', 'true');
   await candidate.getByLabel('Имя и фамилия').fill('Ирина Стендова');
   await candidate.getByLabel('Грейд для проверки').selectOption('junior');
-  await candidate.getByRole('button', { name: 'Rust' }).click();
+  await candidate.getByRole('combobox', { name: 'Стек' }).fill('Rust');
+  await candidate.getByRole('option', { name: /^Rust/ }).click();
   await candidate.getByRole('textbox', { name: 'Опыт', exact: true }).fill('Проекты на Rust.');
   await candidate.getByLabel('Роль в команде').fill('Разработчик');
   await candidate.getByRole('button', { name: 'Сохранить анкету' }).click();
   await expect(candidate.getByText('Профиль сохранён')).toBeVisible();
-  await candidate.getByRole('button', { name: 'Подтвердить уровень' }).click();
+  await candidate.getByRole('button', { name: 'Пройти тест' }).click();
   await candidate.waitForURL(/\/workspace$/);
   await answerKnowledgeTest(candidate);
   await candidate.getByRole('button', { name: 'Отправить ответы' }).click();
   await candidate.getByRole('dialog').getByRole('button', { name: 'Отправить' }).click();
   await expect(candidate.getByRole('heading', { name: 'Джуниор подтверждён' })).toBeVisible();
+  await candidate.goto('/candidate/assessments');
+  await candidate.getByRole('button', { name: 'Начать собеседование' }).click();
+  await candidate.waitForURL(/\/candidate\/interviews\//);
+  await expect(candidate.getByLabel(/Ваш ответ|Расшифровка ответа/)).toBeVisible();
+  await candidate
+    .getByLabel(/Ваш ответ|Расшифровка ответа/)
+    .fill('Сначала соберу логи и попробую воспроизвести проблему.');
+  await candidate.getByRole('button', { name: 'Отправить ответ' }).click();
+  // The stand evaluates the answer with a real model, which takes seconds: wait until the interview moves on.
+  const currentNode = async () =>
+    (await (await candidate.request.get('/api/v1/me/interviews')).json()).items[0].currentQuestion?.nodeId;
+  await expect.poll(currentNode, { timeout: 120_000 }).not.toBe('backend.idempotency');
+  expect(await currentNode()).toBe('backend.unique-operation');
+  await candidate.reload();
+  await expect(candidate.getByLabel(/Ваш ответ|Расшифровка ответа/)).toBeVisible();
   const profile = await (await candidate.request.get('/api/v1/me/profile')).json();
   const alias: string = profile.alias;
   const candidateId: string = profile.id;
 
+  await candidate.goto('/candidate/overview');
   const downloadPromise = candidate.waitForEvent('download');
   await candidate.getByRole('button', { name: 'Скачать PDF' }).click();
   const download = await downloadPromise;
   expect((await readFile((await download.path()) as string)).subarray(0, 5).toString()).toBe('%PDF-');
 
-  const companyA = await newPage(browser);
-  await signIn(companyA, testEmail('employer-a'), 'employer');
+  const companyA = await actors.newPage();
+  const companyAEmail = testEmail('employer-a');
+  await signIn(companyA, companyAEmail, 'employer');
+  actors.authenticated(companyA, companyAEmail, 'employer');
   await completeCompany(companyA, 'Проверка ФСП — компания А');
   const needId = await createNeed(companyA);
   await companyA.goto(`/employer/candidates/${candidateId}?needId=${needId}`);
@@ -91,8 +141,10 @@ test('a new candidate and two companies complete the reverse-hiring flow', async
 
   await companyA.reload();
   await expect(companyA.getByText('Ирина Стендова')).toBeVisible();
-  const companyB = await newPage(browser);
-  await signIn(companyB, testEmail('employer-b'), 'employer');
+  const companyB = await actors.newPage();
+  const companyBEmail = testEmail('employer-b');
+  await signIn(companyB, companyBEmail, 'employer');
+  actors.authenticated(companyB, companyBEmail, 'employer');
   await completeCompany(companyB, 'Проверка ФСП — компания Б');
   const disclosure = await (await companyB.request.get(`/api/v1/candidates/${candidateId}/disclosure`)).json();
   expect(disclosure).toMatchObject({ granted: false, fields: {} });

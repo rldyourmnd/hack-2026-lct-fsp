@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { request as rawHttpRequest } from 'node:http';
 import test, { after, type TestContext } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import bank from '../../backend/crates/domain/data/knowledge-v1.json';
+import additions from '../../backend/crates/domain/data/knowledge-v2-additions.json';
 import { buildOpenApi, routes, routeTable } from '../src/contract.ts';
 import { createMockServer, type MockServerOptions } from '../src/server.ts';
 import { validators } from '../src/validation.ts';
@@ -83,14 +84,32 @@ async function setup(t: TestContext, options: MockServerOptions = {}) {
   }
   return { app, url, request, login, job, client };
 }
-const answer = {
+const dataDirectory = new URL('../../backend/crates/domain/data/', import.meta.url);
+// The topic banks (knowledge-v3-*.json) serve every specialization tested on their topics.
+const topicQuestions = readdirSync(dataDirectory)
+  .filter((name) => name.startsWith('knowledge-v3-'))
+  .flatMap(
+    (name) =>
+      JSON.parse(readFileSync(new URL(name, dataDirectory), 'utf8')).questions as {
+        id: string;
+        correctOptionId: string;
+      }[],
+  );
+const answerKey = new Map(
+  [...bank.questions, ...additions.questions, ...topicQuestions].map((question) => [
+    question.id,
+    question.correctOptionId,
+  ]),
+);
+const assessmentAnswerFor = (task: Body) => ({
   code: '',
   explanation: '',
   externalAiUsed: true,
-  responses: bank.questions
-    .filter((q) => q.grade === 'middle')
-    .map((q) => ({ questionId: q.id, optionId: q.correctOptionId })),
-};
+  responses: task.questions.map((question: Body) => ({
+    questionId: question.id,
+    optionId: answerKey.get(question.id),
+  })),
+});
 const forbiddenKeys = new Set([
   'name',
   'email',
@@ -130,6 +149,17 @@ test('canonical contract matches generator and all declared routes have explicit
   assert.equal(file.openapi, '3.1.0');
   for (const route of routeTable.filter((entry) => entry.dev))
     assert.equal(file.paths[route.path]?.[route.method]?.['x-mock-only'], true);
+});
+
+test('the Rust GitHub report and employer projection match the contract schemas', async () => {
+  for (const [file, schema] of [
+    ['github-report.json', 'GitHubReport'],
+    ['github-signal.json', 'GitHubSignal'],
+  ] as const) {
+    const value = JSON.parse(await readFile(new URL(`../../contracts/fixtures/${file}`, import.meta.url), 'utf8'));
+    const validate = validators[schema];
+    assert.ok(validate(value), `${file}: ${JSON.stringify(validate.errors)}`);
+  }
 });
 
 test('error-codes.json lists every code, status and literal message the mock raises', async () => {
@@ -416,7 +446,7 @@ test('profile category is server-owned and publication consent does not replace 
   await request('GET', '/api/v1/candidates/candidate-new', { actor: employer, status: 404 });
 });
 
-test('source enrichment is automatic, asynchronous, private and does not infer hours or grades', async (t) => {
+test('source enrichment is automatic, asynchronous, private and never infers grades', async (t) => {
   const { request, login, job } = await setup(t);
   const candidate = await login('candidate024');
   const other = await login('candidate-new');
@@ -427,7 +457,9 @@ test('source enrichment is automatic, asynchronous, private and does not infer h
   const github = sources.find((source: Body) => source.provider === 'github');
   assert.deepEqual(github.counts, { found: 12, processed: 8, queued: 3, unavailable: 1 });
   assert.ok(github.activeJobId);
+  // Daily time is only an explicitly labelled estimate inside the GitHub report.
   for (const key of Object.keys(github)) assert.ok(!/hours/i.test(key));
+  assert.ok(github.github.report.rhythm.medianMinutesPerActiveDay > 0);
   await request('GET', `/api/v1/jobs/${github.activeJobId}`, { actor: other, status: 404 });
   await request('GET', `/api/v1/jobs/${github.activeJobId}`, { actor: employer, status: 404 });
   const completed = await job(github.activeJobId, candidate);
@@ -449,9 +481,67 @@ test('source enrichment is automatic, asynchronous, private and does not infer h
   });
   const graph = (await request('GET', '/api/v1/me/graph', { actor: candidate })).body;
   assertGraph(graph);
+  // Category → concepts → technologies with levels; GitHub and FSP as sources.
+  const kinds = (kind: string) => graph.nodes.filter((node: Body) => node.kind === kind);
+  assert.equal(kinds('role').length, 1);
+  assert.ok(kinds('concept').length > 0);
+  assert.ok(kinds('skill').every((node: Body) => node.detail));
+  const sourceIds = kinds('source').map((node: Body) => node.id);
+  assert.ok(sourceIds.includes('source-github') && sourceIds.includes('source-fsp'), sourceIds.join());
+  for (const skill of kinds('skill'))
+    assert.ok(graph.edges.some((edge: Body) => edge.to === skill.id && edge.from.startsWith('concept-')));
   const skills = (await request('GET', '/api/v1/me/skills', { actor: candidate })).body.items;
   assert.ok(skills.some((skill: Body) => skill.evidence.some((evidence: Body) => evidence.reference === 'PR #17')));
   assert.equal((await request('GET', '/api/v1/me/profile', { actor: candidate })).body.verifiedGrade, 'junior');
+});
+
+test('graph interview follows prerequisites and rejects a stale answer', async (t) => {
+  const { request, login } = await setup(t);
+  const candidate = await login('candidate024');
+  const empty = (await request('GET', '/api/v1/me/interviews', { actor: candidate })).body;
+  assert.deepEqual(empty.items, []);
+
+  const started = (
+    await request('POST', '/api/v1/me/interviews', {
+      actor: candidate,
+      body: { blueprintId: 'backend-middle-v1', maxTurns: 10 },
+      status: 201,
+    })
+  ).body;
+  assert.equal(started.currentQuestion.nodeId, 'backend.idempotency');
+  await request('GET', `/api/v1/me/interviews/${started.id}`, { actor: candidate });
+  await request('POST', `/api/v1/me/interviews/${started.id}/speech`, {
+    actor: candidate,
+    body: { questionId: started.currentQuestion.id },
+    status: 503,
+  });
+
+  const answered = (
+    await request('POST', `/api/v1/me/interviews/${started.id}/answers`, {
+      actor: candidate,
+      body: {
+        questionId: started.currentQuestion.id,
+        answer: 'Сначала уточню ожидаемое поведение повторного запроса.',
+        responseMode: 'voice',
+        revision: started.revision,
+      },
+    })
+  ).body;
+  assert.equal(answered.currentQuestion.nodeId, 'backend.unique-operation');
+  assert.equal(answered.evidence[0].state, 'observed');
+  assert.equal(answered.evidence[0].responseMode, 'voice');
+  assert.equal(answered.evidence[0].signalStrength, 2);
+
+  await request('POST', `/api/v1/me/interviews/${started.id}/answers`, {
+    actor: candidate,
+    body: {
+      questionId: started.currentQuestion.id,
+      answer: 'Устаревший ответ',
+      responseMode: 'text',
+      revision: started.revision,
+    },
+    status: 409,
+  });
 });
 
 test('assessment workflow uses jobs, preserves unrelated evidence, and applies a successful grade change', async (t) => {
@@ -483,7 +573,10 @@ test('assessment workflow uses jobs, preserves unrelated evidence, and applies a
   });
   await request('GET', `/api/v1/me/assessments/${item.id}`, { actor: candidate });
   await request('POST', `/api/v1/me/assessments/${item.id}/submit`, { actor: candidate, status: 422 });
-  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, { actor: candidate, body: answer });
+  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+    actor: candidate,
+    body: assessmentAnswerFor(item.task),
+  });
   const reply = (
     await request('POST', `/api/v1/me/assessments/${item.id}/assistant`, {
       actor: candidate,
@@ -528,9 +621,55 @@ test('assessment workflow uses jobs, preserves unrelated evidence, and applies a
     body: { specialization: 'backend', grade: 'senior' },
     status: 409,
   });
-  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, { actor: candidate, body: answer, status: 409 });
+  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+    actor: candidate,
+    body: assessmentAnswerFor(item.task),
+    status: 409,
+  });
   const history = (await request('GET', '/api/v1/me/assessments', { actor: candidate })).body.items;
   assert.equal(history.length, 2);
+});
+
+test('frontend assessment confirms TypeScript and React for a supported grade', async (t) => {
+  const { request, login, job } = await setup(t);
+  const candidate = await login('candidate024');
+  await request('PATCH', '/api/v1/me/profile', {
+    actor: candidate,
+    body: {
+      specialization: 'frontend',
+      selectedGrade: 'middle',
+      stack: ['typescript', 'react'],
+    },
+  });
+  const item = (
+    await request('POST', '/api/v1/me/assessments', {
+      actor: candidate,
+      body: { specialization: 'frontend', grade: 'middle' },
+      status: 201,
+    })
+  ).body;
+  assert.deepEqual([...new Set(item.task.questions.map((question: Body) => question.skillId))].sort(), [
+    'react',
+    'typescript',
+  ]);
+  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+    actor: candidate,
+    body: assessmentAnswerFor(item.task),
+  });
+  const submitted = (
+    await request('POST', `/api/v1/me/assessments/${item.id}/submit`, {
+      actor: candidate,
+      status: 202,
+    })
+  ).body;
+  const result = await job(submitted.id, candidate);
+  assert.equal(result.result.assessment.status, 'passed');
+  const profile = (await request('GET', '/api/v1/me/profile', { actor: candidate })).body;
+  assert.equal(profile.verifiedSpecialization, 'frontend');
+  assert.equal(profile.verifiedGrade, 'middle');
+  const skills = (await request('GET', '/api/v1/me/skills', { actor: candidate })).body.items;
+  for (const skillId of ['typescript', 'react'])
+    assert.equal(skills.find((skill: Body) => skill.skillId === skillId).status, 'confirmed');
 });
 
 test('failed and unavailable assessment scenarios preserve grades and allow retry without a penalty', async (t) => {
@@ -545,7 +684,10 @@ test('failed and unavailable assessment scenarios preserve grades and allow retr
           status: 201,
         })
       ).body;
-      await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, { actor: candidate, body: answer });
+      await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+        actor: candidate,
+        body: assessmentAnswerFor(item.task),
+      });
       const submitted = (
         await request('POST', `/api/v1/me/assessments/${item.id}/submit`, { actor: candidate, status: 202 })
       ).body;
@@ -606,7 +748,10 @@ test('stale check jobs and revoked processing consent cannot write grades or out
   ).body;
   const pending = (await request('POST', `/api/v1/me/assessments/${item.id}/checks`, { actor: candidate, status: 202 }))
     .body;
-  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, { actor: candidate, body: answer });
+  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+    actor: candidate,
+    body: assessmentAnswerFor(item.task),
+  });
   assert.equal((await job(pending.id, candidate)).error.code, 'stale_input');
   const submitted = (
     await request('POST', `/api/v1/me/assessments/${item.id}/submit`, { actor: candidate, status: 202 })
@@ -710,6 +855,217 @@ test('need CRUD validates salary and evidence policies without tenant crossover 
   await request('GET', '/api/v1/needs', { actor: b });
   await request('DELETE', `/api/v1/needs/${item.id}`, { actor: b, status: 204 });
   await request('GET', `/api/v1/needs/${item.id}`, { actor: b, status: 404 });
+});
+
+test('GitHub connects by login or profile link, stays unverified without proof and reaches employers anonymously', async (t) => {
+  const { request, login, job } = await setup(t, { scenario: 'qualified' });
+  const candidate = await login('candidate024');
+  const employer = await login('employer-a');
+  for (const account of ['https://github.com/octo-cat/repo', 'octo_cat', 'https://gitlab.com/octo-cat'])
+    assert.equal(
+      (
+        await request('POST', '/api/v1/me/sources/github/connect', {
+          actor: candidate,
+          body: { account },
+          status: 422,
+        })
+      ).body.code,
+      'github_login_invalid',
+    );
+  const source = (
+    await request('POST', '/api/v1/me/sources/github/connect', {
+      actor: candidate,
+      body: { account: 'https://github.com/Octo-Cat/' },
+    })
+  ).body;
+  assert.equal(source.accountLabel, 'Octo-Cat');
+  assert.equal(source.github.ownership.verified, false);
+  assert.match(source.github.ownership.code, /^fsp-/);
+  // The analysis runs in the background; the report arrives with its job.
+  assert.equal(source.github.report, null);
+  assert.equal(source.github.analysis.state, 'running');
+  await job(source.activeJobId, candidate);
+  const analyzed = (await request('GET', '/api/v1/me/sources', { actor: candidate })).body.items.find(
+    (item: Body) => item.provider === 'github',
+  );
+  assert.equal(analyzed.activeJobId, null);
+  assert.equal(analyzed.github.analysis, null);
+  assert.equal(analyzed.github.report.login, 'Octo-Cat');
+  assert.equal(analyzed.github.report.activity.calendar.length, 365);
+  assert.equal(analyzed.github.employerPreview.ownershipVerified, false);
+  const seen = (await request('GET', '/api/v1/candidates/candidate024', { actor: employer })).body;
+  assertAnonymous(seen);
+  assert.equal(seen.github.ownershipVerified, false);
+  assert.deepEqual(seen.github, analyzed.github.employerPreview);
+  const serialized = JSON.stringify(seen.github);
+  for (const hidden of ['Octo-Cat', 'demo-company', 'calendar', 'login', 'url'])
+    assert.ok(!serialized.includes(hidden), `${hidden} leaked to the employer`);
+  assert.equal((await request('GET', '/api/v1/me/profile', { actor: candidate })).body.verifiedGrade, 'middle');
+});
+
+test('connecting GitHub builds the profile and an estimated category; edited answers stay', async (t) => {
+  const { request, client, login, job } = await setup(t);
+  const challenge = (
+    await request('POST', '/api/v1/auth/email/challenges', {
+      body: { email: 'auto-profile@example.com', role: 'candidate' },
+      status: 201,
+    })
+  ).body;
+  const candidate = client();
+  await request('POST', '/api/v1/auth/email/verify', {
+    actor: candidate,
+    body: { challengeId: challenge.challengeId, code: '123456' },
+  });
+  let profile = (
+    await request('PATCH', '/api/v1/me/profile', {
+      actor: candidate,
+      body: { consents: { processing: true, publication: true } },
+    })
+  ).body;
+  assert.equal(profile.name, 'Новый кандидат');
+  assert.deepEqual(profile.onboarding.blockers, ['questionnaire', 'category']);
+  assert.equal(profile.estimate, null);
+  assert.equal(
+    (await request('POST', '/api/v1/me/profile/estimate', { actor: candidate, status: 409 })).body.code,
+    'source_not_connected',
+  );
+  const source = (
+    await request('POST', '/api/v1/me/sources/github/connect', { actor: candidate, body: { account: 'auto-dev' } })
+  ).body;
+  await job(source.activeJobId, candidate);
+  profile = (await request('GET', '/api/v1/me/profile', { actor: candidate })).body;
+  assert.equal(profile.name, 'Иван Петров');
+  assert.equal(profile.specialization, 'backend');
+  assert.equal(profile.selectedGrade, 'middle');
+  assert.equal(profile.stack.length, 12);
+  // Public tenure is evidence for the estimate, never written in as the candidate's experience.
+  assert.equal(profile.experienceMonths, null);
+  assert.equal(profile.experienceSince, null);
+  assert.equal(profile.estimate.version, 'estimate-v6');
+  assert.ok(profile.softSkills.length > 0);
+  assert.ok(profile.estimate.notes.length > 0);
+  // The growth plan names concrete steps; focus skills are catalog skills the evidence lacks.
+  assert.ok(profile.estimate.growth.some((step: Body) => step.id === 'github_scope' && step.points > 0));
+  assert.equal(profile.estimate.growth.at(-1).id, 'assessment');
+  assert.ok(profile.estimate.focusSkills.length > 0);
+  assert.deepEqual([...profile.autoFields].sort(), [
+    'experience',
+    'name',
+    'selectedGrade',
+    'softSkills',
+    'specialization',
+    'stack',
+    'teamRole',
+  ]);
+  assert.deepEqual(profile.category, {
+    specialization: 'backend',
+    grade: 'middle',
+    eligible: true,
+    source: 'estimate',
+    confidence: 'high',
+  });
+  assert.deepEqual(profile.onboarding.blockers, []);
+  // An edited answer is the candidate's from then on; an unchanged one stays automatic.
+  profile = (
+    await request('PATCH', '/api/v1/me/profile', {
+      actor: candidate,
+      body: { teamRole: 'Тимлид', name: profile.name },
+    })
+  ).body;
+  assert.ok(!profile.autoFields.includes('teamRole'));
+  assert.ok(profile.autoFields.includes('name'));
+  // A start year in IT counts whole years up to now; typed months replace it.
+  profile = (await request('PATCH', '/api/v1/me/profile', { actor: candidate, body: { experienceSince: 2016 } })).body;
+  assert.equal(profile.experienceSince, 2016);
+  assert.equal(profile.experienceMonths, (Number(profile.updatedAt.slice(0, 4)) - 2016) * 12);
+  await request('PATCH', '/api/v1/me/profile', { actor: candidate, body: { experienceSince: 1900 }, status: 400 });
+  profile = (await request('POST', '/api/v1/me/profile/estimate', { actor: candidate })).body;
+  assert.equal(profile.teamRole, 'Тимлид');
+  assert.equal(profile.selectedGrade, 'middle');
+  // Employers see the estimated category, its source and factors; no names or the experience text.
+  const employer = await login('employer-a');
+  const estimated = (
+    await request('GET', '/api/v1/candidates?categorySource=estimate&specialization=backend', { actor: employer })
+  ).body;
+  assertAnonymous(estimated);
+  assert.ok(!JSON.stringify(estimated).includes('Иван'));
+  const card = estimated.items.find((item: Body) => item.id === profile.id);
+  assert.equal(card.grade, 'middle');
+  assert.equal(card.categorySource, 'estimate');
+  assert.equal(card.categoryConfidence, 'high');
+  assert.equal(card.verifiedGrade, null);
+  assert.equal(card.estimate.factors.length, 8);
+  const confirmed = (await request('GET', '/api/v1/candidates?categorySource=assessment', { actor: employer })).body;
+  assert.ok(confirmed.items.length > 0);
+  assert.ok(confirmed.items.every((item: Body) => item.categorySource === 'assessment' && item.estimate === null));
+  // The candidate may pick another specialization the evidence supports; the category follows it.
+  const supported = profile.estimate.specializations[1].id;
+  profile = (await request('PATCH', '/api/v1/me/profile', { actor: candidate, body: { specialization: supported } }))
+    .body;
+  assert.equal(profile.category.specialization, supported);
+  profile = (await request('PATCH', '/api/v1/me/profile', { actor: candidate, body: { specialization: 'design' } }))
+    .body;
+  assert.equal(profile.category.specialization, 'backend');
+  // Rebuilding hands every answer back to the evidence; an unknown mode is a contract error.
+  profile = (await request('POST', '/api/v1/me/profile/estimate?answers=replace', { actor: candidate })).body;
+  assert.notEqual(profile.teamRole, 'Тимлид');
+  assert.equal(profile.specialization, 'backend');
+  assert.ok(profile.autoFields.includes('teamRole') && profile.autoFields.includes('specialization'));
+  await request('POST', '/api/v1/me/profile/estimate?answers=all', { actor: candidate, status: 400 });
+});
+
+test('every catalog specialization is testable; a 1C test confirms the category', async (t) => {
+  const { request, client, job } = await setup(t);
+  const meta = (await request('GET', '/api/v1/meta')).body;
+  assert.equal(meta.assessmentPolicy.supportedScopes.length, 25);
+  for (const scope of meta.assessmentPolicy.supportedScopes)
+    assert.deepEqual(scope.grades, ['intern', 'junior', 'middle', 'senior', 'lead']);
+  const challenge = (
+    await request('POST', '/api/v1/auth/email/challenges', {
+      body: { email: 'onec-developer@example.com', role: 'candidate' },
+      status: 201,
+    })
+  ).body;
+  const candidate = client();
+  await request('POST', '/api/v1/auth/email/verify', {
+    actor: candidate,
+    body: { challengeId: challenge.challengeId, code: '123456' },
+  });
+  await request('PATCH', '/api/v1/me/profile', {
+    actor: candidate,
+    body: {
+      name: 'Ольга Смирнова',
+      specialization: 'onec',
+      selectedGrade: 'middle',
+      stack: ['onec_language', 'onec_queries'],
+      teamRole: 'Разработчик 1С',
+      experience: 'Доработки 1С:ERP и обмены данными.',
+      consents: { processing: true, publication: true },
+    },
+  });
+  const item = (
+    await request('POST', '/api/v1/me/assessments', {
+      actor: candidate,
+      body: { specialization: 'onec', grade: 'middle' },
+      status: 201,
+    })
+  ).body;
+  assert.equal(item.task.title, 'Тест знаний: Встроенный язык 1С и Язык запросов 1С');
+  assert.equal(item.task.questions.length, 10);
+  await request('PUT', `/api/v1/me/assessments/${item.id}/answer`, {
+    actor: candidate,
+    body: assessmentAnswerFor(item.task),
+  });
+  const submitted = (
+    await request('POST', `/api/v1/me/assessments/${item.id}/submit`, { actor: candidate, status: 202 })
+  ).body;
+  assert.equal((await job(submitted.id, candidate)).result.assessment.status, 'passed');
+  const profile = (await request('GET', '/api/v1/me/profile', { actor: candidate })).body;
+  assert.equal(profile.verifiedSpecialization, 'onec');
+  assert.deepEqual(
+    [profile.category.specialization, profile.category.grade, profile.category.source],
+    ['onec', 'middle', 'assessment'],
+  );
 });
 
 test('candidate bank is anonymous, deterministic and distinguishes qualification from skill evidence', async (t) => {
@@ -998,6 +1354,12 @@ test('applications disclose the chosen fields, keep vacancy terms and follow emp
   assert.equal((await request('GET', '/api/v1/applications?needId=need-002', { actor: a })).body.items.length, 1);
   assert.equal((await request('GET', '/api/v1/applications?needId=need-001', { actor: a })).body.items.length, 0);
   assert.equal((await request('GET', '/api/v1/applications', { actor: b })).body.items.length, 0);
+  const analyticsA = (await request('GET', '/api/v1/analytics/hiring-flow', { actor: a })).body;
+  const analyticsB = (await request('GET', '/api/v1/analytics/hiring-flow', { actor: b })).body;
+  assert.equal(analyticsA.total, 1);
+  assert.equal(analyticsA.stages[0].count, 1);
+  assert.equal(analyticsB.total, 0);
+  assert.deepEqual(analyticsB.vacancies, []);
   let disclosure = (await request('GET', '/api/v1/candidates/candidate024/disclosure', { actor: a })).body;
   assert.deepEqual(disclosure.fields, { email: 'alexey@example.com' });
   assert.equal(disclosure.applicationId, application.id);
@@ -1075,7 +1437,7 @@ test('weekly tasks come from evidenced skills, are answered once a week and keep
     fresh: false,
     windowDays: 90,
   });
-  assert.equal((await request('GET', '/api/v1/me/tasks', { actor: fresh })).body.reason, 'assessment');
+  assert.equal((await request('GET', '/api/v1/me/tasks', { actor: fresh })).body.reason, 'category');
   const answer = { mode: 'approach', answer: 'Очередь попыток с экспоненциальной задержкой и пределом попыток.' };
   await request('POST', '/api/v1/me/tasks/task-001/responses', { actor: candidate, body: answer, status: 409 });
   const response = (
@@ -1209,6 +1571,9 @@ test('companies author and archive short tasks; archived tasks are no longer off
 test('PDF export is a real current-profile PDF; fixture import is asynchronous and explicitly confirmed', async (t) => {
   const { request, login, job } = await setup(t);
   const candidate = await login('candidate024');
+  // The seeded source sync changes the profile revision when it finishes; an import starts after it.
+  for (const source of (await request('GET', '/api/v1/me/sources', { actor: candidate })).body.items)
+    if (source.activeJobId) await job(source.activeJobId, candidate);
   const exported = await request('GET', '/api/v1/me/profile/export', { actor: candidate });
   assert.ok(exported.buffer.subarray(0, 5).equals(Buffer.from('%PDF-')));
   assert.ok(exported.buffer.subarray(-1024).includes(Buffer.from('%%EOF')));

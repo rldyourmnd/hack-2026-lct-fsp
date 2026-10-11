@@ -1,0 +1,4835 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "sql-intern-1",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Какая команда SQL возвращает строки из таблицы?",
+      "options": [
+        {
+          "id": "sql-intern-1-a",
+          "label": "INSERT"
+        },
+        {
+          "id": "sql-intern-1-b",
+          "label": "SELECT"
+        },
+        {
+          "id": "sql-intern-1-c",
+          "label": "ALTER"
+        }
+      ],
+      "correctOptionId": "sql-intern-1-b",
+      "explanation": "SELECT читает данные; INSERT добавляет строки, ALTER меняет структуру таблицы.",
+      "source": "https://www.postgresql.org/docs/current/sql-select.html"
+    },
+    {
+      "id": "sql-intern-2",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Как выбрать только заказы со статусом 'paid'?",
+      "options": [
+        {
+          "id": "sql-intern-2-a",
+          "label": "HAVING status = 'paid' без GROUP BY"
+        },
+        {
+          "id": "sql-intern-2-b",
+          "label": "WHERE status = 'paid'"
+        },
+        {
+          "id": "sql-intern-2-c",
+          "label": "ORDER BY status = 'paid'"
+        }
+      ],
+      "correctOptionId": "sql-intern-2-b",
+      "explanation": "Отбор строк до группировки задаёт WHERE; ORDER BY только сортирует.",
+      "source": "https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-WHERE"
+    },
+    {
+      "id": "sql-intern-3",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Что вернёт COUNT(*) для таблицы из пяти строк, в двух из которых email равен NULL?",
+      "options": [
+        {
+          "id": "sql-intern-3-a",
+          "label": "5"
+        },
+        {
+          "id": "sql-intern-3-b",
+          "label": "3"
+        },
+        {
+          "id": "sql-intern-3-c",
+          "label": "NULL"
+        }
+      ],
+      "correctOptionId": "sql-intern-3-a",
+      "explanation": "COUNT(*) считает строки целиком; COUNT(email) пропустил бы NULL и вернул 3.",
+      "source": "https://www.postgresql.org/docs/current/functions-aggregate.html"
+    },
+    {
+      "id": "sql-intern-4",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Как проверить, что значение столбца отсутствует?",
+      "options": [
+        {
+          "id": "sql-intern-4-a",
+          "label": "email = NULL"
+        },
+        {
+          "id": "sql-intern-4-b",
+          "label": "email IS NULL"
+        },
+        {
+          "id": "sql-intern-4-c",
+          "label": "email == NULL"
+        }
+      ],
+      "correctOptionId": "sql-intern-4-b",
+      "explanation": "Сравнение с NULL через = даёт NULL, а не истину; для проверки нужен IS NULL.",
+      "source": "https://www.postgresql.org/docs/current/functions-comparison.html"
+    },
+    {
+      "id": "sql-intern-5",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Что делает ORDER BY created_at DESC?",
+      "options": [
+        {
+          "id": "sql-intern-5-a",
+          "label": "Удаляет повторяющиеся даты"
+        },
+        {
+          "id": "sql-intern-5-b",
+          "label": "Оставляет только самую последнюю строку по дате"
+        },
+        {
+          "id": "sql-intern-5-c",
+          "label": "Сортирует строки от новых к старым"
+        }
+      ],
+      "correctOptionId": "sql-intern-5-c",
+      "explanation": "DESC задаёт убывающий порядок; ограничение числа строк делает LIMIT.",
+      "source": "https://www.postgresql.org/docs/current/queries-order.html"
+    },
+    {
+      "id": "sql-intern-6",
+      "grade": "intern",
+      "skillId": "sql",
+      "prompt": "Для чего нужен первичный ключ?",
+      "options": [
+        {
+          "id": "sql-intern-6-a",
+          "label": "Автоматически ускоряет любые запросы ко всем столбцам"
+        },
+        {
+          "id": "sql-intern-6-b",
+          "label": "Однозначно идентифицирует каждую строку таблицы"
+        },
+        {
+          "id": "sql-intern-6-c",
+          "label": "Запрещает изменять строки"
+        }
+      ],
+      "correctOptionId": "sql-intern-6-b",
+      "explanation": "PRIMARY KEY — уникальный и непустой идентификатор строки; по нему строится индекс.",
+      "source": "https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-PRIMARY-KEYS"
+    },
+    {
+      "id": "sql-junior-1",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Чем LEFT JOIN отличается от INNER JOIN?",
+      "options": [
+        {
+          "id": "sql-junior-1-a",
+          "label": "Возвращает только строки, у которых есть пара в обеих таблицах, отбрасывая остальные"
+        },
+        {
+          "id": "sql-junior-1-b",
+          "label": "Сохраняет строки левой таблицы без пары, заполняя правые столбцы NULL"
+        },
+        {
+          "id": "sql-junior-1-c",
+          "label": "Соединяет таблицы без условия, как декартово произведение"
+        }
+      ],
+      "correctOptionId": "sql-junior-1-b",
+      "explanation": "INNER JOIN оставляет только совпадения; LEFT JOIN добавляет строки левой таблицы без совпадений.",
+      "source": "https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-JOIN"
+    },
+    {
+      "id": "sql-junior-2",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Чем HAVING отличается от WHERE?",
+      "options": [
+        {
+          "id": "sql-junior-2-a",
+          "label": "HAVING фильтрует группы после GROUP BY, WHERE — строки до группировки"
+        },
+        {
+          "id": "sql-junior-2-b",
+          "label": "HAVING работает быстрее WHERE и поэтому полностью заменяет его в запросах"
+        },
+        {
+          "id": "sql-junior-2-c",
+          "label": "WHERE нельзя использовать вместе с GROUP BY"
+        }
+      ],
+      "correctOptionId": "sql-junior-2-a",
+      "explanation": "Условия на агрегаты вроде COUNT(*) > 1 пишутся в HAVING, потому что вычисляются после группировки.",
+      "source": "https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-GROUP"
+    },
+    {
+      "id": "sql-junior-3",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Что вернёт SELECT DISTINCT city FROM users?",
+      "options": [
+        {
+          "id": "sql-junior-3-a",
+          "label": "Количество разных городов"
+        },
+        {
+          "id": "sql-junior-3-b",
+          "label": "Города, которые встречаются ровно один раз"
+        },
+        {
+          "id": "sql-junior-3-c",
+          "label": "Список городов без повторов"
+        }
+      ],
+      "correctOptionId": "sql-junior-3-c",
+      "explanation": "DISTINCT убирает повторяющиеся строки результата; число городов дало бы COUNT(DISTINCT city).",
+      "source": "https://www.postgresql.org/docs/current/sql-select.html#SQL-DISTINCT"
+    },
+    {
+      "id": "sql-junior-4",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Как безопасно передать в запрос значение, введённое пользователем?",
+      "options": [
+        {
+          "id": "sql-junior-4-a",
+          "label": "Склеить строку запроса с введённым значением"
+        },
+        {
+          "id": "sql-junior-4-b",
+          "label": "Через параметр подготовленного запроса, например WHERE id = $1"
+        },
+        {
+          "id": "sql-junior-4-c",
+          "label": "Экранировать кавычки во введённом значении и вставить его в текст запроса"
+        }
+      ],
+      "correctOptionId": "sql-junior-4-b",
+      "explanation": "Параметры передаются отдельно от текста запроса и исключают SQL-инъекцию; ручное экранирование ненадёжно.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+    },
+    {
+      "id": "sql-junior-5",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Что делает транзакция BEGIN … COMMIT?",
+      "options": [
+        {
+          "id": "sql-junior-5-a",
+          "label": "Применяет все изменения вместе или, при ROLLBACK, ни одного"
+        },
+        {
+          "id": "sql-junior-5-b",
+          "label": "Блокирует всю базу данных до COMMIT"
+        },
+        {
+          "id": "sql-junior-5-c",
+          "label": "Сохраняет копию всех таблиц, чтобы восстановить их при любой ошибке"
+        }
+      ],
+      "correctOptionId": "sql-junior-5-a",
+      "explanation": "Транзакция атомарна: изменения видны другим после COMMIT и отменяются целиком при ROLLBACK.",
+      "source": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+    },
+    {
+      "id": "sql-junior-6",
+      "grade": "junior",
+      "skillId": "sql",
+      "prompt": "Что гарантирует внешний ключ orders.user_id REFERENCES users(id)?",
+      "options": [
+        {
+          "id": "sql-junior-6-a",
+          "label": "Каждый пользователь из users обязан иметь хотя бы один заказ в таблице orders"
+        },
+        {
+          "id": "sql-junior-6-b",
+          "label": "В orders нельзя записать user_id, которого нет в users"
+        },
+        {
+          "id": "sql-junior-6-c",
+          "label": "Значения user_id в orders уникальны"
+        }
+      ],
+      "correctOptionId": "sql-junior-6-b",
+      "explanation": "Внешний ключ проверяет ссылочную целостность; уникальность задаёт UNIQUE.",
+      "source": "https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK"
+    },
+    {
+      "id": "sql-middle-1",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Что посчитает SUM(amount) OVER (PARTITION BY user_id ORDER BY created_at)?",
+      "options": [
+        {
+          "id": "sql-middle-1-a",
+          "label": "Одну общую сумму по всей таблице в каждой строке"
+        },
+        {
+          "id": "sql-middle-1-b",
+          "label": "Сумму по пользователю, после которой строки группируются и схлопываются"
+        },
+        {
+          "id": "sql-middle-1-c",
+          "label": "Накопительную сумму платежей каждого пользователя по времени"
+        }
+      ],
+      "correctOptionId": "sql-middle-1-c",
+      "explanation": "Оконная функция не схлопывает строки; ORDER BY внутри окна даёт нарастающий итог в разделе.",
+      "source": "https://www.postgresql.org/docs/current/tutorial-window.html"
+    },
+    {
+      "id": "sql-middle-2",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Нужно для каждого пользователя взять последний заказ. Какой подход корректен?",
+      "options": [
+        {
+          "id": "sql-middle-2-a",
+          "label": "ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC) и отбор номера 1"
+        },
+        {
+          "id": "sql-middle-2-b",
+          "label": "GROUP BY user_id с выбором столбцов заказа без агрегатных функций и сортировки"
+        },
+        {
+          "id": "sql-middle-2-c",
+          "label": "ORDER BY created_at DESC LIMIT 1"
+        }
+      ],
+      "correctOptionId": "sql-middle-2-a",
+      "explanation": "ROW_NUMBER нумерует строки в каждом разделе; LIMIT 1 вернул бы один заказ на всю таблицу.",
+      "source": "https://www.postgresql.org/docs/current/functions-window.html"
+    },
+    {
+      "id": "sql-middle-3",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Почему NOT IN (SELECT user_id FROM bans) может неожиданно вернуть пустой результат?",
+      "options": [
+        {
+          "id": "sql-middle-3-a",
+          "label": "NOT IN не работает с подзапросами"
+        },
+        {
+          "id": "sql-middle-3-b",
+          "label": "Если подзапрос возвращает NULL, условие NOT IN не бывает истинным"
+        },
+        {
+          "id": "sql-middle-3-c",
+          "label": "NOT IN всегда сравнивает строковые значения без учёта регистра букв"
+        }
+      ],
+      "correctOptionId": "sql-middle-3-b",
+      "explanation": "x NOT IN (…, NULL) даёт NULL вместо true; NOT EXISTS не имеет этой ловушки.",
+      "source": "https://www.postgresql.org/docs/current/functions-subquery.html#FUNCTIONS-SUBQUERY-NOTIN"
+    },
+    {
+      "id": "sql-middle-4",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Для чего служит конструкция WITH (CTE)?",
+      "options": [
+        {
+          "id": "sql-middle-4-a",
+          "label": "Создаёт постоянную таблицу в базе данных, которую затем можно использовать в других запросах"
+        },
+        {
+          "id": "sql-middle-4-b",
+          "label": "Включает параллельное выполнение запроса"
+        },
+        {
+          "id": "sql-middle-4-c",
+          "label": "Даёт имя промежуточному запросу, чтобы использовать его в основном запросе"
+        }
+      ],
+      "correctOptionId": "sql-middle-4-c",
+      "explanation": "WITH определяет временный именованный результат на время одного запроса, в том числе рекурсивный.",
+      "source": "https://www.postgresql.org/docs/current/queries-with.html"
+    },
+    {
+      "id": "sql-middle-5",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Какой индекс лучше поможет запросу WHERE user_id = $1 ORDER BY created_at DESC LIMIT 20?",
+      "options": [
+        {
+          "id": "sql-middle-5-a",
+          "label": "Отдельный индекс только по created_at без учёта пользователя"
+        },
+        {
+          "id": "sql-middle-5-b",
+          "label": "Составной индекс (user_id, created_at)"
+        },
+        {
+          "id": "sql-middle-5-c",
+          "label": "Индекс по всем столбцам таблицы"
+        }
+      ],
+      "correctOptionId": "sql-middle-5-b",
+      "explanation": "Составной индекс сразу находит строки пользователя в нужном порядке без сортировки всей выборки.",
+      "source": "https://www.postgresql.org/docs/current/indexes-multicolumn.html"
+    },
+    {
+      "id": "sql-middle-6",
+      "grade": "middle",
+      "skillId": "sql",
+      "prompt": "Что делает INSERT … ON CONFLICT (email) DO UPDATE?",
+      "options": [
+        {
+          "id": "sql-middle-6-a",
+          "label": "Игнорирует ограничение уникальности по email и вставляет дубликат строки в таблицу без ошибки"
+        },
+        {
+          "id": "sql-middle-6-b",
+          "label": "Вставляет строку, а при конфликте уникальности по email обновляет существующую"
+        },
+        {
+          "id": "sql-middle-6-c",
+          "label": "Удаляет старую строку и создаёт новую с другим ключом"
+        }
+      ],
+      "correctOptionId": "sql-middle-6-b",
+      "explanation": "ON CONFLICT реализует upsert атомарно относительно уникального ограничения.",
+      "source": "https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT"
+    },
+    {
+      "id": "sql-senior-1",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Что показывает EXPLAIN ANALYZE?",
+      "options": [
+        {
+          "id": "sql-senior-1-a",
+          "label": "Фактический план с реальным временем и числом строк на каждом шаге"
+        },
+        {
+          "id": "sql-senior-1-b",
+          "label": "Только оценки планировщика по стоимости, без выполнения самого запроса"
+        },
+        {
+          "id": "sql-senior-1-c",
+          "label": "Список индексов, которые стоит создать"
+        }
+      ],
+      "correctOptionId": "sql-senior-1-a",
+      "explanation": "ANALYZE выполняет запрос и добавляет фактические показатели; без него EXPLAIN показывает только оценки.",
+      "source": "https://www.postgresql.org/docs/current/using-explain.html"
+    },
+    {
+      "id": "sql-senior-2",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Какую аномалию предотвращает уровень изоляции SERIALIZABLE, но допускает REPEATABLE READ в PostgreSQL?",
+      "options": [
+        {
+          "id": "sql-senior-2-a",
+          "label": "Аномалию сериализации, например write skew"
+        },
+        {
+          "id": "sql-senior-2-b",
+          "label": "Грязное чтение"
+        },
+        {
+          "id": "sql-senior-2-c",
+          "label": "Потерю зафиксированных изменений после сбоя"
+        }
+      ],
+      "correctOptionId": "sql-senior-2-a",
+      "explanation": "В PostgreSQL REPEATABLE READ — снимок данных; SERIALIZABLE дополнительно отслеживает зависимости и отменяет несериализуемые транзакции.",
+      "source": "https://www.postgresql.org/docs/current/transaction-iso.html"
+    },
+    {
+      "id": "sql-senior-3",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Почему пагинация через OFFSET 100000 медленная на больших таблицах?",
+      "options": [
+        {
+          "id": "sql-senior-3-a",
+          "label": "OFFSET отключает использование индексов, и база сканирует таблицу целиком"
+        },
+        {
+          "id": "sql-senior-3-b",
+          "label": "OFFSET блокирует таблицу на запись"
+        },
+        {
+          "id": "sql-senior-3-c",
+          "label": "База всё равно читает и отбрасывает все пропущенные строки"
+        }
+      ],
+      "correctOptionId": "sql-senior-3-c",
+      "explanation": "Курсорная пагинация по ключу (WHERE id > last_id) читает только нужные строки.",
+      "source": "https://www.postgresql.org/docs/current/queries-limit.html"
+    },
+    {
+      "id": "sql-senior-4",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Индекс по lower(email) создан, но запрос WHERE email = $1 его не использует. Почему?",
+      "options": [
+        {
+          "id": "sql-senior-4-a",
+          "label": "Индексы по выражениям не используются для текстовых столбцов в условиях равенства"
+        },
+        {
+          "id": "sql-senior-4-b",
+          "label": "Индекс по выражению применим только к условию с тем же выражением lower(email)"
+        },
+        {
+          "id": "sql-senior-4-c",
+          "label": "Нужно сначала выполнить VACUUM FULL"
+        }
+      ],
+      "correctOptionId": "sql-senior-4-b",
+      "explanation": "Планировщик сопоставляет выражения буквально: условие должно быть lower(email) = lower($1).",
+      "source": "https://www.postgresql.org/docs/current/indexes-expressional.html"
+    },
+    {
+      "id": "sql-senior-5",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Две транзакции обновляют одни и те же строки в разном порядке. Что может произойти?",
+      "options": [
+        {
+          "id": "sql-senior-5-a",
+          "label": "Обе транзакции зависнут навсегда"
+        },
+        {
+          "id": "sql-senior-5-b",
+          "label": "Взаимная блокировка; одна транзакция будет прервана"
+        },
+        {
+          "id": "sql-senior-5-c",
+          "label": "Изменения второй транзакции будут молча потеряны без ошибки"
+        }
+      ],
+      "correctOptionId": "sql-senior-5-b",
+      "explanation": "PostgreSQL обнаруживает deadlock и прерывает одну транзакцию; порядок блокировок стоит делать одинаковым.",
+      "source": "https://www.postgresql.org/docs/current/explicit-locking.html#LOCKING-DEADLOCKS"
+    },
+    {
+      "id": "sql-senior-6",
+      "grade": "senior",
+      "skillId": "sql",
+      "prompt": "Когда частичный индекс CREATE INDEX … WHERE status = 'active' полезен?",
+      "options": [
+        {
+          "id": "sql-senior-6-a",
+          "label": "Когда запросы почти всегда фильтруют малую долю активных строк"
+        },
+        {
+          "id": "sql-senior-6-b",
+          "label": "Когда нужно ускорить запросы, которые читают все строки таблицы без условий"
+        },
+        {
+          "id": "sql-senior-6-c",
+          "label": "Когда столбец status часто меняет тип"
+        }
+      ],
+      "correctOptionId": "sql-senior-6-a",
+      "explanation": "Частичный индекс меньше и дешевле в обслуживании; он применим, если условие запроса подразумевает условие индекса.",
+      "source": "https://www.postgresql.org/docs/current/indexes-partial.html"
+    },
+    {
+      "id": "sql-lead-1",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "Команда добавляет столбец NOT NULL с вычисляемым значением в таблицу на сотни миллионов строк. Как сделать это без долгой блокировки?",
+      "options": [
+        {
+          "id": "sql-lead-1-a",
+          "label": "Выполнить один ALTER TABLE с вычислением значения для всей таблицы сразу в пиковые часы"
+        },
+        {
+          "id": "sql-lead-1-b",
+          "label": "Удалить таблицу и создать заново с новым столбцом"
+        },
+        {
+          "id": "sql-lead-1-c",
+          "label": "Добавить nullable-столбец, заполнить его пакетами, затем добавить ограничение"
+        }
+      ],
+      "correctOptionId": "sql-lead-1-c",
+      "explanation": "Поэтапная миграция избегает долгой эксклюзивной блокировки; ограничение можно проверить отдельно (NOT VALID и VALIDATE).",
+      "source": "https://www.postgresql.org/docs/current/sql-altertable.html"
+    },
+    {
+      "id": "sql-lead-2",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "Как изменить схему, не ломая работающие версии приложения при поэтапном выкате?",
+      "options": [
+        {
+          "id": "sql-lead-2-a",
+          "label": "Совместимо расширить схему, перевести приложение, затем удалить старое (expand–contract)"
+        },
+        {
+          "id": "sql-lead-2-b",
+          "label": "Переименовать столбцы одной миграцией перед выкатом и сразу обновить все версии приложения"
+        },
+        {
+          "id": "sql-lead-2-c",
+          "label": "Останавливать запись на время каждого выката"
+        }
+      ],
+      "correctOptionId": "sql-lead-2-a",
+      "explanation": "Совместимые шаги позволяют старой и новой версии кода работать с базой одновременно.",
+      "source": "https://www.postgresql.org/docs/current/ddl-alter.html"
+    },
+    {
+      "id": "sql-lead-3",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "Аналитические запросы мешают транзакционной нагрузке на основной базе. Какое решение разумно первым?",
+      "options": [
+        {
+          "id": "sql-lead-3-a",
+          "label": "Перенести отчёты на реплику или в аналитическое хранилище"
+        },
+        {
+          "id": "sql-lead-3-b",
+          "label": "Отключить индексы на основной базе, чтобы ускорить запись и разгрузить диски"
+        },
+        {
+          "id": "sql-lead-3-c",
+          "label": "Запретить аналитикам доступ к данным"
+        }
+      ],
+      "correctOptionId": "sql-lead-3-a",
+      "explanation": "Разделение нагрузки по назначению снижает конкуренцию за ресурсы основной базы.",
+      "source": "https://www.postgresql.org/docs/current/hot-standby.html"
+    },
+    {
+      "id": "sql-lead-4",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "По какому признаку стоит выбирать ключ шардирования большой таблицы заказов?",
+      "options": [
+        {
+          "id": "sql-lead-4-a",
+          "label": "По ключу, который равномерно распределяет данные и входит в большинство запросов"
+        },
+        {
+          "id": "sql-lead-4-b",
+          "label": "По дате создания заказа, чтобы все новые данные попадали в один и тот же шард и читались быстрее"
+        },
+        {
+          "id": "sql-lead-4-c",
+          "label": "По случайному числу, независимо от запросов"
+        }
+      ],
+      "correctOptionId": "sql-lead-4-a",
+      "explanation": "Хороший ключ избегает горячих шардов и межшардовых запросов в основных сценариях.",
+      "source": "https://www.postgresql.org/docs/current/ddl-partitioning.html"
+    },
+    {
+      "id": "sql-lead-5",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "Как контролировать качество SQL в команде из десяти разработчиков?",
+      "options": [
+        {
+          "id": "sql-lead-5-a",
+          "label": "Ревью миграций, проверка планов тяжёлых запросов и мониторинг медленных запросов"
+        },
+        {
+          "id": "sql-lead-5-b",
+          "label": "Разрешить менять схему только вручную в продакшене после устного согласования"
+        },
+        {
+          "id": "sql-lead-5-c",
+          "label": "Запретить JOIN и подзапросы"
+        }
+      ],
+      "correctOptionId": "sql-lead-5-a",
+      "explanation": "Процессы ревью и наблюдаемость (pg_stat_statements, логи медленных запросов) ловят проблемы до инцидента.",
+      "source": "https://www.postgresql.org/docs/current/pgstatstatements.html"
+    },
+    {
+      "id": "sql-lead-6",
+      "grade": "lead",
+      "skillId": "sql",
+      "prompt": "Когда денормализация оправдана?",
+      "options": [
+        {
+          "id": "sql-lead-6-a",
+          "label": "Всегда, потому что JOIN устарели"
+        },
+        {
+          "id": "sql-lead-6-b",
+          "label": "Сразу при проектировании любой схемы, чтобы заранее избежать соединений таблиц во всех запросах"
+        },
+        {
+          "id": "sql-lead-6-c",
+          "label": "Когда измеренная нагрузка на чтение требует этого и есть способ поддерживать согласованность копий"
+        }
+      ],
+      "correctOptionId": "sql-lead-6-c",
+      "explanation": "Денормализация — осознанный компромисс: быстрее чтение ценой сложности обновлений.",
+      "source": "https://www.postgresql.org/docs/current/rules-materializedviews.html"
+    },
+    {
+      "id": "etl-intern-1",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "Что означает аббревиатура ETL?",
+      "options": [
+        {
+          "id": "etl-intern-1-a",
+          "label": "Экспорт, трансформация и логирование событий"
+        },
+        {
+          "id": "etl-intern-1-b",
+          "label": "Шифрование, передача и логирование"
+        },
+        {
+          "id": "etl-intern-1-c",
+          "label": "Извлечение, преобразование и загрузка данных"
+        }
+      ],
+      "correctOptionId": "etl-intern-1-c",
+      "explanation": "Extract, Transform, Load: данные берут из источников, приводят к нужному виду и загружают в хранилище.",
+      "source": "https://en.wikipedia.org/wiki/Extract,_transform,_load"
+    },
+    {
+      "id": "etl-intern-2",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "Чем ELT отличается от ETL?",
+      "options": [
+        {
+          "id": "etl-intern-2-a",
+          "label": "В ELT данные вообще не преобразуют, а загружают в хранилище в исходном виде навсегда"
+        },
+        {
+          "id": "etl-intern-2-b",
+          "label": "Данные сначала загружают в хранилище и преобразуют уже там"
+        },
+        {
+          "id": "etl-intern-2-c",
+          "label": "ELT работает только с файлами CSV"
+        }
+      ],
+      "correctOptionId": "etl-intern-2-b",
+      "explanation": "ELT использует вычислительные ресурсы хранилища для преобразований после загрузки.",
+      "source": "https://en.wikipedia.org/wiki/Extract,_load,_transform"
+    },
+    {
+      "id": "etl-intern-3",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "Что такое CSV-файл?",
+      "options": [
+        {
+          "id": "etl-intern-3-a",
+          "label": "Текстовая таблица, где значения разделены запятыми или другим разделителем"
+        },
+        {
+          "id": "etl-intern-3-b",
+          "label": "Двоичный формат таблиц с обязательной схемой, типами столбцов и сжатием данных"
+        },
+        {
+          "id": "etl-intern-3-c",
+          "label": "Формат сжатых изображений"
+        }
+      ],
+      "correctOptionId": "etl-intern-3-a",
+      "explanation": "CSV не хранит типы и схему; разделитель, кавычки и кодировку нужно согласовать.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4180"
+    },
+    {
+      "id": "etl-intern-4",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "Зачем конвейер данных запускают по расписанию?",
+      "options": [
+        {
+          "id": "etl-intern-4-a",
+          "label": "Чтобы данные никогда не менялись"
+        },
+        {
+          "id": "etl-intern-4-b",
+          "label": "Чтобы удалять старые таблицы и освобождать место в хранилище"
+        },
+        {
+          "id": "etl-intern-4-c",
+          "label": "Чтобы регулярно обновлять данные в хранилище без ручного запуска"
+        }
+      ],
+      "correctOptionId": "etl-intern-4-c",
+      "explanation": "Планировщик запускает задачи с нужной периодичностью, например раз в час или раз в сутки.",
+      "source": "https://airflow.apache.org/docs/apache-airflow/stable/authoring-and-scheduling/cron.html"
+    },
+    {
+      "id": "etl-intern-5",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "В исходных данных встречаются дубликаты заказов. Где их обычно убирают?",
+      "options": [
+        {
+          "id": "etl-intern-5-a",
+          "label": "В системе-источнике, удаляя дубли прямо у владельца данных"
+        },
+        {
+          "id": "etl-intern-5-b",
+          "label": "Не убирают: витрина сама их скроет"
+        },
+        {
+          "id": "etl-intern-5-c",
+          "label": "На этапе преобразования перед загрузкой в витрину"
+        }
+      ],
+      "correctOptionId": "etl-intern-5-c",
+      "explanation": "Очистка и дедупликация — типичная часть преобразования.",
+      "source": "https://en.wikipedia.org/wiki/Data_cleansing"
+    },
+    {
+      "id": "etl-intern-6",
+      "grade": "intern",
+      "skillId": "etl",
+      "prompt": "Что такое хранилище данных (DWH)?",
+      "options": [
+        {
+          "id": "etl-intern-6-a",
+          "label": "Резервная копия одной рабочей базы для восстановления после сбоя"
+        },
+        {
+          "id": "etl-intern-6-b",
+          "label": "База, где собраны данные из разных систем для анализа и отчётов"
+        },
+        {
+          "id": "etl-intern-6-c",
+          "label": "Кэш веб-приложения"
+        }
+      ],
+      "correctOptionId": "etl-intern-6-b",
+      "explanation": "DWH объединяет данные источников в согласованной модели для аналитики.",
+      "source": "https://en.wikipedia.org/wiki/Data_warehouse"
+    },
+    {
+      "id": "etl-junior-1",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Что такое DAG в Apache Airflow?",
+      "options": [
+        {
+          "id": "etl-junior-1-a",
+          "label": "Таблица с результатами задач"
+        },
+        {
+          "id": "etl-junior-1-b",
+          "label": "Граф задач без циклов, задающий порядок их выполнения"
+        },
+        {
+          "id": "etl-junior-1-c",
+          "label": "Скрипт на Python, который выполняется один раз при запуске сервера"
+        }
+      ],
+      "correctOptionId": "etl-junior-1-b",
+      "explanation": "Directed Acyclic Graph описывает зависимости задач; циклы запрещены.",
+      "source": "https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html"
+    },
+    {
+      "id": "etl-junior-2",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Что значит идемпотентная загрузка?",
+      "options": [
+        {
+          "id": "etl-junior-2-a",
+          "label": "Загрузка выполняется только один раз за всё время работы конвейера"
+        },
+        {
+          "id": "etl-junior-2-b",
+          "label": "Повторный запуск за тот же период даёт тот же результат без дублей"
+        },
+        {
+          "id": "etl-junior-2-c",
+          "label": "Загрузка не пишет логи"
+        }
+      ],
+      "correctOptionId": "etl-junior-2-b",
+      "explanation": "Идемпотентность позволяет безопасно перезапускать упавшие задачи и делать backfill.",
+      "source": "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html"
+    },
+    {
+      "id": "etl-junior-3",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Что такое инкрементальная загрузка?",
+      "options": [
+        {
+          "id": "etl-junior-3-a",
+          "label": "Загрузка только новых или изменённых с прошлого запуска данных"
+        },
+        {
+          "id": "etl-junior-3-b",
+          "label": "Загрузка всех данных источника заново при каждом запуске конвейера"
+        },
+        {
+          "id": "etl-junior-3-c",
+          "label": "Загрузка данных по одной строке вручную"
+        }
+      ],
+      "correctOptionId": "etl-junior-3-a",
+      "explanation": "Инкремент обычно отбирают по времени изменения или по журналу изменений источника.",
+      "source": "https://en.wikipedia.org/wiki/Change_data_capture"
+    },
+    {
+      "id": "etl-junior-4",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Почему Parquet часто удобнее CSV для аналитики?",
+      "options": [
+        {
+          "id": "etl-junior-4-a",
+          "label": "Его можно редактировать в любом текстовом редакторе"
+        },
+        {
+          "id": "etl-junior-4-b",
+          "label": "Он колоночный, сжатый и хранит схему с типами"
+        },
+        {
+          "id": "etl-junior-4-c",
+          "label": "Он не поддерживает типы данных"
+        }
+      ],
+      "correctOptionId": "etl-junior-4-b",
+      "explanation": "Колоночный формат читает только нужные столбцы и хорошо сжимается.",
+      "source": "https://parquet.apache.org/docs/overview/"
+    },
+    {
+      "id": "etl-junior-5",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Что такое backfill?",
+      "options": [
+        {
+          "id": "etl-junior-5-a",
+          "label": "Удаление старых данных из хранилища после истечения срока их хранения по политике"
+        },
+        {
+          "id": "etl-junior-5-b",
+          "label": "Перезапуск конвейера за прошлые периоды, например после исправления логики"
+        },
+        {
+          "id": "etl-junior-5-c",
+          "label": "Заполнение пустых значений нулями"
+        }
+      ],
+      "correctOptionId": "etl-junior-5-b",
+      "explanation": "Backfill пересчитывает исторические интервалы; для этого задачи должны быть идемпотентными.",
+      "source": "https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html#backfill"
+    },
+    {
+      "id": "etl-junior-6",
+      "grade": "junior",
+      "skillId": "etl",
+      "prompt": "Что лучше сделать, если задача конвейера иногда падает из-за временной недоступности API?",
+      "options": [
+        {
+          "id": "etl-junior-6-a",
+          "label": "Удалить задачу из конвейера"
+        },
+        {
+          "id": "etl-junior-6-b",
+          "label": "Запускать её снова сразу после падения без пауз и ограничения числа попыток"
+        },
+        {
+          "id": "etl-junior-6-c",
+          "label": "Настроить повторы с паузой и оповещение после исчерпания попыток"
+        }
+      ],
+      "correctOptionId": "etl-junior-6-c",
+      "explanation": "Retries с задержкой переживают кратковременные сбои; алерт сообщает о постоянной ошибке.",
+      "source": "https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/tasks.html"
+    },
+    {
+      "id": "etl-middle-1",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Что такое медленно меняющееся измерение типа 2 (SCD2)?",
+      "options": [
+        {
+          "id": "etl-middle-1-a",
+          "label": "Перезапись атрибута последним значением без сохранения прежних версий"
+        },
+        {
+          "id": "etl-middle-1-b",
+          "label": "Хранение истории версий записи с периодами действия"
+        },
+        {
+          "id": "etl-middle-1-c",
+          "label": "Удаление устаревших записей измерения"
+        }
+      ],
+      "correctOptionId": "etl-middle-1-b",
+      "explanation": "SCD2 добавляет новую строку на каждое изменение и хранит даты начала и конца действия.",
+      "source": "https://en.wikipedia.org/wiki/Slowly_changing_dimension"
+    },
+    {
+      "id": "etl-middle-2",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Чем схема «звезда» отличается от «снежинки»?",
+      "options": [
+        {
+          "id": "etl-middle-2-a",
+          "label": "В «звезде» измерения денормализованы, в «снежинке» нормализованы в несколько таблиц"
+        },
+        {
+          "id": "etl-middle-2-b",
+          "label": "В «звезде» нет таблицы фактов, а в «снежинке» факты хранятся прямо в измерениях"
+        },
+        {
+          "id": "etl-middle-2-c",
+          "label": "«Снежинка» не допускает JOIN"
+        }
+      ],
+      "correctOptionId": "etl-middle-2-a",
+      "explanation": "Звезда проще для запросов, снежинка экономит место и уменьшает дублирование.",
+      "source": "https://en.wikipedia.org/wiki/Star_schema"
+    },
+    {
+      "id": "etl-middle-3",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Что такое CDC (change data capture)?",
+      "options": [
+        {
+          "id": "etl-middle-3-a",
+          "label": "Ежедневная полная выгрузка таблиц"
+        },
+        {
+          "id": "etl-middle-3-b",
+          "label": "Ежедневная полная выгрузка всех таблиц источника в хранилище по расписанию"
+        },
+        {
+          "id": "etl-middle-3-c",
+          "label": "Захват изменений из журнала базы-источника для передачи потребителям"
+        }
+      ],
+      "correctOptionId": "etl-middle-3-c",
+      "explanation": "CDC читает журнал транзакций и передаёт вставки, обновления и удаления почти в реальном времени.",
+      "source": "https://debezium.io/documentation/reference/stable/architecture.html"
+    },
+    {
+      "id": "etl-middle-4",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Как обработать данные, пришедшие с опозданием, в почасовой агрегации?",
+      "options": [
+        {
+          "id": "etl-middle-4-a",
+          "label": "Отбрасывать все опоздавшие записи, чтобы не менять уже рассчитанные часы"
+        },
+        {
+          "id": "etl-middle-4-b",
+          "label": "Пересчитывать затронутые интервалы или учитывать допустимое опоздание"
+        },
+        {
+          "id": "etl-middle-4-c",
+          "label": "Записывать их в текущий час"
+        }
+      ],
+      "correctOptionId": "etl-middle-4-b",
+      "explanation": "Иначе агрегаты за прошлые часы будут неверными; потоковые системы используют водяные знаки.",
+      "source": "https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/"
+    },
+    {
+      "id": "etl-middle-5",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Какую проверку качества стоит добавить после загрузки витрины?",
+      "options": [
+        {
+          "id": "etl-middle-5-a",
+          "label": "Проверку только на наличие файла"
+        },
+        {
+          "id": "etl-middle-5-b",
+          "label": "Ручной просмотр первых десяти строк витрины аналитиком после каждой загрузки"
+        },
+        {
+          "id": "etl-middle-5-c",
+          "label": "Сверку числа строк и ключевых сумм с источником, проверки на NULL и уникальность"
+        }
+      ],
+      "correctOptionId": "etl-middle-5-c",
+      "explanation": "Автоматические тесты данных ловят потери, дубли и нарушения ожиданий.",
+      "source": "https://docs.getdbt.com/docs/build/data-tests"
+    },
+    {
+      "id": "etl-middle-6",
+      "grade": "middle",
+      "skillId": "etl",
+      "prompt": "Чем партиционирование таблицы по дате помогает конвейеру?",
+      "options": [
+        {
+          "id": "etl-middle-6-a",
+          "label": "Позволяет перезаписывать и читать только нужные периоды"
+        },
+        {
+          "id": "etl-middle-6-b",
+          "label": "Убирает необходимость в индексах и статистике для любых запросов"
+        },
+        {
+          "id": "etl-middle-6-c",
+          "label": "Делает данные неизменяемыми"
+        }
+      ],
+      "correctOptionId": "etl-middle-6-a",
+      "explanation": "Перезапись партиции — простой способ идемпотентной загрузки за период.",
+      "source": "https://www.postgresql.org/docs/current/ddl-partitioning.html"
+    },
+    {
+      "id": "etl-senior-1",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Что даёт семантика exactly-once в потоковой обработке?",
+      "options": [
+        {
+          "id": "etl-senior-1-a",
+          "label": "Каждое событие влияет на результат ровно один раз даже при сбоях"
+        },
+        {
+          "id": "etl-senior-1-b",
+          "label": "Сеть гарантирует, что ни одно событие не будет доставлено повторно"
+        },
+        {
+          "id": "etl-senior-1-c",
+          "label": "События обрабатываются строго по одному за раз"
+        }
+      ],
+      "correctOptionId": "etl-senior-1-a",
+      "explanation": "Обычно это достигается контрольными точками и транзакционной записью или идемпотентными приёмниками.",
+      "source": "https://kafka.apache.org/documentation/#semantics"
+    },
+    {
+      "id": "etl-senior-2",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Как изменить схему события в Kafka, не сломав потребителей?",
+      "options": [
+        {
+          "id": "etl-senior-2-a",
+          "label": "Менять формат событий одновременно во всех сервисах в одну ночь"
+        },
+        {
+          "id": "etl-senior-2-b",
+          "label": "Отправлять JSON без схемы, чтобы не было ограничений"
+        },
+        {
+          "id": "etl-senior-2-c",
+          "label": "Делать совместимые изменения схемы и проверять их в реестре схем"
+        }
+      ],
+      "correctOptionId": "etl-senior-2-c",
+      "explanation": "Реестр схем проверяет обратную и прямую совместимость новых версий.",
+      "source": "https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html"
+    },
+    {
+      "id": "etl-senior-3",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Почему множество мелких файлов вредит хранилищу на основе объектного хранения?",
+      "options": [
+        {
+          "id": "etl-senior-3-a",
+          "label": "Растут накладные расходы на метаданные и открытие файлов, падает скорость чтения"
+        },
+        {
+          "id": "etl-senior-3-b",
+          "label": "Мелкие файлы нельзя сжать"
+        },
+        {
+          "id": "etl-senior-3-c",
+          "label": "Объектное хранилище не позволяет параллельно читать файлы меньше 1 ГБ и ставит их в очередь"
+        }
+      ],
+      "correctOptionId": "etl-senior-3-a",
+      "explanation": "Компакция объединяет мелкие файлы в крупные и ускоряет запросы.",
+      "source": "https://delta.io/blog/2023-01-25-delta-lake-small-file-compaction-optimize/"
+    },
+    {
+      "id": "etl-senior-4",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Что такое data lineage и зачем он нужен?",
+      "options": [
+        {
+          "id": "etl-senior-4-a",
+          "label": "Шифрование данных при передаче между источниками, конвейерами и витринами хранилища данных"
+        },
+        {
+          "id": "etl-senior-4-b",
+          "label": "Список пользователей хранилища"
+        },
+        {
+          "id": "etl-senior-4-c",
+          "label": "Происхождение данных от источников до витрин; помогает оценить влияние изменений и найти причину ошибки"
+        }
+      ],
+      "correctOptionId": "etl-senior-4-c",
+      "explanation": "Lineage показывает, какие витрины пострадают при изменении источника.",
+      "source": "https://openlineage.io/docs/"
+    },
+    {
+      "id": "etl-senior-5",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Как обеспечить повторяемость пересчёта витрины за прошлый период?",
+      "options": [
+        {
+          "id": "etl-senior-5-a",
+          "label": "Перезаписывать исходные данные при каждом запуске, сохраняя только последний результат"
+        },
+        {
+          "id": "etl-senior-5-b",
+          "label": "Хранить неизменяемые исходные данные и версионировать код преобразований"
+        },
+        {
+          "id": "etl-senior-5-c",
+          "label": "Пересчитывать только на свежих данных"
+        }
+      ],
+      "correctOptionId": "etl-senior-5-b",
+      "explanation": "Неизменяемый сырой слой и версия кода позволяют получить тот же результат снова.",
+      "source": "https://docs.getdbt.com/docs/build/snapshots"
+    },
+    {
+      "id": "etl-senior-6",
+      "grade": "senior",
+      "skillId": "etl",
+      "prompt": "Когда выбирать потоковую обработку вместо пакетной?",
+      "options": [
+        {
+          "id": "etl-senior-6-a",
+          "label": "Всегда, потому что пакетная обработка устарела и не поддерживается современными хранилищами"
+        },
+        {
+          "id": "etl-senior-6-b",
+          "label": "Когда бизнесу нужна задержка в секунды и это оправдывает сложность"
+        },
+        {
+          "id": "etl-senior-6-c",
+          "label": "Когда данных мало и отчёт нужен раз в месяц"
+        }
+      ],
+      "correctOptionId": "etl-senior-6-b",
+      "explanation": "Потоковые системы сложнее в эксплуатации; выбор определяет требование к свежести.",
+      "source": "https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/overview/"
+    },
+    {
+      "id": "etl-lead-1",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Как организовать ответственность за наборы данных в большой компании?",
+      "options": [
+        {
+          "id": "etl-lead-1-a",
+          "label": "Сделать одну команду ответственной за все данные компании без исключений"
+        },
+        {
+          "id": "etl-lead-1-b",
+          "label": "Назначить владельцев доменов данных с контрактами и SLA на качество и свежесть"
+        },
+        {
+          "id": "etl-lead-1-c",
+          "label": "Не назначать владельцев наборов данных, чтобы не ограничивать доступ и скорость"
+        }
+      ],
+      "correctOptionId": "etl-lead-1-b",
+      "explanation": "Владение и контракты данных (data mesh, data contracts) снижают число неожиданных поломок.",
+      "source": "https://martinfowler.com/articles/data-mesh-principles.html"
+    },
+    {
+      "id": "etl-lead-2",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Как выбрать между облачным управляемым хранилищем и собственным кластером?",
+      "options": [
+        {
+          "id": "etl-lead-2-a",
+          "label": "Всегда выбирать собственный кластер, потому что облако дороже при любой нагрузке"
+        },
+        {
+          "id": "etl-lead-2-b",
+          "label": "Сравнить совокупную стоимость, требования к данным и компетенции команды"
+        },
+        {
+          "id": "etl-lead-2-c",
+          "label": "Выбирать по популярности в соцсетях"
+        }
+      ],
+      "correctOptionId": "etl-lead-2-b",
+      "explanation": "Решение зависит от нагрузки, ограничений по размещению данных, бюджета и людей.",
+      "source": "https://cloud.google.com/architecture/framework"
+    },
+    {
+      "id": "etl-lead-3",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Как сократить расходы на хранилище, не теряя нужные данные?",
+      "options": [
+        {
+          "id": "etl-lead-3-a",
+          "label": "Удалять сырые данные сразу после загрузки витрин и отключить сжатие, чтобы ускорить чтение"
+        },
+        {
+          "id": "etl-lead-3-b",
+          "label": "Отключить сжатие"
+        },
+        {
+          "id": "etl-lead-3-c",
+          "label": "Ввести политику хранения, уровни горячих и холодных данных и удалять неиспользуемые витрины"
+        }
+      ],
+      "correctOptionId": "etl-lead-3-c",
+      "explanation": "Жизненный цикл данных и учёт использования витрин уменьшают стоимость без потери ценности.",
+      "source": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html"
+    },
+    {
+      "id": "etl-lead-4",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Какие метрики отражают надёжность платформы данных?",
+      "options": [
+        {
+          "id": "etl-lead-4-a",
+          "label": "Число таблиц в хранилище и количество строк кода конвейеров"
+        },
+        {
+          "id": "etl-lead-4-b",
+          "label": "Количество строк кода конвейеров"
+        },
+        {
+          "id": "etl-lead-4-c",
+          "label": "Свежесть, полнота, доля успешных запусков и время восстановления"
+        }
+      ],
+      "correctOptionId": "etl-lead-4-c",
+      "explanation": "Метрики должны отражать то, что видят потребители данных.",
+      "source": "https://sre.google/sre-book/service-level-objectives/"
+    },
+    {
+      "id": "etl-lead-5",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Как защищать персональные данные в аналитическом хранилище?",
+      "options": [
+        {
+          "id": "etl-lead-5-a",
+          "label": "Хранить их открыто для всех аналитиков, но запретить выгрузку данных за пределы хранилища"
+        },
+        {
+          "id": "etl-lead-5-b",
+          "label": "Минимизировать, маскировать или псевдонимизировать их и ограничивать доступ по ролям"
+        },
+        {
+          "id": "etl-lead-5-c",
+          "label": "Удалять все таблицы с пользователями"
+        }
+      ],
+      "correctOptionId": "etl-lead-5-b",
+      "explanation": "Минимизация и разграничение доступа требуются законом о персональных данных и снижают риски утечки.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "etl-lead-6",
+      "grade": "lead",
+      "skillId": "etl",
+      "prompt": "Команда тратит больше времени на починку конвейеров, чем на новые задачи. Что сделать в первую очередь?",
+      "options": [
+        {
+          "id": "etl-lead-6-a",
+          "label": "Найти самые частые причины сбоев и устранить их системно"
+        },
+        {
+          "id": "etl-lead-6-b",
+          "label": "Нанять людей только для ночных перезапусков"
+        },
+        {
+          "id": "etl-lead-6-c",
+          "label": "Отключить мониторинг, чтобы не видеть ошибок"
+        }
+      ],
+      "correctOptionId": "etl-lead-6-a",
+      "explanation": "Разбор инцидентов и устранение корневых причин снижают операционную нагрузку.",
+      "source": "https://sre.google/sre-book/postmortem-culture/"
+    },
+    {
+      "id": "statistics-intern-1",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Чем медиана отличается от среднего?",
+      "options": [
+        {
+          "id": "statistics-intern-1-a",
+          "label": "Медиана всегда больше среднего"
+        },
+        {
+          "id": "statistics-intern-1-b",
+          "label": "Медиана — самое частое значение, которое встречается в данных чаще всех остальных"
+        },
+        {
+          "id": "statistics-intern-1-c",
+          "label": "Медиана — значение в середине упорядоченного ряда и устойчива к выбросам"
+        }
+      ],
+      "correctOptionId": "statistics-intern-1-c",
+      "explanation": "Самое частое значение — мода; среднее сильно смещается выбросами.",
+      "source": "https://en.wikipedia.org/wiki/Median"
+    },
+    {
+      "id": "statistics-intern-2",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Монету подбрасывают дважды. Какова вероятность двух орлов?",
+      "options": [
+        {
+          "id": "statistics-intern-2-a",
+          "label": "1/2"
+        },
+        {
+          "id": "statistics-intern-2-b",
+          "label": "1/3"
+        },
+        {
+          "id": "statistics-intern-2-c",
+          "label": "1/4"
+        }
+      ],
+      "correctOptionId": "statistics-intern-2-c",
+      "explanation": "Броски независимы: 1/2 × 1/2 = 1/4.",
+      "source": "https://en.wikipedia.org/wiki/Independence_(probability_theory)"
+    },
+    {
+      "id": "statistics-intern-3",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Что показывает гистограмма?",
+      "options": [
+        {
+          "id": "statistics-intern-3-a",
+          "label": "Распределение значений по интервалам"
+        },
+        {
+          "id": "statistics-intern-3-b",
+          "label": "Связь двух переменных"
+        },
+        {
+          "id": "statistics-intern-3-c",
+          "label": "Изменение одного значения во времени"
+        }
+      ],
+      "correctOptionId": "statistics-intern-3-a",
+      "explanation": "Связь двух переменных показывает диаграмма рассеяния, динамику — линейный график.",
+      "source": "https://en.wikipedia.org/wiki/Histogram"
+    },
+    {
+      "id": "statistics-intern-4",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Что такое выборка?",
+      "options": [
+        {
+          "id": "statistics-intern-4-a",
+          "label": "Все объекты, которые изучаются, без исключения и отбора"
+        },
+        {
+          "id": "statistics-intern-4-b",
+          "label": "Часть генеральной совокупности, по которой делают выводы о ней"
+        },
+        {
+          "id": "statistics-intern-4-c",
+          "label": "Ошибочные значения в данных"
+        }
+      ],
+      "correctOptionId": "statistics-intern-4-b",
+      "explanation": "Выводы по выборке переносятся на совокупность с учётом случайной ошибки.",
+      "source": "https://en.wikipedia.org/wiki/Sampling_(statistics)"
+    },
+    {
+      "id": "statistics-intern-5",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Средний чек вырос с 1000 до 1200 рублей. На сколько процентов?",
+      "options": [
+        {
+          "id": "statistics-intern-5-a",
+          "label": "На 20%"
+        },
+        {
+          "id": "statistics-intern-5-b",
+          "label": "На 200%"
+        },
+        {
+          "id": "statistics-intern-5-c",
+          "label": "На 12%"
+        }
+      ],
+      "correctOptionId": "statistics-intern-5-a",
+      "explanation": "(1200 − 1000) / 1000 = 0,2, то есть 20%.",
+      "source": "https://en.wikipedia.org/wiki/Relative_change"
+    },
+    {
+      "id": "statistics-intern-6",
+      "grade": "intern",
+      "skillId": "statistics",
+      "prompt": "Что измеряет стандартное отклонение?",
+      "options": [
+        {
+          "id": "statistics-intern-6-a",
+          "label": "Самое большое отклонение одного значения от нуля"
+        },
+        {
+          "id": "statistics-intern-6-b",
+          "label": "Число наблюдений"
+        },
+        {
+          "id": "statistics-intern-6-c",
+          "label": "Разброс значений вокруг среднего"
+        }
+      ],
+      "correctOptionId": "statistics-intern-6-c",
+      "explanation": "Чем больше стандартное отклонение, тем сильнее значения отличаются от среднего.",
+      "source": "https://en.wikipedia.org/wiki/Standard_deviation"
+    },
+    {
+      "id": "statistics-junior-1",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "Корреляция продаж мороженого и числа утоплений высокая. Что из этого следует?",
+      "options": [
+        {
+          "id": "statistics-junior-1-a",
+          "label": "Связь может объясняться общим фактором, например жарой; причинность не доказана"
+        },
+        {
+          "id": "statistics-junior-1-b",
+          "label": "Мороженое вызывает утопления"
+        },
+        {
+          "id": "statistics-junior-1-c",
+          "label": "Высокая корреляция доказывает, что продажи мороженого вызывают рост числа утоплений"
+        }
+      ],
+      "correctOptionId": "statistics-junior-1-a",
+      "explanation": "Корреляция не означает причинно-следственную связь; возможен скрытый общий фактор.",
+      "source": "https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation"
+    },
+    {
+      "id": "statistics-junior-2",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "Что такое p-значение?",
+      "options": [
+        {
+          "id": "statistics-junior-2-a",
+          "label": "Вероятность получить такой или более сильный эффект, если нулевая гипотеза верна"
+        },
+        {
+          "id": "statistics-junior-2-b",
+          "label": "Вероятность того, что нулевая гипотеза верна при полученных в эксперименте данных"
+        },
+        {
+          "id": "statistics-junior-2-c",
+          "label": "Размер эффекта в процентах"
+        }
+      ],
+      "correctOptionId": "statistics-junior-2-a",
+      "explanation": "p-значение не является вероятностью гипотезы и не измеряет размер эффекта.",
+      "source": "https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf"
+    },
+    {
+      "id": "statistics-junior-3",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "Что такое доверительный интервал 95%?",
+      "options": [
+        {
+          "id": "statistics-junior-3-a",
+          "label": "Интервал, в который попадают 95% всех наблюдений выборки, независимо от размера выборки"
+        },
+        {
+          "id": "statistics-junior-3-b",
+          "label": "Интервал, который при повторении эксперимента накрывает истинное значение в 95% случаев"
+        },
+        {
+          "id": "statistics-junior-3-c",
+          "label": "Гарантия, что ошибка не превышает 5%"
+        }
+      ],
+      "correctOptionId": "statistics-junior-3-b",
+      "explanation": "Это свойство процедуры построения, а не диапазон отдельных наблюдений.",
+      "source": "https://en.wikipedia.org/wiki/Confidence_interval"
+    },
+    {
+      "id": "statistics-junior-4",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "В чём суть A/B-теста?",
+      "options": [
+        {
+          "id": "statistics-junior-4-a",
+          "label": "Показать новый вариант всем пользователям и сравнить метрику с прошлым месяцем"
+        },
+        {
+          "id": "statistics-junior-4-b",
+          "label": "Спросить пользователей, какой вариант им нравится"
+        },
+        {
+          "id": "statistics-junior-4-c",
+          "label": "Случайно разделить пользователей на группы и сравнить метрику при разных вариантах"
+        }
+      ],
+      "correctOptionId": "statistics-junior-4-c",
+      "explanation": "Случайное распределение делает группы сопоставимыми, и разницу можно приписать варианту.",
+      "source": "https://en.wikipedia.org/wiki/A/B_testing"
+    },
+    {
+      "id": "statistics-junior-5",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "Какое распределение описывает число успехов в n независимых испытаниях с одинаковой вероятностью?",
+      "options": [
+        {
+          "id": "statistics-junior-5-a",
+          "label": "Биномиальное"
+        },
+        {
+          "id": "statistics-junior-5-b",
+          "label": "Нормальное"
+        },
+        {
+          "id": "statistics-junior-5-c",
+          "label": "Нормальное распределение"
+        }
+      ],
+      "correctOptionId": "statistics-junior-5-a",
+      "explanation": "Биномиальное распределение задаётся числом испытаний n и вероятностью успеха p.",
+      "source": "https://en.wikipedia.org/wiki/Binomial_distribution"
+    },
+    {
+      "id": "statistics-junior-6",
+      "grade": "junior",
+      "skillId": "statistics",
+      "prompt": "Почему для времени ответа сервиса часто смотрят 95-й перцентиль, а не среднее?",
+      "options": [
+        {
+          "id": "statistics-junior-6-a",
+          "label": "Перцентиль всегда меньше среднего и поэтому точнее показывает обычное время ответа"
+        },
+        {
+          "id": "statistics-junior-6-b",
+          "label": "Среднее нельзя посчитать для времени"
+        },
+        {
+          "id": "statistics-junior-6-c",
+          "label": "Распределение асимметрично, и перцентиль показывает опыт медленных запросов"
+        }
+      ],
+      "correctOptionId": "statistics-junior-6-c",
+      "explanation": "Длинный хвост медленных запросов почти не влияет на медиану, но важен пользователям.",
+      "source": "https://sre.google/sre-book/service-level-objectives/"
+    },
+    {
+      "id": "statistics-middle-1",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "В A/B-тесте проверили 20 метрик и одна оказалась значимой при α = 0,05. Как к этому относиться?",
+      "options": [
+        {
+          "id": "statistics-middle-1-a",
+          "label": "Осторожно: при множественных сравнениях ложные срабатывания ожидаемы; нужна поправка"
+        },
+        {
+          "id": "statistics-middle-1-b",
+          "label": "Как к надёжному результату: p < 0,05 означает, что эффект по этой метрике точно существует"
+        },
+        {
+          "id": "statistics-middle-1-c",
+          "label": "Как к доказательству, что все метрики выросли"
+        }
+      ],
+      "correctOptionId": "statistics-middle-1-a",
+      "explanation": "При 20 независимых проверках около одной ложной значимости ожидаемо случайно; помогают поправки Бонферрони или Холма.",
+      "source": "https://en.wikipedia.org/wiki/Multiple_comparisons_problem"
+    },
+    {
+      "id": "statistics-middle-2",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "Что определяет мощность статистического теста?",
+      "options": [
+        {
+          "id": "statistics-middle-2-a",
+          "label": "Вероятность ошибочно обнаружить эффект, которого на самом деле нет"
+        },
+        {
+          "id": "statistics-middle-2-b",
+          "label": "Вероятность обнаружить эффект, если он действительно есть"
+        },
+        {
+          "id": "statistics-middle-2-c",
+          "label": "Число метрик в эксперименте"
+        }
+      ],
+      "correctOptionId": "statistics-middle-2-b",
+      "explanation": "Мощность растёт с размером выборки и величиной эффекта; её закладывают при планировании теста.",
+      "source": "https://en.wikipedia.org/wiki/Power_of_a_test"
+    },
+    {
+      "id": "statistics-middle-3",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "Почему нельзя останавливать A/B-тест, как только p-значение стало меньше 0,05?",
+      "options": [
+        {
+          "id": "statistics-middle-3-a",
+          "label": "Потому что p-значение со временем всегда растёт и значимость пропадёт"
+        },
+        {
+          "id": "statistics-middle-3-b",
+          "label": "Потому что тест должен идти ровно месяц"
+        },
+        {
+          "id": "statistics-middle-3-c",
+          "label": "Многократные подглядывания резко увеличивают долю ложноположительных выводов"
+        }
+      ],
+      "correctOptionId": "statistics-middle-3-c",
+      "explanation": "Размер выборки фиксируют заранее или используют последовательные методы.",
+      "source": "https://www.evanmiller.org/how-not-to-run-an-ab-test.html"
+    },
+    {
+      "id": "statistics-middle-4",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "В чём суть парадокса Симпсона?",
+      "options": [
+        {
+          "id": "statistics-middle-4-a",
+          "label": "Средние значения двух групп всегда совпадают после их объединения в одну общую выборку"
+        },
+        {
+          "id": "statistics-middle-4-b",
+          "label": "Тенденция в каждой группе меняется на противоположную при объединении групп"
+        },
+        {
+          "id": "statistics-middle-4-c",
+          "label": "Корреляция всегда равна нулю"
+        }
+      ],
+      "correctOptionId": "statistics-middle-4-b",
+      "explanation": "Причина — разный состав групп; анализ нужно делать с учётом смешивающего фактора.",
+      "source": "https://en.wikipedia.org/wiki/Simpson%27s_paradox"
+    },
+    {
+      "id": "statistics-middle-5",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "Какой тест уместен для сравнения долей конверсии двух групп?",
+      "options": [
+        {
+          "id": "statistics-middle-5-a",
+          "label": "Z-тест для двух пропорций или критерий хи-квадрат"
+        },
+        {
+          "id": "statistics-middle-5-b",
+          "label": "Парный t-тест для средних значений по двум группам"
+        },
+        {
+          "id": "statistics-middle-5-c",
+          "label": "Корреляция Пирсона"
+        }
+      ],
+      "correctOptionId": "statistics-middle-5-a",
+      "explanation": "Конверсия — бинарный исход, поэтому сравнивают доли.",
+      "source": "https://en.wikipedia.org/wiki/Two-proportion_Z-test"
+    },
+    {
+      "id": "statistics-middle-6",
+      "grade": "middle",
+      "skillId": "statistics",
+      "prompt": "Что такое ошибка второго рода?",
+      "options": [
+        {
+          "id": "statistics-middle-6-a",
+          "label": "Обнаружить эффект, которого на самом деле нет"
+        },
+        {
+          "id": "statistics-middle-6-b",
+          "label": "Не обнаружить эффект, который на самом деле есть"
+        },
+        {
+          "id": "statistics-middle-6-c",
+          "label": "Ошибиться в расчёте среднего"
+        }
+      ],
+      "correctOptionId": "statistics-middle-6-b",
+      "explanation": "Ложноотрицательный результат; ложноположительный — ошибка первого рода.",
+      "source": "https://en.wikipedia.org/wiki/Type_I_and_type_II_errors"
+    },
+    {
+      "id": "statistics-senior-1",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "Метрика — выручка на пользователя с тяжёлым хвостом. Как уменьшить дисперсию в A/B-тесте?",
+      "options": [
+        {
+          "id": "statistics-senior-1-a",
+          "label": "Удалить группу с меньшей выручкой"
+        },
+        {
+          "id": "statistics-senior-1-b",
+          "label": "Сравнивать только медианы групп без проверки статистической значимости"
+        },
+        {
+          "id": "statistics-senior-1-c",
+          "label": "Применить CUPED с данными до эксперимента или ограничить выбросы"
+        }
+      ],
+      "correctOptionId": "statistics-senior-1-c",
+      "explanation": "CUPED использует предэкспериментальную ковариату и сокращает дисперсию без смещения.",
+      "source": "https://exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf"
+    },
+    {
+      "id": "statistics-senior-2",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "В группах A и B доли пользователей отличаются от запланированных 50/50 значимо. Что это значит?",
+      "options": [
+        {
+          "id": "statistics-senior-2-a",
+          "label": "Это нормально и не влияет на выводы"
+        },
+        {
+          "id": "statistics-senior-2-b",
+          "label": "Нужно просто пересчитать метрики так, будто группы были равными, и продолжить анализ"
+        },
+        {
+          "id": "statistics-senior-2-c",
+          "label": "Вероятна ошибка распределения (sample ratio mismatch), результатам теста доверять нельзя"
+        }
+      ],
+      "correctOptionId": "statistics-senior-2-c",
+      "explanation": "SRM указывает на сбой в рандомизации или логировании.",
+      "source": "https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/"
+    },
+    {
+      "id": "statistics-senior-3",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "Как оценить эффект, если рандомизация невозможна?",
+      "options": [
+        {
+          "id": "statistics-senior-3-a",
+          "label": "Квазиэкспериментальными методами: разность разностей, синтетический контроль"
+        },
+        {
+          "id": "statistics-senior-3-b",
+          "label": "Сравнить метрику до и после изменения без контрольной группы и считать разницу эффектом"
+        },
+        {
+          "id": "statistics-senior-3-c",
+          "label": "Считать, что эффекта нет"
+        }
+      ],
+      "correctOptionId": "statistics-senior-3-a",
+      "explanation": "Квазиэксперименты требуют проверяемых допущений, например параллельных трендов.",
+      "source": "https://en.wikipedia.org/wiki/Difference_in_differences"
+    },
+    {
+      "id": "statistics-senior-4",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "Почему отношение метрик (например, клики на просмотр) требует особого расчёта дисперсии?",
+      "options": [
+        {
+          "id": "statistics-senior-4-a",
+          "label": "Отношения не бывают случайными"
+        },
+        {
+          "id": "statistics-senior-4-b",
+          "label": "Дисперсию отношения считают как у обычного среднего по строкам событий без учёта пользователей"
+        },
+        {
+          "id": "statistics-senior-4-c",
+          "label": "Числитель и знаменатель случайны и коррелированы; нужна дельта-метод или бутстрэп"
+        }
+      ],
+      "correctOptionId": "statistics-senior-4-c",
+      "explanation": "Единица рандомизации — пользователь, а событий у него много; наивная формула занижает дисперсию.",
+      "source": "https://en.wikipedia.org/wiki/Delta_method"
+    },
+    {
+      "id": "statistics-senior-5",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "Что такое байесовский подход к A/B-тесту?",
+      "options": [
+        {
+          "id": "statistics-senior-5-a",
+          "label": "Апостериорное распределение эффекта с учётом априорных представлений"
+        },
+        {
+          "id": "statistics-senior-5-b",
+          "label": "Тест без случайного распределения пользователей, основанный на мнении экспертов команды"
+        },
+        {
+          "id": "statistics-senior-5-c",
+          "label": "Замена p-значения средним"
+        }
+      ],
+      "correctOptionId": "statistics-senior-5-a",
+      "explanation": "Он отвечает на вопрос о вероятности превосходства варианта при заданных допущениях.",
+      "source": "https://en.wikipedia.org/wiki/Bayesian_inference"
+    },
+    {
+      "id": "statistics-senior-6",
+      "grade": "senior",
+      "skillId": "statistics",
+      "prompt": "Сезонность влияет на метрику. Как корректно сравнить месяцы?",
+      "options": [
+        {
+          "id": "statistics-senior-6-a",
+          "label": "Сравнивать соседние месяцы напрямую"
+        },
+        {
+          "id": "statistics-senior-6-b",
+          "label": "Сравнивать с тем же периодом прошлого года или учитывать сезонность в модели"
+        },
+        {
+          "id": "statistics-senior-6-c",
+          "label": "Удалить праздничные дни из всех данных и сравнивать соседние месяцы"
+        }
+      ],
+      "correctOptionId": "statistics-senior-6-b",
+      "explanation": "Сезонная декомпозиция или год к году отделяют тренд от сезонных колебаний.",
+      "source": "https://otexts.com/fpp3/decomposition.html"
+    },
+    {
+      "id": "statistics-lead-1",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Как выстроить культуру экспериментов в продуктовой команде?",
+      "options": [
+        {
+          "id": "statistics-lead-1-a",
+          "label": "Единая платформа экспериментов, заранее заданные метрики и ревью дизайна тестов"
+        },
+        {
+          "id": "statistics-lead-1-b",
+          "label": "Запускать изменения без тестов и смотреть общую выручку"
+        },
+        {
+          "id": "statistics-lead-1-c",
+          "label": "Разрешить каждой команде считать значимость по-своему и сравнивать итоги"
+        }
+      ],
+      "correctOptionId": "statistics-lead-1-a",
+      "explanation": "Стандарты и общая инфраструктура делают выводы сопоставимыми и надёжными.",
+      "source": "https://experimentguide.com/"
+    },
+    {
+      "id": "statistics-lead-2",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Как выбирать главную метрику эксперимента (OEC)?",
+      "options": [
+        {
+          "id": "statistics-lead-2-a",
+          "label": "Самую простую в расчёте метрику"
+        },
+        {
+          "id": "statistics-lead-2-b",
+          "label": "Чувствительную метрику, предсказывающую долгосрочную ценность, с защитными метриками"
+        },
+        {
+          "id": "statistics-lead-2-c",
+          "label": "Ту метрику, которая быстрее всего показывает статистическую значимость в любом эксперименте"
+        }
+      ],
+      "correctOptionId": "statistics-lead-2-b",
+      "explanation": "Защитные метрики не дают улучшить главную ценой ухудшения важного.",
+      "source": "https://experimentguide.com/"
+    },
+    {
+      "id": "statistics-lead-3",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Заказчик требует «доказать рост» уже выпущенной функции. Как поступить?",
+      "options": [
+        {
+          "id": "statistics-lead-3-a",
+          "label": "Честно описать ограничения данных и предложить корректный метод оценки"
+        },
+        {
+          "id": "statistics-lead-3-b",
+          "label": "Подобрать период и сегменты, на которых рост виден лучше всего"
+        },
+        {
+          "id": "statistics-lead-3-c",
+          "label": "Скрыть неудобные сегменты"
+        }
+      ],
+      "correctOptionId": "statistics-lead-3-a",
+      "explanation": "Подгонка данных под вывод разрушает доверие к аналитике.",
+      "source": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice"
+    },
+    {
+      "id": "statistics-lead-4",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Как проверять качество аналитических выводов в команде?",
+      "options": [
+        {
+          "id": "statistics-lead-4-a",
+          "label": "Ревью кода и методики, воспроизводимые расчёты и документирование допущений"
+        },
+        {
+          "id": "statistics-lead-4-b",
+          "label": "Доверять опыту автора и проверять только оформление отчёта и подписи к графикам"
+        },
+        {
+          "id": "statistics-lead-4-c",
+          "label": "Проверять только оформление отчёта"
+        }
+      ],
+      "correctOptionId": "statistics-lead-4-a",
+      "explanation": "Воспроизводимость и ревью находят ошибки до того, как на них примут решения.",
+      "source": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice"
+    },
+    {
+      "id": "statistics-lead-5",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Когда стоит отказаться от A/B-теста?",
+      "options": [
+        {
+          "id": "statistics-lead-5-a",
+          "label": "Всегда, когда команда заранее уверена в положительном результате изменения"
+        },
+        {
+          "id": "statistics-lead-5-b",
+          "label": "Когда трафика не хватает для разумной мощности или изменение нельзя изолировать"
+        },
+        {
+          "id": "statistics-lead-5-c",
+          "label": "Когда метрика уже растёт"
+        }
+      ],
+      "correctOptionId": "statistics-lead-5-b",
+      "explanation": "В таких случаях честнее использовать качественные исследования или квазиэксперименты.",
+      "source": "https://experimentguide.com/"
+    },
+    {
+      "id": "statistics-lead-6",
+      "grade": "lead",
+      "skillId": "statistics",
+      "prompt": "Как объяснить руководству неопределённость прогноза?",
+      "options": [
+        {
+          "id": "statistics-lead-6-a",
+          "label": "Дать одно точное число, чтобы не путать руководство диапазонами"
+        },
+        {
+          "id": "statistics-lead-6-b",
+          "label": "Не показывать прогноз вовсе"
+        },
+        {
+          "id": "statistics-lead-6-c",
+          "label": "Показать интервал и сценарии, а не одно число"
+        }
+      ],
+      "correctOptionId": "statistics-lead-6-c",
+      "explanation": "Интервалы и сценарии позволяют принимать решения с учётом риска.",
+      "source": "https://otexts.com/fpp3/prediction-intervals.html"
+    },
+    {
+      "id": "python-intern-1",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Что выведет print(len([1, 2, 3]))?",
+      "options": [
+        {
+          "id": "python-intern-1-a",
+          "label": "3"
+        },
+        {
+          "id": "python-intern-1-b",
+          "label": "2"
+        },
+        {
+          "id": "python-intern-1-c",
+          "label": "[1, 2, 3]"
+        }
+      ],
+      "correctOptionId": "python-intern-1-a",
+      "explanation": "len возвращает число элементов списка.",
+      "source": "https://docs.python.org/3/library/functions.html#len"
+    },
+    {
+      "id": "python-intern-2",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Каким будет значение 7 // 2 в Python 3?",
+      "options": [
+        {
+          "id": "python-intern-2-a",
+          "label": "3"
+        },
+        {
+          "id": "python-intern-2-b",
+          "label": "3.5"
+        },
+        {
+          "id": "python-intern-2-c",
+          "label": "4"
+        }
+      ],
+      "correctOptionId": "python-intern-2-a",
+      "explanation": "Оператор // выполняет целочисленное деление с округлением вниз; / дал бы 3.5.",
+      "source": "https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations"
+    },
+    {
+      "id": "python-intern-3",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Чем список отличается от кортежа?",
+      "options": [
+        {
+          "id": "python-intern-3-a",
+          "label": "Кортеж может хранить только числа"
+        },
+        {
+          "id": "python-intern-3-b",
+          "label": "Список изменяемый, кортеж — нет"
+        },
+        {
+          "id": "python-intern-3-c",
+          "label": "Список нельзя перебирать в цикле"
+        }
+      ],
+      "correctOptionId": "python-intern-3-b",
+      "explanation": "list поддерживает append и присваивание элементам, tuple после создания не меняется.",
+      "source": "https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences"
+    },
+    {
+      "id": "python-intern-4",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Как получить значение по ключу 'age' из словаря d, не получив ошибку при его отсутствии?",
+      "options": [
+        {
+          "id": "python-intern-4-a",
+          "label": "d['age'] or None"
+        },
+        {
+          "id": "python-intern-4-b",
+          "label": "d.get('age')"
+        },
+        {
+          "id": "python-intern-4-c",
+          "label": "d.age"
+        }
+      ],
+      "correctOptionId": "python-intern-4-b",
+      "explanation": "get возвращает None или значение по умолчанию; d['age'] выбросит KeyError.",
+      "source": "https://docs.python.org/3/library/stdtypes.html#dict.get"
+    },
+    {
+      "id": "python-intern-5",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Что делает конструкция for i in range(3)?",
+      "options": [
+        {
+          "id": "python-intern-5-a",
+          "label": "Перебирает значения 1, 2 и 3"
+        },
+        {
+          "id": "python-intern-5-b",
+          "label": "Повторяет цикл бесконечно"
+        },
+        {
+          "id": "python-intern-5-c",
+          "label": "Перебирает значения 0, 1 и 2"
+        }
+      ],
+      "correctOptionId": "python-intern-5-c",
+      "explanation": "range(3) начинается с нуля и не включает верхнюю границу.",
+      "source": "https://docs.python.org/3/library/stdtypes.html#range"
+    },
+    {
+      "id": "python-intern-6",
+      "grade": "intern",
+      "skillId": "python",
+      "prompt": "Какой результат у выражения 'ab' * 2?",
+      "options": [
+        {
+          "id": "python-intern-6-a",
+          "label": "'ab2'"
+        },
+        {
+          "id": "python-intern-6-b",
+          "label": "Ошибка типа"
+        },
+        {
+          "id": "python-intern-6-c",
+          "label": "'abab'"
+        }
+      ],
+      "correctOptionId": "python-intern-6-c",
+      "explanation": "Умножение строки на целое число повторяет её.",
+      "source": "https://docs.python.org/3/library/stdtypes.html#common-sequence-operations"
+    },
+    {
+      "id": "python-junior-1",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Что вернёт [x * 2 for x in range(4) if x % 2 == 0]?",
+      "options": [
+        {
+          "id": "python-junior-1-a",
+          "label": "[0, 2, 4, 6]"
+        },
+        {
+          "id": "python-junior-1-b",
+          "label": "[2, 6]"
+        },
+        {
+          "id": "python-junior-1-c",
+          "label": "[0, 4]"
+        }
+      ],
+      "correctOptionId": "python-junior-1-c",
+      "explanation": "Отбираются чётные 0 и 2, затем удваиваются.",
+      "source": "https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions"
+    },
+    {
+      "id": "python-junior-2",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Почему def f(items=[]) — опасное значение по умолчанию?",
+      "options": [
+        {
+          "id": "python-junior-2-a",
+          "label": "Пустой список нельзя использовать как значение по умолчанию у параметра"
+        },
+        {
+          "id": "python-junior-2-b",
+          "label": "Python запрещает значения по умолчанию у списков"
+        },
+        {
+          "id": "python-junior-2-c",
+          "label": "Список создаётся один раз и разделяется между вызовами"
+        }
+      ],
+      "correctOptionId": "python-junior-2-c",
+      "explanation": "Используйте items=None и создавайте список внутри функции.",
+      "source": "https://docs.python.org/3/tutorial/controlflow.html#default-argument-values"
+    },
+    {
+      "id": "python-junior-3",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Как правильно открыть файл, чтобы он закрылся даже при исключении?",
+      "options": [
+        {
+          "id": "python-junior-3-a",
+          "label": "with open(path) as f:"
+        },
+        {
+          "id": "python-junior-3-b",
+          "label": "f = open(path) без закрытия"
+        },
+        {
+          "id": "python-junior-3-c",
+          "label": "open(path).close() перед чтением"
+        }
+      ],
+      "correctOptionId": "python-junior-3-a",
+      "explanation": "Менеджер контекста закрывает файл при выходе из блока.",
+      "source": "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files"
+    },
+    {
+      "id": "python-junior-4",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Что делает df.groupby('city')['amount'].sum() в pandas?",
+      "options": [
+        {
+          "id": "python-junior-4-a",
+          "label": "Сортирует таблицу по городу"
+        },
+        {
+          "id": "python-junior-4-b",
+          "label": "Удаляет повторяющиеся города и сортирует их"
+        },
+        {
+          "id": "python-junior-4-c",
+          "label": "Суммирует amount по каждому городу"
+        }
+      ],
+      "correctOptionId": "python-junior-4-c",
+      "explanation": "groupby разбивает данные на группы, sum агрегирует каждую.",
+      "source": "https://pandas.pydata.org/docs/user_guide/groupby.html"
+    },
+    {
+      "id": "python-junior-5",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Почему векторные операции NumPy обычно быстрее цикла for на Python?",
+      "options": [
+        {
+          "id": "python-junior-5-a",
+          "label": "NumPy запускает больше потоков, чем есть ядер, и этим обходит интерпретатор"
+        },
+        {
+          "id": "python-junior-5-b",
+          "label": "Вычисления выполняются в скомпилированном коде над целым массивом"
+        },
+        {
+          "id": "python-junior-5-c",
+          "label": "Цикл for в Python запрещён для чисел"
+        }
+      ],
+      "correctOptionId": "python-junior-5-b",
+      "explanation": "Векторизация убирает накладные расходы интерпретатора на каждый элемент.",
+      "source": "https://numpy.org/doc/stable/user/whatisnumpy.html"
+    },
+    {
+      "id": "python-junior-6",
+      "grade": "junior",
+      "skillId": "python",
+      "prompt": "Что выведет a = [1, 2]; b = a; b.append(3); print(a)?",
+      "options": [
+        {
+          "id": "python-junior-6-a",
+          "label": "[1, 2, 3]"
+        },
+        {
+          "id": "python-junior-6-b",
+          "label": "[1, 2]"
+        },
+        {
+          "id": "python-junior-6-c",
+          "label": "[3]"
+        }
+      ],
+      "correctOptionId": "python-junior-6-a",
+      "explanation": "b ссылается на тот же список; для копии нужен a.copy() или list(a).",
+      "source": "https://docs.python.org/3/library/copy.html"
+    },
+    {
+      "id": "python-middle-1",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Что такое генератор в Python?",
+      "options": [
+        {
+          "id": "python-middle-1-a",
+          "label": "Функция, которая создаёт случайные числа по заданному распределению"
+        },
+        {
+          "id": "python-middle-1-b",
+          "label": "Функция с yield, которая выдаёт значения по требованию, не храня все в памяти"
+        },
+        {
+          "id": "python-middle-1-c",
+          "label": "Класс, который нельзя вызвать"
+        }
+      ],
+      "correctOptionId": "python-middle-1-b",
+      "explanation": "Генераторы ленивы и подходят для потоковой обработки больших данных.",
+      "source": "https://docs.python.org/3/howto/functional.html#generators"
+    },
+    {
+      "id": "python-middle-2",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Как GIL влияет на многопоточный Python-код, нагружающий процессор?",
+      "options": [
+        {
+          "id": "python-middle-2-a",
+          "label": "GIL ускоряет вычисления в потоках"
+        },
+        {
+          "id": "python-middle-2-b",
+          "label": "Потоки CPython не выполняют байт-код параллельно; для CPU-задач подходят процессы"
+        },
+        {
+          "id": "python-middle-2-c",
+          "label": "GIL запрещает создавать больше одного потока в процессе Python и выдаёт ошибку"
+        }
+      ],
+      "correctOptionId": "python-middle-2-b",
+      "explanation": "Для ввода-вывода потоки полезны, для вычислений — multiprocessing или нативные библиотеки.",
+      "source": "https://docs.python.org/3/glossary.html#term-global-interpreter-lock"
+    },
+    {
+      "id": "python-middle-3",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Почему df[df.x > 0]['y'] = 1 в pandas может не изменить df?",
+      "options": [
+        {
+          "id": "python-middle-3-a",
+          "label": "Pandas не поддерживает присваивание значений по условию, это возможно только в NumPy"
+        },
+        {
+          "id": "python-middle-3-b",
+          "label": "Это цепочечная индексация: присваивание может уйти во временную копию"
+        },
+        {
+          "id": "python-middle-3-c",
+          "label": "Условие x > 0 всегда ложно"
+        }
+      ],
+      "correctOptionId": "python-middle-3-b",
+      "explanation": "Используйте df.loc[df.x > 0, 'y'] = 1.",
+      "source": "https://pandas.pydata.org/docs/user_guide/indexing.html#returning-a-view-versus-a-copy"
+    },
+    {
+      "id": "python-middle-4",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Что делает декоратор functools.lru_cache?",
+      "options": [
+        {
+          "id": "python-middle-4-a",
+          "label": "Запоминает результаты функции для повторяющихся аргументов"
+        },
+        {
+          "id": "python-middle-4-b",
+          "label": "Ограничивает время выполнения функции заданным числом секунд"
+        },
+        {
+          "id": "python-middle-4-c",
+          "label": "Делает функцию асинхронной"
+        }
+      ],
+      "correctOptionId": "python-middle-4-a",
+      "explanation": "Кэш полезен для чистых функций с хешируемыми аргументами.",
+      "source": "https://docs.python.org/3/library/functools.html#functools.lru_cache"
+    },
+    {
+      "id": "python-middle-5",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Зачем фиксировать версии зависимостей проекта в lock-файле?",
+      "options": [
+        {
+          "id": "python-middle-5-a",
+          "label": "Чтобы пакеты всегда устанавливались без доступа к интернету"
+        },
+        {
+          "id": "python-middle-5-b",
+          "label": "Чтобы запретить обновления Python"
+        },
+        {
+          "id": "python-middle-5-c",
+          "label": "Чтобы окружение воспроизводилось одинаково на всех машинах"
+        }
+      ],
+      "correctOptionId": "python-middle-5-c",
+      "explanation": "Lock-файл фиксирует точные версии всех транзитивных зависимостей.",
+      "source": "https://packaging.python.org/en/latest/tutorials/managing-dependencies/"
+    },
+    {
+      "id": "python-middle-6",
+      "grade": "middle",
+      "skillId": "python",
+      "prompt": "Чем аннотации типов полезны в Python-проекте?",
+      "options": [
+        {
+          "id": "python-middle-6-a",
+          "label": "Ускоряют выполнение в разы"
+        },
+        {
+          "id": "python-middle-6-b",
+          "label": "Позволяют статически проверять код (mypy, pyright) и документируют интерфейсы"
+        },
+        {
+          "id": "python-middle-6-c",
+          "label": "Проверяют типы аргументов во время выполнения и запрещают неверные значения"
+        }
+      ],
+      "correctOptionId": "python-middle-6-b",
+      "explanation": "Интерпретатор аннотации не проверяет; это делают отдельные анализаторы.",
+      "source": "https://docs.python.org/3/library/typing.html"
+    },
+    {
+      "id": "python-senior-1",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Как ускорить обработку таблицы на 50 млн строк, которая не помещается в память pandas?",
+      "options": [
+        {
+          "id": "python-senior-1-a",
+          "label": "Увеличить количество потоков Python, чтобы pandas прочитал всю таблицу в память параллельно"
+        },
+        {
+          "id": "python-senior-1-b",
+          "label": "Обрабатывать частями или использовать колоночный движок (Polars, DuckDB) с ленивыми вычислениями"
+        },
+        {
+          "id": "python-senior-1-c",
+          "label": "Перевести все столбцы в строки"
+        }
+      ],
+      "correctOptionId": "python-senior-1-b",
+      "explanation": "Чтение частями и колоночные движки снижают потребление памяти и используют все ядра.",
+      "source": "https://docs.pola.rs/user-guide/concepts/lazy-api/"
+    },
+    {
+      "id": "python-senior-2",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Когда asyncio даёт выигрыш?",
+      "options": [
+        {
+          "id": "python-senior-2-a",
+          "label": "При тяжёлых вычислениях на процессоре в одном потоке"
+        },
+        {
+          "id": "python-senior-2-b",
+          "label": "Только при работе с файлами на диске"
+        },
+        {
+          "id": "python-senior-2-c",
+          "label": "При большом числе одновременных операций ввода-вывода"
+        }
+      ],
+      "correctOptionId": "python-senior-2-c",
+      "explanation": "Асинхронность переключает задачи на время ожидания сети; вычисления она не распараллеливает.",
+      "source": "https://docs.python.org/3/library/asyncio.html"
+    },
+    {
+      "id": "python-senior-3",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Как найти, какая функция тратит больше всего времени?",
+      "options": [
+        {
+          "id": "python-senior-3-a",
+          "label": "Добавить print с временем в каждую строку кода"
+        },
+        {
+          "id": "python-senior-3-b",
+          "label": "Профилировать код, например cProfile или py-spy"
+        },
+        {
+          "id": "python-senior-3-c",
+          "label": "Переписать всё на C заранее"
+        }
+      ],
+      "correctOptionId": "python-senior-3-b",
+      "explanation": "Профилировщик показывает реальные горячие точки, оптимизировать надо их.",
+      "source": "https://docs.python.org/3/library/profile.html"
+    },
+    {
+      "id": "python-senior-4",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Почему pickle опасно использовать для данных из недоверенного источника?",
+      "options": [
+        {
+          "id": "python-senior-4-a",
+          "label": "Pickle теряет точность чисел с плавающей точкой при сохранении"
+        },
+        {
+          "id": "python-senior-4-b",
+          "label": "Pickle не поддерживает списки"
+        },
+        {
+          "id": "python-senior-4-c",
+          "label": "Распаковка pickle может выполнить произвольный код"
+        }
+      ],
+      "correctOptionId": "python-senior-4-c",
+      "explanation": "Для обмена данными используйте безопасные форматы: JSON, Parquet, Arrow.",
+      "source": "https://docs.python.org/3/library/pickle.html"
+    },
+    {
+      "id": "python-senior-5",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Как сделать эксперимент в ноутбуке воспроизводимым?",
+      "options": [
+        {
+          "id": "python-senior-5-a",
+          "label": "Запускать ячейки в произвольном порядке"
+        },
+        {
+          "id": "python-senior-5-b",
+          "label": "Зафиксировать версии пакетов, сиды генераторов и данные, вынести код в модули"
+        },
+        {
+          "id": "python-senior-5-c",
+          "label": "Хранить результаты только в выводе ячеек и перезапускать ноутбук целиком"
+        }
+      ],
+      "correctOptionId": "python-senior-5-b",
+      "explanation": "Порядок ячеек и скрытое состояние ноутбука — частая причина невоспроизводимости.",
+      "source": "https://numpy.org/doc/stable/reference/random/generator.html"
+    },
+    {
+      "id": "python-senior-6",
+      "grade": "senior",
+      "skillId": "python",
+      "prompt": "Чем dataclass отличается от обычного класса?",
+      "options": [
+        {
+          "id": "python-senior-6-a",
+          "label": "Запрещает изменять поля после создания и наследование классов"
+        },
+        {
+          "id": "python-senior-6-b",
+          "label": "Автоматически создаёт __init__, __repr__ и сравнение по полям"
+        },
+        {
+          "id": "python-senior-6-c",
+          "label": "Работает только с числами"
+        }
+      ],
+      "correctOptionId": "python-senior-6-b",
+      "explanation": "Dataclass убирает шаблонный код для классов-контейнеров данных.",
+      "source": "https://docs.python.org/3/library/dataclasses.html"
+    },
+    {
+      "id": "python-lead-1",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Как организовать код команды аналитиков, чтобы модели можно было переиспользовать?",
+      "options": [
+        {
+          "id": "python-lead-1-a",
+          "label": "Общие пакеты с тестами, ревью и CI вместо копирования ноутбуков"
+        },
+        {
+          "id": "python-lead-1-b",
+          "label": "Каждому аналитику держать свою копию кода и обмениваться ноутбуками"
+        },
+        {
+          "id": "python-lead-1-c",
+          "label": "Хранить код только в ноутбуках без версий"
+        }
+      ],
+      "correctOptionId": "python-lead-1-a",
+      "explanation": "Пакеты с тестами и версиями делают код поддерживаемым и переиспользуемым.",
+      "source": "https://packaging.python.org/en/latest/tutorials/packaging-projects/"
+    },
+    {
+      "id": "python-lead-2",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Как снижать риски уязвимых зависимостей в Python-проектах?",
+      "options": [
+        {
+          "id": "python-lead-2-a",
+          "label": "Никогда не обновлять пакеты"
+        },
+        {
+          "id": "python-lead-2-b",
+          "label": "Регулярно сканировать зависимости и обновлять их по процессу"
+        },
+        {
+          "id": "python-lead-2-c",
+          "label": "Устанавливать пакеты из любых доступных зеркал, если основное недоступно"
+        }
+      ],
+      "correctOptionId": "python-lead-2-b",
+      "explanation": "pip-audit и автоматические обновления находят известные уязвимости.",
+      "source": "https://pypi.org/project/pip-audit/"
+    },
+    {
+      "id": "python-lead-3",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Какие стандарты кода стоит закрепить автоматически?",
+      "options": [
+        {
+          "id": "python-lead-3-a",
+          "label": "Только устные договорённости"
+        },
+        {
+          "id": "python-lead-3-b",
+          "label": "Разные правила для каждого разработчика по его предпочтениям"
+        },
+        {
+          "id": "python-lead-3-c",
+          "label": "Форматирование, линтер и проверку типов в CI"
+        }
+      ],
+      "correctOptionId": "python-lead-3-c",
+      "explanation": "Автоматические проверки убирают споры о стиле из ревью.",
+      "source": "https://docs.astral.sh/ruff/"
+    },
+    {
+      "id": "python-lead-4",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Модель обучается 6 часов, и команда ждёт. Что предложить в первую очередь?",
+      "options": [
+        {
+          "id": "python-lead-4-a",
+          "label": "Профилировать конвейер, кэшировать признаки и проверять идеи на подвыборках"
+        },
+        {
+          "id": "python-lead-4-b",
+          "label": "Купить вдвое больше серверов для обучения, не выясняя, где именно тратится время"
+        },
+        {
+          "id": "python-lead-4-c",
+          "label": "Обучать реже, чем раз в квартал"
+        }
+      ],
+      "correctOptionId": "python-lead-4-a",
+      "explanation": "Измерение узких мест часто даёт кратный выигрыш без новых затрат.",
+      "source": "https://docs.python.org/3/library/profile.html"
+    },
+    {
+      "id": "python-lead-5",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Как переносить код из исследования в продакшен?",
+      "options": [
+        {
+          "id": "python-lead-5-a",
+          "label": "Выделить чистые функции, покрыть тестами и запускать в контролируемом окружении"
+        },
+        {
+          "id": "python-lead-5-b",
+          "label": "Запускать тот же ноутбук на продакшен-сервере вручную по расписанию без изменений"
+        },
+        {
+          "id": "python-lead-5-c",
+          "label": "Копировать код в продакшен без ревью"
+        }
+      ],
+      "correctOptionId": "python-lead-5-a",
+      "explanation": "Повторяемый запуск и тесты нужны, чтобы результаты не расходились с исследованием.",
+      "source": "https://ml-ops.org/content/mlops-principles"
+    },
+    {
+      "id": "python-lead-6",
+      "grade": "lead",
+      "skillId": "python",
+      "prompt": "Как оценить, стоит ли переписывать медленный модуль на другом языке?",
+      "options": [
+        {
+          "id": "python-lead-6-a",
+          "label": "Переписывать на другом языке всё, что работает дольше секунды"
+        },
+        {
+          "id": "python-lead-6-b",
+          "label": "Никогда не менять язык"
+        },
+        {
+          "id": "python-lead-6-c",
+          "label": "Сравнить измеренный выигрыш с затратами на поддержку двух языков"
+        }
+      ],
+      "correctOptionId": "python-lead-6-c",
+      "explanation": "Решение принимается по данным профилирования и стоимости владения.",
+      "source": "https://docs.python.org/3/extending/extending.html"
+    },
+    {
+      "id": "machine_learning-intern-1",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Чем обучение с учителем отличается от обучения без учителя?",
+      "options": [
+        {
+          "id": "machine_learning-intern-1-a",
+          "label": "При обучении с учителем у примеров есть правильные ответы (метки)"
+        },
+        {
+          "id": "machine_learning-intern-1-b",
+          "label": "При обучении без учителя у каждого примера есть правильный ответ (метка)"
+        },
+        {
+          "id": "machine_learning-intern-1-c",
+          "label": "При обучении с учителем данные не нужны"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-1-a",
+      "explanation": "Кластеризация — пример обучения без учителя: меток нет.",
+      "source": "https://scikit-learn.org/stable/supervised_learning.html"
+    },
+    {
+      "id": "machine_learning-intern-2",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Какая задача является задачей классификации?",
+      "options": [
+        {
+          "id": "machine_learning-intern-2-a",
+          "label": "Предсказать цену квартиры в рублях"
+        },
+        {
+          "id": "machine_learning-intern-2-b",
+          "label": "Разбить клиентов на группы без меток"
+        },
+        {
+          "id": "machine_learning-intern-2-c",
+          "label": "Определить, спам письмо или нет"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-2-c",
+      "explanation": "Классификация предсказывает категорию, регрессия — число.",
+      "source": "https://scikit-learn.org/stable/supervised_learning.html"
+    },
+    {
+      "id": "machine_learning-intern-3",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Зачем делить данные на обучающую и тестовую выборки?",
+      "options": [
+        {
+          "id": "machine_learning-intern-3-a",
+          "label": "Чтобы модель обучалась быстрее на меньшем объёме данных без потерь"
+        },
+        {
+          "id": "machine_learning-intern-3-b",
+          "label": "Чтобы увеличить объём данных"
+        },
+        {
+          "id": "machine_learning-intern-3-c",
+          "label": "Чтобы оценить качество модели на данных, которые она не видела"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-3-c",
+      "explanation": "Оценка на обучающих данных завышает качество.",
+      "source": "https://scikit-learn.org/stable/modules/cross_validation.html"
+    },
+    {
+      "id": "machine_learning-intern-4",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Что такое признак (feature)?",
+      "options": [
+        {
+          "id": "machine_learning-intern-4-a",
+          "label": "Правильный ответ, который модель должна предсказать для объекта"
+        },
+        {
+          "id": "machine_learning-intern-4-b",
+          "label": "Входная характеристика объекта, по которой модель делает прогноз"
+        },
+        {
+          "id": "machine_learning-intern-4-c",
+          "label": "Ошибка модели"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-4-b",
+      "explanation": "Например, площадь и район квартиры — признаки, цена — целевая переменная.",
+      "source": "https://developers.google.com/machine-learning/crash-course/framing/ml-terminology"
+    },
+    {
+      "id": "machine_learning-intern-5",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Модель на обучающих данных ошибается редко, на новых — часто. Как это называется?",
+      "options": [
+        {
+          "id": "machine_learning-intern-5-a",
+          "label": "Недообучение"
+        },
+        {
+          "id": "machine_learning-intern-5-b",
+          "label": "Нормализация"
+        },
+        {
+          "id": "machine_learning-intern-5-c",
+          "label": "Переобучение"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-5-c",
+      "explanation": "Модель запомнила шум обучающей выборки и плохо обобщает.",
+      "source": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting"
+    },
+    {
+      "id": "machine_learning-intern-6",
+      "grade": "intern",
+      "skillId": "machine_learning",
+      "prompt": "Что делает алгоритм k ближайших соседей при классификации?",
+      "options": [
+        {
+          "id": "machine_learning-intern-6-a",
+          "label": "Строит дерево решений"
+        },
+        {
+          "id": "machine_learning-intern-6-b",
+          "label": "Присваивает класс, который чаще всего встречается среди k ближайших объектов"
+        },
+        {
+          "id": "machine_learning-intern-6-c",
+          "label": "Делит данные на k случайных частей и обучает отдельную модель на каждой из них"
+        }
+      ],
+      "correctOptionId": "machine_learning-intern-6-b",
+      "explanation": "kNN хранит обучающие примеры и голосует соседями.",
+      "source": "https://scikit-learn.org/stable/modules/neighbors.html"
+    },
+    {
+      "id": "machine_learning-junior-1",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Почему accuracy плохо подходит для выявления мошенничества, где 1% транзакций — мошеннические?",
+      "options": [
+        {
+          "id": "machine_learning-junior-1-a",
+          "label": "Модель, всегда отвечающая «не мошенничество», получит 99% accuracy"
+        },
+        {
+          "id": "machine_learning-junior-1-b",
+          "label": "Accuracy нельзя посчитать, если классов только два и они несбалансированы"
+        },
+        {
+          "id": "machine_learning-junior-1-c",
+          "label": "Accuracy всегда меньше полноты"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-1-a",
+      "explanation": "При дисбалансе классов смотрят precision, recall, F1 или PR-AUC.",
+      "source": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+    },
+    {
+      "id": "machine_learning-junior-2",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Чем precision отличается от recall?",
+      "options": [
+        {
+          "id": "machine_learning-junior-2-a",
+          "label": "Precision — доля верных среди найденных, recall — доля найденных среди всех положительных"
+        },
+        {
+          "id": "machine_learning-junior-2-b",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "machine_learning-junior-2-c",
+          "label": "Precision считается только для регрессии, а recall — только для классификации объектов"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-2-a",
+      "explanation": "Компромисс между ними настраивают порогом классификации.",
+      "source": "https://scikit-learn.org/stable/modules/model_evaluation.html#precision-recall-f-measure-metrics"
+    },
+    {
+      "id": "machine_learning-junior-3",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Зачем масштабировать признаки перед градиентным спуском или kNN?",
+      "options": [
+        {
+          "id": "machine_learning-junior-3-a",
+          "label": "Признаки с большими значениями иначе доминируют в расстояниях и шаге оптимизации"
+        },
+        {
+          "id": "machine_learning-junior-3-b",
+          "label": "Чтобы модель обучалась без данных"
+        },
+        {
+          "id": "machine_learning-junior-3-c",
+          "label": "Масштабирование превращает задачу регрессии в задачу классификации признаков"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-3-a",
+      "explanation": "Деревья решений к масштабу нечувствительны, линейные модели и kNN — чувствительны.",
+      "source": "https://scikit-learn.org/stable/modules/preprocessing.html"
+    },
+    {
+      "id": "machine_learning-junior-4",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Что такое кросс-валидация?",
+      "options": [
+        {
+          "id": "machine_learning-junior-4-a",
+          "label": "Проверка обученной модели на тех же данных, на которых она обучалась, несколько раз"
+        },
+        {
+          "id": "machine_learning-junior-4-b",
+          "label": "Сравнение двух моделей на одном примере"
+        },
+        {
+          "id": "machine_learning-junior-4-c",
+          "label": "Многократное обучение на разных разбиениях данных для более надёжной оценки"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-4-c",
+      "explanation": "k-fold оценивает качество как среднее по k разбиениям.",
+      "source": "https://scikit-learn.org/stable/modules/cross_validation.html"
+    },
+    {
+      "id": "machine_learning-junior-5",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Как закодировать категориальный признак «город» для линейной модели?",
+      "options": [
+        {
+          "id": "machine_learning-junior-5-a",
+          "label": "Присвоить городам номера по алфавиту и использовать как число"
+        },
+        {
+          "id": "machine_learning-junior-5-b",
+          "label": "Удалить признак"
+        },
+        {
+          "id": "machine_learning-junior-5-c",
+          "label": "One-hot кодированием"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-5-c",
+      "explanation": "Номера задали бы ложный порядок и расстояния между городами.",
+      "source": "https://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features"
+    },
+    {
+      "id": "machine_learning-junior-6",
+      "grade": "junior",
+      "skillId": "machine_learning",
+      "prompt": "Что такое утечка целевой переменной (target leakage)?",
+      "options": [
+        {
+          "id": "machine_learning-junior-6-a",
+          "label": "Потеря части обучающих данных при загрузке из хранилища"
+        },
+        {
+          "id": "machine_learning-junior-6-b",
+          "label": "Слишком маленький шаг обучения"
+        },
+        {
+          "id": "machine_learning-junior-6-c",
+          "label": "Признак содержит информацию, недоступную в момент прогноза"
+        }
+      ],
+      "correctOptionId": "machine_learning-junior-6-c",
+      "explanation": "Утечка даёт отличные метрики на валидации и провал в продакшене.",
+      "source": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    },
+    {
+      "id": "machine_learning-middle-1",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Почему градиентный бустинг часто выигрывает на табличных данных?",
+      "options": [
+        {
+          "id": "machine_learning-middle-1-a",
+          "label": "Последовательно исправляет ошибки предыдущих деревьев и хорошо работает с разнородными признаками"
+        },
+        {
+          "id": "machine_learning-middle-1-b",
+          "label": "Он не требует подбора гиперпараметров и одинаково хорошо работает на любых данных без какой-либо настройки"
+        },
+        {
+          "id": "machine_learning-middle-1-c",
+          "label": "Он всегда обучается быстрее линейной регрессии"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-1-a",
+      "explanation": "Бустинг строит ансамбль деревьев, каждое из которых учится на остатках.",
+      "source": "https://scikit-learn.org/stable/modules/ensemble.html#gradient-boosted-trees"
+    },
+    {
+      "id": "machine_learning-middle-2",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Что делает L2-регуляризация в линейной модели?",
+      "options": [
+        {
+          "id": "machine_learning-middle-2-a",
+          "label": "Штрафует большие веса и уменьшает переобучение"
+        },
+        {
+          "id": "machine_learning-middle-2-b",
+          "label": "Обнуляет все веса, кроме самого большого"
+        },
+        {
+          "id": "machine_learning-middle-2-c",
+          "label": "Увеличивает число признаков"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-2-a",
+      "explanation": "L1 может занулять веса и отбирать признаки, L2 их сжимает.",
+      "source": "https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification"
+    },
+    {
+      "id": "machine_learning-middle-3",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Как валидировать модель прогноза спроса по времени?",
+      "options": [
+        {
+          "id": "machine_learning-middle-3-a",
+          "label": "Случайно перемешать все даты перед разбиением на выборки"
+        },
+        {
+          "id": "machine_learning-middle-3-b",
+          "label": "Обучать на прошлом и проверять на более позднем периоде"
+        },
+        {
+          "id": "machine_learning-middle-3-c",
+          "label": "Проверять на тех же датах, что и обучение"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-3-b",
+      "explanation": "Перемешивание по времени даёт утечку будущего в обучение.",
+      "source": "https://scikit-learn.org/stable/modules/cross_validation.html#time-series-split"
+    },
+    {
+      "id": "machine_learning-middle-4",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Что показывает ROC-AUC?",
+      "options": [
+        {
+          "id": "machine_learning-middle-4-a",
+          "label": "Долю верных ответов модели при пороге классификации 0,5 на всей тестовой выборке данных"
+        },
+        {
+          "id": "machine_learning-middle-4-b",
+          "label": "Среднюю ошибку регрессии"
+        },
+        {
+          "id": "machine_learning-middle-4-c",
+          "label": "Вероятность, что модель оценит случайный положительный пример выше случайного отрицательного"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-4-c",
+      "explanation": "ROC-AUC не зависит от порога и баланса классов, но при сильном дисбалансе полезна PR-AUC.",
+      "source": "https://scikit-learn.org/stable/modules/model_evaluation.html#roc-metrics"
+    },
+    {
+      "id": "machine_learning-middle-5",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Зачем подбирать гиперпараметры на валидационной выборке, а не на тестовой?",
+      "options": [
+        {
+          "id": "machine_learning-middle-5-a",
+          "label": "Тестовая выборка всегда меньше, и подбор на ней займёт меньше времени"
+        },
+        {
+          "id": "machine_learning-middle-5-b",
+          "label": "Гиперпараметры нельзя подбирать вообще"
+        },
+        {
+          "id": "machine_learning-middle-5-c",
+          "label": "Иначе тестовая оценка станет оптимистично смещённой"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-5-c",
+      "explanation": "Тест используют один раз для финальной оценки.",
+      "source": "https://scikit-learn.org/stable/modules/grid_search.html"
+    },
+    {
+      "id": "machine_learning-middle-6",
+      "grade": "middle",
+      "skillId": "machine_learning",
+      "prompt": "Что такое калибровка вероятностей классификатора?",
+      "options": [
+        {
+          "id": "machine_learning-middle-6-a",
+          "label": "Соответствие предсказанной вероятности реальной частоте событий"
+        },
+        {
+          "id": "machine_learning-middle-6-b",
+          "label": "Приведение всех признаков к одному масштабу перед обучением"
+        },
+        {
+          "id": "machine_learning-middle-6-c",
+          "label": "Удаление выбросов"
+        }
+      ],
+      "correctOptionId": "machine_learning-middle-6-a",
+      "explanation": "Калиброванная модель с прогнозом 0,8 права примерно в 80% случаев.",
+      "source": "https://scikit-learn.org/stable/modules/calibration.html"
+    },
+    {
+      "id": "machine_learning-senior-1",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Качество модели в продакшене падает, хотя код не менялся. Вероятная причина?",
+      "options": [
+        {
+          "id": "machine_learning-senior-1-a",
+          "label": "Сдвиг распределения данных или зависимости признаков от цели"
+        },
+        {
+          "id": "machine_learning-senior-1-b",
+          "label": "Модель устаёт от большого числа запросов"
+        },
+        {
+          "id": "machine_learning-senior-1-c",
+          "label": "Веса обученной модели постепенно меняются сами со временем"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-1-a",
+      "explanation": "Нужен мониторинг входных распределений и качества по свежей разметке.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "machine_learning-senior-2",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Как объяснить вклад признаков в конкретный прогноз сложной модели?",
+      "options": [
+        {
+          "id": "machine_learning-senior-2-a",
+          "label": "Посмотреть на число деревьев и глубину модели"
+        },
+        {
+          "id": "machine_learning-senior-2-b",
+          "label": "Удалить все признаки, кроме одного"
+        },
+        {
+          "id": "machine_learning-senior-2-c",
+          "label": "Методами локальной интерпретации, например SHAP"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-2-c",
+      "explanation": "SHAP распределяет прогноз между признаками на основе значений Шепли.",
+      "source": "https://shap.readthedocs.io/en/latest/"
+    },
+    {
+      "id": "machine_learning-senior-3",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Почему офлайн-метрика выросла, а бизнес-метрика в A/B-тесте нет?",
+      "options": [
+        {
+          "id": "machine_learning-senior-3-a",
+          "label": "A/B-тесты всегда ошибаются, если офлайн-метрика выросла больше чем на процентный пункт"
+        },
+        {
+          "id": "machine_learning-senior-3-b",
+          "label": "Офлайн-метрика плохо отражает цель или данные обучения отличаются от реального использования"
+        },
+        {
+          "id": "machine_learning-senior-3-c",
+          "label": "Бизнес-метрики нельзя измерить"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-3-b",
+      "explanation": "Связь офлайн-метрики с целевой нужно проверять экспериментом.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "machine_learning-senior-4",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Как бороться с дисбалансом классов, не искажая оценку качества?",
+      "options": [
+        {
+          "id": "machine_learning-senior-4-a",
+          "label": "Пересэмплировать весь набор данных до разбиения на обучающую и тестовую выборки"
+        },
+        {
+          "id": "machine_learning-senior-4-b",
+          "label": "Применять взвешивание или пересэмплирование только к обучающей выборке"
+        },
+        {
+          "id": "machine_learning-senior-4-c",
+          "label": "Удалить редкий класс"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-4-b",
+      "explanation": "Изменение тестовой выборки исказит метрики.",
+      "source": "https://imbalanced-learn.org/stable/common_pitfalls.html"
+    },
+    {
+      "id": "machine_learning-senior-5",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Что такое трансферное обучение?",
+      "options": [
+        {
+          "id": "machine_learning-senior-5-a",
+          "label": "Перенос обученной модели с одного сервера на другой без переобучения"
+        },
+        {
+          "id": "machine_learning-senior-5-b",
+          "label": "Обучение без данных"
+        },
+        {
+          "id": "machine_learning-senior-5-c",
+          "label": "Дообучение модели, предобученной на большой задаче, под свою задачу"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-5-c",
+      "explanation": "Это экономит данные и вычисления, особенно для текстов и изображений.",
+      "source": "https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"
+    },
+    {
+      "id": "machine_learning-senior-6",
+      "grade": "senior",
+      "skillId": "machine_learning",
+      "prompt": "Как проверить, что модель не дискриминирует группы пользователей?",
+      "options": [
+        {
+          "id": "machine_learning-senior-6-a",
+          "label": "Сравнить метрики ошибок по группам и проверить признаки-прокси"
+        },
+        {
+          "id": "machine_learning-senior-6-b",
+          "label": "Удалить столбец с полом и возрастом и считать задачу решённой"
+        },
+        {
+          "id": "machine_learning-senior-6-c",
+          "label": "Проверить только общую точность"
+        }
+      ],
+      "correctOptionId": "machine_learning-senior-6-a",
+      "explanation": "Чувствительные признаки могут восстанавливаться через косвенные, поэтому нужен анализ по группам.",
+      "source": "https://fairlearn.org/main/user_guide/assessment/index.html"
+    },
+    {
+      "id": "machine_learning-lead-1",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Как решать, нужна ли машинное обучение для задачи вообще?",
+      "options": [
+        {
+          "id": "machine_learning-lead-1-a",
+          "label": "Использовать нейросеть для любой задачи"
+        },
+        {
+          "id": "machine_learning-lead-1-b",
+          "label": "Отказаться от ML, если данных меньше миллиарда строк, и использовать нейросети иначе"
+        },
+        {
+          "id": "machine_learning-lead-1-c",
+          "label": "Сравнить с простым правилом или эвристикой по метрике и стоимости поддержки"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-1-c",
+      "explanation": "Простая базовая линия задаёт планку, которую модель должна оправданно превзойти.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "machine_learning-lead-2",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Как приоритизировать ML-проекты в команде?",
+      "options": [
+        {
+          "id": "machine_learning-lead-2-a",
+          "label": "По новизне алгоритмов и числу научных публикаций о них за год"
+        },
+        {
+          "id": "machine_learning-lead-2-b",
+          "label": "По желанию самого опытного специалиста"
+        },
+        {
+          "id": "machine_learning-lead-2-c",
+          "label": "По ожидаемому эффекту, наличию данных и стоимости внедрения"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-2-c",
+      "explanation": "Ценность и реализуемость важнее модности метода.",
+      "source": "https://developers.google.com/machine-learning/problem-framing"
+    },
+    {
+      "id": "machine_learning-lead-3",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Как организовать разметку данных для новой задачи?",
+      "options": [
+        {
+          "id": "machine_learning-lead-3-a",
+          "label": "Разметить всё одним человеком без инструкции"
+        },
+        {
+          "id": "machine_learning-lead-3-b",
+          "label": "Чёткая инструкция, проверка согласованности разметчиков и контроль качества выборочно"
+        },
+        {
+          "id": "machine_learning-lead-3-c",
+          "label": "Использовать первые попавшиеся метки из логов, не проверяя их согласованность"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-3-b",
+      "explanation": "Согласованность разметчиков (например, каппа Коэна) показывает качество меток.",
+      "source": "https://en.wikipedia.org/wiki/Cohen%27s_kappa"
+    },
+    {
+      "id": "machine_learning-lead-4",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Какие риски несёт использование больших языковых моделей в продукте?",
+      "options": [
+        {
+          "id": "machine_learning-lead-4-a",
+          "label": "Никаких рисков, если модель популярная"
+        },
+        {
+          "id": "machine_learning-lead-4-b",
+          "label": "Только юридические риски, связанные с авторским правом на обучающие данные модели"
+        },
+        {
+          "id": "machine_learning-lead-4-c",
+          "label": "Галлюцинации, утечки данных и непредсказуемая стоимость; нужны проверки и ограничения"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-4-c",
+      "explanation": "Ответы модели нужно валидировать, а данные — защищать.",
+      "source": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+    },
+    {
+      "id": "machine_learning-lead-5",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Как построить процесс от исследования к внедрению модели?",
+      "options": [
+        {
+          "id": "machine_learning-lead-5-a",
+          "label": "Внедрять модель сразу после лучшего результата на валидационной выборке"
+        },
+        {
+          "id": "machine_learning-lead-5-b",
+          "label": "Передавать ноутбук инженерам без пояснений"
+        },
+        {
+          "id": "machine_learning-lead-5-c",
+          "label": "Общие критерии готовности: офлайн-метрики, A/B-тест, мониторинг и план отката"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-5-c",
+      "explanation": "Критерии готовности снижают риск провальных внедрений.",
+      "source": "https://ml-ops.org/content/mlops-principles"
+    },
+    {
+      "id": "machine_learning-lead-6",
+      "grade": "lead",
+      "skillId": "machine_learning",
+      "prompt": "Как оценивать работу ML-команды?",
+      "options": [
+        {
+          "id": "machine_learning-lead-6-a",
+          "label": "По числу обученных моделей"
+        },
+        {
+          "id": "machine_learning-lead-6-b",
+          "label": "По влиянию на продуктовые метрики и надёжности моделей в продакшене"
+        },
+        {
+          "id": "machine_learning-lead-6-c",
+          "label": "По точности моделей команды на открытых соревновательных датасетах"
+        }
+      ],
+      "correctOptionId": "machine_learning-lead-6-b",
+      "explanation": "Ценность определяется эффектом для пользователей и бизнеса.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "mlops-intern-1",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Что такое MLOps?",
+      "options": [
+        {
+          "id": "mlops-intern-1-a",
+          "label": "Язык программирования для обучения и запуска нейросетей в облаке"
+        },
+        {
+          "id": "mlops-intern-1-b",
+          "label": "Практики надёжной разработки, выкладки и сопровождения ML-моделей"
+        },
+        {
+          "id": "mlops-intern-1-c",
+          "label": "Формат хранения моделей"
+        }
+      ],
+      "correctOptionId": "mlops-intern-1-b",
+      "explanation": "MLOps переносит идеи DevOps на жизненный цикл моделей.",
+      "source": "https://ml-ops.org/"
+    },
+    {
+      "id": "mlops-intern-2",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Зачем версионировать обученную модель?",
+      "options": [
+        {
+          "id": "mlops-intern-2-a",
+          "label": "Чтобы знать, какая модель работает, и иметь возможность вернуться к прежней"
+        },
+        {
+          "id": "mlops-intern-2-b",
+          "label": "Чтобы модель обучалась быстрее при каждом следующем запуске обучения"
+        },
+        {
+          "id": "mlops-intern-2-c",
+          "label": "Версионирование нужно только коду"
+        }
+      ],
+      "correctOptionId": "mlops-intern-2-a",
+      "explanation": "Реестр моделей хранит версии вместе с метриками и данными обучения.",
+      "source": "https://mlflow.org/docs/latest/model-registry.html"
+    },
+    {
+      "id": "mlops-intern-3",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Что такое инференс?",
+      "options": [
+        {
+          "id": "mlops-intern-3-a",
+          "label": "Обучение модели на новых данных при каждом запросе"
+        },
+        {
+          "id": "mlops-intern-3-b",
+          "label": "Получение прогноза обученной моделью на новых данных"
+        },
+        {
+          "id": "mlops-intern-3-c",
+          "label": "Разметка данных"
+        }
+      ],
+      "correctOptionId": "mlops-intern-3-b",
+      "explanation": "Обучение настраивает веса, инференс их использует.",
+      "source": "https://developers.google.com/machine-learning/glossary#inference"
+    },
+    {
+      "id": "mlops-intern-4",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Зачем упаковывать модель в Docker-образ?",
+      "options": [
+        {
+          "id": "mlops-intern-4-a",
+          "label": "Чтобы модель занимала меньше места на диске и не требовала данных для работы"
+        },
+        {
+          "id": "mlops-intern-4-b",
+          "label": "Чтобы модель не требовала данных"
+        },
+        {
+          "id": "mlops-intern-4-c",
+          "label": "Чтобы окружение с зависимостями было одинаковым при разработке и в продакшене"
+        }
+      ],
+      "correctOptionId": "mlops-intern-4-c",
+      "explanation": "Контейнер фиксирует версии библиотек и системные зависимости.",
+      "source": "https://docs.docker.com/get-started/docker-overview/"
+    },
+    {
+      "id": "mlops-intern-5",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Что полезно записывать при каждом обучении модели?",
+      "options": [
+        {
+          "id": "mlops-intern-5-a",
+          "label": "Только итоговую точность модели на тестовой выборке"
+        },
+        {
+          "id": "mlops-intern-5-b",
+          "label": "Параметры, версию данных, метрики и артефакты"
+        },
+        {
+          "id": "mlops-intern-5-c",
+          "label": "Ничего, если модель удачная"
+        }
+      ],
+      "correctOptionId": "mlops-intern-5-b",
+      "explanation": "Трекинг экспериментов позволяет повторить и сравнить запуски.",
+      "source": "https://mlflow.org/docs/latest/tracking.html"
+    },
+    {
+      "id": "mlops-intern-6",
+      "grade": "intern",
+      "skillId": "mlops",
+      "prompt": "Почему модель нужно переобучать?",
+      "options": [
+        {
+          "id": "mlops-intern-6-a",
+          "label": "Данные и поведение пользователей со временем меняются"
+        },
+        {
+          "id": "mlops-intern-6-b",
+          "label": "Веса модели портятся при длительном хранении на диске"
+        },
+        {
+          "id": "mlops-intern-6-c",
+          "label": "Каждый прогноз уменьшает точность"
+        }
+      ],
+      "correctOptionId": "mlops-intern-6-a",
+      "explanation": "Регулярное переобучение поддерживает качество при дрейфе данных.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "mlops-junior-1",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Что хранит хранилище признаков (feature store)?",
+      "options": [
+        {
+          "id": "mlops-junior-1-a",
+          "label": "Только исходные сырые данные без каких-либо преобразований"
+        },
+        {
+          "id": "mlops-junior-1-b",
+          "label": "Согласованные признаки для обучения и онлайн-прогноза"
+        },
+        {
+          "id": "mlops-junior-1-c",
+          "label": "Готовые отчёты для бизнеса"
+        }
+      ],
+      "correctOptionId": "mlops-junior-1-b",
+      "explanation": "Одинаковое вычисление признаков устраняет расхождение между обучением и инференсом.",
+      "source": "https://docs.feast.dev/"
+    },
+    {
+      "id": "mlops-junior-2",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Что такое training–serving skew?",
+      "options": [
+        {
+          "id": "mlops-junior-2-a",
+          "label": "Разница в скорости обучения одной и той же модели на разных видеокартах"
+        },
+        {
+          "id": "mlops-junior-2-b",
+          "label": "Ошибка в разметке данных"
+        },
+        {
+          "id": "mlops-junior-2-c",
+          "label": "Расхождение между тем, как признаки считаются при обучении и в продакшене"
+        }
+      ],
+      "correctOptionId": "mlops-junior-2-c",
+      "explanation": "Причины — разный код подготовки или разные источники данных.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml#training-serving_skew"
+    },
+    {
+      "id": "mlops-junior-3",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Чем пакетный инференс отличается от онлайн-инференса?",
+      "options": [
+        {
+          "id": "mlops-junior-3-a",
+          "label": "Пакетный работает только на GPU, а онлайн — только на процессоре сервера"
+        },
+        {
+          "id": "mlops-junior-3-b",
+          "label": "Пакетный считает прогнозы заранее для множества объектов, онлайн — по запросу"
+        },
+        {
+          "id": "mlops-junior-3-c",
+          "label": "Онлайн-инференс не использует модель"
+        }
+      ],
+      "correctOptionId": "mlops-junior-3-b",
+      "explanation": "Выбор зависит от требований к задержке и свежести.",
+      "source": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+    },
+    {
+      "id": "mlops-junior-4",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Что стоит проверить в CI для ML-проекта, кроме тестов кода?",
+      "options": [
+        {
+          "id": "mlops-junior-4-a",
+          "label": "Только форматирование ноутбуков и порядок импорта библиотек"
+        },
+        {
+          "id": "mlops-junior-4-b",
+          "label": "Ничего, ML нельзя тестировать"
+        },
+        {
+          "id": "mlops-junior-4-c",
+          "label": "Проверку схемы данных и минимальный порог качества модели"
+        }
+      ],
+      "correctOptionId": "mlops-junior-4-c",
+      "explanation": "Тесты данных и порогов качества ловят регрессии до выкладки.",
+      "source": "https://ml-ops.org/content/mlops-principles"
+    },
+    {
+      "id": "mlops-junior-5",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Зачем версионировать данные (например, DVC)?",
+      "options": [
+        {
+          "id": "mlops-junior-5-a",
+          "label": "Чтобы данные лучше сжимались при хранении в репозитории"
+        },
+        {
+          "id": "mlops-junior-5-b",
+          "label": "Чтобы не хранить код"
+        },
+        {
+          "id": "mlops-junior-5-c",
+          "label": "Чтобы воспроизвести обучение на тех же данных"
+        }
+      ],
+      "correctOptionId": "mlops-junior-5-c",
+      "explanation": "Версия данных так же важна для воспроизводимости, как версия кода.",
+      "source": "https://dvc.org/doc/start"
+    },
+    {
+      "id": "mlops-junior-6",
+      "grade": "junior",
+      "skillId": "mlops",
+      "prompt": "Как отдать модель другим сервисам по сети?",
+      "options": [
+        {
+          "id": "mlops-junior-6-a",
+          "label": "Передавать файл модели каждой команде и запускать его у себя"
+        },
+        {
+          "id": "mlops-junior-6-b",
+          "label": "Встроить ноутбук в каждый сервис"
+        },
+        {
+          "id": "mlops-junior-6-c",
+          "label": "Обернуть в HTTP- или gRPC-сервис с описанным контрактом"
+        }
+      ],
+      "correctOptionId": "mlops-junior-6-c",
+      "explanation": "Сервис инференса изолирует модель и её зависимости.",
+      "source": "https://www.tensorflow.org/tfx/guide/serving"
+    },
+    {
+      "id": "mlops-middle-1",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Как безопасно выкатить новую версию модели?",
+      "options": [
+        {
+          "id": "mlops-middle-1-a",
+          "label": "Заменить модель сразу для всех пользователей и смотреть на жалобы"
+        },
+        {
+          "id": "mlops-middle-1-b",
+          "label": "Выкатить без мониторинга"
+        },
+        {
+          "id": "mlops-middle-1-c",
+          "label": "Канареечно или в теневом режиме, сравнивая метрики со старой версией"
+        }
+      ],
+      "correctOptionId": "mlops-middle-1-c",
+      "explanation": "Постепенная выкладка ограничивает ущерб от неудачной версии.",
+      "source": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+    },
+    {
+      "id": "mlops-middle-2",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Что нужно мониторить у модели в продакшене?",
+      "options": [
+        {
+          "id": "mlops-middle-2-a",
+          "label": "Задержку и ошибки, распределения входов, распределение прогнозов и качество по разметке"
+        },
+        {
+          "id": "mlops-middle-2-b",
+          "label": "Только загрузку процессора и памяти серверов инференса, остальное не важно"
+        },
+        {
+          "id": "mlops-middle-2-c",
+          "label": "Только число запросов"
+        }
+      ],
+      "correctOptionId": "mlops-middle-2-a",
+      "explanation": "Модель может работать технически, но давать плохие прогнозы.",
+      "source": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    },
+    {
+      "id": "mlops-middle-3",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Как ускорить инференс нейросети на процессоре без переобучения?",
+      "options": [
+        {
+          "id": "mlops-middle-3-a",
+          "label": "Увеличить число эпох обучения и размер модели, чтобы она быстрее отвечала"
+        },
+        {
+          "id": "mlops-middle-3-b",
+          "label": "Квантизация, оптимизированный рантайм (например, ONNX Runtime) и батчинг"
+        },
+        {
+          "id": "mlops-middle-3-c",
+          "label": "Добавить больше слоёв"
+        }
+      ],
+      "correctOptionId": "mlops-middle-3-b",
+      "explanation": "Квантизация уменьшает точность весов и ускоряет вычисления при небольшой потере качества.",
+      "source": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"
+    },
+    {
+      "id": "mlops-middle-4",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Что такое конвейер непрерывного обучения?",
+      "options": [
+        {
+          "id": "mlops-middle-4-a",
+          "label": "Автоматическое переобучение и проверка модели при появлении новых данных"
+        },
+        {
+          "id": "mlops-middle-4-b",
+          "label": "Обучение без остановки на одном сервере"
+        },
+        {
+          "id": "mlops-middle-4-c",
+          "label": "Ручной запуск ноутбука с обучением раз в месяц по напоминанию"
+        }
+      ],
+      "correctOptionId": "mlops-middle-4-a",
+      "explanation": "Конвейер включает валидацию данных, обучение, оценку и регистрацию модели.",
+      "source": "https://www.tensorflow.org/tfx/guide"
+    },
+    {
+      "id": "mlops-middle-5",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Чем полезен реестр моделей?",
+      "options": [
+        {
+          "id": "mlops-middle-5-a",
+          "label": "Хранит версии, статусы (staging, production) и связанные метрики"
+        },
+        {
+          "id": "mlops-middle-5-b",
+          "label": "Заменяет систему контроля версий кода и данных для всей команды"
+        },
+        {
+          "id": "mlops-middle-5-c",
+          "label": "Ускоряет обучение"
+        }
+      ],
+      "correctOptionId": "mlops-middle-5-a",
+      "explanation": "Реестр делает переходы версий прозрачными и откатываемыми.",
+      "source": "https://mlflow.org/docs/latest/model-registry.html"
+    },
+    {
+      "id": "mlops-middle-6",
+      "grade": "middle",
+      "skillId": "mlops",
+      "prompt": "Как обеспечить воспроизводимость обучения на GPU?",
+      "options": [
+        {
+          "id": "mlops-middle-6-a",
+          "label": "Обучать модель на нескольких разных GPU одновременно и усреднять полученные веса"
+        },
+        {
+          "id": "mlops-middle-6-b",
+          "label": "Фиксировать сиды, версии библиотек и включать детерминированные алгоритмы, где возможно"
+        },
+        {
+          "id": "mlops-middle-6-c",
+          "label": "Не сохранять конфигурацию"
+        }
+      ],
+      "correctOptionId": "mlops-middle-6-b",
+      "explanation": "Некоторые операции на GPU недетерминированы без специальных настроек.",
+      "source": "https://pytorch.org/docs/stable/notes/randomness.html"
+    },
+    {
+      "id": "mlops-senior-1",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Как построить платформу инференса для десятков моделей?",
+      "options": [
+        {
+          "id": "mlops-senior-1-a",
+          "label": "Единый слой развёртывания, автомасштабирование и стандартный мониторинг"
+        },
+        {
+          "id": "mlops-senior-1-b",
+          "label": "Отдельный ручной сервер на каждую модель"
+        },
+        {
+          "id": "mlops-senior-1-c",
+          "label": "Один процесс со всеми моделями без изоляции и ограничений ресурсов"
+        }
+      ],
+      "correctOptionId": "mlops-senior-1-a",
+      "explanation": "Общая платформа снижает стоимость и упрощает эксплуатацию.",
+      "source": "https://kserve.github.io/website/"
+    },
+    {
+      "id": "mlops-senior-2",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Как выбирать между GPU и CPU для инференса?",
+      "options": [
+        {
+          "id": "mlops-senior-2-a",
+          "label": "По требованиям к задержке и пропускной способности с учётом стоимости"
+        },
+        {
+          "id": "mlops-senior-2-b",
+          "label": "Всегда использовать GPU, потому что он быстрее при любой нагрузке"
+        },
+        {
+          "id": "mlops-senior-2-c",
+          "label": "Всегда использовать CPU"
+        }
+      ],
+      "correctOptionId": "mlops-senior-2-a",
+      "explanation": "Для небольших моделей CPU может быть дешевле; для больших — GPU с батчингом.",
+      "source": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html"
+    },
+    {
+      "id": "mlops-senior-3",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Как защитить ML-систему от отравления обучающих данных?",
+      "options": [
+        {
+          "id": "mlops-senior-3-a",
+          "label": "Контроль источников данных, валидация и мониторинг аномалий в разметке"
+        },
+        {
+          "id": "mlops-senior-3-b",
+          "label": "Обучать на любых доступных данных из интернета для разнообразия"
+        },
+        {
+          "id": "mlops-senior-3-c",
+          "label": "Отключить переобучение навсегда"
+        }
+      ],
+      "correctOptionId": "mlops-senior-3-a",
+      "explanation": "Отравление данных — признанный риск ML-систем.",
+      "source": "https://www.nist.gov/itl/ai-risk-management-framework"
+    },
+    {
+      "id": "mlops-senior-4",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Что делать при обнаружении дрейфа данных?",
+      "options": [
+        {
+          "id": "mlops-senior-4-a",
+          "label": "Оценить влияние на качество, при необходимости переобучить и проверить причину изменения"
+        },
+        {
+          "id": "mlops-senior-4-b",
+          "label": "Немедленно отключить модель, не анализируя влияние дрейфа на качество прогнозов"
+        },
+        {
+          "id": "mlops-senior-4-c",
+          "label": "Игнорировать, если сервис отвечает"
+        }
+      ],
+      "correctOptionId": "mlops-senior-4-a",
+      "explanation": "Не всякий дрейф ухудшает качество; решение принимают по метрикам.",
+      "source": "https://docs.evidentlyai.com/"
+    },
+    {
+      "id": "mlops-senior-5",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Как организовать A/B-тест моделей в продакшене?",
+      "options": [
+        {
+          "id": "mlops-senior-5-a",
+          "label": "Чередовать модели по дням недели для всех пользователей сразу"
+        },
+        {
+          "id": "mlops-senior-5-b",
+          "label": "Показывать каждому пользователю обе модели"
+        },
+        {
+          "id": "mlops-senior-5-c",
+          "label": "Разделять трафик по пользователям и сравнивать бизнес-метрики статистически"
+        }
+      ],
+      "correctOptionId": "mlops-senior-5-c",
+      "explanation": "Рандомизация по пользователям исключает перекрёстное влияние.",
+      "source": "https://experimentguide.com/"
+    },
+    {
+      "id": "mlops-senior-6",
+      "grade": "senior",
+      "skillId": "mlops",
+      "prompt": "Как ограничить стоимость обучения больших моделей?",
+      "options": [
+        {
+          "id": "mlops-senior-6-a",
+          "label": "Планировать эксперименты, использовать прерываемые инстансы и ранний останов"
+        },
+        {
+          "id": "mlops-senior-6-b",
+          "label": "Обучать все варианты параллельно до конца и выбрать лучший по итоговой метрике"
+        },
+        {
+          "id": "mlops-senior-6-c",
+          "label": "Не следить за затратами"
+        }
+      ],
+      "correctOptionId": "mlops-senior-6-a",
+      "explanation": "Ранний останов и бюджетирование экспериментов экономят вычисления.",
+      "source": "https://docs.ray.io/en/latest/tune/index.html"
+    },
+    {
+      "id": "mlops-lead-1",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Как выстроить ответственность за модели в продакшене?",
+      "options": [
+        {
+          "id": "mlops-lead-1-a",
+          "label": "Модели сопровождает тот, кто их обучил, по настроению"
+        },
+        {
+          "id": "mlops-lead-1-b",
+          "label": "Ответственность за модели лежит только на команде DevOps"
+        },
+        {
+          "id": "mlops-lead-1-c",
+          "label": "У каждой модели есть владелец, SLO и процедура реагирования на инциденты"
+        }
+      ],
+      "correctOptionId": "mlops-lead-1-c",
+      "explanation": "Явное владение сокращает время реакции на деградации.",
+      "source": "https://sre.google/sre-book/service-level-objectives/"
+    },
+    {
+      "id": "mlops-lead-2",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Когда строить свою ML-платформу, а когда брать готовую?",
+      "options": [
+        {
+          "id": "mlops-lead-2-a",
+          "label": "Всегда строить свою платформу, чтобы полностью не зависеть от внешних поставщиков"
+        },
+        {
+          "id": "mlops-lead-2-b",
+          "label": "Строить, если готовые решения не закрывают ключевые требования и есть команда сопровождения"
+        },
+        {
+          "id": "mlops-lead-2-c",
+          "label": "Всегда брать самую дорогую готовую"
+        }
+      ],
+      "correctOptionId": "mlops-lead-2-b",
+      "explanation": "Своя платформа требует постоянных вложений в поддержку.",
+      "source": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+    },
+    {
+      "id": "mlops-lead-3",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Какие требования регуляторов важны для ML в России при работе с персональными данными?",
+      "options": [
+        {
+          "id": "mlops-lead-3-a",
+          "label": "Никаких: обучение модели на данных клиентов не является обработкой персональных данных"
+        },
+        {
+          "id": "mlops-lead-3-b",
+          "label": "Только требования к оформлению отчётов"
+        },
+        {
+          "id": "mlops-lead-3-c",
+          "label": "Законная основа и минимизация обработки ПД, их защита и локализация по закону 152-ФЗ"
+        }
+      ],
+      "correctOptionId": "mlops-lead-3-c",
+      "explanation": "Обучение на персональных данных — их обработка, к ней применяется 152-ФЗ.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "mlops-lead-4",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Как документировать модель для пользователей и аудита?",
+      "options": [
+        {
+          "id": "mlops-lead-4-a",
+          "label": "Только номер версии"
+        },
+        {
+          "id": "mlops-lead-4-b",
+          "label": "Ссылка на ноутбук с обучением и номер версии модели"
+        },
+        {
+          "id": "mlops-lead-4-c",
+          "label": "Карточка модели: назначение, данные, метрики, ограничения и риски"
+        }
+      ],
+      "correctOptionId": "mlops-lead-4-c",
+      "explanation": "Model cards — распространённая практика прозрачности.",
+      "source": "https://arxiv.org/abs/1810.03993"
+    },
+    {
+      "id": "mlops-lead-5",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Как снизить зависимость от одного поставщика внешних моделей?",
+      "options": [
+        {
+          "id": "mlops-lead-5-a",
+          "label": "Абстракция поверх провайдеров и регулярная проверка альтернатив"
+        },
+        {
+          "id": "mlops-lead-5-b",
+          "label": "Жёстко встроить API одного поставщика во все сервисы ради простоты"
+        },
+        {
+          "id": "mlops-lead-5-c",
+          "label": "Отказаться от внешних моделей навсегда"
+        }
+      ],
+      "correctOptionId": "mlops-lead-5-a",
+      "explanation": "Слой абстракции позволяет менять провайдера при изменении цены или качества.",
+      "source": "https://alistair.cockburn.us/hexagonal-architecture/"
+    },
+    {
+      "id": "mlops-lead-6",
+      "grade": "lead",
+      "skillId": "mlops",
+      "prompt": "Как оценивать зрелость MLOps в компании?",
+      "options": [
+        {
+          "id": "mlops-lead-6-a",
+          "label": "По числу используемых инструментов и размеру крупнейшей модели"
+        },
+        {
+          "id": "mlops-lead-6-b",
+          "label": "По размеру крупнейшей модели"
+        },
+        {
+          "id": "mlops-lead-6-c",
+          "label": "По автоматизации обучения, выкладки, мониторинга и воспроизводимости"
+        }
+      ],
+      "correctOptionId": "mlops-lead-6-c",
+      "explanation": "Уровни зрелости описывают степень автоматизации жизненного цикла.",
+      "source": "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model"
+    },
+    {
+      "id": "database_administration-intern-1",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Зачем нужны резервные копии базы данных?",
+      "options": [
+        {
+          "id": "database_administration-intern-1-a",
+          "label": "Чтобы восстановить данные после сбоя или ошибки"
+        },
+        {
+          "id": "database_administration-intern-1-b",
+          "label": "Чтобы ускорить запросы за счёт копии данных"
+        },
+        {
+          "id": "database_administration-intern-1-c",
+          "label": "Чтобы заменить индексы"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-1-a",
+      "explanation": "Копия полезна, только если восстановление из неё проверено.",
+      "source": "https://www.postgresql.org/docs/current/backup.html"
+    },
+    {
+      "id": "database_administration-intern-2",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Какая утилита PostgreSQL делает логический дамп базы?",
+      "options": [
+        {
+          "id": "database_administration-intern-2-a",
+          "label": "pg_ctl"
+        },
+        {
+          "id": "database_administration-intern-2-b",
+          "label": "pg_dump"
+        },
+        {
+          "id": "database_administration-intern-2-c",
+          "label": "psql --version"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-2-b",
+      "explanation": "pg_dump выгружает схему и данные; pg_ctl управляет сервером.",
+      "source": "https://www.postgresql.org/docs/current/app-pgdump.html"
+    },
+    {
+      "id": "database_administration-intern-3",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Почему приложению не стоит подключаться к базе под суперпользователем?",
+      "options": [
+        {
+          "id": "database_administration-intern-3-a",
+          "label": "Ошибка или взлом приложения дадут полный контроль над сервером базы"
+        },
+        {
+          "id": "database_administration-intern-3-b",
+          "label": "Суперпользователь работает медленнее из-за лишних проверок прав доступа"
+        },
+        {
+          "id": "database_administration-intern-3-c",
+          "label": "Суперпользователю запрещены SELECT"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-3-a",
+      "explanation": "Принцип минимальных привилегий: отдельная роль с нужными правами.",
+      "source": "https://www.postgresql.org/docs/current/user-manag.html"
+    },
+    {
+      "id": "database_administration-intern-4",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Что делает команда GRANT SELECT ON orders TO analyst?",
+      "options": [
+        {
+          "id": "database_administration-intern-4-a",
+          "label": "Удаляет таблицу orders"
+        },
+        {
+          "id": "database_administration-intern-4-b",
+          "label": "Разрешает роли analyst читать таблицу orders"
+        },
+        {
+          "id": "database_administration-intern-4-c",
+          "label": "Делает analyst владельцем таблицы orders"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-4-b",
+      "explanation": "GRANT выдаёт привилегии, REVOKE их отзывает.",
+      "source": "https://www.postgresql.org/docs/current/sql-grant.html"
+    },
+    {
+      "id": "database_administration-intern-5",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Где смотреть ошибки сервера PostgreSQL?",
+      "options": [
+        {
+          "id": "database_administration-intern-5-a",
+          "label": "В таблице pg_tables"
+        },
+        {
+          "id": "database_administration-intern-5-b",
+          "label": "В журнале сервера (log)"
+        },
+        {
+          "id": "database_administration-intern-5-c",
+          "label": "В выводе SELECT 1"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-5-b",
+      "explanation": "Настройки журнала задаются параметрами logging_collector и log_destination.",
+      "source": "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    },
+    {
+      "id": "database_administration-intern-6",
+      "grade": "intern",
+      "skillId": "database_administration",
+      "prompt": "Что такое индекс?",
+      "options": [
+        {
+          "id": "database_administration-intern-6-a",
+          "label": "Копия таблицы для резервирования данных"
+        },
+        {
+          "id": "database_administration-intern-6-b",
+          "label": "Структура данных для быстрого поиска строк"
+        },
+        {
+          "id": "database_administration-intern-6-c",
+          "label": "Ограничение на число строк"
+        }
+      ],
+      "correctOptionId": "database_administration-intern-6-b",
+      "explanation": "Индекс ускоряет чтение, но замедляет запись и занимает место.",
+      "source": "https://www.postgresql.org/docs/current/indexes-intro.html"
+    },
+    {
+      "id": "database_administration-junior-1",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Зачем PostgreSQL нужен VACUUM?",
+      "options": [
+        {
+          "id": "database_administration-junior-1-a",
+          "label": "Освобождает место от мёртвых версий строк и обновляет карту видимости"
+        },
+        {
+          "id": "database_administration-junior-1-b",
+          "label": "Удаляет все данные таблицы и сжимает её файлы на диске до минимума"
+        },
+        {
+          "id": "database_administration-junior-1-c",
+          "label": "Создаёт резервную копию"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-1-a",
+      "explanation": "Из-за MVCC обновления оставляют старые версии строк; autovacuum их убирает.",
+      "source": "https://www.postgresql.org/docs/current/routine-vacuuming.html"
+    },
+    {
+      "id": "database_administration-junior-2",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Что такое WAL?",
+      "options": [
+        {
+          "id": "database_administration-junior-2-a",
+          "label": "Инструмент визуализации планов выполнения запросов в графическом виде"
+        },
+        {
+          "id": "database_administration-junior-2-b",
+          "label": "Формат резервной копии CSV"
+        },
+        {
+          "id": "database_administration-junior-2-c",
+          "label": "Журнал предзаписи изменений для восстановления после сбоя и репликации"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-2-c",
+      "explanation": "Изменения сначала пишутся в WAL, что обеспечивает надёжность.",
+      "source": "https://www.postgresql.org/docs/current/wal-intro.html"
+    },
+    {
+      "id": "database_administration-junior-3",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Что показывает представление pg_stat_activity?",
+      "options": [
+        {
+          "id": "database_administration-junior-3-a",
+          "label": "Размер всех таблиц и индексов базы"
+        },
+        {
+          "id": "database_administration-junior-3-b",
+          "label": "Текущие сеансы и выполняемые запросы"
+        },
+        {
+          "id": "database_administration-junior-3-c",
+          "label": "Историю резервных копий"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-3-b",
+      "explanation": "По нему находят долгие запросы и ожидания блокировок.",
+      "source": "https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW"
+    },
+    {
+      "id": "database_administration-junior-4",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Зачем нужен пул соединений, например PgBouncer?",
+      "options": [
+        {
+          "id": "database_administration-junior-4-a",
+          "label": "Шифрует данные на диске и в резервных копиях базы данных"
+        },
+        {
+          "id": "database_administration-junior-4-b",
+          "label": "Ограничивает число серверных соединений и переиспользует их"
+        },
+        {
+          "id": "database_administration-junior-4-c",
+          "label": "Делает резервные копии"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-4-b",
+      "explanation": "Каждое соединение PostgreSQL — отдельный процесс; тысячи соединений расходуют память.",
+      "source": "https://www.pgbouncer.org/usage.html"
+    },
+    {
+      "id": "database_administration-junior-5",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Как проверить, что резервные копии рабочие?",
+      "options": [
+        {
+          "id": "database_administration-junior-5-a",
+          "label": "Проверять, что файл копии создан и не пустой"
+        },
+        {
+          "id": "database_administration-junior-5-b",
+          "label": "Сравнить размер копии с прошлым днём"
+        },
+        {
+          "id": "database_administration-junior-5-c",
+          "label": "Регулярно восстанавливать их в тестовом окружении"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-5-c",
+      "explanation": "Непроверенная копия может оказаться непригодной в момент аварии.",
+      "source": "https://www.postgresql.org/docs/current/backup.html"
+    },
+    {
+      "id": "database_administration-junior-6",
+      "grade": "junior",
+      "skillId": "database_administration",
+      "prompt": "Что делает ANALYZE?",
+      "options": [
+        {
+          "id": "database_administration-junior-6-a",
+          "label": "Перестраивает все индексы таблицы для ускорения запросов"
+        },
+        {
+          "id": "database_administration-junior-6-b",
+          "label": "Удаляет дубликаты"
+        },
+        {
+          "id": "database_administration-junior-6-c",
+          "label": "Собирает статистику распределения данных для планировщика"
+        }
+      ],
+      "correctOptionId": "database_administration-junior-6-c",
+      "explanation": "Устаревшая статистика ведёт к неудачным планам запросов.",
+      "source": "https://www.postgresql.org/docs/current/sql-analyze.html"
+    },
+    {
+      "id": "database_administration-middle-1",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Чем потоковая физическая репликация отличается от логической?",
+      "options": [
+        {
+          "id": "database_administration-middle-1-a",
+          "label": "Логическая всегда быстрее физической и копирует весь кластер целиком через журналы"
+        },
+        {
+          "id": "database_administration-middle-1-b",
+          "label": "Физическая работает только между разными СУБД"
+        },
+        {
+          "id": "database_administration-middle-1-c",
+          "label": "Физическая копирует весь кластер через WAL, логическая — изменения выбранных таблиц"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-1-c",
+      "explanation": "Логическая репликация позволяет выбирать таблицы и разные версии PostgreSQL.",
+      "source": "https://www.postgresql.org/docs/current/logical-replication.html"
+    },
+    {
+      "id": "database_administration-middle-2",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Что даёт point-in-time recovery?",
+      "options": [
+        {
+          "id": "database_administration-middle-2-a",
+          "label": "Ускорение запросов к прошлым данным за счёт хранения истории строк"
+        },
+        {
+          "id": "database_administration-middle-2-b",
+          "label": "Автоматическое удаление старых строк"
+        },
+        {
+          "id": "database_administration-middle-2-c",
+          "label": "Восстановление базы на произвольный момент по базовой копии и архиву WAL"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-2-c",
+      "explanation": "PITR позволяет откатиться к моменту перед ошибочной операцией.",
+      "source": "https://www.postgresql.org/docs/current/continuous-archiving.html"
+    },
+    {
+      "id": "database_administration-middle-3",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Как создать индекс на нагруженной таблице без блокировки записи?",
+      "options": [
+        {
+          "id": "database_administration-middle-3-a",
+          "label": "CREATE INDEX внутри транзакции"
+        },
+        {
+          "id": "database_administration-middle-3-b",
+          "label": "CREATE INDEX CONCURRENTLY"
+        },
+        {
+          "id": "database_administration-middle-3-c",
+          "label": "VACUUM FULL перед созданием индекса"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-3-b",
+      "explanation": "CONCURRENTLY строит индекс дольше, но не блокирует вставки и обновления.",
+      "source": "https://www.postgresql.org/docs/current/sql-createindex.html#SQL-CREATEINDEX-CONCURRENTLY"
+    },
+    {
+      "id": "database_administration-middle-4",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Что такое раздувание (bloat) таблицы?",
+      "options": [
+        {
+          "id": "database_administration-middle-4-a",
+          "label": "Место, занятое мёртвыми кортежами и неиспользуемым пространством"
+        },
+        {
+          "id": "database_administration-middle-4-b",
+          "label": "Рост числа столбцов"
+        },
+        {
+          "id": "database_administration-middle-4-c",
+          "label": "Избыточное число индексов на одном и том же столбце таблицы"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-4-a",
+      "explanation": "Сильное раздувание лечат настройкой autovacuum или pg_repack.",
+      "source": "https://www.postgresql.org/docs/current/routine-vacuuming.html"
+    },
+    {
+      "id": "database_administration-middle-5",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Почему долгие открытые транзакции вредны?",
+      "options": [
+        {
+          "id": "database_administration-middle-5-a",
+          "label": "Ускоряют работу autovacuum, потому что строки не меняются"
+        },
+        {
+          "id": "database_administration-middle-5-b",
+          "label": "Освобождают память сервера"
+        },
+        {
+          "id": "database_administration-middle-5-c",
+          "label": "Мешают удалять старые версии строк и держат блокировки"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-5-c",
+      "explanation": "Долгая транзакция удерживает снимок, и VACUUM не может очистить строки.",
+      "source": "https://www.postgresql.org/docs/current/routine-vacuuming.html"
+    },
+    {
+      "id": "database_administration-middle-6",
+      "grade": "middle",
+      "skillId": "database_administration",
+      "prompt": "Какой параметр задаёт память для кэша страниц внутри PostgreSQL?",
+      "options": [
+        {
+          "id": "database_administration-middle-6-a",
+          "label": "shared_buffers"
+        },
+        {
+          "id": "database_administration-middle-6-b",
+          "label": "work_mem"
+        },
+        {
+          "id": "database_administration-middle-6-c",
+          "label": "max_connections"
+        }
+      ],
+      "correctOptionId": "database_administration-middle-6-a",
+      "explanation": "work_mem — память на сортировку для каждой операции, shared_buffers — общий кэш.",
+      "source": "https://www.postgresql.org/docs/current/runtime-config-resource.html"
+    },
+    {
+      "id": "database_administration-senior-1",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Что такое wraparound идентификаторов транзакций и как его предотвратить?",
+      "options": [
+        {
+          "id": "database_administration-senior-1-a",
+          "label": "Переполнение диска журналами WAL; предотвращается их регулярным ручным удалением"
+        },
+        {
+          "id": "database_administration-senior-1-b",
+          "label": "Переполнение 32-битного счётчика XID; предотвращается регулярной заморозкой строк VACUUM"
+        },
+        {
+          "id": "database_administration-senior-1-c",
+          "label": "Сбой репликации; решается перезапуском реплики"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-1-b",
+      "explanation": "Если не замораживать старые строки, база остановит запись для защиты данных.",
+      "source": "https://www.postgresql.org/docs/current/routine-vacuuming.html#VACUUM-FOR-WRAPAROUND"
+    },
+    {
+      "id": "database_administration-senior-2",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Как организовать автоматическое переключение на реплику при отказе основного узла?",
+      "options": [
+        {
+          "id": "database_administration-senior-2-a",
+          "label": "Через менеджер кластера, например Patroni с распределённым консенсусом"
+        },
+        {
+          "id": "database_administration-senior-2-b",
+          "label": "Вручную переключать DNS при каждом сбое без проверок"
+        },
+        {
+          "id": "database_administration-senior-2-c",
+          "label": "Запускать два основных узла с записью одновременно и синхронизировать их"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-2-a",
+      "explanation": "Консенсус предотвращает split-brain — два основных узла.",
+      "source": "https://patroni.readthedocs.io/en/latest/"
+    },
+    {
+      "id": "database_administration-senior-3",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Чем синхронная репликация отличается от асинхронной?",
+      "options": [
+        {
+          "id": "database_administration-senior-3-a",
+          "label": "Асинхронная подтверждает транзакцию после записи на реплике и поэтому никогда не отстаёт от основного узла"
+        },
+        {
+          "id": "database_administration-senior-3-b",
+          "label": "Синхронная работает только внутри одного сервера"
+        },
+        {
+          "id": "database_administration-senior-3-c",
+          "label": "Синхронная подтверждает транзакцию после записи на реплике и не теряет данные при отказе основного узла"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-3-c",
+      "explanation": "Синхронная увеличивает задержку записи ради отсутствия потерь.",
+      "source": "https://www.postgresql.org/docs/current/warm-standby.html#SYNCHRONOUS-REPLICATION"
+    },
+    {
+      "id": "database_administration-senior-4",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Как найти запросы, которые сильнее всего нагружают базу?",
+      "options": [
+        {
+          "id": "database_administration-senior-4-a",
+          "label": "По pg_stat_statements: суммарное время, число вызовов и чтения"
+        },
+        {
+          "id": "database_administration-senior-4-b",
+          "label": "По размеру таблиц и числу подключённых пользователей"
+        },
+        {
+          "id": "database_administration-senior-4-c",
+          "label": "По числу пользователей"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-4-a",
+      "explanation": "Оптимизировать стоит запросы с наибольшим суммарным временем.",
+      "source": "https://www.postgresql.org/docs/current/pgstatstatements.html"
+    },
+    {
+      "id": "database_administration-senior-5",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Как обновить PostgreSQL на новую мажорную версию с минимальным простоем?",
+      "options": [
+        {
+          "id": "database_administration-senior-5-a",
+          "label": "Заменить бинарные файлы на новую версию и перезапустить сервер с прежним каталогом данных"
+        },
+        {
+          "id": "database_administration-senior-5-b",
+          "label": "pg_upgrade с заранее проверенным планом или логическая репликация на новый кластер"
+        },
+        {
+          "id": "database_administration-senior-5-c",
+          "label": "Скопировать каталог данных на новый сервер"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-5-b",
+      "explanation": "Формат данных между мажорными версиями несовместим без конвертации.",
+      "source": "https://www.postgresql.org/docs/current/pgupgrade.html"
+    },
+    {
+      "id": "database_administration-senior-6",
+      "grade": "senior",
+      "skillId": "database_administration",
+      "prompt": "Как ограничить ущерб от случайного DELETE без WHERE?",
+      "options": [
+        {
+          "id": "database_administration-senior-6-a",
+          "label": "Запретить все DELETE в базе"
+        },
+        {
+          "id": "database_administration-senior-6-b",
+          "label": "Делать полный дамп раз в год и запретить DELETE"
+        },
+        {
+          "id": "database_administration-senior-6-c",
+          "label": "Права по минимуму, ревью изменений, PITR и отложенная реплика"
+        }
+      ],
+      "correctOptionId": "database_administration-senior-6-c",
+      "explanation": "Отложенная реплика даёт время остановить применение ошибочных изменений.",
+      "source": "https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-RECOVERY-MIN-APPLY-DELAY"
+    },
+    {
+      "id": "database_administration-lead-1",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Как определить требования к восстановлению базы?",
+      "options": [
+        {
+          "id": "database_administration-lead-1-a",
+          "label": "Согласовать с бизнесом RPO и RTO и проверить, что процедуры их выдерживают"
+        },
+        {
+          "id": "database_administration-lead-1-b",
+          "label": "Взять максимальные значения из документации СУБД без согласования"
+        },
+        {
+          "id": "database_administration-lead-1-c",
+          "label": "Не определять, пока не случится авария"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-1-a",
+      "explanation": "RPO — допустимая потеря данных, RTO — допустимое время простоя.",
+      "source": "https://sre.google/sre-book/data-integrity/"
+    },
+    {
+      "id": "database_administration-lead-2",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Как планировать рост базы данных на год вперёд?",
+      "options": [
+        {
+          "id": "database_administration-lead-2-a",
+          "label": "По трендам объёма и нагрузки с запасом и сценариями масштабирования"
+        },
+        {
+          "id": "database_administration-lead-2-b",
+          "label": "Покупать оборудование после отказа по фактической нехватке"
+        },
+        {
+          "id": "database_administration-lead-2-c",
+          "label": "Удалять данные при заполнении диска"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-2-a",
+      "explanation": "Прогноз мощностей предотвращает аварии из-за нехватки ресурсов.",
+      "source": "https://sre.google/sre-book/software-engineering-in-sre/"
+    },
+    {
+      "id": "database_administration-lead-3",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Как организовать изменения схемы для нескольких команд?",
+      "options": [
+        {
+          "id": "database_administration-lead-3-a",
+          "label": "Каждый разработчик меняет схему вручную в продакшене при необходимости"
+        },
+        {
+          "id": "database_administration-lead-3-b",
+          "label": "Миграции в репозитории, ревью DBA для рискованных изменений и автоматический прогон"
+        },
+        {
+          "id": "database_administration-lead-3-c",
+          "label": "Изменения схемы запрещены"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-3-b",
+      "explanation": "Процесс снижает риск блокировок и несовместимых изменений.",
+      "source": "https://www.postgresql.org/docs/current/ddl-alter.html"
+    },
+    {
+      "id": "database_administration-lead-4",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Как обеспечить аудит доступа к чувствительным данным?",
+      "options": [
+        {
+          "id": "database_administration-lead-4-a",
+          "label": "Разрешить всем доступ, чтобы не тратить время на заявки и журналы"
+        },
+        {
+          "id": "database_administration-lead-4-b",
+          "label": "Журналировать доступ (например, pgaudit) и регулярно пересматривать права"
+        },
+        {
+          "id": "database_administration-lead-4-c",
+          "label": "Хранить пароли в открытом виде в вики"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-4-b",
+      "explanation": "Аудит и периодический пересмотр прав требуются политиками безопасности.",
+      "source": "https://github.com/pgaudit/pgaudit"
+    },
+    {
+      "id": "database_administration-lead-5",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Когда стоит переходить с самостоятельного кластера на управляемую облачную базу?",
+      "options": [
+        {
+          "id": "database_administration-lead-5-a",
+          "label": "Когда стоимость эксплуатации выше и сервис удовлетворяет требованиям к данным"
+        },
+        {
+          "id": "database_administration-lead-5-b",
+          "label": "Всегда сразу, потому что облачная база дешевле собственного кластера при любой нагрузке"
+        },
+        {
+          "id": "database_administration-lead-5-c",
+          "label": "Никогда"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-5-a",
+      "explanation": "Решение зависит от нагрузки, требований к размещению данных и компетенций команды.",
+      "source": "https://cloud.google.com/architecture/framework"
+    },
+    {
+      "id": "database_administration-lead-6",
+      "grade": "lead",
+      "skillId": "database_administration",
+      "prompt": "Как разбирать крупный инцидент с базой данных?",
+      "options": [
+        {
+          "id": "database_administration-lead-6-a",
+          "label": "Найти виноватого, наказать его и закрыть разбор без задач, чтобы не тратить время команды"
+        },
+        {
+          "id": "database_administration-lead-6-b",
+          "label": "Безобвинительный разбор с хронологией, корневой причиной и задачами по предотвращению"
+        },
+        {
+          "id": "database_administration-lead-6-c",
+          "label": "Не обсуждать, чтобы не тратить время"
+        }
+      ],
+      "correctOptionId": "database_administration-lead-6-b",
+      "explanation": "Культура разборов без поиска виноватых повышает надёжность.",
+      "source": "https://sre.google/sre-book/postmortem-culture/"
+    }
+  ]
+}

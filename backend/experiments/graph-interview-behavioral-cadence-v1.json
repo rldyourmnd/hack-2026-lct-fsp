@@ -1,0 +1,27 @@
+{
+  "id": "graph-interview-behavioral-cadence-v1",
+  "algorithmVersion": "graph-frontier-v2",
+  "change": "schedule one unresolved behavioral competency after each three interview answers while preserving prerequisite traversal",
+  "expectedEffect": "the first twelve turns include all three behavioral competencies, the behavioral branch starts at requirements, and a weak technical composite answer still descends to its prerequisite",
+  "failureCondition": "the first twelve turns omit any behavioral competency, select disagreement or feedback before requirements, or stop descending from a weak composite technical answer",
+  "verification": {
+    "command": "cargo test -p fsp-interview-service",
+    "artifact": "backend/experiments/graph-interview-behavioral-cadence-v1.json"
+  },
+  "observed": {
+    "status": "passed",
+    "tests": [
+      "behavioral_questions_are_spaced_through_the_interview",
+      "weak_composite_answer_descends_to_unknown_prerequisite"
+    ],
+    "blueprint": "backend-middle-v1",
+    "behavioralNodes": 3,
+    "maximumTurns": 12,
+    "offlineCpuPath": true
+  },
+  "measurementClaims": {
+    "softSkillValidity": "not_established_without_expert_labeled_answers",
+    "conversationalQuality": "not_established_without candidate usability sessions",
+    "fairness": "not_established_without counterfactual and subgroup evaluation"
+  }
+}

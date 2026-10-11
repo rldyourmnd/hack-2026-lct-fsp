@@ -42,7 +42,10 @@ pub struct SkillEvidence {
 pub struct RankableCandidate {
     pub id: String,
     pub specialization: Specialization,
-    pub verified_grade: Grade,
+    /// The category grade: confirmed by a test or estimated.
+    pub grade: Grade,
+    /// Category strength: 3 a test, 2 a high and 1 a medium-confidence estimate.
+    pub confirmation: u8,
     pub fsp_verified: bool,
     pub skills: Vec<SkillEvidence>,
 }
@@ -106,7 +109,7 @@ pub fn score(candidate: &RankableCandidate, need: &HiringNeed) -> MatchScore {
         .collect::<Vec<_>>();
     MatchScore {
         grade_matches: candidate.specialization == need.specialization
-            && candidate.verified_grade >= need.grade,
+            && candidate.grade >= need.grade,
         required_met: required
             .iter()
             .filter(|item| requirement_met(candidate, item))
@@ -142,30 +145,38 @@ pub fn rank_candidates(
 ) -> Vec<(String, MatchScore)> {
     let mut ranked = candidates
         .iter()
-        .map(|candidate| {
-            (
-                candidate.id.clone(),
-                candidate.fsp_verified,
-                score(candidate, need),
-            )
+        .map(|candidate| Ranked {
+            id: candidate.id.clone(),
+            fsp_verified: candidate.fsp_verified,
+            confirmation: candidate.confirmation,
+            score: score(candidate, need),
         })
         .collect::<Vec<_>>();
     ranked.sort_by(compare_rank);
     ranked
         .into_iter()
-        .map(|(id, _, score)| (id, score))
+        .map(|item| (item.id, item.score))
         .collect()
 }
 
-fn compare_rank(left: &(String, bool, MatchScore), right: &(String, bool, MatchScore)) -> Ordering {
+struct Ranked {
+    id: String,
+    fsp_verified: bool,
+    confirmation: u8,
+    score: MatchScore,
+}
+
+/// Need fit first; within it a test-confirmed category, then estimate confidence, then FSP.
+fn compare_rank(left: &Ranked, right: &Ranked) -> Ordering {
     right
-        .2
+        .score
         .grade_matches
-        .cmp(&left.2.grade_matches)
-        .then_with(|| right.2.required_met.cmp(&left.2.required_met))
-        .then_with(|| right.2.desired_met.cmp(&left.2.desired_met))
-        .then_with(|| right.1.cmp(&left.1))
-        .then_with(|| left.0.cmp(&right.0))
+        .cmp(&left.score.grade_matches)
+        .then_with(|| right.score.required_met.cmp(&left.score.required_met))
+        .then_with(|| right.score.desired_met.cmp(&left.score.desired_met))
+        .then_with(|| right.confirmation.cmp(&left.confirmation))
+        .then_with(|| right.fsp_verified.cmp(&left.fsp_verified))
+        .then_with(|| left.id.cmp(&right.id))
 }
 
 #[cfg(test)]
@@ -176,7 +187,8 @@ mod tests {
         RankableCandidate {
             id: id.into(),
             specialization: Specialization::Backend,
-            verified_grade: grade,
+            grade,
+            confirmation: 3,
             fsp_verified: false,
             skills: [
                 ("rust", required, Grade::Middle),

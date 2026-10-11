@@ -36,6 +36,7 @@ const navigation: Record<Session['role'], { cabinet: string; items: NavItem[]; s
       { to: '/employer/shortlists', label: 'Подборки', icon: 'folder' },
       { to: '/employer/invitations', label: 'Приглашения', icon: 'send' },
       { to: '/employer/applications', label: 'Отклики', icon: 'inbox' },
+      { to: '/employer/analytics', label: 'Аналитика', icon: 'chart' },
       { to: '/employer/tasks', label: 'Задания', icon: 'target' },
       { to: '/employer/company', label: 'Компания', icon: 'building' },
     ],

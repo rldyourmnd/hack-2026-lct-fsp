@@ -1,12 +1,11 @@
 import { fileURLToPath } from 'node:url';
 import PDFDocument from 'pdfkit';
+import { gradeLabel, specializationShort } from './catalog.ts';
 import type { components } from './generated/schema.d.ts';
 
 type Profile = components['schemas']['Profile'];
 
 const font = fileURLToPath(new URL('../fixtures/DejaVuSans.ttf', import.meta.url));
-const gradeLabels = { junior: 'Джуниор', middle: 'Мидл', senior: 'Сеньор' } as const;
-const specializationLabels = { backend: 'Бэкенд', frontend: 'Фронтенд', fullstack: 'Фулстек' } as const;
 
 export function profilePdf(profile: Profile): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -32,14 +31,14 @@ export function profilePdf(profile: Profile): Promise<Buffer> {
         .text(value || 'Не указано');
       document.moveDown(0.7);
     };
-    field('Специализация', specializationLabels[profile.specialization]);
+    field('Специализация', specializationShort(profile.specialization));
     field(
       'Подтверждённый уровень',
       profile.verifiedGrade && profile.verifiedSpecialization
-        ? `${gradeLabels[profile.verifiedGrade]} · ${specializationLabels[profile.verifiedSpecialization]}`
+        ? `${gradeLabel(profile.verifiedGrade)} · ${specializationShort(profile.verifiedSpecialization)}`
         : 'Пока не подтверждён',
     );
-    field('Цель проверки', gradeLabels[profile.selectedGrade]);
+    field('Цель проверки', gradeLabel(profile.selectedGrade));
     field('Технологии', profile.stack.join(', '));
     field('Роль в команде', profile.teamRole);
     field(

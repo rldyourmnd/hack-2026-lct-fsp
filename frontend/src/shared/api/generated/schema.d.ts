@@ -185,6 +185,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/me/profile/estimate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * refreshMyEstimate
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        post: operations["refreshMyEstimate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/me/profile/export": {
         parameters: {
             query?: never;
@@ -463,6 +483,90 @@ export interface paths {
          * @description Requires an Idempotency-Key. Repeating the same key and payload replays the stored response. A changed payload returns 409.
          */
         post: operations["submitAssessment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/interviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * listMyInterviews
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        get: operations["listMyInterviews"];
+        put?: never;
+        /**
+         * startInterview
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        post: operations["startInterview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/interviews/{interviewId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getInterview
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        get: operations["getInterview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/interviews/{interviewId}/answers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * answerInterview
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        post: operations["answerInterview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/interviews/{interviewId}/speech": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * synthesizeInterviewSpeech
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        post: operations["synthesizeInterviewSpeech"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1213,6 +1317,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/analytics/hiring-flow": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getHiringFlowAnalytics
+         * @description Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).
+         */
+        get: operations["getHiringFlowAnalytics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/applications/{applicationId}": {
         parameters: {
             query?: never;
@@ -1409,6 +1533,10 @@ export interface components {
                 profilePdfImport: boolean;
                 githubFixture: boolean;
                 githubOAuth: boolean;
+                githubInsights: boolean;
+                graphInterviews: boolean;
+                neuralTts: boolean;
+                hiringAnalytics: boolean;
                 fspFixture: boolean;
                 matching: boolean;
                 directInvitations: boolean;
@@ -1428,21 +1556,42 @@ export interface components {
                 externalAiAllowed: boolean;
                 supportedScopes: {
                     /** @enum {string} */
-                    specialization: "backend" | "frontend" | "fullstack";
-                    grades: ("junior" | "middle" | "senior")[];
+                    specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                    grades: ("intern" | "junior" | "middle" | "senior" | "lead")[];
                 }[];
             };
             competitions: {
                 id: string;
                 name: string;
                 synthetic: boolean;
-                skillIds: ("rust" | "postgresql" | "docker" | "redis" | "react")[];
+                skillIds: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
                 discipline: string;
+            }[];
+            catalogVersion: string;
+            grades: {
+                /** @enum {string} */
+                id: "intern" | "junior" | "middle" | "senior" | "lead";
+                label: string;
+                description: string;
+            }[];
+            specializations: {
+                /** @enum {string} */
+                id: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                label: string;
+                short: string;
+                group: string;
+            }[];
+            skillCategories: {
+                /** @enum {string} */
+                id: "language" | "backend" | "frontend" | "mobile" | "database" | "data" | "infrastructure" | "quality" | "security" | "embedded" | "gamedev" | "onec" | "erp" | "analytics" | "design" | "management" | "practice";
+                label: string;
             }[];
             skills: {
                 /** @enum {string} */
-                id: "rust" | "postgresql" | "docker" | "redis" | "react";
+                id: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
                 label: string;
+                /** @enum {string} */
+                category: "language" | "backend" | "frontend" | "mobile" | "database" | "data" | "infrastructure" | "quality" | "security" | "embedded" | "gamedev" | "onec" | "erp" | "analytics" | "design" | "management" | "practice";
             }[];
         };
         Session: {
@@ -1473,9 +1622,9 @@ export interface components {
         };
         GradeEligibility: {
             /** @enum {string} */
-            selectedSpecialization: "backend" | "frontend" | "fullstack";
+            selectedSpecialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            selectedGrade: "junior" | "middle" | "senior";
+            selectedGrade: "intern" | "junior" | "middle" | "senior" | "lead";
             canStartSelected: boolean;
             selectedReason: ("cooldown" | "onboarding_incomplete" | "active_assessment" | "unsupported_scope" | "grade_downgrade") | null;
             canStartUpgrade: boolean;
@@ -1489,12 +1638,76 @@ export interface components {
             assessmentPassed: boolean;
             readyForPublication: boolean;
             visibleToEmployers: boolean;
-            blockers: ("email" | "questionnaire" | "assessment" | "processing_consent" | "publication_consent")[];
+            blockers: ("email" | "questionnaire" | "category" | "processing_consent" | "publication_consent")[];
         };
         Category: {
-            specialization: ("backend" | "frontend" | "fullstack") | null;
-            grade: ("junior" | "middle" | "senior") | null;
+            specialization: ("backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management") | null;
+            grade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
             eligible: boolean;
+            source: ("assessment" | "estimate") | null;
+            confidence: ("low" | "medium" | "high") | null;
+        };
+        EstimateFactor: {
+            id: string;
+            label: string;
+            points: number;
+            max: number;
+            detail: string;
+        };
+        ProfileEstimate: {
+            /** @enum {string} */
+            version: "estimate-v1" | "estimate-v2" | "estimate-v3" | "estimate-v4" | "estimate-v5" | "estimate-v6";
+            /** Format: date-time */
+            computedAt: string;
+            specialization: ("backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management") | null;
+            specializations: {
+                /** @enum {string} */
+                id: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                percent: number;
+            }[];
+            grade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
+            score: number;
+            /** @enum {string} */
+            confidence: "low" | "medium" | "high";
+            factors: components["schemas"]["EstimateFactor"][];
+            answers: {
+                stack: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
+                experienceMonths: number | null;
+                experience: string;
+                teamRole: string;
+                name: string | null;
+                softSkills: string[];
+            };
+            sources: ("github" | "fsp")[];
+            insufficient: string | null;
+            notes: string[];
+            growth: {
+                id: string;
+                title: string;
+                action: string;
+                points: number;
+            }[];
+            focusSkills: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
+            review: {
+                /** @enum {string} */
+                specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                /** @enum {string} */
+                grade: "intern" | "junior" | "middle" | "senior" | "lead";
+                rationale: string;
+                agrees: boolean;
+                recommendations: string[];
+            } | null;
+        };
+        EmployerEstimate: {
+            score: number;
+            /** Format: date-time */
+            computedAt: string;
+            factors: {
+                id: string;
+                label: string;
+                points: number;
+                max: number;
+            }[];
         };
         Freshness: {
             lastSignalAt: string | null;
@@ -1512,22 +1725,25 @@ export interface components {
             /** @enum {string} */
             industry: "it";
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            selectedGrade: "junior" | "middle" | "senior";
-            stack: ("rust" | "postgresql" | "docker" | "redis" | "react")[];
+            selectedGrade: "intern" | "junior" | "middle" | "senior" | "lead";
+            stack: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
             teamRole: string;
             experienceMonths: number | null;
+            experienceSince: number | null;
             experience: string;
             softSkills: string[];
             consents: {
                 processing: boolean;
                 publication: boolean;
             };
-            verifiedGrade: ("junior" | "middle" | "senior") | null;
-            verifiedSpecialization: ("backend" | "frontend" | "fullstack") | null;
+            verifiedGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
+            verifiedSpecialization: ("backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management") | null;
             gradeConfirmedAt: string | null;
             category: components["schemas"]["Category"];
+            estimate: components["schemas"]["ProfileEstimate"] | null;
+            autoFields: ("name" | "specialization" | "selectedGrade" | "stack" | "experienceMonths" | "experience" | "teamRole" | "softSkills")[];
             freshness: components["schemas"]["Freshness"];
             onboarding: components["schemas"]["Onboarding"];
             assessmentEligibility: components["schemas"]["GradeEligibility"];
@@ -1540,12 +1756,13 @@ export interface components {
             /** @enum {string} */
             industry?: "it";
             /** @enum {string} */
-            specialization?: "backend" | "frontend" | "fullstack";
+            specialization?: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            selectedGrade?: "junior" | "middle" | "senior";
-            stack?: ("rust" | "postgresql" | "docker" | "redis" | "react")[];
+            selectedGrade?: "intern" | "junior" | "middle" | "senior" | "lead";
+            stack?: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
             teamRole?: string;
             experienceMonths?: number | null;
+            experienceSince?: number | null;
             experience?: string;
             softSkills?: string[];
             consents?: {
@@ -1556,12 +1773,13 @@ export interface components {
         ImportPreview: {
             name: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            selectedGrade: "junior" | "middle" | "senior";
-            stack: ("rust" | "postgresql" | "docker" | "redis" | "react")[];
+            selectedGrade: "intern" | "junior" | "middle" | "senior" | "lead";
+            stack: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
             teamRole: string;
             experienceMonths: number | null;
+            experienceSince: number | null;
             experience: string;
             softSkills: string[];
         };
@@ -1583,11 +1801,11 @@ export interface components {
         };
         Skill: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             label: string;
             /** @enum {string} */
             status: "confirmed" | "evidence" | "observed" | "insufficient";
-            evidenceGrade: ("junior" | "middle" | "senior") | null;
+            evidenceGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
             evidenceSources: ("github" | "fsp" | "assessment")[];
             summary: string;
             evidenceCount: number;
@@ -1595,11 +1813,11 @@ export interface components {
         };
         SelfSkill: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             label: string;
             /** @enum {string} */
             status: "confirmed" | "evidence" | "observed" | "insufficient";
-            evidenceGrade: ("junior" | "middle" | "senior") | null;
+            evidenceGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
             evidenceSources: ("github" | "fsp" | "assessment")[];
             summary: string;
             evidenceCount: number;
@@ -1619,7 +1837,7 @@ export interface components {
             name: string;
             /** Format: uri */
             url: string;
-            technologies: ("rust" | "postgresql" | "docker" | "redis" | "react")[];
+            technologies: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
             /** @enum {string} */
             status: "processed" | "queued" | "unavailable";
             metrics: {
@@ -1629,6 +1847,292 @@ export interface components {
                 sizeKib: number;
                 pushedAt: string | null;
             };
+        };
+        GitHubIndex: {
+            score: number;
+            /** @enum {string} */
+            band: "weak" | "moderate" | "strong" | "very_strong";
+            /** @enum {string} */
+            confidence: "low" | "medium" | "high";
+        };
+        GitHubFlag: {
+            id: string;
+            /** @enum {string} */
+            severity: "info" | "warning";
+            title: string;
+            detail: string;
+        };
+        GitHubMetric: {
+            id: string;
+            label: string;
+            value: number;
+            display: string;
+            publicDisplay: string;
+            score: number;
+        };
+        GitHubDimension: {
+            /** @enum {string} */
+            id: "consistency" | "engagement" | "longevity" | "collaboration" | "ownership" | "craft" | "impact" | "scope";
+            label: string;
+            score: number;
+            weight: number;
+            summary: string;
+            metrics: components["schemas"]["GitHubMetric"][];
+        };
+        GitHubStackItem: {
+            name: string;
+            /** @enum {string} */
+            category: "language" | "backend" | "frontend" | "data" | "infrastructure" | "quality" | "ai" | "mobile" | "tooling";
+            repositories: number;
+            signals: string[];
+            lastUsedAt: string | null;
+        };
+        GitHubReport: {
+            /** @enum {string} */
+            algorithmVersion: "github-insights-v2" | "github-insights-v3";
+            /** Format: date-time */
+            generatedAt: string;
+            login: string;
+            displayName: string | null;
+            /** Format: uri */
+            profileUrl: string;
+            accountCreatedAt: string;
+            coverage: {
+                /** Format: date-time */
+                from: string;
+                /** Format: date-time */
+                to: string;
+                repositoriesAnalyzed: number;
+                commitsAnalyzed: number;
+                commitsPublicTotal: number;
+                commitsLastYearFound: number;
+                commitsLastYearTotal: number;
+                coveragePercent: number | null;
+                partial: boolean;
+                notes: string[];
+            };
+            index: components["schemas"]["GitHubIndex"];
+            dimensions: components["schemas"]["GitHubDimension"][];
+            profile: {
+                summary: string;
+                publicSummary: string;
+                archetypes: {
+                    /** @enum {string} */
+                    id: "backend" | "frontend" | "platform" | "systems" | "data" | "mobile";
+                    label: string;
+                    percent: number;
+                    evidence: string[];
+                }[];
+                focusTopics: string[];
+                topProjects: {
+                    nameWithOwner: string;
+                    /** Format: uri */
+                    url: string;
+                    description: string | null;
+                    primaryLanguage: string | null;
+                    stars: number;
+                    userCommits: number;
+                    userSharePercent: number;
+                    lastCommitAt: string | null;
+                }[];
+            };
+            activity: {
+                activeYears: number;
+                commitsLastYear: number;
+                pullRequestsLastYear: number;
+                activeDaysLastYear: number;
+                activeWeeksLastYear: number;
+                longestDailyStreak: number;
+                currentDailyStreak: number;
+                longestWeeklyStreak: number;
+                currentWeeklyStreak: number;
+                longestGapDaysLastYear: number;
+                lastActiveOn: string | null;
+                trendPercent: number | null;
+                calendar: {
+                    /** Format: date */
+                    date: string;
+                    count: number;
+                }[];
+                yearly: {
+                    year: number;
+                    commits: number;
+                    activeDays: number;
+                    pullRequests: number | null;
+                }[];
+            };
+            rhythm: {
+                sampleSize: number;
+                timezoneOffsets: {
+                    offsetMinutes: number;
+                    percent: number;
+                }[];
+                hourlyPercent: number[];
+                weekdayPercent: number[];
+                officeHoursPercent: number;
+                eveningPercent: number;
+                nightPercent: number;
+                weekendPercent: number;
+                activeDays: number;
+                medianMinutesPerActiveDay: number;
+                p90MinutesPerActiveDay: number;
+                medianMinutesPerActiveWeek: number | null;
+                sessionsPerActiveDayTenths: number;
+                longestSessionMinutes: number;
+            } | null;
+            collaboration: {
+                pullRequestsTotal: number;
+                approvedPullRequests: number;
+                reviewsOfOthers: number;
+                independentReviews: number;
+                issuesTotal: number;
+                externalPullRequests: number;
+                externalMerged: number;
+                externalMergeRatePercent: number | null;
+                externalRepositories: number;
+                notableContributions: {
+                    repository: string;
+                    /** Format: uri */
+                    url: string;
+                    stars: number;
+                    mergedPullRequests: number;
+                    commits: number;
+                }[];
+            };
+            ownership: {
+                ledRepositories: number;
+                maintainedRepositories: number;
+                ownOrganizations: number;
+                ownOrganizationRepositories: number;
+                directPushRepositories: number;
+            };
+            organizations: {
+                memberships: {
+                    login: string;
+                    /** Format: uri */
+                    url: string;
+                }[];
+                contributed: {
+                    login: string;
+                    /** Format: uri */
+                    url: string;
+                    repositories: number;
+                    commits: number;
+                    affiliated: boolean;
+                }[];
+            };
+            languages: {
+                language: string;
+                percent: number;
+                filesChanged: number;
+            }[];
+            stack: components["schemas"]["GitHubStackItem"][];
+            technologies: {
+                /** @enum {string} */
+                skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
+                repositories: number;
+                signals: string[];
+                lastPushedAt: string | null;
+            }[];
+            craft: {
+                substantiveRepositories: number;
+                readmePercent: number;
+                licensePercent: number;
+                ciPercent: number;
+                testsPercent: number;
+                lockfilePercent: number;
+                lintPercent: number;
+                dependencyUpdatesPercent: number;
+                containerPercent: number;
+                conventionalCommitsPercent: number | null;
+                descriptiveMessagesPercent: number | null;
+                medianFilesPerCommit: number | null;
+                largeCommitsPercent: number | null;
+                mergeCommitsPercent: number | null;
+            };
+            repositories: {
+                nameWithOwner: string;
+                /** Format: uri */
+                url: string;
+                owned: boolean;
+                led: boolean;
+                fork: boolean;
+                archived: boolean;
+                stars: number;
+                forks: number;
+                primaryLanguage: string | null;
+                description: string | null;
+                pushedAt: string | null;
+                totalCommits: number;
+                userCommits: number;
+                userSharePercent: number;
+                lastUserCommitAt: string | null;
+                hygiene: ("readme" | "license" | "ci" | "tests" | "lockfile" | "lint" | "dependency_updates" | "container" | "description")[];
+                technologies: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing")[];
+                stack: string[];
+            }[];
+            flags: components["schemas"]["GitHubFlag"][];
+            highlights: string[];
+        };
+        GitHubSignal: {
+            /** @enum {string} */
+            algorithmVersion: "github-insights-v2" | "github-insights-v3";
+            /** Format: date */
+            generatedAt: string;
+            ownershipVerified: boolean;
+            index: components["schemas"]["GitHubIndex"];
+            summary: string;
+            archetypes: {
+                /** @enum {string} */
+                id: "backend" | "frontend" | "platform" | "systems" | "data" | "mobile";
+                label: string;
+                percent: number;
+            }[];
+            dimensions: {
+                /** @enum {string} */
+                id: "consistency" | "engagement" | "longevity" | "collaboration" | "ownership" | "craft" | "impact" | "scope";
+                label: string;
+                score: number;
+                summary: string;
+                metrics: {
+                    id: string;
+                    label: string;
+                    display: string;
+                }[];
+            }[];
+            languages: {
+                language: string;
+                percent: number;
+            }[];
+            stack: {
+                technology: string;
+                /** @enum {string} */
+                category: "language" | "backend" | "frontend" | "data" | "infrastructure" | "quality" | "ai" | "mobile" | "tooling";
+            }[];
+            rhythm: {
+                hoursPerActiveDay: string;
+                hoursPerActiveWeek: string | null;
+                officeHoursPercent: number;
+                weekendPercent: number;
+            } | null;
+            highlights: string[];
+            flags: components["schemas"]["GitHubFlag"][];
+        };
+        GitHubSource: {
+            ownership: {
+                verified: boolean;
+                method: ("profile_code" | "oauth") | null;
+                verifiedAt: string | null;
+                code: string;
+            };
+            report: components["schemas"]["GitHubReport"] | null;
+            employerPreview: components["schemas"]["GitHubSignal"] | null;
+            analysis: {
+                /** @enum {string} */
+                state: "queued" | "running" | "failed";
+                stage: string;
+                progress: number;
+            } | null;
         };
         FspResult: {
             competitionId: string;
@@ -1680,6 +2184,7 @@ export interface components {
             competitionIds: string[];
             notice: string;
             fspResults?: components["schemas"]["FspResult"][];
+            github: components["schemas"]["GitHubSource"] | null;
         };
         Sources: {
             items: components["schemas"]["Source"][];
@@ -1691,10 +2196,11 @@ export interface components {
         GraphNode: {
             id: string;
             /** @enum {string} */
-            kind: "role" | "skill" | "evidence";
+            kind: "role" | "concept" | "skill" | "source" | "evidence";
             label: string;
-            skillId: ("rust" | "postgresql" | "docker" | "redis" | "react") | null;
+            skillId: ("python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing") | null;
             status: ("confirmed" | "evidence" | "observed" | "insufficient") | null;
+            detail: string | null;
         };
         GraphEdge: {
             id: string;
@@ -1720,11 +2226,11 @@ export interface components {
         };
         Requirement: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
             criticality: "required" | "desired";
             /** @enum {string} */
-            minimumGrade: "junior" | "middle" | "senior";
+            minimumGrade: "intern" | "junior" | "middle" | "senior" | "lead";
             evidencePolicy: components["schemas"]["EvidencePolicy"];
         };
         Salary: {
@@ -1758,9 +2264,9 @@ export interface components {
         NeedInput: {
             title: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             /** @enum {string} */
             workMode: "remote" | "hybrid" | "office";
             salary: components["schemas"]["Salary"];
@@ -1770,9 +2276,9 @@ export interface components {
         NeedPatch: {
             title?: string;
             /** @enum {string} */
-            specialization?: "backend" | "frontend" | "fullstack";
+            specialization?: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade?: "junior" | "middle" | "senior";
+            grade?: "intern" | "junior" | "middle" | "senior" | "lead";
             /** @enum {string} */
             workMode?: "remote" | "hybrid" | "office";
             salary?: components["schemas"]["Salary"];
@@ -1784,9 +2290,9 @@ export interface components {
             companyId: string;
             title: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             /** @enum {string} */
             workMode: "remote" | "hybrid" | "office";
             salary: components["schemas"]["Salary"];
@@ -1805,7 +2311,7 @@ export interface components {
         };
         MatchRequirement: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
             criticality: "required" | "desired";
             /** @enum {string} */
@@ -1831,11 +2337,15 @@ export interface components {
             id: string;
             alias: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            verifiedGrade: "junior" | "middle" | "senior";
-            /** Format: date-time */
-            gradeConfirmedAt: string;
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
+            /** @enum {string} */
+            categorySource: "assessment" | "estimate";
+            categoryConfidence: ("low" | "medium" | "high") | null;
+            verifiedGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
+            gradeConfirmedAt: string | null;
+            estimate: components["schemas"]["EmployerEstimate"] | null;
             workModes: ("remote" | "hybrid" | "office")[];
             availableForOffers: boolean;
             skills: components["schemas"]["Skill"][];
@@ -1843,6 +2353,7 @@ export interface components {
             fspVerified: boolean;
             freshness: components["schemas"]["Freshness"];
             match: components["schemas"]["Match"] | null;
+            github: components["schemas"]["GitHubSignal"] | null;
             simulation: boolean;
         };
         CandidatePage: {
@@ -1854,7 +2365,7 @@ export interface components {
         };
         GapItem: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
             status: "needs_verification" | "not_evidenced";
             reason: string;
@@ -1954,15 +2465,15 @@ export interface components {
         };
         VacancyRequirement: {
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
             criticality: "required" | "desired";
             /** @enum {string} */
-            minimumGrade: "junior" | "middle" | "senior";
+            minimumGrade: "intern" | "junior" | "middle" | "senior" | "lead";
         };
         ApplicationEligibility: {
             canApply: boolean;
-            reason: ("email" | "questionnaire" | "assessment" | "processing_consent" | "application_exists") | null;
+            reason: ("email" | "questionnaire" | "category" | "processing_consent" | "application_exists") | null;
         };
         Vacancy: {
             id: string;
@@ -1976,9 +2487,9 @@ export interface components {
             };
             title: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             /** @enum {string} */
             workMode: "remote" | "hybrid" | "office";
             salary: components["schemas"]["Salary"];
@@ -2020,9 +2531,9 @@ export interface components {
                 id: string;
                 title: string;
                 /** @enum {string} */
-                specialization: "backend" | "frontend" | "fullstack";
+                specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
                 /** @enum {string} */
-                grade: "junior" | "middle" | "senior";
+                grade: "intern" | "junior" | "middle" | "senior" | "lead";
                 /** @enum {string} */
                 workMode: "remote" | "hybrid" | "office";
                 salary: components["schemas"]["Salary"];
@@ -2041,13 +2552,57 @@ export interface components {
         Applications: {
             items: components["schemas"]["Application"][];
         };
+        HiringFlowStage: {
+            /** @enum {string} */
+            id: "received" | "reviewed" | "decided" | "accepted";
+            label: string;
+            count: number;
+            sharePercent: number;
+        };
+        VacancyFlow: {
+            vacancyId: string;
+            title: string;
+            total: number;
+            awaitingReview: number;
+            awaitingDecision: number;
+            accepted: number;
+            closed: number;
+            requiredCoveragePercent: number;
+            gradeMatchPercent: number;
+        };
+        HiringBottleneck: {
+            kind: string;
+            /** @enum {string} */
+            severity: "info" | "medium" | "high";
+            title: string;
+            evidence: string;
+            recommendation: string;
+        };
+        HiringAssistant: {
+            /** @enum {string} */
+            mode: "metrics" | "bifrost";
+            summary: string;
+            actions: string[];
+        };
+        HiringFlowAnalytics: {
+            /** Format: date-time */
+            generatedAt: string;
+            total: number;
+            stages: components["schemas"]["HiringFlowStage"][];
+            medianTimeToViewHours: number | null;
+            medianTimeToDecisionHours: number | null;
+            acceptanceRatePercent: number;
+            vacancies: components["schemas"]["VacancyFlow"][];
+            bottlenecks: components["schemas"]["HiringBottleneck"][];
+            assistant: components["schemas"]["HiringAssistant"];
+        };
         TaskInput: {
             title: string;
             prompt: string;
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             estimateMinutes: number;
         };
         Task: {
@@ -2055,9 +2610,9 @@ export interface components {
             title: string;
             prompt: string;
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             estimateMinutes: number;
             /** @enum {string} */
             status: "active" | "archived";
@@ -2077,9 +2632,9 @@ export interface components {
             title: string;
             prompt: string;
             /** @enum {string} */
-            skillId: "rust" | "postgresql" | "docker" | "redis" | "react";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             estimateMinutes: number;
         };
         TaskResponseInput: {
@@ -2119,15 +2674,15 @@ export interface components {
             };
             current: components["schemas"]["OfferedTask"] | null;
             currentResponse: components["schemas"]["TaskResponse"] | null;
-            reason: ("assessment" | "processing_consent" | "no_tasks") | null;
+            reason: ("category" | "processing_consent" | "no_tasks") | null;
             history: components["schemas"]["TaskResponse"][];
             freshness: components["schemas"]["Freshness"];
         };
         AssessmentStartInput: {
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
         };
         KnowledgeResponse: {
             questionId: string;
@@ -2136,7 +2691,7 @@ export interface components {
         KnowledgeQuestion: {
             id: string;
             /** @enum {string} */
-            skillId: "rust" | "postgresql";
+            skillId: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
             prompt: string;
             options: {
                 id: string;
@@ -2176,7 +2731,7 @@ export interface components {
             title: string;
             prompt: string;
             /** @enum {string} */
-            language: "rust";
+            language: "rust" | "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             starterCode: string;
             acceptanceCriteria: string[];
             rubric: components["schemas"]["RubricCriterion"][];
@@ -2192,8 +2747,8 @@ export interface components {
             assessmentId: string;
             /** @enum {string} */
             outcome: "passed" | "failed" | "service_error";
-            confirmedGrade: ("junior" | "middle" | "senior") | null;
-            previousGrade: ("junior" | "middle" | "senior") | null;
+            confirmedGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
+            previousGrade: ("intern" | "junior" | "middle" | "senior" | "lead") | null;
             gradeChanged: boolean;
             rubric: components["schemas"]["RubricOutcome"][];
             checks: components["schemas"]["Check"][];
@@ -2204,9 +2759,9 @@ export interface components {
         Assessment: {
             id: string;
             /** @enum {string} */
-            specialization: "backend" | "frontend" | "fullstack";
+            specialization: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
             /** @enum {string} */
-            grade: "junior" | "middle" | "senior";
+            grade: "intern" | "junior" | "middle" | "senior" | "lead";
             /** @enum {string} */
             status: "draft" | "in_progress" | "submitted" | "evaluating" | "passed" | "failed" | "service_error";
             task: components["schemas"]["AssessmentTask"];
@@ -2222,6 +2777,80 @@ export interface components {
         };
         Assessments: {
             items: components["schemas"]["Assessment"][];
+        };
+        InterviewStartInput: {
+            /** @enum {string} */
+            blueprintId: "backend-middle-v1";
+            maxTurns?: number;
+        };
+        InterviewAnswerInput: {
+            questionId: string;
+            answer: string;
+            /** @enum {string} */
+            responseMode: "text" | "voice";
+            revision: number;
+        };
+        InterviewSpeechInput: {
+            questionId: string;
+        };
+        SpeechAudio: {
+            audioBase64: string;
+            mimeType: string;
+            provider: string;
+            voice: string;
+        };
+        InterviewDelivery: {
+            speechText: string;
+            /** @enum {string} */
+            avatarCue: "speaking";
+        };
+        InterviewQuestion: {
+            id: string;
+            nodeId: string;
+            prompt: string;
+            sequence: number;
+            /** @enum {string} */
+            recommendedResponseMode: "text" | "voice";
+            delivery: components["schemas"]["InterviewDelivery"];
+        };
+        InterviewNode: {
+            id: string;
+            label: string;
+            /** @enum {string} */
+            kind: "technical" | "behavioral";
+            criticality: number;
+            prerequisites: string[];
+            /** @enum {string} */
+            state: "unknown" | "observed" | "partial" | "confirmed" | "contradicted";
+        };
+        InterviewEvidence: {
+            nodeId: string;
+            /** @enum {string} */
+            state: "observed" | "partial" | "confirmed" | "contradicted";
+            questionId: string;
+            answerExcerpt: string;
+            rationale: string;
+            evaluator: string;
+            rubricVersion: string;
+            /** @enum {string} */
+            responseMode: "text" | "voice";
+            signalStrength: number;
+        };
+        Interview: {
+            id: string;
+            candidateId: string;
+            /** @enum {string} */
+            blueprintId: "backend-middle-v1";
+            /** @enum {string} */
+            status: "active" | "completed";
+            revision: number;
+            currentQuestion: components["schemas"]["InterviewQuestion"] | null;
+            nodes: components["schemas"]["InterviewNode"][];
+            evidence: components["schemas"]["InterviewEvidence"][];
+            modelMode: string;
+        };
+        Interviews: {
+            items: components["schemas"]["Interview"][];
         };
         AssistantInput: {
             message: string;
@@ -2252,7 +2881,7 @@ export interface components {
                 simulation: boolean;
                 evidence?: {
                     /** @enum {string} */
-                    field: "name" | "specialization" | "selectedGrade" | "stack" | "teamRole" | "experienceMonths" | "experience" | "softSkills";
+                    field: "name" | "specialization" | "selectedGrade" | "stack" | "teamRole" | "experienceMonths" | "experienceSince" | "experience" | "softSkills";
                     page: number;
                     quote: string;
                 }[];
@@ -3505,6 +4134,136 @@ export interface operations {
                 "application/json": components["schemas"]["ImportConfirmInput"];
             };
         };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Profile"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    refreshMyEstimate: {
+        parameters: {
+            query?: {
+                answers?: "keep" | "replace";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description Success */
             200: {
@@ -5581,6 +6340,664 @@ export interface operations {
             };
         };
     };
+    listMyInterviews: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Interviews"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    startInterview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InterviewStartInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Interview"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    getInterview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                interviewId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Interview"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    answerInterview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                interviewId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InterviewAnswerInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Interview"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    synthesizeInterviewSpeech: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                interviewId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InterviewSpeechInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpeechAudio"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
     getJob: {
         parameters: {
             query?: never;
@@ -6630,10 +8047,10 @@ export interface operations {
     searchVacancies: {
         parameters: {
             query?: {
-                specialization?: "backend" | "frontend" | "fullstack";
-                grade?: "junior" | "middle" | "senior";
+                specialization?: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                grade?: "intern" | "junior" | "middle" | "senior" | "lead";
                 workMode?: "remote" | "hybrid" | "office";
-                skill?: "rust" | "postgresql" | "docker" | "redis" | "react";
+                skill?: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
                 page?: number;
                 pageSize?: number;
             };
@@ -8721,9 +10138,10 @@ export interface operations {
             query?: {
                 needId?: string;
                 mode?: "bank" | "recommended";
-                specialization?: "backend" | "frontend" | "fullstack";
-                grade?: "junior" | "middle" | "senior";
-                skill?: "rust" | "postgresql" | "docker" | "redis" | "react";
+                specialization?: "backend" | "frontend" | "fullstack" | "ios" | "android" | "mobile_crossplatform" | "devops" | "data_engineering" | "data_science" | "ml_engineering" | "qa_manual" | "qa_automation" | "security" | "embedded" | "systems" | "gamedev" | "onec" | "erp" | "system_analysis" | "business_analysis" | "data_analytics" | "dba" | "sysadmin" | "design" | "management";
+                grade?: "intern" | "junior" | "middle" | "senior" | "lead";
+                categorySource?: "assessment" | "estimate";
+                skill?: "python" | "java" | "javascript" | "typescript" | "csharp" | "cpp" | "c" | "go" | "rust" | "kotlin" | "swift" | "objective_c" | "php" | "ruby" | "scala" | "elixir" | "erlang" | "haskell" | "clojure" | "fsharp" | "ocaml" | "dart" | "lua" | "perl" | "r" | "julia" | "matlab" | "sql" | "plsql" | "tsql" | "onec_language" | "abap" | "delphi" | "cobol" | "fortran" | "assembly" | "verilog" | "vhdl" | "solidity" | "zig" | "groovy" | "bash" | "powershell" | "visual_basic" | "http_api" | "grpc" | "graphql" | "websocket" | "spring" | "quarkus" | "django" | "fastapi" | "flask" | "nodejs" | "express" | "nestjs" | "aspnet" | "entity_framework" | "laravel" | "symfony" | "rails" | "gin" | "actix" | "tokio" | "ktor" | "phoenix" | "hibernate" | "sqlalchemy" | "kafka" | "rabbitmq" | "nats" | "celery" | "microservices" | "html_css" | "react" | "vue" | "angular" | "svelte" | "nextjs" | "nuxt" | "redux" | "tanstack" | "tailwind" | "sass" | "webpack" | "vite" | "storybook" | "threejs" | "web_accessibility" | "web_performance" | "electron" | "ios_platform" | "swiftui" | "uikit" | "android_platform" | "jetpack_compose" | "flutter" | "react_native" | "kotlin_multiplatform" | "mobile_development" | "postgresql" | "mysql" | "oracle_db" | "mssql" | "sqlite" | "mongodb" | "redis" | "cassandra" | "clickhouse" | "elasticsearch" | "neo4j" | "greenplum" | "tarantool" | "database_administration" | "data_modeling" | "etl" | "spark" | "airflow" | "dbt" | "hadoop" | "flink" | "pandas" | "numpy" | "statistics" | "machine_learning" | "scikit_learn" | "pytorch" | "tensorflow" | "gradient_boosting" | "computer_vision" | "nlp" | "llm" | "langchain" | "mlops" | "mlflow" | "jupyter" | "linux" | "docker" | "kubernetes" | "helm" | "terraform" | "ansible" | "ci_cd" | "github_actions" | "gitlab_ci" | "jenkins" | "argocd" | "nginx" | "prometheus" | "logging" | "observability" | "aws" | "gcp" | "azure" | "yandex_cloud" | "openstack" | "virtualization" | "service_mesh" | "computer_networks" | "windows_server" | "network_equipment" | "test_design" | "web_testing" | "api_testing" | "mobile_testing" | "test_automation" | "selenium" | "playwright" | "cypress" | "pytest" | "junit" | "jest" | "appium" | "postman" | "load_testing" | "allure" | "bug_tracking" | "web_security" | "network_security" | "pentest" | "appsec" | "siem" | "cryptography" | "iam" | "reverse_engineering" | "malware_analysis" | "forensics" | "compliance" | "microcontrollers" | "arduino" | "rtos" | "embedded_linux" | "fpga" | "plc" | "iot" | "hardware_interfaces" | "operating_systems" | "compilers" | "unity" | "unreal" | "godot" | "game_development" | "opengl" | "vulkan" | "shaders" | "onec_enterprise" | "onec_queries" | "onec_bsp" | "onec_skd" | "onec_forms" | "onec_erp" | "onec_ut" | "onec_zup" | "onec_accounting" | "onec_document_flow" | "onec_integration" | "onec_edt" | "onec_administration" | "bitrix" | "erp_systems" | "sap_s4hana" | "sap_fiori" | "sap_bw" | "dynamics" | "crm_systems" | "requirements" | "uml_bpmn" | "business_processes" | "api_design" | "excel" | "power_bi" | "tableau" | "superset" | "ab_testing" | "product_analytics" | "web_analytics" | "ui_design" | "ux_design" | "figma" | "design_systems" | "prototyping" | "graphic_design" | "motion_design" | "agile" | "project_management" | "product_management" | "team_leadership" | "jira" | "git" | "algorithms" | "system_design" | "oop" | "functional_programming" | "code_review" | "technical_writing";
                 fsp?: "any" | "verified";
                 page?: number;
                 pageSize?: number;
@@ -11485,6 +12903,134 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Applications"];
+                };
+            };
+            /** @description Malformed request or schema validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Missing or expired mock session */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Role, consent, or origin restriction */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unknown resource or resource outside this actor/company */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State, idempotency, or cooldown conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Request body exceeds limit */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Unsupported media type */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Valid shape but invalid domain values */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification, email delivery, or proxy request limit */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Response conformance or unexpected server failure */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Verification provider failed to accept delivery */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Deterministic upstream error scenario */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    getHiringFlowAnalytics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HiringFlowAnalytics"];
                 };
             };
             /** @description Malformed request or schema validation error */

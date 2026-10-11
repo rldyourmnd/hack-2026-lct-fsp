@@ -1,0 +1,29 @@
+.form {
+  display: grid;
+  gap: var(--fsp-space-3);
+  padding: var(--fsp-space-4);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-card);
+  background: var(--fsp-color-surface-subtle);
+}
+
+.lead {
+  margin: 0;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+  gap: var(--fsp-space-3);
+  align-items: start;
+}
+
+@media (max-width: 40rem) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .role {
+    grid-column: 1 / -1;
+  }
+}

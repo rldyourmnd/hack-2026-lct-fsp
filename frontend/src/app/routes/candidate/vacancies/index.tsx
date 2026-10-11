@@ -3,13 +3,14 @@ import { z } from 'zod';
 import { scopeOf, sessionQueryOptions } from '@/entities/session';
 import { vacancySearchQuery } from '@/entities/vacancy';
 import { CandidateVacanciesPage, vacancyFilters } from '@/pages/candidate-vacancies';
+import { GRADE_IDS, SKILL_IDS, SPECIALIZATION_IDS } from '@/shared/api';
 
 // Malformed values fall back to safe defaults instead of reaching the API.
 const searchSchema = z.object({
-  specialization: z.enum(['backend', 'frontend', 'fullstack']).optional().catch(undefined),
-  grade: z.enum(['junior', 'middle', 'senior']).optional().catch(undefined),
+  specialization: z.enum(SPECIALIZATION_IDS).optional().catch(undefined),
+  grade: z.enum(GRADE_IDS).optional().catch(undefined),
   workMode: z.enum(['remote', 'hybrid', 'office']).optional().catch(undefined),
-  skill: z.enum(['rust', 'postgresql', 'docker', 'redis', 'react']).optional().catch(undefined),
+  skill: z.enum(SKILL_IDS).optional().catch(undefined),
   page: z.number().int().min(1).max(1000).optional().catch(undefined),
 });
 

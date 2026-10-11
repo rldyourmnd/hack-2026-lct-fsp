@@ -1,10 +1,14 @@
-use std::collections::BTreeSet;
+//! GitHub adapters: OAuth identity (an optional ownership proof) and the client of the loopback
+//! insights service, which performs all public-activity analysis.
+
 use std::time::Duration;
 
 use async_trait::async_trait;
-use fsp_application::{GitHubGateway, IntegrationError};
-use fsp_domain::{AnalyzedRepository, GitHubAnalysis, RepositoryMetrics};
-use reqwest::{Client, Url};
+use fsp_application::{
+    GitHubGateway, GitHubInsights, GitHubInsightsGateway, InsightsStatus, IntegrationError,
+};
+use fsp_domain::GitHubReport;
+use reqwest::{Client, StatusCode, Url};
 use serde::{Deserialize, Serialize};
 
 pub struct GitHubApi {
@@ -28,98 +32,6 @@ impl GitHubApi {
             api_base: "https://api.github.com".into(),
             client_id,
             client_secret,
-        })
-    }
-
-    async fn analyze_identity(
-        &self,
-        username: &str,
-        token: &str,
-    ) -> Result<GitHubAnalysis, IntegrationError> {
-        let user = self
-            .client
-            .get(format!("{}/user", self.api_base))
-            .bearer_auth(token)
-            .header("Accept", "application/vnd.github+json")
-            .send()
-            .await
-            .map_err(integration)?
-            .error_for_status()
-            .map_err(integration)?
-            .json::<ApiUser>()
-            .await
-            .map_err(integration)?;
-        if !user.login.eq_ignore_ascii_case(username) {
-            return Err(IntegrationError {
-                code: "github_oauth_failed",
-                message: "Авторизованный аккаунт GitHub не совпадает с указанным".into(),
-            });
-        }
-        let username = user.login.as_str();
-        let mut repositories = Vec::new();
-        for page in 1..=3 {
-            let batch = self
-                .client
-                .get(format!("{}/users/{username}/repos", self.api_base))
-                .bearer_auth(token)
-                .header("Accept", "application/vnd.github+json")
-                .query(&[
-                    ("per_page", "100"),
-                    ("page", &page.to_string()),
-                    ("sort", "pushed"),
-                ])
-                .send()
-                .await
-                .map_err(integration)?
-                .error_for_status()
-                .map_err(integration)?
-                .json::<Vec<ApiRepository>>()
-                .await
-                .map_err(integration)?;
-            let complete = batch.len() < 100;
-            repositories.extend(
-                batch
-                    .into_iter()
-                    .filter(|repository| !repository.fork)
-                    .map(repository),
-            );
-            if complete {
-                break;
-            }
-        }
-
-        let mut active_dates = BTreeSet::new();
-        for page in 1..=3 {
-            let batch = self
-                .client
-                .get(format!("{}/users/{username}/events/public", self.api_base))
-                .bearer_auth(token)
-                .header("Accept", "application/vnd.github+json")
-                .query(&[("per_page", "100"), ("page", &page.to_string())])
-                .send()
-                .await
-                .map_err(integration)?
-                .error_for_status()
-                .map_err(integration)?
-                .json::<Vec<ApiEvent>>()
-                .await
-                .map_err(integration)?;
-            let complete = batch.len() < 100;
-            active_dates.extend(
-                batch
-                    .into_iter()
-                    .filter_map(|event| event.created_at.get(..10).map(str::to_owned)),
-            );
-            if complete {
-                break;
-            }
-        }
-        Ok(GitHubAnalysis {
-            username: username.into(),
-            repositories,
-            active_days: active_dates.len() as u32,
-            observed_from: active_dates.first().map(|date| format!("{date}T00:00:00Z")),
-            observed_to: active_dates.last().map(|date| format!("{date}T23:59:59Z")),
         })
     }
 }
@@ -165,18 +77,166 @@ impl GitHubGateway for GitHubApi {
         })
     }
 
-    async fn analyze(
-        &self,
-        username: &str,
-        token: &str,
-    ) -> Result<GitHubAnalysis, IntegrationError> {
-        tokio::time::timeout(
-            Duration::from_secs(45),
-            self.analyze_identity(username, token),
-        )
-        .await
-        .map_err(integration)?
+    async fn authenticated_login(&self, token: &str) -> Result<String, IntegrationError> {
+        let user = self
+            .client
+            .get(format!("{}/user", self.api_base))
+            .bearer_auth(token)
+            .header("Accept", "application/vnd.github+json")
+            .send()
+            .await
+            .map_err(integration)?
+            .error_for_status()
+            .map_err(integration)?
+            .json::<ApiUser>()
+            .await
+            .map_err(integration)?;
+        Ok(user.login)
     }
+}
+
+/// Client of the `fsp-github-insights` loopback service.
+pub struct HttpInsights {
+    client: Client,
+    base: String,
+}
+
+impl HttpInsights {
+    pub fn new(base: &str) -> Result<Self, IntegrationError> {
+        let base = Url::parse(base).map_err(integration)?;
+        if !matches!(base.scheme(), "http" | "https") {
+            return Err(unavailable());
+        }
+        Ok(Self {
+            // Analyses run in the background; each call only queues or reads status.
+            client: Client::builder()
+                .timeout(Duration::from_secs(10))
+                .connect_timeout(Duration::from_secs(2))
+                .redirect(reqwest::redirect::Policy::none())
+                .build()
+                .map_err(integration)?,
+            base: base.as_str().trim_end_matches('/').to_owned(),
+        })
+    }
+}
+
+#[async_trait]
+impl GitHubInsightsGateway for HttpInsights {
+    async fn submit(
+        &self,
+        login: &str,
+        ownership_code: Option<&str>,
+        refresh: bool,
+    ) -> Result<InsightsStatus, IntegrationError> {
+        let response = self
+            .client
+            .post(format!("{}/v1/analyses", self.base))
+            .json(&SubmitRequest {
+                login,
+                ownership_code,
+                refresh,
+            })
+            .send()
+            .await
+            .map_err(integration)?;
+        read_status(response).await?.ok_or_else(unavailable)
+    }
+
+    async fn status(
+        &self,
+        login: &str,
+        ownership_code: Option<&str>,
+    ) -> Result<Option<InsightsStatus>, IntegrationError> {
+        let mut request = self
+            .client
+            .get(format!("{}/v1/analyses/{login}", self.base));
+        if let Some(code) = ownership_code {
+            request = request.query(&[("ownershipCode", code)]);
+        }
+        read_status(request.send().await.map_err(integration)?).await
+    }
+}
+
+async fn read_status(
+    response: reqwest::Response,
+) -> Result<Option<InsightsStatus>, IntegrationError> {
+    let status = response.status();
+    if status == StatusCode::NOT_FOUND {
+        return Ok(None);
+    }
+    if !status.is_success() {
+        let code = response
+            .json::<ServiceError>()
+            .await
+            .map(|error| error.code)
+            .unwrap_or_default();
+        return Err(service_error(&code));
+    }
+    let body = response
+        .json::<AnalysisResponse>()
+        .await
+        .map_err(integration)?;
+    Ok(Some(match body.state.as_str() {
+        "done" => InsightsStatus::Done(Box::new(GitHubInsights {
+            report: body.report.ok_or_else(unavailable)?,
+            ownership_code_found: body.ownership_code_found,
+        })),
+        "failed" => InsightsStatus::Failed(service_error(
+            body.error.as_ref().map_or("", |error| error.code.as_str()),
+        )),
+        state => InsightsStatus::Pending {
+            queued: state == "queued",
+            stage: body.stage,
+            progress: body.progress,
+        },
+    }))
+}
+
+/// Stable public errors for the service's codes; unknown codes and details are never reflected.
+fn service_error(code: &str) -> IntegrationError {
+    match code {
+        "github_login_invalid" => IntegrationError {
+            code: "github_login_invalid",
+            message: "Укажите имя пользователя GitHub или ссылку на профиль".into(),
+        },
+        "github_account_not_found" => IntegrationError {
+            code: "github_account_not_found",
+            message: "Пользователь GitHub не найден".into(),
+        },
+        "github_rate_limited" => IntegrationError {
+            code: "github_rate_limited",
+            message: "GitHub временно ограничил запросы, повторите позже".into(),
+        },
+        "github_not_configured" => IntegrationError {
+            code: "github_not_configured",
+            message: "Подключение GitHub временно недоступно".into(),
+        },
+        _ => unavailable(),
+    }
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SubmitRequest<'a> {
+    login: &'a str,
+    ownership_code: Option<&'a str>,
+    refresh: bool,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct AnalysisResponse {
+    state: String,
+    stage: String,
+    progress: u8,
+    report: Option<GitHubReport>,
+    ownership_code_found: Option<bool>,
+    error: Option<ServiceError>,
+}
+
+#[derive(Deserialize)]
+struct ServiceError {
+    code: String,
 }
 
 #[derive(Deserialize)]
@@ -196,57 +256,15 @@ struct TokenResponse {
     access_token: Option<String>,
 }
 
-#[derive(Deserialize)]
-struct ApiRepository {
-    id: u64,
-    name: String,
-    html_url: String,
-    language: Option<String>,
-    topics: Vec<String>,
-    stargazers_count: u64,
-    forks_count: u64,
-    open_issues_count: u64,
-    size: u64,
-    pushed_at: Option<String>,
-    fork: bool,
-}
-
-#[derive(Deserialize)]
-struct ApiEvent {
-    created_at: String,
-}
-
-fn repository(value: ApiRepository) -> AnalyzedRepository {
-    let mut technologies = BTreeSet::new();
-    if value.language.as_deref() == Some("Rust") {
-        technologies.insert("rust".into());
-    }
-    for topic in value.topics {
-        let normalized = topic.to_lowercase();
-        if ["rust", "postgresql", "docker", "redis", "react"].contains(&normalized.as_str()) {
-            technologies.insert(normalized);
-        }
-    }
-    AnalyzedRepository {
-        id: format!("github-{}", value.id),
-        name: value.name,
-        url: value.html_url,
-        technologies: technologies.into_iter().collect(),
-        metrics: RepositoryMetrics {
-            stars: value.stargazers_count,
-            forks: value.forks_count,
-            open_issues: value.open_issues_count,
-            size_kib: value.size,
-            pushed_at: value.pushed_at,
-        },
-    }
-}
-
-fn integration(_error: impl std::fmt::Display) -> IntegrationError {
+fn unavailable() -> IntegrationError {
     IntegrationError {
         code: "github_unavailable",
         message: "GitHub временно недоступен".into(),
     }
+}
+
+fn integration(_error: impl std::fmt::Display) -> IntegrationError {
+    unavailable()
 }
 
 #[cfg(test)]
@@ -254,43 +272,95 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn analysis_is_bound_to_the_authenticated_identity() {
+    async fn oauth_identity_is_read_from_the_token() {
         use axum::{Router, routing::get};
-        use std::sync::{
-            Arc,
-            atomic::{AtomicUsize, Ordering},
-        };
-        let reads = Arc::new(AtomicUsize::new(0));
-        let counter = reads.clone();
-        let app = Router::new()
-            .route(
-                "/user",
-                get(|| async { axum::Json(ApiUserFixture { login: "Owner" }) }),
-            )
-            .fallback(get(move || {
-                counter.fetch_add(1, Ordering::SeqCst);
-                async { "[]" }
-            }));
+        let app = Router::new().route(
+            "/user",
+            get(|| async { axum::Json(serde_json::json!({ "login": "Owner" })) }),
+        );
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let address = listener.local_addr().unwrap();
         let server = tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
         let mut api = GitHubApi::new("test".into(), "test".into()).unwrap();
         api.api_base = format!("http://{address}");
-        let error = api
-            .analyze("someone-else", "fixture-token")
-            .await
-            .unwrap_err();
-        assert_eq!(error.code, "github_oauth_failed");
-        assert_eq!(reads.load(Ordering::SeqCst), 0);
-        let analysis = api.analyze("owner", "fixture-token").await.unwrap();
-        assert_eq!(analysis.username, "Owner");
-        assert_eq!(reads.load(Ordering::SeqCst), 2);
+        assert_eq!(
+            api.authenticated_login("fixture-token").await.unwrap(),
+            "Owner"
+        );
         server.abort();
     }
 
-    #[derive(Serialize)]
-    struct ApiUserFixture {
-        login: &'static str,
+    #[tokio::test]
+    async fn insights_states_and_errors_keep_their_meaning_without_upstream_details() {
+        use axum::{
+            Router,
+            http::StatusCode,
+            routing::{get, post},
+        };
+        let app = Router::new()
+            .route(
+                "/v1/analyses",
+                post(|axum::Json(body): axum::Json<serde_json::Value>| async move {
+                    match body["login"].as_str() {
+                        Some("tokenless") => (
+                            StatusCode::SERVICE_UNAVAILABLE,
+                            r#"{"code":"github_not_configured","message":"x"}"#.to_owned(),
+                        ),
+                        Some("broken") => (StatusCode::BAD_GATEWAY, "secret upstream detail".into()),
+                        _ => (
+                            StatusCode::OK,
+                            r#"{"login":"dev","state":"running","stage":"Поиск коммитов","progress":8,"report":null,"ownershipCodeFound":null,"error":null,"retryAfterSeconds":null}"#.into(),
+                        ),
+                    }
+                }),
+            )
+            .route(
+                "/v1/analyses/{login}",
+                get(|axum::extract::Path(login): axum::extract::Path<String>| async move {
+                    match login.as_str() {
+                        "missing" => (StatusCode::NOT_FOUND, String::new()),
+                        _ => (
+                            StatusCode::OK,
+                            r#"{"login":"x","state":"failed","stage":"Ошибка","progress":0,"report":null,"ownershipCodeFound":null,"error":{"code":"github_account_not_found","message":"secret"},"retryAfterSeconds":null}"#.into(),
+                        ),
+                    }
+                }),
+            );
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let address = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        let insights = HttpInsights::new(&format!("http://{address}")).unwrap();
+        assert_eq!(
+            insights.submit("dev", None, false).await.unwrap(),
+            InsightsStatus::Pending {
+                queued: false,
+                stage: "Поиск коммитов".into(),
+                progress: 8
+            }
+        );
+        assert_eq!(
+            insights
+                .submit("tokenless", None, false)
+                .await
+                .unwrap_err()
+                .code,
+            "github_not_configured"
+        );
+        let broken = insights.submit("broken", None, false).await.unwrap_err();
+        assert_eq!(broken.code, "github_unavailable");
+        assert!(!broken.message.contains("secret"));
+        assert_eq!(insights.status("missing", None).await.unwrap(), None);
+        let InsightsStatus::Failed(error) = insights
+            .status("x", Some("fsp-0123456789"))
+            .await
+            .unwrap()
+            .unwrap()
+        else {
+            panic!("expected a failed analysis");
+        };
+        assert_eq!(error.code, "github_account_not_found");
+        assert!(!error.message.contains("secret"));
+        server.abort();
     }
 
     #[test]
@@ -325,28 +395,5 @@ mod tests {
             query.get("redirect_uri").map(|value| value.as_ref()),
             Some("https://example.test/oauth/callback?source=github")
         );
-    }
-
-    #[test]
-    fn repository_metrics_are_reproducible_and_topics_are_allowlisted() {
-        let value = repository(ApiRepository {
-            id: 42,
-            name: "evidence".into(),
-            html_url: "https://github.com/example/evidence".into(),
-            language: Some("Rust".into()),
-            topics: vec!["PostgreSQL".into(), "unverified-topic".into()],
-            stargazers_count: 7,
-            forks_count: 3,
-            open_issues_count: 2,
-            size: 4096,
-            pushed_at: Some("2026-10-06T12:00:00Z".into()),
-            fork: false,
-        });
-
-        assert_eq!(value.technologies, vec!["postgresql", "rust"]);
-        assert_eq!(value.metrics.stars, 7);
-        assert_eq!(value.metrics.forks, 3);
-        assert_eq!(value.metrics.open_issues, 2);
-        assert_eq!(value.metrics.size_kib, 4096);
     }
 }

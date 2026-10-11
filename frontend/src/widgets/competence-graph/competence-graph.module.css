@@ -1,6 +1,6 @@
 .frame {
   position: relative;
-  height: 30rem;
+  height: 36rem;
   border: 1px solid var(--fsp-color-border);
   border-radius: var(--fsp-radius-card);
   background: var(--fsp-color-surface);
@@ -21,7 +21,7 @@
   justify-items: center;
   align-content: center;
   gap: var(--fsp-space-1);
-  width: 140px;
+  width: 168px;
   height: 96px;
   padding: var(--fsp-space-2);
   border: 1.5px solid var(--fsp-color-border);
@@ -51,6 +51,16 @@
   background: var(--fsp-color-surface-subtle);
 }
 
+.concept {
+  border-color: var(--fsp-color-border-strong);
+  background: var(--fsp-color-surface-subtle);
+}
+
+.source {
+  border-style: dashed;
+  border-color: var(--fsp-color-primary);
+}
+
 .evidence {
   justify-items: start;
   text-align: left;
@@ -60,7 +70,8 @@
   font-weight: 700;
   font-size: var(--fsp-font-size-small);
   line-height: 1.25;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .meta {

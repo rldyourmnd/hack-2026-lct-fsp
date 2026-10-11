@@ -103,13 +103,11 @@ test('UI-29 withdrawing an application takes back its contacts; a repeat is refu
   await expect(candidate.page.getByRole('link', { name: /Вторая компания: Бэкенд-разработчик/ })).toBeVisible();
 });
 
-test('UI-30 a candidate without a verified grade sees why applying is unavailable and where to fix it', async ({
-  page,
-}) => {
+test('UI-30 a candidate without a category sees why applying is unavailable and where to fix it', async ({ page }) => {
   await resetMock('new_candidate');
   await signIn(page, 'new@example.com', 'candidate');
   await page.goto('/candidate/vacancies/need-002');
   await expect(page.getByRole('heading', { name: 'Отклик пока недоступен' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Откликнуться и открыть контакты' })).toHaveCount(0);
-  await expect(page.getByText('Соответствие появится после подтверждения грейда тестом знаний.')).toBeVisible();
+  await expect(page.getByText(/Соответствие появится, когда у профиля будет категория/)).toBeVisible();
 });

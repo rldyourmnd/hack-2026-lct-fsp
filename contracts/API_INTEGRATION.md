@@ -180,7 +180,7 @@ on sign-in, logout, a `401` or an actor change.
 | `/candidate/profile` | `getMyProfile`, `updateMyProfile`, `getMySkills`, PDF import operations |
 | `/candidate/sources` | `getMySources`, `getMyProfile`, `connectMySource`, `syncMySource`, `getJob` |
 | `/candidate/skills` | `getMySkills`, `getMyGraph`, `getMyProfile`, `listMyAssessments` |
-| `/candidate/assessments` | `getMyProfile`, `listMyAssessments`, `startAssessment` |
+| `/candidate/assessments` | `getMyProfile`, `listMyAssessments`, `startAssessment`, `listMyInterviews`, `startInterview`, `getInterview`, `answerInterview` |
 | `/candidate/assessments/{id}/workspace` | `getAssessment`, `saveAssessmentAnswer`, `runAssessmentChecks`, `getJob`, `askAssessmentAssistant`, `submitAssessment` |
 | `/candidate/assessments/{id}/result` | `getAssessment` (polled while evaluating), `getMyProfile`, `getMySkills`, `startAssessment`, `exportMyProfile` |
 | `/candidate/tasks` | `getMyTasks`, `respondToTask`, `getMyProfile` |

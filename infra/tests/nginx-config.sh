@@ -26,3 +26,13 @@ if bash "$here/check-runtime-compatibility.sh" "$tmp/legacy" "$tmp/env" > /dev/n
   echo 'Legacy rollback accepted real-mail runtime' >&2; exit 1
 fi
 echo 'PASS: rollback rejects releases without real-mail/domain support'
+
+printf 'FSP_AUTH_MODE=demo\n' > "$tmp/env"
+printf 'catalog-v2\n' > "$tmp/data-capabilities"
+bash "$here/check-runtime-compatibility.sh" "$here/.." "$tmp/env"
+mkdir -p "$tmp/pre-catalog/infra"
+printf 'resend-auth\ndomain-hostname\n' > "$tmp/pre-catalog/infra/RUNTIME_CAPABILITIES"
+if bash "$here/check-runtime-compatibility.sh" "$tmp/pre-catalog" "$tmp/env" > /dev/null 2>&1; then
+  echo 'Rollback below catalog-v2 accepted stored catalog-v2 data' >&2; exit 1
+fi
+echo 'PASS: rollback rejects releases that cannot read catalog-v2 data'

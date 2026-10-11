@@ -31,7 +31,7 @@ export function ConsentControls({ profile }: { profile: Profile }) {
         disabled={save.isPending}
         onCheckedChange={(publication) => save.mutate({ ...consents, publication })}
         label="Показывать профиль работодателям"
-        description="Обезличенный профиль попадёт в поиск компаний после подтверждения уровня. Контакты при этом не открываются."
+        description="Обезличенный профиль попадёт в поиск компаний, когда у него будет категория — по автоматической оценке или тесту. Контакты при этом не открываются."
       />
       {save.isPending && <span className="small muted">Сохраняем настройку…</span>}
       {save.error && (

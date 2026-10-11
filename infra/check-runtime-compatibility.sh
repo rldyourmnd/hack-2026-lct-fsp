@@ -16,3 +16,11 @@ fi
 if [[ -n "$host" && ! "$host" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   require_capability domain-hostname
 fi
+# Stored data may use vocabulary an earlier release introduced (catalog-v2 grades, specializations and
+# skills); every capability recorded next to the configuration must be understood by the target.
+markers="$(dirname "$config")/data-capabilities"
+if [[ -f "$markers" ]]; then
+  while IFS= read -r capability; do
+    if [[ -n "$capability" ]]; then require_capability "$capability"; fi
+  done < "$markers"
+fi

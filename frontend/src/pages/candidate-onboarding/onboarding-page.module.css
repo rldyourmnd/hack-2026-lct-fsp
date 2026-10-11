@@ -28,3 +28,20 @@
   background: var(--fsp-color-success-subtle);
   color: var(--fsp-color-success);
 }
+
+.sources {
+  display: grid;
+  gap: var(--fsp-space-5);
+  max-width: 34rem;
+}
+
+.details {
+  padding-top: var(--fsp-space-4);
+  border-top: 1px solid var(--fsp-color-border);
+}
+
+.details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--fsp-color-primary);
+}

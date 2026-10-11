@@ -8,7 +8,7 @@ import { profileQuery } from '@/entities/profile';
 import { type Session, scopeOf, sessionQueryOptions } from '@/entities/session';
 import { requestEmailCode, useLogout, verifyEmailCode } from '@/features/auth';
 import { type components, describeError, isApiError } from '@/shared/api';
-import { demoEmailCode, isDemoStand } from '@/shared/config';
+import { isDemoStand } from '@/shared/config';
 import { pluralRu, useDocumentTitle } from '@/shared/lib';
 import { Button, ButtonLink, Callout, Icon, TextField } from '@/shared/ui';
 import styles from './login-page.module.css';
@@ -24,6 +24,7 @@ const demoAccounts: Array<{ role: Role; email: string; label: string }> = [
   { role: 'employer', email: 'hr@sever-tech.example', label: 'Работодатель «Север Тех»' },
   { role: 'employer', email: 'hr@second-company.example', label: 'Работодатель «Вторая компания»' },
 ];
+const seededDemoEmailCode = '123456';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -128,6 +129,10 @@ export function LoginPage({ redirectTo, expired }: Props) {
   const requestError = requestCode.error;
   const roleConflict = isApiError(requestError) && requestError.code === 'role_mismatch';
   const codeValid = /^\d{6}$/.test(code);
+  const visibleDemoEmailCode =
+    isDemoStand && challenge && demoAccounts.some((account) => account.email === challenge.email)
+      ? seededDemoEmailCode
+      : null;
   const lifetimeMinutes = challenge
     ? Math.max(0, Math.round((Date.parse(challenge.expiresAt) - Date.parse(meta.serverTime)) / 60_000))
     : 0;
@@ -285,10 +290,10 @@ export function LoginPage({ redirectTo, expired }: Props) {
             {challenge.delivery === 'mock_mailbox' && (
               <Callout tone="info" title="Демонстрационная почта">
                 Письмо на реальный адрес не отправляется: код попадает в демонстрационный почтовый ящик.
-                {demoEmailCode && (
+                {visibleDemoEmailCode && (
                   <>
                     {' '}
-                    Код для этого стенда: <strong>{demoEmailCode}</strong>.
+                    Код для этого стенда: <strong>{visibleDemoEmailCode}</strong>.
                   </>
                 )}
               </Callout>
@@ -361,7 +366,7 @@ export function LoginPage({ redirectTo, expired }: Props) {
           </form>
         )}
 
-        {isDemoStand && !meta.capabilities.realEmail && !challenge && (
+        {isDemoStand && !challenge && (
           <Callout tone="neutral" title="Демонстрационные аккаунты">
             <p style={{ margin: '0 0 0.5rem' }}>
               Данные стенда синтетические. Для полного пути кандидата укажите любой новый адрес.

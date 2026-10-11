@@ -34,15 +34,19 @@ export function AssessmentNextStep({ profile }: { profile: Profile }) {
   }
 
   const active = assessments.data.items.find((item) => isEditable(item) || isEvaluating(item));
+  const growth = (profile.estimate?.growth ?? []).filter((step) => step.id !== 'assessment');
   let body: ReactNode;
 
   if (!profile.onboarding.questionnaireComplete || !profile.consents.processing) {
     body = (
       <>
-        <h3 style={{ margin: 0 }}>Заполните анкету</h3>
-        <p className="muted">Отрасль, специализация, стек и согласие на обработку нужны, чтобы назначить проверку.</p>
+        <h3 style={{ margin: 0 }}>Соберите профиль</h3>
+        <p className="muted">
+          Дайте согласие на обработку и подключите GitHub или ФСП — анкета заполнится автоматически. Её можно заполнить
+          и вручную.
+        </p>
         <ButtonLink to="/candidate/onboarding" variant="primary" iconAfter="arrowRight">
-          Продолжить анкету
+          Продолжить
         </ButtonLink>
       </>
     );
@@ -73,13 +77,50 @@ export function AssessmentNextStep({ profile }: { profile: Profile }) {
         </ButtonLink>
       </>
     );
+  } else if (profile.category.source === 'estimate' && growth.length > 0) {
+    // An estimated category grows with evidence first; the test stays an option, not a demand.
+    body = (
+      <>
+        <h3 style={{ margin: 0 }}>Как повысить грейд</h3>
+        <ul className="stack" style={{ margin: 0, paddingLeft: '1.25rem' }}>
+          {growth.slice(0, 3).map((step) => (
+            <li key={step.id}>
+              <strong>{step.title}</strong>
+              {step.points > 0 && ` — до +${step.points}`}
+              <div className="small muted">{step.action}</div>
+            </li>
+          ))}
+        </ul>
+        {eligibility.canStartSelected && (
+          <Button
+            size="sm"
+            iconAfter="arrowRight"
+            pending={start.isPending}
+            pendingLabel="Создаём проверку…"
+            onClick={() =>
+              start.mutate({ specialization: eligibility.selectedSpecialization, grade: eligibility.selectedGrade })
+            }
+          >
+            Пройти тест — по желанию
+          </Button>
+        )}
+        {start.error && <Callout tone="danger">{describeError(start.error).message}</Callout>}
+      </>
+    );
   } else if (eligibility.canStartSelected) {
     body = (
       <>
         <h3 style={{ margin: 0 }}>
-          {profile.verifiedGrade ? `Подтвердить ${gradeLabel[eligibility.selectedGrade]}` : 'Подтвердить уровень'}
+          {profile.verifiedGrade
+            ? `Подтвердить ${gradeLabel[eligibility.selectedGrade]}`
+            : profile.category.source === 'estimate'
+              ? 'Подтвердить категорию тестом'
+              : 'Подтвердить уровень'}
         </h3>
-        <p className="muted">{target}. Тест знаний с выбором ответов, ИИ разрешён.</p>
+        <p className="muted">
+          {target}. Тест знаний с выбором ответов, ИИ разрешён.
+          {profile.category.source === 'estimate' && ' Подтверждённые кандидаты стоят выше в выдаче.'}
+        </p>
         <Button
           variant="primary"
           iconAfter="arrowRight"

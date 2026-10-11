@@ -8,6 +8,7 @@ import {
 } from '@/entities/application';
 import { candidateQuery, disclosureQuery, RequirementStatusChip } from '@/entities/candidate';
 import { skillLabel, useMeta } from '@/entities/meta';
+import { CategoryBadge } from '@/entities/qualification';
 import { useScope } from '@/entities/session';
 import { isDemoReference } from '@/entities/source';
 import { ApplicationReview } from '@/features/review-application';
@@ -19,7 +20,7 @@ import {
   useDocumentTitle,
   workModeLabel,
 } from '@/shared/lib';
-import { Avatar, ButtonLink, Card, Icon, LoadingState, SalaryBlock, StatusChip, TableWrap, Tag } from '@/shared/ui';
+import { Avatar, ButtonLink, Card, Icon, LoadingState, SalaryBlock, StatusChip, TableWrap } from '@/shared/ui';
 
 function Contacts({ candidateId }: { candidateId: string }) {
   const scope = useScope();
@@ -109,10 +110,12 @@ export function EmployerApplicationPage({ applicationId }: { applicationId: stri
                   <strong>{application.candidateAlias}</strong>
                   {candidate.data && (
                     <div className="row">
-                      <Tag>
-                        {specializationLabel[candidate.data.specialization]} ·{' '}
-                        {gradeLabel[candidate.data.verifiedGrade]}
-                      </Tag>
+                      <CategoryBadge
+                        specialization={candidate.data.specialization}
+                        grade={candidate.data.grade}
+                        source={candidate.data.categorySource}
+                        confidence={candidate.data.categoryConfidence}
+                      />
                       {candidate.data.fspVerified && (
                         <StatusChip tone="info" icon="checkCircle">
                           Участие в ФСП подтверждено

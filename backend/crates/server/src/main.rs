@@ -7,9 +7,11 @@ use std::sync::Arc;
 use fsp_application::{PlatformRepository, PlatformService, VerificationDelivery};
 use fsp_http::HttpConfig;
 use fsp_integration_bifrost::BifrostGateway;
-use fsp_integration_email::{DemoDelivery, ResendDelivery};
+use fsp_integration_email::{DemoDelivery, HybridDelivery, ResendDelivery};
 use fsp_integration_fsp_synthetic::HttpFsp;
-use fsp_integration_github::GitHubApi;
+use fsp_integration_github::{GitHubApi, HttpInsights};
+use fsp_integration_interview::HttpInterviewGateway;
+use fsp_integration_speech::{XaiSpeech, YandexSpeech};
 use fsp_storage_postgres::PostgresRepository;
 use tokio::net::TcpListener;
 use tokio::signal;
@@ -59,13 +61,20 @@ async fn main() -> Result<(), Box<dyn Error>> {
             }
             Arc::new(DemoDelivery(code))
         }
-        "resend" => Arc::new(
-            ResendDelivery::new(
-                nonempty_env("RESEND_API_KEY").ok_or("RESEND_API_KEY is required")?,
-                nonempty_env("FSP_EMAIL_FROM").ok_or("FSP_EMAIL_FROM is required")?,
-            )
-            .map_err(|_| "Invalid Resend configuration")?,
-        ),
+        "resend" => {
+            let code = env::var("FSP_DEMO_EMAIL_CODE").unwrap_or_else(|_| "123456".into());
+            if code.len() != 6 || !code.bytes().all(|b| b.is_ascii_digit()) {
+                return Err("FSP_DEMO_EMAIL_CODE must contain six digits".into());
+            }
+            Arc::new(HybridDelivery::new(
+                code,
+                ResendDelivery::new(
+                    nonempty_env("RESEND_API_KEY").ok_or("RESEND_API_KEY is required")?,
+                    nonempty_env("FSP_EMAIL_FROM").ok_or("FSP_EMAIL_FROM is required")?,
+                )
+                .map_err(|_| "Invalid Resend configuration")?,
+            ))
+        }
         _ => return Err("FSP_AUTH_MODE must be demo or resend".into()),
     };
     if let Some(key) = &auth_key
@@ -85,6 +94,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
         &env::var("FSP_SIMULATOR_URL").unwrap_or_else(|_| "http://127.0.0.1:4020".into()),
     )
     .map_err(|error| std::io::Error::other(error.message))?;
+    // Public GitHub analysis runs in the separate loopback insights service when configured.
+    let insights = nonempty_env("FSP_GITHUB_INSIGHTS_URL")
+        .map(|url| HttpInsights::new(&url))
+        .transpose()
+        .map_err(|error| format!("GitHub insights adapter: {}", error.message))?;
     let mut github_adapter = None;
     let mut llm_adapter = None;
     let mut pdf_adapter = None;
@@ -101,6 +115,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
             chat_url,
             nonempty_env("BIFROST_API_KEY"),
             nonempty_env("BIFROST_MODEL").unwrap_or_else(|| "openai/gpt-5-mini".into()),
+            // Background reviews reason deeply unless the operator sets `none`.
+            Some(nonempty_env("BIFROST_REASONING_EFFORT").unwrap_or_else(|| "high".into()))
+                .filter(|effort| effort != "none"),
         )
         .map_err(|error| format!("Bifrost adapter: {}", error.message))?;
         llm_adapter = Some(Arc::new(bifrost));
@@ -112,6 +129,32 @@ async fn main() -> Result<(), Box<dyn Error>> {
             .map_err(|error| format!("PDF adapter: {}", error.message))?;
         pdf_adapter = Some(Arc::new(pdf));
     }
+    let speech_adapter: Option<Arc<dyn fsp_application::SpeechSynthesisGateway>> =
+        match nonempty_env("FSP_TTS_PROVIDER").as_deref() {
+            None | Some("browser") => None,
+            Some("xai") => Some(Arc::new(
+                XaiSpeech::new(
+                    &env::var("XAI_TTS_URL").unwrap_or_else(|_| "https://api.x.ai/v1/tts".into()),
+                    nonempty_env("XAI_API_KEY").ok_or("XAI_API_KEY is required for xai TTS")?,
+                    env::var("XAI_TTS_VOICE").unwrap_or_else(|_| "eve".into()),
+                )
+                .map_err(|error| format!("xAI speech adapter: {}", error.message))?,
+            )),
+            Some("yandex") => Some(Arc::new(
+                YandexSpeech::new(
+                    &env::var("YANDEX_TTS_URL").unwrap_or_else(|_| {
+                        "https://tts.api.cloud.yandex.net/tts/v3/utteranceSynthesis".into()
+                    }),
+                    nonempty_env("YANDEX_SPEECHKIT_API_KEY")
+                        .ok_or("YANDEX_SPEECHKIT_API_KEY is required for yandex TTS")?,
+                    env::var("YANDEX_TTS_VOICE").unwrap_or_else(|_| "marina".into()),
+                    nonempty_env("YANDEX_TTS_ROLE"),
+                    nonempty_env("YANDEX_TTS_MODEL"),
+                )
+                .map_err(|error| format!("Yandex speech adapter: {}", error.message))?,
+            )),
+            Some(_) => return Err("FSP_TTS_PROVIDER must be browser, xai or yandex".into()),
+        };
     let listener = TcpListener::bind((host.as_str(), port)).await?;
     let repository = Arc::new(
         PostgresRepository::connect(&database_url)
@@ -127,11 +170,34 @@ async fn main() -> Result<(), Box<dyn Error>> {
     if let Some(github) = github_adapter {
         platform = platform.with_github(github);
     }
+    if let Some(insights) = insights {
+        platform = platform.with_github_insights(Arc::new(insights));
+    }
     if let Some(llm) = llm_adapter {
         platform = platform.with_llm(llm);
     }
     if let Some(pdf) = pdf_adapter {
         platform = platform.with_pdf(pdf);
+    }
+    if let Some(speech) = speech_adapter {
+        platform = platform.with_speech(speech);
+    }
+    match (
+        nonempty_env("FSP_INTERVIEW_URL"),
+        nonempty_env("INTERVIEW_API_TOKEN"),
+    ) {
+        (Some(url), Some(token)) => {
+            platform = platform.with_interviews(Arc::new(
+                HttpInterviewGateway::new(&url, token)
+                    .map_err(|error| format!("Interview adapter: {}", error.message))?,
+            ));
+        }
+        (None, None) => {}
+        _ => {
+            return Err(
+                "FSP_INTERVIEW_URL and INTERVIEW_API_TOKEN must be configured together".into(),
+            );
+        }
     }
     let service = Arc::new(platform);
     service.initialize().await.map_err(|error| error.message)?;

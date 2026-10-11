@@ -105,22 +105,77 @@ fn invalid() -> ApplicationError {
     )
 }
 
+/// Whether the quote supports the value: catalog values by their id, label or a common alias as a
+/// whole word, numbers only when written out, and text by containment.
 fn supported_value(field: &str, value: &str, quote: &str) -> bool {
-    let aliases: &[&str] = match (field, value) {
-        ("specialization", "backend") => &["backend", "back-end", "бэкенд", "бекенд"],
-        ("specialization", "frontend") => &["frontend", "front-end", "фронтенд"],
-        ("specialization", "fullstack") => &["fullstack", "full-stack", "full stack", "фулстек"],
-        ("selectedGrade", "junior") => &["junior", "джуниор"],
-        ("selectedGrade", "middle") => &["middle", "мидл"],
-        ("selectedGrade", "senior") => &["senior", "сеньор"],
-        ("stack", "rust") => &["rust"],
-        ("stack", "postgresql") => &["postgresql", "postgres"],
-        ("stack", "docker") => &["docker"],
-        ("stack", "redis") => &["redis"],
-        ("stack", "react") => &["react", "reactjs", "react.js"],
-        ("specialization" | "selectedGrade" | "stack", _) => return false,
+    let mut aliases: Vec<String> = Vec::new();
+    match field {
+        "specialization" => {
+            let Some(item) = fsp_domain::catalog::catalog()
+                .specializations
+                .iter()
+                .find(|item| item.id.as_str() == value)
+            else {
+                return false;
+            };
+            aliases.extend([
+                value.replace('_', " "),
+                item.label.to_lowercase(),
+                item.short.to_lowercase(),
+                item.role.to_lowercase(),
+            ]);
+            aliases.extend(
+                match value {
+                    "backend" => &["back-end", "бэкенд", "бекенд"][..],
+                    "frontend" => &["front-end", "фронтенд"],
+                    "fullstack" => &["full-stack", "full stack", "фулстек"],
+                    "devops" => &["sre", "девопс"],
+                    "onec" => &["1с", "1c"],
+                    "qa_automation" | "qa_manual" => &["qa", "тестировщик"],
+                    _ => &[],
+                }
+                .iter()
+                .map(|alias| (*alias).to_owned()),
+            );
+        }
+        "selectedGrade" => {
+            let Some(grade) = fsp_domain::Grade::ALL
+                .into_iter()
+                .find(|grade| grade.as_str() == value)
+            else {
+                return false;
+            };
+            aliases.extend([value.to_owned(), grade.label().to_lowercase()]);
+            aliases.extend(
+                match grade {
+                    fsp_domain::Grade::Intern => &["стажер", "trainee"][..],
+                    fsp_domain::Grade::Middle => &["миддл"],
+                    fsp_domain::Grade::Senior => &["синьор", "сениор"],
+                    fsp_domain::Grade::Lead => &["тимлид", "team lead", "tech lead", "техлид"],
+                    fsp_domain::Grade::Junior => &[],
+                }
+                .iter()
+                .map(|alias| (*alias).to_owned()),
+            );
+        }
+        "stack" => {
+            let Some(skill) = fsp_domain::catalog::skill(value) else {
+                return false;
+            };
+            let label = skill.label.to_lowercase();
+            aliases.extend([value.replace('_', " "), label.clone()]);
+            // «Actix и Axum», «HTML и CSS», «Bash/shell»: any named part counts.
+            aliases.extend(
+                label
+                    .split([',', '/', '(', ')'])
+                    .flat_map(|part| part.split(" и "))
+                    .map(str::trim)
+                    .filter(|part| part.chars().count() >= 2)
+                    .map(str::to_owned),
+            );
+        }
         // Only explicitly stated month totals are imported; never sum overlapping dates.
-        ("experienceMonths", _) => {
+        "experienceMonths" => {
             return value.parse::<u16>().is_ok_and(|n| n <= 1200)
                 && quote
                     .split_whitespace()
@@ -131,16 +186,27 @@ fn supported_value(field: &str, value: &str, quote: &str) -> bool {
                             && (words[1].starts_with("мес") || words[1].starts_with("month"))
                     });
         }
+        // The year someone started in IT, written in the quote.
+        "experienceSince" => {
+            return value.len() == 4
+                && value
+                    .parse::<i32>()
+                    .is_ok_and(|year| (1950..=current_year()).contains(&year))
+                && quote.contains(value);
+        }
         _ => return quote.contains(&normalize(value)),
-    };
-    aliases.iter().any(|alias| {
-        quote.match_indices(alias).any(|(at, _)| {
-            let before = quote[..at].chars().next_back();
-            let after = quote[at + alias.len()..].chars().next();
-            before.is_none_or(|c| !c.is_alphanumeric())
-                && after.is_none_or(|c| !c.is_alphanumeric())
+    }
+    aliases
+        .iter()
+        .filter(|alias| !alias.is_empty())
+        .any(|alias| {
+            quote.match_indices(alias.as_str()).any(|(at, _)| {
+                let before = quote[..at].chars().next_back();
+                let after = quote[at + alias.len()..].chars().next();
+                before.is_none_or(|c| !c.is_alphanumeric())
+                    && after.is_none_or(|c| !c.is_alphanumeric())
+            })
         })
-    })
 }
 
 fn validated_preview(
@@ -155,6 +221,7 @@ fn validated_preview(
         "name": profile.name, "specialization": profile.specialization,
         "selectedGrade": profile.selected_grade, "stack": profile.stack,
         "teamRole": profile.team_role, "experienceMonths": profile.experience_months,
+        "experienceSince": profile.experience_since,
         "experience": profile.experience, "softSkills": profile.soft_skills,
     });
     let mut seen = BTreeSet::new();
@@ -173,7 +240,8 @@ fn validated_preview(
             "name" | "teamRole" => 120,
             "experience" => 4000,
             "softSkills" => 100,
-            "specialization" | "selectedGrade" | "experienceMonths" | "stack" => 20,
+            "specialization" | "selectedGrade" | "experienceMonths" | "stack" => 40,
+            "experienceSince" => 4,
             _ => return Err(invalid()),
         };
         let page = pages
@@ -207,6 +275,10 @@ fn validated_preview(
                 return Err(invalid());
             }
             preview[&item.field] = if item.field == "experienceMonths" {
+                json!(value.parse::<u16>().map_err(|_| invalid())?)
+            } else if item.field == "experienceSince" {
+                // A start year from the résumé replaces stated months.
+                preview["experienceMonths"] = Value::Null;
                 json!(value.parse::<u16>().map_err(|_| invalid())?)
             } else {
                 json!(value)
@@ -244,6 +316,7 @@ mod tests {
             stack: vec!["postgresql".into()],
             team_role: "Developer".into(),
             experience_months: Some(18),
+            experience_since: None,
             experience: "Current experience".into(),
             soft_skills: vec![],
             consents: Consents {
@@ -253,6 +326,8 @@ mod tests {
             verified_grade: Some(Grade::Junior),
             verified_specialization: Some(Specialization::Backend),
             grade_confirmed_at: None,
+            estimate: None,
+            auto_fields: Vec::new(),
             revision: 4,
             updated_at: now(),
         }
@@ -363,5 +438,33 @@ mod tests {
             "5 лет, телефон 6060"
         ));
         assert!(supported_value("experienceMonths", "60", "опыт 60 месяцев"));
+        // The whole catalog counts, by id, label or a named part of the label.
+        assert!(supported_value(
+            "stack",
+            "github_actions",
+            "ci на github actions"
+        ));
+        assert!(supported_value("stack", "kafka", "очереди на kafka"));
+        assert!(supported_value("stack", "actix", "сервисы на axum"));
+        assert!(supported_value(
+            "specialization",
+            "devops",
+            "devops-инженер"
+        ));
+        assert!(supported_value("selectedGrade", "lead", "тимлид команды"));
+        assert!(!supported_value("stack", "go", "google"));
+        // A start year must be written in the quote and lie between 1950 and now.
+        assert!(supported_value(
+            "experienceSince",
+            "2016",
+            "программирую с 2016 года"
+        ));
+        assert!(!supported_value(
+            "experienceSince",
+            "2016",
+            "работаю с 2018 года"
+        ));
+        assert!(!supported_value("experienceSince", "1949", "с 1949 года"));
+        assert!(!supported_value("experienceSince", "16", "с 16 лет"));
     }
 }

@@ -23,7 +23,7 @@ and publication states are our application design, not an official federation sp
 | ID | Fixture |
 | --- | --- |
 | FSP-DEMO-024 | Published product team result: place 3/18, 82 points, four participants |
-| FSP-DEMO-031 | The published team result plus an individual algorithmic event awaiting publication |
+| FSP-DEMO-031 | A fictional history for a platform and systems engineer: product hackathons 1/64 (2024) and 2/120 (2025) with a team, an individual algorithmic result 9/412 (2025), the published team result 3/18 and an individual algorithmic event awaiting publication |
 | FSP-DEMO-PENDING | Team event awaiting a protocol; no participation confirmation |
 | FSP-DEMO-EMPTY | Registered with no results |
 | FSP-DEMO-DQ | Disqualified team record; no participation confirmation |

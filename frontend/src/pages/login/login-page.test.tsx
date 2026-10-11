@@ -20,7 +20,7 @@ function renderLogin(realEmail = false) {
 }
 
 describe('email sign-in', () => {
-  it('shows real mail guidance and hides demo accounts when the server sends email', async () => {
+  it('shows real mail guidance and keeps demo accounts available when the server sends email', async () => {
     server.use(
       unauthenticated,
       http.post(`${API}/api/v1/auth/email/challenges`, () =>
@@ -31,7 +31,7 @@ describe('email sign-in', () => {
       ),
     );
     await renderLogin(true);
-    expect(screen.queryByText('Демонстрационные аккаунты')).toBeNull();
+    expect(screen.getByText('Демонстрационные аккаунты')).toBeTruthy();
     await userEvent.type(screen.getByLabelText(/Электронная почта/), 'real@example.com');
     await userEvent.click(screen.getByRole('button', { name: 'Получить код' }));
     expect(await screen.findByText('Проверьте почту')).toBeTruthy();
@@ -68,6 +68,22 @@ describe('email sign-in', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Подтвердить и войти' }));
     expect(await screen.findByText(/Неверный код. Проверьте цифры/)).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Отправить новый код' })).toBeTruthy();
+  });
+
+  it('shows the fixed code only for a seeded demo account', async () => {
+    server.use(
+      unauthenticated,
+      http.post(`${API}/api/v1/auth/email/challenges`, () =>
+        HttpResponse.json(
+          { challengeId: 'challenge-demo', expiresAt: '2026-10-05T12:15:00.000Z', delivery: 'mock_mailbox' },
+          { status: 201 },
+        ),
+      ),
+    );
+    await renderLogin(true);
+    await userEvent.click(screen.getByRole('button', { name: 'Подставить alexey@example.com' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Получить код' }));
+    expect(await screen.findByText('123456')).toBeTruthy();
   });
 
   it('tells the user that an existing account cannot change its role', async () => {

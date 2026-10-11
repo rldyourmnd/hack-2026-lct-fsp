@@ -1,3 +1,12 @@
+import {
+  CATALOG_VERSION,
+  GRADE_ORDER,
+  GRADES,
+  SKILL_CATEGORIES,
+  SPECIALIZATIONS,
+  specializationShort,
+  testTopics,
+} from './catalog.ts';
 import type { OperationId, Route } from './contract.ts';
 import {
   type Actor,
@@ -9,6 +18,7 @@ import {
   createState,
   evidenceFor,
   type Grade,
+  type Interview,
   type InvitationRecord,
   type JobRecord,
   type JobResult,
@@ -17,6 +27,7 @@ import {
   type Need,
   nextId,
   type Scenario,
+  type SelfSkill,
   SKILLS,
   type Source,
   type State,
@@ -24,9 +35,34 @@ import {
   type TaskRecord,
   type TaskResponse,
 } from './data.ts';
+import {
+  AUTO_FIELDS,
+  applyEstimate,
+  categoryOf,
+  categoryStrength,
+  DEFAULT_CANDIDATE_NAME,
+  questionnaireComplete,
+  rebuildFromEstimate,
+  releaseAnswers,
+  sourceEstimate,
+} from './estimate.ts';
 import { fspResults } from './fsp-fixture.ts';
 import type { components } from './generated/schema.d.ts';
-import { knowledgeCompletion, knowledgeTask, scoreKnowledge, validKnowledgeAnswer } from './knowledge.ts';
+import {
+  GITHUB_ANALYSIS_STARTED,
+  githubFixtureReport,
+  githubSignal,
+  githubSource,
+  parseGitHubLogin,
+} from './github-fixture.ts';
+import {
+  knowledgeAvailable,
+  knowledgeCompletion,
+  knowledgeScopes,
+  knowledgeTask,
+  scoreKnowledge,
+  validKnowledgeAnswer,
+} from './knowledge.ts';
 
 type Schemas = components['schemas'];
 
@@ -56,10 +92,92 @@ const must = <T>(value: T | null | undefined, what: string): T => {
   if (value === null || value === undefined) throw new Error(`Inconsistent mock state: ${what}`);
   return value;
 };
-const rank: Record<Grade, number> = { junior: 1, middle: 2, senior: 3 };
+const rank = Object.fromEntries(GRADE_ORDER.map((grade, index) => [grade, index])) as Record<Grade, number>;
 // A missing grade compares as NaN, so every comparison with it is false.
 const rankOf = (grade: Grade | null | undefined) => (grade ? rank[grade] : Number.NaN);
+/** The catalog order, which the Rust `Specialization` enum follows. */
+const specializationRank = Object.fromEntries(SPECIALIZATIONS.map((item, index) => [item.id, index])) as Record<
+  Schemas['Profile']['specialization'],
+  number
+>;
 const activeAssessment = new Set<AssessmentRecord['status']>(['draft', 'in_progress', 'submitted', 'evaluating']);
+
+const interviewNodes: Interview['nodes'] = [
+  {
+    id: 'backend.idempotency',
+    label: 'Проектирует идемпотентную запись',
+    kind: 'technical',
+    criticality: 5,
+    prerequisites: ['backend.unique-operation', 'backend.transactions'],
+    state: 'unknown',
+  },
+  {
+    id: 'backend.unique-operation',
+    label: 'Определяет уникальность операции',
+    kind: 'technical',
+    criticality: 4,
+    prerequisites: [],
+    state: 'unknown',
+  },
+  {
+    id: 'backend.transactions',
+    label: 'Использует транзакционные границы',
+    kind: 'technical',
+    criticality: 5,
+    prerequisites: [],
+    state: 'unknown',
+  },
+  {
+    id: 'collaboration.requirements',
+    label: 'Проясняет неоднозначные требования и риски',
+    kind: 'behavioral',
+    criticality: 3,
+    prerequisites: [],
+    state: 'unknown',
+  },
+  {
+    id: 'collaboration.disagreement',
+    label: 'Разбирает рабочее разногласие без эскалации конфликта',
+    kind: 'behavioral',
+    criticality: 4,
+    prerequisites: ['collaboration.requirements'],
+    state: 'unknown',
+  },
+  {
+    id: 'collaboration.feedback',
+    label: 'Даёт и принимает рабочую обратную связь',
+    kind: 'behavioral',
+    criticality: 3,
+    prerequisites: ['collaboration.requirements'],
+    state: 'unknown',
+  },
+];
+
+const interviewPrompt = (nodeId: string) =>
+  nodeId === 'backend.idempotency'
+    ? 'Клиент повторяет POST-запрос после таймаута, и заказ создаётся дважды. Как вы измените систему?'
+    : nodeId === 'backend.unique-operation'
+      ? 'Как сформировать и ограничить область действия ключа операции, чтобы не склеить разные запросы?'
+      : nodeId === 'backend.transactions'
+        ? 'Какие изменения должны попасть в одну транзакцию при создании заказа и записи результата операции?'
+        : nodeId === 'collaboration.disagreement'
+          ? 'Вы считаете решение рискованным, а коллега настаивает на нём. Как продолжите разговор?'
+          : nodeId === 'collaboration.feedback'
+            ? 'Коллега второй раз срывает договорённость. Как вы дадите обратную связь?'
+            : 'Требование допускает два толкования, а срок уже близко. Как вы будете действовать?';
+
+function interviewQuestion(nodeId: string, sequence: number): NonNullable<Interview['currentQuestion']> {
+  const prompt = interviewPrompt(nodeId);
+  const behavioral = nodeId.startsWith('collaboration.');
+  return {
+    id: `question-${sequence}-${nodeId.replaceAll('.', '-')}`,
+    nodeId,
+    prompt,
+    sequence,
+    recommendedResponseMode: behavioral || sequence % 4 === 0 ? 'voice' : 'text',
+    delivery: { speechText: prompt, avatarCue: 'speaking' },
+  };
+}
 const terminalStatus = new Set<InvitationRecord['status']>(['accepted', 'declined', 'withdrawn']);
 const pick = <T, K extends keyof T>(value: T, keys: readonly K[]): Pick<T, K> =>
   Object.fromEntries(keys.map((key) => [key, value[key]])) as Pick<T, K>;
@@ -117,6 +235,7 @@ const applicationFor = ({ s, actor }: Ctx, id: string): ApplicationRecord => {
     : fail(404, 'not_found', 'Ресурс не найден');
 };
 const assessmentFor = ({ s, actor }: Ctx, id: string) => own(s.assessments.get(id), actor, 'candidateId');
+const interviewFor = ({ s, actor }: Ctx, id: string) => own(s.interviews.get(id), actor, 'candidateId');
 const jobFor = ({ s, actor }: Ctx, id: string): JobRecord => {
   const job = s.jobs.get(id);
   return job?.ownerActorId === actor.id ? job : fail(404, 'not_found', 'Ресурс не найден');
@@ -127,26 +246,20 @@ const processing = (candidate: Candidate) =>
 
 function onboarding(candidate: Candidate): Schemas['Onboarding'] {
   const emailVerified = candidate.emailVerified;
-  const questionnaireComplete = Boolean(
-    candidate.name.trim() &&
-      candidate.specialization &&
-      candidate.selectedGrade &&
-      candidate.stack.length &&
-      candidate.teamRole.trim() &&
-      candidate.experience.trim(),
-  );
+  const complete = questionnaireComplete(candidate);
   const assessmentPassed = Boolean(candidate.verifiedGrade && candidate.verifiedSpecialization);
+  const category = categoryOf(candidate);
   const blockers: Schemas['Onboarding']['blockers'] = [];
   if (!emailVerified) blockers.push('email');
-  if (!questionnaireComplete) blockers.push('questionnaire');
-  if (!assessmentPassed) blockers.push('assessment');
+  if (!complete) blockers.push('questionnaire');
+  if (!category) blockers.push('category');
   if (!candidate.consents.processing) blockers.push('processing_consent');
   if (!candidate.consents.publication) blockers.push('publication_consent');
   return {
     emailVerified,
-    questionnaireComplete,
+    questionnaireComplete: complete,
     assessmentPassed,
-    readyForPublication: emailVerified && questionnaireComplete && assessmentPassed && candidate.consents.processing,
+    readyForPublication: emailVerified && complete && category !== null && candidate.consents.processing,
     visibleToEmployers: blockers.length === 0,
     blockers,
   };
@@ -174,7 +287,7 @@ function eligibility(s: State, candidate: Candidate): Schemas['GradeEligibility'
   const selectedReason =
     reason === 'onboarding_incomplete' || reason === 'active_assessment'
       ? reason
-      : candidate.specialization !== 'backend'
+      : !knowledgeAvailable(candidate.specialization, candidate.selectedGrade)
         ? 'unsupported_scope'
         : candidate.verifiedSpecialization === candidate.specialization &&
             rankOf(candidate.selectedGrade) < rankOf(candidate.verifiedGrade)
@@ -205,12 +318,15 @@ const profileKeys = [
   'stack',
   'teamRole',
   'experienceMonths',
+  'experienceSince',
   'experience',
   'softSkills',
   'consents',
   'verifiedGrade',
   'verifiedSpecialization',
   'gradeConfirmedAt',
+  'estimate',
+  'autoFields',
   'revision',
   'updatedAt',
 ] as const;
@@ -239,20 +355,35 @@ function freshness(s: State, candidate: Candidate): Schemas['Freshness'] {
 }
 function profileDto(s: State, candidate: Candidate): Schemas['Profile'] {
   const form = onboarding(candidate);
+  const category = categoryOf(candidate);
   return {
-    ...pick(candidate, profileKeys),
+    ...structuredClone(pick(candidate, profileKeys)),
     category: {
-      specialization: candidate.verifiedSpecialization,
-      grade: candidate.verifiedGrade,
+      specialization: category?.specialization ?? null,
+      grade: category?.grade ?? null,
       eligible: form.visibleToEmployers,
+      source: category?.source ?? null,
+      confidence: category?.confidence ?? null,
     },
     freshness: freshness(s, candidate),
     onboarding: form,
     assessmentEligibility: eligibility(s, candidate),
   };
 }
+/** An answer the candidate changes is theirs from then on: estimates no longer overwrite it. */
 function patchProfile(s: State, candidate: Candidate, patch: Schemas['ProfilePatch']): Schemas['Profile'] {
+  const changed = AUTO_FIELDS.filter(
+    (field) => field in patch && JSON.stringify(patch[field]) !== JSON.stringify(candidate[field]),
+  );
+  candidate.autoFields = candidate.autoFields.filter((field) => !changed.includes(field));
   Object.assign(candidate, structuredClone(patch), { revision: candidate.revision + 1, updatedAt: s.clock });
+  // As the Rust backend: a start year is a statement the months follow from; typed months replace it.
+  if (patch.experienceSince !== undefined && patch.experienceSince !== null)
+    candidate.experienceMonths = (Number(s.clock.slice(0, 4)) - patch.experienceSince) * 12;
+  else if (patch.experienceMonths !== undefined) {
+    candidate.experienceSince = null;
+    candidate.experienceMonths = patch.experienceMonths;
+  } else if (patch.experienceSince === null) candidate.experienceMonths = null;
   return profileDto(s, candidate);
 }
 const publicSkillKeys = [
@@ -312,8 +443,8 @@ function match(candidate: Candidate, need: Need): Schemas['Match'] {
   });
   const required = requirements.filter((item) => item.criticality === 'required');
   const desired = requirements.filter((item) => item.criticality === 'desired');
-  const gradeMatches =
-    candidate.verifiedSpecialization === need.specialization && rankOf(candidate.verifiedGrade) >= rankOf(need.grade);
+  const category = categoryOf(candidate);
+  const gradeMatches = category?.specialization === need.specialization && rankOf(category.grade) >= rankOf(need.grade);
   const requiredMet = required.filter((item) => item.status === 'meets').length;
   const desiredMet = desired.filter((item) => item.status === 'meets').length;
   const status = required.some((item) => item.status === 'not_evidenced')
@@ -332,19 +463,32 @@ function match(candidate: Candidate, need: Need): Schemas['Match'] {
     requirements,
     explanation: gradeMatches
       ? `Подтверждено обязательных требований: ${requiredMet} из ${required.length}.`
-      : 'Подтверждённая специализация или грейд пока не соответствуют потребности.',
+      : 'Специализация или грейд категории пока не соответствуют потребности.',
     algorithmVersion: 'fixture-rules-v1',
   };
 }
 const fspVerified = (candidate: Candidate) =>
   candidate.sources.some((source) => source.provider === 'fsp' && source.verifiedParticipation);
 function anonymous(s: State, candidate: Candidate, need: Need | null = null): Schemas['AnonymousCandidate'] {
+  const category = must(categoryOf(candidate), 'visible candidate without a category');
+  const estimate = candidate.estimate;
   return {
     id: candidate.id,
     alias: candidate.alias,
-    specialization: must(candidate.verifiedSpecialization, 'visible candidate without specialization'),
-    verifiedGrade: must(candidate.verifiedGrade, 'visible candidate without grade'),
-    gradeConfirmedAt: must(candidate.gradeConfirmedAt, 'visible candidate without confirmation date'),
+    specialization: category.specialization,
+    grade: category.grade,
+    categorySource: category.source,
+    categoryConfidence: category.confidence,
+    verifiedGrade: candidate.verifiedGrade,
+    gradeConfirmedAt: candidate.gradeConfirmedAt,
+    estimate:
+      category.source === 'estimate' && estimate
+        ? {
+            score: estimate.score,
+            computedAt: estimate.computedAt,
+            factors: estimate.factors.map(({ id, label, points, max }) => ({ id, label, points, max })),
+          }
+        : null,
     workModes: [...candidate.workModes],
     availableForOffers: true,
     skills: candidate.skills.map((skill) => pick(skill, publicSkillKeys)),
@@ -357,30 +501,151 @@ function anonymous(s: State, candidate: Candidate, need: Need | null = null): Sc
     fspVerified: fspVerified(candidate),
     freshness: freshness(s, candidate),
     match: need ? match(candidate, need) : null,
+    github: githubProjection(candidate),
     simulation: true,
   };
 }
-const roleLabels = { backend: 'Бэкенд', frontend: 'Фронтенд', fullstack: 'Фулстек' } as const;
+function githubProjection(candidate: Candidate): Schemas['GitHubSignal'] | null {
+  const github = candidate.sources.find((source) => source.provider === 'github')?.github;
+  return github?.report ? githubSignal(github.report, github.ownership.verified) : null;
+}
+const pluralRu = (value: number, one: string, few: string, many: string) =>
+  value % 100 >= 11 && value % 100 <= 14
+    ? many
+    : value % 10 === 1
+      ? one
+      : value % 10 >= 2 && value % 10 <= 4
+        ? few
+        : many;
+
+/**
+ * Mirrors the Rust `competence_graph`: the category, the concepts (catalog skill categories), each
+ * technology with its level, and the sources behind them. Employers see no login or evidence titles.
+ */
 function graph(candidate: Candidate, audience: Schemas['Graph']['audience']): Schemas['Graph'] {
+  const node = (id: string, kind: Schemas['GraphNode']['kind'], label: string, detail: string | null) => ({
+    id,
+    kind,
+    label,
+    skillId: null,
+    status: null,
+    detail,
+  });
+  const edge = (from: string, to: string, relation: Schemas['GraphEdge']['relation']) => ({
+    id: `edge-${from}-${to}`,
+    from,
+    to,
+    relation,
+  });
+  const report = candidate.sources.find((source) => source.provider === 'github')?.github?.report ?? null;
+  const repositories = new Map((report?.technologies ?? []).map((item) => [item.skillId, item.repositories]));
+  const category = categoryOf(candidate);
   const nodes: Schemas['GraphNode'][] = [
-    {
-      id: 'role-main',
-      kind: 'role',
-      label: roleLabels[candidate.verifiedSpecialization ?? candidate.specialization],
-      skillId: null,
-      status: null,
-    },
+    node(
+      'role-main',
+      'role',
+      category
+        ? `${specializationShort(category.specialization)} · ${GRADES.find((item) => item.id === category.grade)?.label}`
+        : specializationShort(candidate.specialization),
+      category?.source === 'assessment'
+        ? 'Подтверждено тестом'
+        : category
+          ? 'Оценка по открытым данным'
+          : 'Категории пока нет',
+    ),
   ];
   const edges: Schemas['GraphEdge'][] = [];
-  for (const skill of candidate.skills) {
-    const id = `skill-${skill.skillId}`;
-    nodes.push({ id, kind: 'skill', label: skill.label, skillId: skill.skillId, status: skill.status });
-    edges.push({ id: `edge-role-${skill.skillId}`, from: 'role-main', to: id, relation: 'uses' });
-    if (audience === 'self')
-      for (const evidence of skill.evidence) {
-        nodes.push({ id: evidence.id, kind: 'evidence', label: evidence.title, skillId: null, status: null });
-        edges.push({ id: `edge-${evidence.id}`, from: evidence.id, to: id, relation: 'supports' });
+  const supported = new Map<string, string[]>();
+  const projects = (count: number) => `${count} ${pluralRu(count, 'проект', 'проекта', 'проектов')}`;
+  const level = (skill: Candidate['skills'][number]) => {
+    const count = repositories.get(skill.skillId) ?? 0;
+    if (skill.status === 'confirmed' && skill.evidenceGrade)
+      return `Тест · ${GRADES.find((item) => item.id === skill.evidenceGrade)?.label}`;
+    if (count >= 10) return `Основная · ${projects(count)}`;
+    if (count >= 3) return `Регулярно · ${projects(count)}`;
+    if (count >= 1) return `Встречается · ${projects(count)}`;
+    if (skill.status === 'observed') return 'Указан в анкете';
+    if (skill.status === 'insufficient') return 'Нужно подтверждение';
+    return 'Есть свидетельства';
+  };
+  for (const concept of SKILL_CATEGORIES) {
+    const skills = candidate.skills
+      .filter((skill) => SKILLS.find((item) => item.id === skill.skillId)?.category === concept.id)
+      .sort(
+        (a, b) =>
+          Number(a.status !== 'confirmed') - Number(b.status !== 'confirmed') ||
+          (repositories.get(b.skillId) ?? 0) - (repositories.get(a.skillId) ?? 0) ||
+          a.skillId.localeCompare(b.skillId),
+      );
+    if (!skills.length) continue;
+    const conceptId = `concept-${concept.id}`;
+    nodes.push(
+      node(
+        conceptId,
+        'concept',
+        concept.label,
+        `${skills.length} ${pluralRu(skills.length, 'навык', 'навыка', 'навыков')}`,
+      ),
+    );
+    edges.push(edge('role-main', conceptId, 'uses'));
+    for (const skill of skills) {
+      const id = `skill-${skill.skillId}`;
+      nodes.push({ ...node(id, 'skill', skill.label, level(skill)), skillId: skill.skillId, status: skill.status });
+      edges.push(edge(conceptId, id, 'uses'));
+      for (const source of skill.evidenceSources) {
+        const key = `source-${source}`;
+        const concepts = supported.get(key) ?? [];
+        if (!concepts.includes(conceptId)) supported.set(key, [...concepts, conceptId]);
       }
+    }
+  }
+  if (report) {
+    const count = report.coverage.repositoriesAnalyzed;
+    nodes.push(
+      node(
+        'source-github',
+        'source',
+        'GitHub',
+        audience === 'self'
+          ? `${report.login} · ${count} ${pluralRu(count, 'репозиторий', 'репозитория', 'репозиториев')}`
+          : 'Публичные проекты',
+      ),
+    );
+    for (const concept of supported.get('source-github') ?? []) edges.push(edge('source-github', concept, 'supports'));
+  }
+  const published = candidate.sources
+    .filter((source) => source.provider === 'fsp')
+    .flatMap((source) => source.fspResults ?? [])
+    .filter((result) => result.status === 'published');
+  if (published.length) {
+    const results = `${published.length} ${pluralRu(published.length, 'результат', 'результата', 'результатов')}`;
+    const best = published
+      .filter((result) => result.place !== null)
+      .sort((a, b) => (a.place ?? 0) / a.fieldSize - (b.place ?? 0) / b.fieldSize)[0];
+    nodes.push(
+      node(
+        'source-fsp',
+        'source',
+        'ФСП',
+        audience === 'self' && best ? `${results} · лучшее: ${best.place} из ${best.fieldSize}` : results,
+      ),
+    );
+    edges.push(edge('source-fsp', 'role-main', 'supports'));
+  }
+  const tested = supported.get('source-assessment');
+  if (tested) {
+    nodes.push(
+      node(
+        'source-assessment',
+        'source',
+        'Тест знаний',
+        candidate.verifiedGrade
+          ? `Подтверждён ${GRADES.find((item) => item.id === candidate.verifiedGrade)?.label}`
+          : 'Подтверждённые навыки',
+      ),
+    );
+    edges.push(edge('source-assessment', 'role-main', 'supports'));
+    for (const concept of tested) edges.push(edge('source-assessment', concept, 'supports'));
   }
   return { audience, nodes, edges, simulation: true };
 }
@@ -412,7 +677,9 @@ function gapPlan(candidate: Candidate, need: Need): Schemas['GapPlan'] {
             ? 'Пройдите тест знаний нужного уровня.'
             : 'Предоставьте свидетельство из источников, которые принимает работодатель.',
           acceptedCompetitionIds,
-          assessmentAvailable: policy.acceptAssessments && need.specialization === 'backend',
+          assessmentAvailable:
+            policy.acceptAssessments &&
+            (need.specialization === 'backend' || (need.specialization === 'frontend' && need.grade !== 'senior')),
         },
       ];
     }),
@@ -499,7 +766,7 @@ const activeApplication = (s: State, candidateId: string, needId: string) =>
 const eligibilityMessage = {
   email: 'Подтвердите почту, чтобы откликаться на вакансии',
   questionnaire: 'Заполните анкету, чтобы откликаться на вакансии',
-  assessment: 'Подтвердите грейд тестом знаний, чтобы откликаться на вакансии',
+  category: 'Подключите GitHub или ФСП либо пройдите тест знаний, чтобы откликаться на вакансии',
   processing_consent: 'Для отклика необходимо согласие на обработку данных',
   application_exists: 'Вы уже откликнулись на эту вакансию',
 } as const satisfies Record<NonNullable<Schemas['ApplicationEligibility']['reason']>, string>;
@@ -509,8 +776,8 @@ function applicationEligibility(s: State, candidate: Candidate, need: Need): Sch
     ? 'email'
     : !form.questionnaireComplete
       ? 'questionnaire'
-      : !form.assessmentPassed
-        ? 'assessment'
+      : !categoryOf(candidate)
+        ? 'category'
         : !candidate.consents.processing
           ? 'processing_consent'
           : activeApplication(s, candidate.id, need.id)
@@ -524,7 +791,7 @@ function publishedNeed(s: State, id: string): Need {
 }
 function vacancyDto(s: State, need: Need, candidate: Candidate): Schemas['Vacancy'] {
   const company = companyDto(must(s.companies.get(need.companyId), 'vacancy company'));
-  const qualified = onboarding(candidate).assessmentPassed && candidate.consents.processing;
+  const qualified = categoryOf(candidate) !== null && candidate.consents.processing;
   return {
     id: need.id,
     company: pick(company, ['id', 'displayName', 'businessArea', 'description', 'contactEmail']),
@@ -555,7 +822,7 @@ type TaskOffer = {
   reason: Schemas['MyTasks']['reason'];
 };
 /**
- * One task per week: active tasks of any company on a skill the candidate has evidence for, at or below the verified
+ * One task per week: active tasks of any company on a skill the candidate has evidence for, at or below the category
  * grade, not answered in an earlier week, rotated by the week number. An answer given this week stays the week's task.
  */
 function taskOffer(s: State, candidate: Candidate): TaskOffer {
@@ -563,7 +830,8 @@ function taskOffer(s: State, candidate: Candidate): TaskOffer {
   const responses = responsesOf(s, candidate.id);
   const answeredNow = responses.find((item) => item.submittedAt >= from);
   if (answeredNow) return { current: answeredNow.task, currentResponse: answeredNow, reason: null };
-  if (!onboarding(candidate).assessmentPassed) return { current: null, currentResponse: null, reason: 'assessment' };
+  const category = categoryOf(candidate);
+  if (!category) return { current: null, currentResponse: null, reason: 'category' };
   if (!candidate.consents.processing) return { current: null, currentResponse: null, reason: 'processing_consent' };
   const evidenced = new Set(
     candidate.skills.filter((skill) => skill.status !== 'insufficient').map((skill) => skill.skillId),
@@ -574,7 +842,7 @@ function taskOffer(s: State, candidate: Candidate): TaskOffer {
       (task) =>
         task.status === 'active' &&
         evidenced.has(task.skillId) &&
-        rankOf(task.grade) <= rankOf(candidate.verifiedGrade) &&
+        rankOf(task.grade) <= rankOf(category.grade) &&
         !answered.has(task.id),
     )
     .sort((a, b) => a.id.localeCompare(b.id));
@@ -740,6 +1008,14 @@ function startSourceSync(s: State, actor: Actor, candidate: Candidate, source: S
       };
       source.lastSyncedAt = s.clock;
       source.activeJobId = null;
+      if (source.github) {
+        const login = source.github.report?.login ?? source.accountLabel ?? 'demo';
+        source.github = githubSource(
+          candidate.id,
+          githubFixtureReport(login, s.clock),
+          source.github.ownership.verifiedAt,
+        );
+      }
       if (source.provider === 'github' && !candidate.skills.length)
         candidate.skills = makeSkills(candidate.id).map((skill) =>
           skill.status === 'confirmed'
@@ -754,16 +1030,19 @@ function startSourceSync(s: State, actor: Actor, candidate: Candidate, source: S
               }
             : skill,
         );
+      applyEstimate(candidate, sourceEstimate(candidate, s.clock));
+      candidate.revision += 1;
       candidate.updatedAt = s.clock;
       return { kind: 'source_sync', source: structuredClone(source) };
     },
     { sourceId: source.id },
   );
   source.activeJobId = job.id;
+  if (source.github) source.github.analysis = { ...GITHUB_ANALYSIS_STARTED };
   return job;
 }
 function completeAssessment(s: State, candidate: Candidate, item: AssessmentRecord): JobResult {
-  const score = scoreKnowledge(item.grade, item.task, item.answer);
+  const score = scoreKnowledge(item.specialization, item.grade, item.task, item.answer);
   if (!score) return fail(422, 'answer_incomplete', 'Ответьте на все вопросы теста');
   const outcome =
     s.scenario === 'service_failure'
@@ -784,12 +1063,9 @@ function completeAssessment(s: State, candidate: Candidate, item: AssessmentReco
       candidate.verifiedGrade = item.grade;
       candidate.verifiedSpecialization = item.specialization;
       if (gradeChanged) candidate.gradeConfirmedAt = s.clock;
-      for (const skillId of ['rust', 'postgresql'] as const) {
+      // The two catalog topics of the test become confirmed skills, as in the Rust service.
+      for (const [skillId, label] of testTopics(item.specialization)) {
         const previous = candidate.skills.find((skill) => skill.skillId === skillId);
-        const current = must(
-          makeSkills(candidate.id, true).find((skill) => skill.skillId === skillId),
-          `seed skill ${skillId}`,
-        );
         const assessmentEvidence = {
           ...must(evidenceFor(candidate.id, skillId, 'confirmed')[0], 'assessment evidence'),
           id: `evidence-${item.id}-${skillId}`,
@@ -797,8 +1073,11 @@ function completeAssessment(s: State, candidate: Candidate, item: AssessmentReco
           observedAt: s.clock,
         };
         const evidence = [...(previous?.evidence ?? []), assessmentEvidence];
-        const updated = {
-          ...current,
+        const updated: SelfSkill = {
+          skillId,
+          label,
+          status: 'confirmed',
+          summary: 'Подтверждено проверкой платформы',
           evidenceGrade: item.grade,
           confirmedAt: s.clock,
           evidence,
@@ -848,6 +1127,7 @@ function advanceJob(s: State, job: JobRecord, phase: 'running' | 'complete') {
     if (job.sourceId) {
       const source = candidate.sources.find((item) => item.id === job.sourceId);
       if (source) source.activeJobId = null;
+      if (source?.github) source.github.analysis = null;
     }
     if (job.kind === 'assessment' && assessment) {
       assessment.status = 'service_error';
@@ -898,6 +1178,7 @@ type Handlers = { [R in Route as R['operationId']]: (ctx: Context<BodyOf<R>, Act
 
 const handlers: Handlers = {
   getHealth: () => ({ status: 'ok', service: 'fsp-mock-api', version: '0.1.0' }),
+  synthesizeInterviewSpeech: () => fail(503, 'speech_not_configured', 'В демо-режиме используется голос браузера'),
   getMeta: ({ s }) => ({
     contractVersion: '0.1.0',
     mode: 'mock',
@@ -910,6 +1191,10 @@ const handlers: Handlers = {
       profilePdfImport: true,
       githubFixture: true,
       githubOAuth: false,
+      githubInsights: false,
+      graphInterviews: true,
+      neuralTts: false,
+      hiringAnalytics: true,
       fspFixture: true,
       matching: true,
       directInvitations: true,
@@ -927,9 +1212,13 @@ const handlers: Handlers = {
       sameGradeRetryCooldownDays: 0,
       aiAllowed: true,
       externalAiAllowed: true,
-      supportedScopes: [{ specialization: 'backend', grades: ['junior', 'middle', 'senior'] }],
+      supportedScopes: knowledgeScopes(),
     },
     competitions: COMPETITIONS,
+    catalogVersion: CATALOG_VERSION,
+    grades: GRADES,
+    specializations: SPECIALIZATIONS,
+    skillCategories: SKILL_CATEGORIES,
     skills: SKILLS,
   }),
   createEmailChallenge: ({ s, body }) => {
@@ -965,7 +1254,7 @@ const handlers: Handlers = {
     if (!actor) {
       if (challenge.role === 'candidate') {
         const id = nextId(s, 'candidate');
-        const candidate = makeCandidate(id, { name: 'Новый участник', email: challenge.email, fresh: true });
+        const candidate = makeCandidate(id, { name: DEFAULT_CANDIDATE_NAME, email: challenge.email, fresh: true });
         candidate.alias = `Кандидат №${id.slice(-3)}`;
         s.candidates.set(id, candidate);
         actor = { id, role: 'candidate', candidateId: id, companyId: null, email: challenge.email };
@@ -1025,6 +1314,7 @@ const handlers: Handlers = {
           stack: ['rust', 'postgresql', 'docker'],
           teamRole: 'Разработчик',
           experienceMonths: null,
+          experienceSince: null,
           experience:
             'Демонстрационное извлечение: API на Rust и PostgreSQL. Содержимое загруженного файла не анализировалось.',
           softSkills: ['Командная работа'],
@@ -1052,6 +1342,19 @@ const handlers: Handlers = {
     job.confirmed = true;
     return updated;
   },
+  refreshMyEstimate: (ctx) => {
+    const candidate = me(ctx);
+    processing(candidate);
+    if (!candidate.sources.some((source) => source.status === 'connected' && !source.activeJobId))
+      fail(409, 'source_not_connected', 'Подключите GitHub или ФСП, чтобы оценить профиль');
+    if (queryText(ctx.query, 'answers') === 'replace') {
+      releaseAnswers(candidate);
+      rebuildFromEstimate(candidate, sourceEstimate(candidate, ctx.s.clock));
+    } else applyEstimate(candidate, sourceEstimate(candidate, ctx.s.clock));
+    candidate.revision += 1;
+    candidate.updatedAt = ctx.s.clock;
+    return profileDto(ctx.s, candidate);
+  },
   exportMyProfile: (ctx) => ({ pdfProfile: profileDto(ctx.s, me(ctx)) }),
   authorizeGitHub: () => ({
     authorizationUrl: 'https://github.com/login/oauth/authorize?client_id=fixture&state=fixture',
@@ -1071,11 +1374,20 @@ const handlers: Handlers = {
             fspVerified: ctx.body.account === 'FSP-DEMO-024' || ctx.body.account === 'FSP-DEMO-031',
           });
     const connected = provider === 'github' ? github : fsp;
-    connected.accountLabel = provider === 'fsp' ? ctx.body.account.trim().toUpperCase() : ctx.body.account;
-    if (provider === 'fsp') {
-      if (!/^[A-Za-z0-9_-]+$/.test(connected.accountLabel))
+    if (provider === 'github') {
+      const login =
+        parseGitHubLogin(ctx.body.account) ??
+        fail(422, 'github_login_invalid', 'Укажите имя пользователя GitHub или ссылку на профиль');
+      connected.accountLabel = login;
+      // A fresh claim stays unverified until the bio carries the code; the mock cannot read a bio.
+      // The report arrives when the analysis job completes, as with the insights service.
+      connected.github = githubSource(candidate.id, null, null);
+    } else {
+      const account = ctx.body.account.trim().toUpperCase();
+      if (!/^[A-Za-z0-9_-]+$/.test(account))
         fail(400, 'validation_error', 'Используйте буквы, цифры, дефис или подчёркивание в ФСП ID');
-      connected.fspResults = fspResults(connected.accountLabel);
+      connected.accountLabel = account;
+      connected.fspResults = fspResults(account);
       connected.competitionIds = connected.fspResults
         .filter((r) => r.status === 'published')
         .map((r) => r.competitionId);
@@ -1115,8 +1427,8 @@ const handlers: Handlers = {
     const form = onboarding(candidate);
     if (!form.emailVerified || !form.questionnaireComplete)
       fail(409, 'onboarding_incomplete', 'Подтвердите почту и заполните анкету');
-    if (ctx.body.specialization !== 'backend')
-      fail(422, 'assessment_scope_unavailable', 'Тесты знаний доступны только для бэкенда');
+    if (!knowledgeAvailable(ctx.body.specialization, ctx.body.grade))
+      fail(422, 'assessment_scope_unavailable', 'Для выбранной специализации и грейда тест пока недоступен');
     if (
       [...ctx.s.assessments.values()].some(
         (item) =>
@@ -1163,13 +1475,18 @@ const handlers: Handlers = {
         };
       }
     }
+    const id = nextId(ctx.s, 'assessment');
+    const task = knowledgeTask(ctx.body.specialization, ctx.body.grade, id);
+    if (!task) {
+      return fail(422, 'assessment_scope_unavailable', 'Для выбранной специализации и грейда тест пока недоступен');
+    }
     const item: AssessmentRecord = {
-      id: nextId(ctx.s, 'assessment'),
+      id,
       candidateId: candidate.id,
       specialization: ctx.body.specialization,
       grade: ctx.body.grade,
       status: 'draft',
-      task: knowledgeTask(ctx.body.grade),
+      task,
       answer: { code: '', explanation: '', externalAiUsed: false, responses: [] },
       checks: [],
       result: null,
@@ -1227,7 +1544,7 @@ const handlers: Handlers = {
     processing(candidate);
     const item = assessmentFor(ctx, param(ctx, 'assessmentId'));
     mutableAssessment(item);
-    if (!scoreKnowledge(item.grade, item.task, item.answer))
+    if (!scoreKnowledge(item.specialization, item.grade, item.task, item.answer))
       fail(422, 'answer_incomplete', 'Ответьте на все вопросы теста');
     item.status = 'submitted';
     item.updatedAt = ctx.s.clock;
@@ -1235,6 +1552,113 @@ const handlers: Handlers = {
     return createJob(ctx.s, ctx.actor, 'assessment', () => completeAssessment(ctx.s, candidate, item), {
       assessmentId: item.id,
     });
+  },
+  listMyInterviews: (ctx) => ({
+    items: [...ctx.s.interviews.values()]
+      .filter((item) => item.candidateId === ctx.actor.candidateId)
+      .sort((a, b) => b.id.localeCompare(a.id)),
+  }),
+  startInterview: (ctx) => {
+    const candidate = me(ctx);
+    processing(candidate);
+    const active = [...ctx.s.interviews.values()].find(
+      (item) => item.candidateId === candidate.id && item.status === 'active',
+    );
+    if (active) return active;
+    const id = nextId(ctx.s, 'interview');
+    const item: Interview = {
+      id,
+      candidateId: candidate.id,
+      blueprintId: 'backend-middle-v1',
+      status: 'active',
+      revision: 0,
+      currentQuestion: interviewQuestion('backend.idempotency', 1),
+      nodes: structuredClone(interviewNodes),
+      evidence: [],
+      modelMode: 'mock_rubric',
+    };
+    ctx.s.interviews.set(id, item);
+    return item;
+  },
+  getInterview: (ctx) => interviewFor(ctx, param(ctx, 'interviewId')),
+  answerInterview: (ctx) => {
+    const item = interviewFor(ctx, param(ctx, 'interviewId'));
+    processing(me(ctx));
+    if (
+      item.status !== 'active' ||
+      item.revision !== ctx.body.revision ||
+      item.currentQuestion?.id !== ctx.body.questionId
+    )
+      fail(409, 'interview_conflict', 'Состояние собеседования изменилось; обновите данные');
+    const question = must(item.currentQuestion, 'active interview question');
+    const answer = ctx.body.answer.trim();
+    const normalized = answer.toLocaleLowerCase('ru');
+    const groups =
+      question.nodeId === 'backend.idempotency'
+        ? ['ключ', 'уникаль', 'транзакц', 'повтор']
+        : question.nodeId === 'backend.unique-operation'
+          ? ['ключ', 'уникаль', 'област']
+          : question.nodeId === 'backend.transactions'
+            ? ['транзакц', 'атомар', 'откат']
+            : question.nodeId === 'collaboration.disagreement'
+              ? ['цель', 'факт', 'вариант', 'договор']
+              : question.nodeId === 'collaboration.feedback'
+                ? ['пример', 'влия', 'выслуш', 'следующ']
+                : ['уточ', 'соглас', 'риск'];
+    const matched = groups.filter((term) => normalized.includes(term)).length;
+    const state: Interview['nodes'][number]['state'] =
+      matched === groups.length ? 'confirmed' : matched * 2 >= groups.length ? 'partial' : 'observed';
+    const node = must(
+      item.nodes.find((candidate) => candidate.id === question.nodeId),
+      'interview node',
+    );
+    node.state = state;
+    item.evidence.push({
+      nodeId: node.id,
+      state,
+      questionId: question.id,
+      answerExcerpt: answer.slice(0, 300),
+      rationale: `Распознано ${matched} из ${groups.length} элементов рубрики`,
+      evaluator: 'mock-rubric-v1',
+      rubricVersion: 'graph-interview-rubric-v1',
+      responseMode: ctx.body.responseMode,
+      signalStrength: ctx.body.responseMode === 'voice' ? 2 : 1,
+    });
+    item.revision += 1;
+    const unknownPrerequisite =
+      state !== 'confirmed'
+        ? node.prerequisites.find((id) => item.nodes.find((candidate) => candidate.id === id)?.state === 'unknown')
+        : undefined;
+    const behavioralAnswers = item.evidence.filter(
+      (entry) => item.nodes.find((candidate) => candidate.id === entry.nodeId)?.kind === 'behavioral',
+    ).length;
+    const dueBehavioral =
+      Math.floor(item.evidence.length / 3) > behavioralAnswers
+        ? item.nodes
+            .filter(
+              (candidate) =>
+                candidate.kind === 'behavioral' &&
+                candidate.state === 'unknown' &&
+                candidate.prerequisites.every(
+                  (id) => item.nodes.find((prerequisite) => prerequisite.id === id)?.state !== 'unknown',
+                ),
+            )
+            .sort((a, b) => b.criticality - a.criticality)[0]?.id
+        : undefined;
+    const next =
+      unknownPrerequisite ??
+      dueBehavioral ??
+      item.nodes.find((candidate) => candidate.state === 'unknown')?.id ??
+      (state !== 'confirmed' && item.evidence.filter((entry) => entry.nodeId === node.id).length < 2
+        ? node.id
+        : undefined);
+    if (!next || item.evidence.length >= 12) {
+      item.status = 'completed';
+      item.currentQuestion = null;
+    } else {
+      item.currentQuestion = interviewQuestion(next, item.evidence.length + 1);
+    }
+    return item;
   },
   getJob: (ctx) => jobDto(jobFor(ctx, param(ctx, 'jobId'))),
   getMyTasks: (ctx) => {
@@ -1366,7 +1790,7 @@ const handlers: Handlers = {
   getNeedGraph: (ctx) => {
     const need = needFor(ctx, param(ctx, 'needId'));
     const nodes: Schemas['GraphNode'][] = [
-      { id: 'need-root', kind: 'role', label: need.title, skillId: null, status: null },
+      { id: 'need-root', kind: 'role', label: need.title, skillId: null, status: null, detail: null },
     ];
     const edges: Schemas['GraphEdge'][] = [];
     for (const requirement of need.requirements) {
@@ -1380,6 +1804,7 @@ const handlers: Handlers = {
         ).label,
         skillId: requirement.skillId,
         status: null,
+        detail: null,
       });
       edges.push({ id: `requires-${requirement.skillId}`, from: 'need-root', to: id, relation: 'requires' });
     }
@@ -1394,31 +1819,42 @@ const handlers: Handlers = {
     if (mode === 'recommended' && !need) fail(422, 'need_required', 'Для рекомендаций выберите потребность');
     let items = [...ctx.s.candidates.values()].filter((candidate) => isVisible(ctx.s, candidate));
     if (mode === 'recommended' && need)
-      items = items.filter(
-        (candidate) =>
-          candidate.verifiedSpecialization === need.specialization &&
-          rankOf(candidate.verifiedGrade) >= rankOf(need.grade),
-      );
+      items = items.filter((candidate) => {
+        const category = categoryOf(candidate);
+        return category?.specialization === need.specialization && rankOf(category.grade) >= rankOf(need.grade);
+      });
     const specialization = queryText(ctx.query, 'specialization');
     const grade = queryText(ctx.query, 'grade');
+    const source = queryText(ctx.query, 'categorySource');
     const skill = queryText(ctx.query, 'skill');
-    if (specialization) items = items.filter((candidate) => candidate.verifiedSpecialization === specialization);
-    if (grade) items = items.filter((candidate) => candidate.verifiedGrade === grade);
+    if (specialization) items = items.filter((candidate) => categoryOf(candidate)?.specialization === specialization);
+    if (grade) items = items.filter((candidate) => categoryOf(candidate)?.grade === grade);
+    if (source) items = items.filter((candidate) => categoryOf(candidate)?.source === source);
     if (skill)
       items = items.filter((candidate) =>
         candidate.skills.some((entry) => entry.skillId === skill && entry.status !== 'insufficient'),
       );
     if (queryText(ctx.query, 'fsp') === 'verified') items = items.filter(fspVerified);
+    // Within a grade, test-confirmed categories lead, then estimates by confidence.
+    const strength = (item: Schemas['AnonymousCandidate']) =>
+      categoryStrength({
+        specialization: item.specialization,
+        grade: item.grade,
+        source: item.categorySource,
+        confidence: item.categoryConfidence,
+      });
     let result = items.map((candidate) => anonymous(ctx.s, candidate, need));
     result.sort((a, b) =>
       a.match && b.match
         ? Number(b.match.gradeMatches) - Number(a.match.gradeMatches) ||
           b.match.requiredMet - a.match.requiredMet ||
           b.match.desiredMet - a.match.desiredMet ||
+          strength(b) - strength(a) ||
           Number(b.fspVerified) - Number(a.fspVerified) ||
           a.id.localeCompare(b.id)
-        : a.specialization.localeCompare(b.specialization) ||
-          rank[b.verifiedGrade] - rank[a.verifiedGrade] ||
+        : specializationRank[a.specialization] - specializationRank[b.specialization] ||
+          rank[b.grade] - rank[a.grade] ||
+          strength(b) - strength(a) ||
           Number(b.fspVerified) - Number(a.fspVerified) ||
           a.id.localeCompare(b.id),
     );
@@ -1666,6 +2102,83 @@ const handlers: Handlers = {
         .filter((item) => item.company.id === ctx.actor.companyId && (!needId || item.vacancy.id === needId))
         .sort(newestFirst)
         .map((item) => applicationDto(ctx.s, item)),
+    };
+  },
+  getHiringFlowAnalytics: (ctx) => {
+    const items = [...ctx.s.applications.values()].filter((item) => item.company.id === ctx.actor.companyId);
+    const total = items.length;
+    const reviewed = items.filter((item) => item.viewedAt).length;
+    const decided = items.filter((item) => item.respondedAt).length;
+    const accepted = items.filter((item) => item.status === 'accepted').length;
+    const percent = (value: number, denominator: number) =>
+      denominator ? Math.min(100, Math.round((value * 100) / denominator)) : 0;
+    const awaitingReview = total - reviewed;
+    const bottleneck =
+      total === 0
+        ? {
+            kind: 'no_data',
+            severity: 'info' as const,
+            title: 'Пока нечего сравнивать',
+            evidence: 'По опубликованным вакансиям ещё нет откликов.',
+            recommendation: 'Проверьте видимость вакансий и вернитесь после первых откликов.',
+          }
+        : awaitingReview >= 3 && percent(awaitingReview, total) >= 25
+          ? {
+              kind: 'review_queue',
+              severity: 'high' as const,
+              title: 'Отклики накапливаются до просмотра',
+              evidence: `Не просмотрено ${awaitingReview} из ${total} откликов (${percent(awaitingReview, total)}%).`,
+              recommendation: 'Назначьте владельца первичного разбора и ежедневное окно для новых откликов.',
+            }
+          : {
+              kind: 'stable',
+              severity: 'info' as const,
+              title: 'Явного узкого места пока нет',
+              evidence: 'Ни один этап не пересёк порог операционного риска.',
+              recommendation: 'Следите за временем до просмотра и решения по мере роста потока.',
+            };
+    const groups = new Map<string, typeof items>();
+    for (const item of items) groups.set(item.vacancy.id, [...(groups.get(item.vacancy.id) ?? []), item]);
+    return {
+      generatedAt: ctx.s.clock,
+      total,
+      stages: [
+        { id: 'received' as const, label: 'Получены', count: total, sharePercent: percent(total, total) },
+        { id: 'reviewed' as const, label: 'Просмотрены', count: reviewed, sharePercent: percent(reviewed, total) },
+        { id: 'decided' as const, label: 'Получили решение', count: decided, sharePercent: percent(decided, total) },
+        { id: 'accepted' as const, label: 'Приняты', count: accepted, sharePercent: percent(accepted, total) },
+      ],
+      medianTimeToViewHours: null,
+      medianTimeToDecisionHours: null,
+      acceptanceRatePercent: percent(accepted, decided),
+      vacancies: [...groups.values()].flatMap((group) => {
+        const first = group[0];
+        if (!first) return [];
+        const requiredMet = group.reduce((sum, item) => sum + applicationDto(ctx.s, item).match.requiredMet, 0);
+        const requiredTotal = group.reduce((sum, item) => sum + applicationDto(ctx.s, item).match.requiredTotal, 0);
+        return [
+          {
+            vacancyId: first.vacancy.id,
+            title: first.vacancy.title,
+            total: group.length,
+            awaitingReview: group.filter((item) => !item.viewedAt).length,
+            awaitingDecision: group.filter((item) => item.viewedAt && !item.respondedAt).length,
+            accepted: group.filter((item) => item.status === 'accepted').length,
+            closed: group.filter((item) => terminalStatus.has(item.status)).length,
+            requiredCoveragePercent: percent(requiredMet, requiredTotal),
+            gradeMatchPercent: percent(
+              group.filter((item) => applicationDto(ctx.s, item).match.gradeMatches).length,
+              group.length,
+            ),
+          },
+        ];
+      }),
+      bottlenecks: [bottleneck],
+      assistant: {
+        mode: 'metrics' as const,
+        summary: `${bottleneck.title}: ${bottleneck.evidence}`,
+        actions: [bottleneck.recommendation],
+      },
     };
   },
   getApplication: (ctx) => applicationDto(ctx.s, applicationFor(ctx, param(ctx, 'applicationId'))),

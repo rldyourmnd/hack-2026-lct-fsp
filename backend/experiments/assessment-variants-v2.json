@@ -1,0 +1,29 @@
+{
+  "id": "assessment-variants-v2",
+  "algorithmVersion": "knowledge-v2",
+  "change": "select five questions per topic deterministically from a larger specialization and grade pool",
+  "expectedEffect": "different attempt keys produce different balanced variants while the same key is reproducible",
+  "failureCondition": "variants_match_or_are_not_reproducible_or_are_not_balanced_5_plus_5",
+  "verification": {
+    "command": "cargo test -p fsp-domain knowledge::tests::v2_variants_are_reproducible_distinct_and_balanced",
+    "artifact": "backend/experiments/assessment-variants-v2.json"
+  },
+  "observed": {
+    "status": "passed",
+    "sameKeyReproducible": true,
+    "differentKeysDistinct": true,
+    "questionsPerVariant": 10,
+    "questionsPerTopic": 5,
+    "scopes": [
+      "backend/junior",
+      "backend/middle",
+      "backend/senior",
+      "frontend/junior",
+      "frontend/middle"
+    ]
+  },
+  "measurementClaims": {
+    "testRetestReliability": "not_established_without_real_response_data",
+    "gradeSeparation": "not_established_without_calibrated_item_statistics"
+  }
+}

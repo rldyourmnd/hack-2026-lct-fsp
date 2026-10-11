@@ -175,6 +175,8 @@ def deploy(sha, mirror):
     if marker.exists():
         deployed = json.loads(marker.read_text())
         if deployed["sha"] == sha and deployed.get("configuration") == configuration:
+            # Acceptance is durable even if its final GitHub status write failed.
+            status(sha, "deployment", "success", "Live release and actual public browser journey passed")
             return
     attempts_file = ROOT / "deploy-attempts.json"
     attempts = {"sha": sha, "configuration": configuration, "count": 0, "lastAt": 0}

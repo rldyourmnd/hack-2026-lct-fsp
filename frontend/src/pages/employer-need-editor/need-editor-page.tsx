@@ -12,8 +12,9 @@ import {
   formatRub,
   gradeLabel,
   gradeOrder,
+  skillOptions,
   specializationLabel,
-  specializationOrder,
+  specializationOptions,
   taxBasisLabel,
   useDocumentTitle,
   workModeLabel,
@@ -76,10 +77,9 @@ function RequirementRow({ index, value, taken, onChange, onRemove, canRemove }: 
           placeholder="Выберите навык"
           value={value.skillId}
           onValueChange={(skillId) => onChange({ ...value, skillId })}
-          options={meta.skills.map((skill) => ({
-            value: skill.id,
-            label: skill.label,
-            disabled: skill.id !== value.skillId && taken.includes(skill.id),
+          options={skillOptions.map((skill) => ({
+            ...skill,
+            disabled: skill.value !== value.skillId && taken.includes(skill.value),
           }))}
         />
         <SelectField
@@ -276,7 +276,7 @@ export function EmployerNeedEditorPage({ need }: { need?: Need }) {
                     required
                     value={field.state.value}
                     onValueChange={field.handleChange}
-                    options={specializationOrder.map((value) => ({ value, label: specializationLabel[value] }))}
+                    options={specializationOptions}
                   />
                 )}
               </form.Field>

@@ -4,6 +4,12 @@ use std::time::Duration;
 use fsp_application::{IntegrationError, VerificationDelivery};
 use serde_json::json;
 
+const DEMO_EMAILS: [&str; 3] = [
+    "alexey@example.com",
+    "hr@sever-tech.example",
+    "hr@second-company.example",
+];
+
 pub struct DemoDelivery(pub String);
 
 #[async_trait::async_trait]
@@ -16,6 +22,65 @@ impl VerificationDelivery for DemoDelivery {
     }
     fn contract_name(&self) -> &'static str {
         "mock_mailbox"
+    }
+}
+
+pub struct HybridDelivery {
+    demo: DemoDelivery,
+    email: ResendDelivery,
+}
+
+impl HybridDelivery {
+    #[must_use]
+    pub fn new(demo_code: String, email: ResendDelivery) -> Self {
+        Self {
+            demo: DemoDelivery(demo_code),
+            email,
+        }
+    }
+
+    fn is_demo(email: &str) -> bool {
+        DEMO_EMAILS.contains(&email)
+    }
+}
+
+#[async_trait::async_trait]
+impl VerificationDelivery for HybridDelivery {
+    fn code_for(&self) -> Result<String, IntegrationError> {
+        self.email.code_for()
+    }
+
+    fn code_for_email(&self, email: &str) -> Result<String, IntegrationError> {
+        if Self::is_demo(email) {
+            self.demo.code_for()
+        } else {
+            self.email.code_for()
+        }
+    }
+
+    async fn deliver(
+        &self,
+        email: &str,
+        code: &str,
+        challenge_id: &str,
+    ) -> Result<(), IntegrationError> {
+        if Self::is_demo(email) {
+            self.demo.deliver(email, code, challenge_id).await
+        } else {
+            self.email.deliver(email, code, challenge_id).await
+        }
+    }
+
+    fn contract_name(&self) -> &'static str {
+        "email"
+    }
+
+    fn contract_name_for_email(&self, email: &str) -> &'static str {
+        if Self::is_demo(email) {
+            self.demo.contract_name()
+        } else {
+            self.email.contract_name()
+        }
     }
 }
 
@@ -136,6 +201,33 @@ mod tests {
         routing::post,
     };
     use std::sync::{Arc, Mutex};
+
+    #[test]
+    fn hybrid_delivery_limits_fixed_codes_to_seeded_accounts() {
+        let email = ResendDelivery::new("re_test".into(), "login@nddev.link".into()).unwrap();
+        let delivery = HybridDelivery::new("123456".into(), email);
+
+        for address in DEMO_EMAILS {
+            assert_eq!(delivery.contract_name_for_email(address), "mock_mailbox");
+            assert_eq!(delivery.code_for_email(address).unwrap(), "123456");
+        }
+        assert_eq!(
+            delivery.contract_name_for_email("candidate@auth.nddev.link"),
+            "email"
+        );
+        assert_eq!(
+            delivery
+                .code_for_email("candidate@auth.nddev.link")
+                .unwrap()
+                .len(),
+            6
+        );
+        assert_eq!(delivery.contract_name_for_email("new@example.com"), "email");
+        assert_eq!(
+            delivery.contract_name_for_email("Alexey@example.com"),
+            "email"
+        );
+    }
 
     #[tokio::test]
     async fn sends_both_bodies_and_idempotency_without_following_redirects() {

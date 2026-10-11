@@ -41,7 +41,7 @@ export function CandidateInvitationsPage({ filter, onFilterChange }: Props) {
             <EmptyState icon="mail" title={items.length ? 'В этом разделе пусто' : 'Приглашений пока нет'}>
               {items.length
                 ? 'Выберите другой статус.'
-                : 'Работодатели видят обезличенный профиль после подтверждения уровня и согласия на показ. Приглашение придёт сюда.'}
+                : 'Работодатели видят обезличенный профиль, когда у него есть категория и вы согласились на показ. Приглашение придёт сюда.'}
             </EmptyState>
           ) : (
             <ul className="stack" style={{ margin: '1rem 0 0', padding: 0, listStyle: 'none' }}>

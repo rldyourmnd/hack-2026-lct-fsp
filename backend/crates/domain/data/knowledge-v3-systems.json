@@ -1,0 +1,4145 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "c-intern-1",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "Какой тип в C хранит один символ?",
+      "options": [
+        {
+          "id": "c-intern-1-a",
+          "label": "string"
+        },
+        {
+          "id": "c-intern-1-b",
+          "label": "symbol"
+        },
+        {
+          "id": "c-intern-1-c",
+          "label": "char"
+        }
+      ],
+      "correctOptionId": "c-intern-1-c",
+      "explanation": "Строки в C — массивы char, завершённые нулевым байтом.",
+      "source": "https://en.cppreference.com/w/c/language/arithmetic_types"
+    },
+    {
+      "id": "c-intern-2",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "Что делает функция printf(\"%d\", x)?",
+      "options": [
+        {
+          "id": "c-intern-2-a",
+          "label": "Читает число с клавиатуры"
+        },
+        {
+          "id": "c-intern-2-b",
+          "label": "Печатает целое число x"
+        },
+        {
+          "id": "c-intern-2-c",
+          "label": "Печатает адрес x"
+        }
+      ],
+      "correctOptionId": "c-intern-2-b",
+      "explanation": "%d — спецификатор для int.",
+      "source": "https://en.cppreference.com/w/c/io/fprintf"
+    },
+    {
+      "id": "c-intern-3",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "Чем = отличается от == в C?",
+      "options": [
+        {
+          "id": "c-intern-3-a",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "c-intern-3-b",
+          "label": "= присваивает значение, == сравнивает"
+        },
+        {
+          "id": "c-intern-3-c",
+          "label": "== присваивает, = сравнивает"
+        }
+      ],
+      "correctOptionId": "c-intern-3-b",
+      "explanation": "if (x = 5) — частая ошибка: присваивание вместо сравнения.",
+      "source": "https://en.cppreference.com/w/c/language/operator_comparison"
+    },
+    {
+      "id": "c-intern-4",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "С какого индекса начинается массив в C?",
+      "options": [
+        {
+          "id": "c-intern-4-a",
+          "label": "С единицы"
+        },
+        {
+          "id": "c-intern-4-b",
+          "label": "С нуля"
+        },
+        {
+          "id": "c-intern-4-c",
+          "label": "С минус единицы"
+        }
+      ],
+      "correctOptionId": "c-intern-4-b",
+      "explanation": "Последний элемент массива из n элементов имеет индекс n − 1.",
+      "source": "https://en.cppreference.com/w/c/language/array"
+    },
+    {
+      "id": "c-intern-5",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "Что возвращает main при успешном завершении по соглашению?",
+      "options": [
+        {
+          "id": "c-intern-5-a",
+          "label": "1"
+        },
+        {
+          "id": "c-intern-5-b",
+          "label": "−1"
+        },
+        {
+          "id": "c-intern-5-c",
+          "label": "0"
+        }
+      ],
+      "correctOptionId": "c-intern-5-c",
+      "explanation": "Ненулевое значение обычно означает ошибку.",
+      "source": "https://en.cppreference.com/w/c/language/main_function"
+    },
+    {
+      "id": "c-intern-6",
+      "grade": "intern",
+      "skillId": "c",
+      "prompt": "Что делает директива #include <stdio.h>?",
+      "options": [
+        {
+          "id": "c-intern-6-a",
+          "label": "Подключает объявления стандартного ввода-вывода"
+        },
+        {
+          "id": "c-intern-6-b",
+          "label": "Запускает программу и подключает её к стандартному выводу"
+        },
+        {
+          "id": "c-intern-6-c",
+          "label": "Создаёт файл"
+        }
+      ],
+      "correctOptionId": "c-intern-6-a",
+      "explanation": "Препроцессор вставляет содержимое заголовка.",
+      "source": "https://en.cppreference.com/w/c/preprocessor/include"
+    },
+    {
+      "id": "c-junior-1",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Что хранит указатель?",
+      "options": [
+        {
+          "id": "c-junior-1-a",
+          "label": "Адрес объекта в памяти"
+        },
+        {
+          "id": "c-junior-1-b",
+          "label": "Копию объекта"
+        },
+        {
+          "id": "c-junior-1-c",
+          "label": "Размер объекта"
+        }
+      ],
+      "correctOptionId": "c-junior-1-a",
+      "explanation": "Оператор * разыменовывает указатель.",
+      "source": "https://en.cppreference.com/w/c/language/pointer"
+    },
+    {
+      "id": "c-junior-2",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Что нужно сделать с памятью, выделенной malloc?",
+      "options": [
+        {
+          "id": "c-junior-2-a",
+          "label": "Освободить её free, когда она больше не нужна"
+        },
+        {
+          "id": "c-junior-2-b",
+          "label": "Ничего: память освобождается автоматически при выходе из функции"
+        },
+        {
+          "id": "c-junior-2-c",
+          "label": "Вызвать delete"
+        }
+      ],
+      "correctOptionId": "c-junior-2-a",
+      "explanation": "Неосвобождённая память — утечка.",
+      "source": "https://en.cppreference.com/w/c/memory/malloc"
+    },
+    {
+      "id": "c-junior-3",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Чем опасна функция gets?",
+      "options": [
+        {
+          "id": "c-junior-3-a",
+          "label": "Работает слишком медленно и не читает строки длиннее 80 символов"
+        },
+        {
+          "id": "c-junior-3-b",
+          "label": "Не читает пробелы"
+        },
+        {
+          "id": "c-junior-3-c",
+          "label": "Не проверяет размер буфера и приводит к переполнению"
+        }
+      ],
+      "correctOptionId": "c-junior-3-c",
+      "explanation": "Она удалена из стандарта C11; используйте fgets.",
+      "source": "https://en.cppreference.com/w/c/io/gets"
+    },
+    {
+      "id": "c-junior-4",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Что такое неопределённое поведение (UB)?",
+      "options": [
+        {
+          "id": "c-junior-4-a",
+          "label": "Предупреждение компилятора, которое можно игнорировать, если программа собралась и прошла тесты"
+        },
+        {
+          "id": "c-junior-4-b",
+          "label": "Ситуация, для которой стандарт не задаёт результата, например выход за границы массива"
+        },
+        {
+          "id": "c-junior-4-c",
+          "label": "Предупреждение компилятора"
+        }
+      ],
+      "correctOptionId": "c-junior-4-b",
+      "explanation": "При UB программа может вести себя как угодно.",
+      "source": "https://en.cppreference.com/w/c/language/behavior"
+    },
+    {
+      "id": "c-junior-5",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Что делает sizeof(int)?",
+      "options": [
+        {
+          "id": "c-junior-5-a",
+          "label": "Возвращает максимальное значение int"
+        },
+        {
+          "id": "c-junior-5-b",
+          "label": "Округляет число"
+        },
+        {
+          "id": "c-junior-5-c",
+          "label": "Возвращает размер типа int в байтах"
+        }
+      ],
+      "correctOptionId": "c-junior-5-c",
+      "explanation": "Размер int зависит от платформы.",
+      "source": "https://en.cppreference.com/w/c/language/sizeof"
+    },
+    {
+      "id": "c-junior-6",
+      "grade": "junior",
+      "skillId": "c",
+      "prompt": "Зачем нужно ключевое слово static у глобальной функции?",
+      "options": [
+        {
+          "id": "c-junior-6-a",
+          "label": "Ограничивает видимость функции текущим файлом"
+        },
+        {
+          "id": "c-junior-6-b",
+          "label": "Делает функцию быстрее за счёт размещения в статической памяти"
+        },
+        {
+          "id": "c-junior-6-c",
+          "label": "Запрещает рекурсию"
+        }
+      ],
+      "correctOptionId": "c-junior-6-a",
+      "explanation": "Это внутреннее связывание.",
+      "source": "https://en.cppreference.com/w/c/language/storage_duration"
+    },
+    {
+      "id": "c-middle-1",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Зачем в embedded-коде использовать volatile для регистров периферии?",
+      "options": [
+        {
+          "id": "c-middle-1-a",
+          "label": "Чтобы переменная хранилась во флеш-памяти и не терялась при перезагрузке микроконтроллера"
+        },
+        {
+          "id": "c-middle-1-b",
+          "label": "Чтобы ускорить доступ"
+        },
+        {
+          "id": "c-middle-1-c",
+          "label": "Чтобы компилятор не оптимизировал чтения и записи, которые имеют побочные эффекты"
+        }
+      ],
+      "correctOptionId": "c-middle-1-c",
+      "explanation": "Без volatile компилятор может удалить «лишнее» чтение регистра.",
+      "source": "https://en.cppreference.com/w/c/language/volatile"
+    },
+    {
+      "id": "c-middle-2",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Что произойдёт при переполнении знакового int в C?",
+      "options": [
+        {
+          "id": "c-middle-2-a",
+          "label": "Значение циклически перейдёт к минимальному"
+        },
+        {
+          "id": "c-middle-2-b",
+          "label": "Программа гарантированно завершится"
+        },
+        {
+          "id": "c-middle-2-c",
+          "label": "Неопределённое поведение"
+        }
+      ],
+      "correctOptionId": "c-middle-2-c",
+      "explanation": "Беззнаковые типы при переполнении работают по модулю.",
+      "source": "https://en.cppreference.com/w/c/language/operator_arithmetic"
+    },
+    {
+      "id": "c-middle-3",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Как установить бит номер 3 (счёт с нуля) в переменной reg?",
+      "options": [
+        {
+          "id": "c-middle-3-a",
+          "label": "reg |= (1u << 3);"
+        },
+        {
+          "id": "c-middle-3-b",
+          "label": "reg = 3;"
+        },
+        {
+          "id": "c-middle-3-c",
+          "label": "reg &= 3;"
+        }
+      ],
+      "correctOptionId": "c-middle-3-a",
+      "explanation": "Побитовое ИЛИ с маской устанавливает бит, И с инверсией маски — сбрасывает.",
+      "source": "https://en.cppreference.com/w/c/language/operator_arithmetic"
+    },
+    {
+      "id": "c-middle-4",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Что такое выравнивание структуры?",
+      "options": [
+        {
+          "id": "c-middle-4-a",
+          "label": "Размещение полей по адресам, кратным их размеру, с возможными пустыми байтами"
+        },
+        {
+          "id": "c-middle-4-b",
+          "label": "Сортировка полей структуры по алфавиту компилятором для ускорения доступа к ним"
+        },
+        {
+          "id": "c-middle-4-c",
+          "label": "Сжатие структуры"
+        }
+      ],
+      "correctOptionId": "c-middle-4-a",
+      "explanation": "Порядок полей влияет на размер структуры.",
+      "source": "https://en.cppreference.com/w/c/language/object#Alignment"
+    },
+    {
+      "id": "c-middle-5",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Чем опасен макрос #define SQR(x) x*x?",
+      "options": [
+        {
+          "id": "c-middle-5-a",
+          "label": "SQR(a+1) раскроется в a+1*a+1 с неверным результатом"
+        },
+        {
+          "id": "c-middle-5-b",
+          "label": "Макросы запрещены"
+        },
+        {
+          "id": "c-middle-5-c",
+          "label": "Макрос медленнее функции, потому что вычисляется во время выполнения"
+        }
+      ],
+      "correctOptionId": "c-middle-5-a",
+      "explanation": "Аргументы и тело макроса нужно заключать в скобки или использовать inline-функцию.",
+      "source": "https://en.cppreference.com/w/c/preprocessor/replace"
+    },
+    {
+      "id": "c-middle-6",
+      "grade": "middle",
+      "skillId": "c",
+      "prompt": "Как безопасно скопировать строку в буфер фиксированного размера?",
+      "options": [
+        {
+          "id": "c-middle-6-a",
+          "label": "strcpy без проверки"
+        },
+        {
+          "id": "c-middle-6-b",
+          "label": "snprintf или явная проверка длины с гарантией нулевого завершения"
+        },
+        {
+          "id": "c-middle-6-c",
+          "label": "memcpy без учёта длины, потому что он быстрее и всегда добавляет нулевой байт"
+        }
+      ],
+      "correctOptionId": "c-middle-6-b",
+      "explanation": "strncpy не гарантирует нулевой байт в конце.",
+      "source": "https://en.cppreference.com/w/c/io/fprintf"
+    },
+    {
+      "id": "c-senior-1",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Что такое strict aliasing?",
+      "options": [
+        {
+          "id": "c-senior-1-a",
+          "label": "Правило, по которому доступ к объекту через указатель несовместимого типа — UB"
+        },
+        {
+          "id": "c-senior-1-b",
+          "label": "Правило именования переменных, запрещающее одинаковые имена в разных областях видимости"
+        },
+        {
+          "id": "c-senior-1-c",
+          "label": "Запрет на указатели"
+        }
+      ],
+      "correctOptionId": "c-senior-1-a",
+      "explanation": "Нарушение позволяет компилятору делать неожиданные оптимизации.",
+      "source": "https://en.cppreference.com/w/c/language/object#Strict_aliasing"
+    },
+    {
+      "id": "c-senior-2",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Как найти ошибки работы с памятью в C-программе?",
+      "options": [
+        {
+          "id": "c-senior-2-a",
+          "label": "Санитайзеры (AddressSanitizer) и Valgrind"
+        },
+        {
+          "id": "c-senior-2-b",
+          "label": "Добавить больше printf"
+        },
+        {
+          "id": "c-senior-2-c",
+          "label": "Увеличить стек"
+        }
+      ],
+      "correctOptionId": "c-senior-2-a",
+      "explanation": "Санитайзеры ловят выходы за границы и использование после освобождения.",
+      "source": "https://clang.llvm.org/docs/AddressSanitizer.html"
+    },
+    {
+      "id": "c-senior-3",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Почему в прерывании нельзя выполнять долгие операции?",
+      "options": [
+        {
+          "id": "c-senior-3-a",
+          "label": "Они задерживают обработку других прерываний и основной код"
+        },
+        {
+          "id": "c-senior-3-b",
+          "label": "Прерывания не могут выполнять код дольше одного такта процессора"
+        },
+        {
+          "id": "c-senior-3-c",
+          "label": "Это запрещено языком C"
+        }
+      ],
+      "correctOptionId": "c-senior-3-a",
+      "explanation": "Обработчик ставит флаг, основная работа идёт в основном цикле.",
+      "source": "https://en.wikipedia.org/wiki/Interrupt_handler"
+    },
+    {
+      "id": "c-senior-4",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Как обеспечить атомарность доступа к общей переменной между прерыванием и основным кодом?",
+      "options": [
+        {
+          "id": "c-senior-4-a",
+          "label": "volatile гарантирует атомарность"
+        },
+        {
+          "id": "c-senior-4-b",
+          "label": "Атомарные типы C11 или кратковременный запрет прерываний"
+        },
+        {
+          "id": "c-senior-4-c",
+          "label": "Использовать глобальную переменную с volatile, это гарантирует атомарность"
+        }
+      ],
+      "correctOptionId": "c-senior-4-b",
+      "explanation": "volatile не делает операции атомарными.",
+      "source": "https://en.cppreference.com/w/c/atomic"
+    },
+    {
+      "id": "c-senior-5",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Какой стандарт кодирования часто применяют в ответственных встраиваемых системах?",
+      "options": [
+        {
+          "id": "c-senior-5-a",
+          "label": "PEP 8"
+        },
+        {
+          "id": "c-senior-5-b",
+          "label": "Google Java Style"
+        },
+        {
+          "id": "c-senior-5-c",
+          "label": "MISRA C"
+        }
+      ],
+      "correctOptionId": "c-senior-5-c",
+      "explanation": "MISRA ограничивает опасные конструкции языка.",
+      "source": "https://misra.org.uk/"
+    },
+    {
+      "id": "c-senior-6",
+      "grade": "senior",
+      "skillId": "c",
+      "prompt": "Чем статический анализ полезен для C-кода?",
+      "options": [
+        {
+          "id": "c-senior-6-a",
+          "label": "Ускоряет программу за счёт оптимизации исходного кода"
+        },
+        {
+          "id": "c-senior-6-b",
+          "label": "Заменяет тесты"
+        },
+        {
+          "id": "c-senior-6-c",
+          "label": "Находит потенциальные ошибки без запуска программы"
+        }
+      ],
+      "correctOptionId": "c-senior-6-c",
+      "explanation": "Анализаторы ловят UB, утечки и нарушения правил.",
+      "source": "https://clang-analyzer.llvm.org/"
+    },
+    {
+      "id": "c-lead-1",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Как организовать тестирование прошивки?",
+      "options": [
+        {
+          "id": "c-lead-1-a",
+          "label": "Только ручные проверки на плате перед отправкой прошивки в производство"
+        },
+        {
+          "id": "c-lead-1-b",
+          "label": "Тестов не нужно"
+        },
+        {
+          "id": "c-lead-1-c",
+          "label": "Модульные тесты на хосте, тесты на железе и CI с аппаратным стендом"
+        }
+      ],
+      "correctOptionId": "c-lead-1-c",
+      "explanation": "Тесты на хосте быстрые, тесты на железе ловят аппаратные эффекты.",
+      "source": "https://www.throwtheswitch.org/unity"
+    },
+    {
+      "id": "c-lead-2",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Как снижать риски безопасности в C-проекте?",
+      "options": [
+        {
+          "id": "c-lead-2-a",
+          "label": "Полагаться на опыт разработчиков"
+        },
+        {
+          "id": "c-lead-2-b",
+          "label": "Отключить предупреждения компилятора"
+        },
+        {
+          "id": "c-lead-2-c",
+          "label": "Санитайзеры, фаззинг, статический анализ и правила кодирования"
+        }
+      ],
+      "correctOptionId": "c-lead-2-c",
+      "explanation": "Комбинация методов находит разные классы ошибок.",
+      "source": "https://llvm.org/docs/LibFuzzer.html"
+    },
+    {
+      "id": "c-lead-3",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Когда стоит рассмотреть Rust вместо C во встраиваемом проекте?",
+      "options": [
+        {
+          "id": "c-lead-3-a",
+          "label": "Когда безопасность памяти критична и есть поддержка целевой платформы"
+        },
+        {
+          "id": "c-lead-3-b",
+          "label": "Всегда немедленно, потому что Rust полностью совместим с любым кодом на C"
+        },
+        {
+          "id": "c-lead-3-c",
+          "label": "Никогда"
+        }
+      ],
+      "correctOptionId": "c-lead-3-a",
+      "explanation": "Переход требует оценки инструментов и компетенций.",
+      "source": "https://docs.rust-embedded.org/book/"
+    },
+    {
+      "id": "c-lead-4",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Как поддерживать переносимость кода между микроконтроллерами?",
+      "options": [
+        {
+          "id": "c-lead-4-a",
+          "label": "Писать всё для одного чипа"
+        },
+        {
+          "id": "c-lead-4-b",
+          "label": "Слой абстракции оборудования и изоляция платформенного кода"
+        },
+        {
+          "id": "c-lead-4-c",
+          "label": "Копировать код для каждого чипа и менять адреса регистров вручную"
+        }
+      ],
+      "correctOptionId": "c-lead-4-b",
+      "explanation": "HAL упрощает смену платформы.",
+      "source": "https://en.wikipedia.org/wiki/Hardware_abstraction"
+    },
+    {
+      "id": "c-lead-5",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Как проводить код-ревью прошивок?",
+      "options": [
+        {
+          "id": "c-lead-5-a",
+          "label": "Только проверка стиля кода и длины функций без учёта специфики устройства"
+        },
+        {
+          "id": "c-lead-5-b",
+          "label": "Без ревью"
+        },
+        {
+          "id": "c-lead-5-c",
+          "label": "Чек-листы по памяти, прерываниям, таймингам и обработке ошибок"
+        }
+      ],
+      "correctOptionId": "c-lead-5-c",
+      "explanation": "Специфичные риски требуют специфичных проверок.",
+      "source": "https://misra.org.uk/"
+    },
+    {
+      "id": "c-lead-6",
+      "grade": "lead",
+      "skillId": "c",
+      "prompt": "Как управлять версиями компилятора и библиотек?",
+      "options": [
+        {
+          "id": "c-lead-6-a",
+          "label": "Использовать те версии компилятора, что установлены у каждого разработчика"
+        },
+        {
+          "id": "c-lead-6-b",
+          "label": "Обновлять всё перед релизом"
+        },
+        {
+          "id": "c-lead-6-c",
+          "label": "Фиксировать версии инструментов и собирать в воспроизводимом окружении"
+        }
+      ],
+      "correctOptionId": "c-lead-6-c",
+      "explanation": "Разные компиляторы могут давать разное поведение.",
+      "source": "https://reproducible-builds.org/"
+    },
+    {
+      "id": "microcontrollers-intern-1",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое микроконтроллер?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-1-a",
+          "label": "Персональный компьютер с операционной системой для управления устройствами"
+        },
+        {
+          "id": "microcontrollers-intern-1-b",
+          "label": "Блок питания"
+        },
+        {
+          "id": "microcontrollers-intern-1-c",
+          "label": "Микросхема с процессором, памятью и периферией на одном кристалле"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-1-c",
+      "explanation": "Примеры — STM32, ESP32, AVR.",
+      "source": "https://en.wikipedia.org/wiki/Microcontroller"
+    },
+    {
+      "id": "microcontrollers-intern-2",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое GPIO?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-2-a",
+          "label": "Тип памяти"
+        },
+        {
+          "id": "microcontrollers-intern-2-b",
+          "label": "Протокол беспроводной связи между микроконтроллерами в одной сети"
+        },
+        {
+          "id": "microcontrollers-intern-2-c",
+          "label": "Выводы общего назначения для цифрового ввода и вывода"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-2-c",
+      "explanation": "GPIO настраивают на вход или выход.",
+      "source": "https://en.wikipedia.org/wiki/General-purpose_input/output"
+    },
+    {
+      "id": "microcontrollers-intern-3",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Зачем нужен резистор последовательно со светодиодом?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-3-a",
+          "label": "Ограничить ток через светодиод"
+        },
+        {
+          "id": "microcontrollers-intern-3-b",
+          "label": "Увеличить яркость"
+        },
+        {
+          "id": "microcontrollers-intern-3-c",
+          "label": "Изменить цвет"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-3-a",
+      "explanation": "Без резистора светодиод и вывод могут выйти из строя.",
+      "source": "https://learn.sparkfun.com/tutorials/light-emitting-diodes-leds/all"
+    },
+    {
+      "id": "microcontrollers-intern-4",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Что делает функция setup() в Arduino?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-4-a",
+          "label": "Выполняется один раз при запуске для настройки"
+        },
+        {
+          "id": "microcontrollers-intern-4-b",
+          "label": "Выполняется бесконечно в цикле после каждого нажатия кнопки"
+        },
+        {
+          "id": "microcontrollers-intern-4-c",
+          "label": "Выключает плату"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-4-a",
+      "explanation": "loop() вызывается повторно после setup().",
+      "source": "https://docs.arduino.cc/language-reference/en/structure/sketch/setup/"
+    },
+    {
+      "id": "microcontrollers-intern-5",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое прошивка?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-5-a",
+          "label": "Программа, записанная в память микроконтроллера"
+        },
+        {
+          "id": "microcontrollers-intern-5-b",
+          "label": "Корпус устройства с разъёмами для подключения датчиков"
+        },
+        {
+          "id": "microcontrollers-intern-5-c",
+          "label": "Драйвер для ПК"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-5-a",
+      "explanation": "Прошивку загружают программатором или загрузчиком.",
+      "source": "https://en.wikipedia.org/wiki/Firmware"
+    },
+    {
+      "id": "microcontrollers-intern-6",
+      "grade": "intern",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое АЦП?",
+      "options": [
+        {
+          "id": "microcontrollers-intern-6-a",
+          "label": "Устройство хранения данных с аналоговым интерфейсом подключения"
+        },
+        {
+          "id": "microcontrollers-intern-6-b",
+          "label": "Аналого-цифровой преобразователь, измеряющий напряжение"
+        },
+        {
+          "id": "microcontrollers-intern-6-c",
+          "label": "Беспроводной модуль"
+        }
+      ],
+      "correctOptionId": "microcontrollers-intern-6-b",
+      "explanation": "Разрядность АЦП определяет точность измерения.",
+      "source": "https://en.wikipedia.org/wiki/Analog-to-digital_converter"
+    },
+    {
+      "id": "microcontrollers-junior-1",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Чем UART отличается от SPI?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-1-a",
+          "label": "Это одно и то же: оба интерфейса синхронные, используют одну линию данных и адресуют устройства по номерам"
+        },
+        {
+          "id": "microcontrollers-junior-1-b",
+          "label": "SPI работает только по радио"
+        },
+        {
+          "id": "microcontrollers-junior-1-c",
+          "label": "UART — асинхронный двухпроводный обмен, SPI — синхронный с тактовым сигналом и выбором устройства"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-1-c",
+      "explanation": "SPI быстрее, UART проще.",
+      "source": "https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all"
+    },
+    {
+      "id": "microcontrollers-junior-2",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое I2C?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-2-a",
+          "label": "Двухпроводная шина с адресацией нескольких устройств"
+        },
+        {
+          "id": "microcontrollers-junior-2-b",
+          "label": "Протокол Wi-Fi для связи микроконтроллера с роутером"
+        },
+        {
+          "id": "microcontrollers-junior-2-c",
+          "label": "Тип памяти"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-2-a",
+      "explanation": "Линии SDA и SCL требуют подтягивающих резисторов.",
+      "source": "https://learn.sparkfun.com/tutorials/i2c/all"
+    },
+    {
+      "id": "microcontrollers-junior-3",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое ШИМ (PWM)?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-3-a",
+          "label": "Управление средней мощностью через изменение скважности импульсов"
+        },
+        {
+          "id": "microcontrollers-junior-3-b",
+          "label": "Протокол передачи данных между микроконтроллером и компьютером по USB"
+        },
+        {
+          "id": "microcontrollers-junior-3-c",
+          "label": "Режим сна"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-3-a",
+      "explanation": "ШИМ используют для яркости светодиодов и моторов.",
+      "source": "https://docs.arduino.cc/learn/microcontrollers/analog-output/"
+    },
+    {
+      "id": "microcontrollers-junior-4",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Зачем нужен дребезг-фильтр для кнопки?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-4-a",
+          "label": "Механический контакт даёт несколько переключений при одном нажатии"
+        },
+        {
+          "id": "microcontrollers-junior-4-b",
+          "label": "Кнопки срабатывают слишком медленно, и без фильтра нажатие не регистрируется"
+        },
+        {
+          "id": "microcontrollers-junior-4-c",
+          "label": "Для экономии энергии"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-4-a",
+      "explanation": "Устраняется программной задержкой или RC-цепью.",
+      "source": "https://docs.arduino.cc/built-in-examples/digital/Debounce/"
+    },
+    {
+      "id": "microcontrollers-junior-5",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое прерывание?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-5-a",
+          "label": "Сигнал, приостанавливающий основной код для обработки события"
+        },
+        {
+          "id": "microcontrollers-junior-5-b",
+          "label": "Ошибка компиляции"
+        },
+        {
+          "id": "microcontrollers-junior-5-c",
+          "label": "Выключение питания микроконтроллера для экономии энергии батареи"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-5-a",
+      "explanation": "Прерывания позволяют быстро реагировать на события.",
+      "source": "https://en.wikipedia.org/wiki/Interrupt"
+    },
+    {
+      "id": "microcontrollers-junior-6",
+      "grade": "junior",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое подтягивающий резистор?",
+      "options": [
+        {
+          "id": "microcontrollers-junior-6-a",
+          "label": "Резистор для нагрева платы при работе на морозе, чтобы входы не замерзали"
+        },
+        {
+          "id": "microcontrollers-junior-6-b",
+          "label": "Резистор, задающий определённый уровень на входе, когда он не подключён"
+        },
+        {
+          "id": "microcontrollers-junior-6-c",
+          "label": "Резистор в цепи питания мотора"
+        }
+      ],
+      "correctOptionId": "microcontrollers-junior-6-b",
+      "explanation": "Без него вход «висит» и читает случайные значения.",
+      "source": "https://learn.sparkfun.com/tutorials/pull-up-resistors/all"
+    },
+    {
+      "id": "microcontrollers-middle-1",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое DMA?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-1-a",
+          "label": "Передача данных между периферией и памятью без участия процессора"
+        },
+        {
+          "id": "microcontrollers-middle-1-b",
+          "label": "Режим отладки"
+        },
+        {
+          "id": "microcontrollers-middle-1-c",
+          "label": "Режим отладки, при котором процессор выполняет команды строго по одной"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-1-a",
+      "explanation": "DMA разгружает процессор при потоковых данных.",
+      "source": "https://en.wikipedia.org/wiki/Direct_memory_access"
+    },
+    {
+      "id": "microcontrollers-middle-2",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Зачем нужен сторожевой таймер (watchdog)?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-2-a",
+          "label": "Измерять время"
+        },
+        {
+          "id": "microcontrollers-middle-2-b",
+          "label": "Перезапустить устройство при зависании программы"
+        },
+        {
+          "id": "microcontrollers-middle-2-c",
+          "label": "Ускорять процессор при высокой нагрузке на программу"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-2-b",
+      "explanation": "Программа должна регулярно сбрасывать watchdog.",
+      "source": "https://en.wikipedia.org/wiki/Watchdog_timer"
+    },
+    {
+      "id": "microcontrollers-middle-3",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Как снизить энергопотребление устройства на батарее?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-3-a",
+          "label": "Повысить частоту процессора и опрашивать все датчики непрерывно без пауз"
+        },
+        {
+          "id": "microcontrollers-middle-3-b",
+          "label": "Режимы сна, отключение неиспользуемой периферии и пробуждение по событиям"
+        },
+        {
+          "id": "microcontrollers-middle-3-c",
+          "label": "Опрашивать датчики непрерывно"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-3-b",
+      "explanation": "Большую часть времени устройство должно спать.",
+      "source": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/sleep_modes.html"
+    },
+    {
+      "id": "microcontrollers-middle-4",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Что даёт RTOS по сравнению с суперциклом?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-4-a",
+          "label": "Планирование задач с приоритетами и средства синхронизации"
+        },
+        {
+          "id": "microcontrollers-middle-4-b",
+          "label": "Больше памяти"
+        },
+        {
+          "id": "microcontrollers-middle-4-c",
+          "label": "Отсутствие прерываний и больше оперативной памяти для программы"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-4-a",
+      "explanation": "FreeRTOS — распространённая RTOS.",
+      "source": "https://www.freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/01-RTOS-fundamentals"
+    },
+    {
+      "id": "microcontrollers-middle-5",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Как отлаживать прошивку на уровне железа?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-5-a",
+          "label": "Только светодиодом"
+        },
+        {
+          "id": "microcontrollers-middle-5-b",
+          "label": "Через отладочный интерфейс SWD или JTAG с точками останова"
+        },
+        {
+          "id": "microcontrollers-middle-5-c",
+          "label": "Перепрошивать плату после каждого изменения и смотреть на светодиод"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-5-b",
+      "explanation": "Отладчик позволяет смотреть память и регистры.",
+      "source": "https://en.wikipedia.org/wiki/JTAG"
+    },
+    {
+      "id": "microcontrollers-middle-6",
+      "grade": "middle",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое инверсия приоритетов в RTOS?",
+      "options": [
+        {
+          "id": "microcontrollers-middle-6-a",
+          "label": "Высокоприоритетная задача ждёт ресурс, удерживаемый низкоприоритетной"
+        },
+        {
+          "id": "microcontrollers-middle-6-b",
+          "label": "Задачи меняются местами случайно из-за ошибки планировщика в ядре RTOS"
+        },
+        {
+          "id": "microcontrollers-middle-6-c",
+          "label": "Ошибка компилятора"
+        }
+      ],
+      "correctOptionId": "microcontrollers-middle-6-a",
+      "explanation": "Мьютексы с наследованием приоритета решают проблему.",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/02-Queues-mutexes-and-semaphores/04-Mutexes"
+    },
+    {
+      "id": "microcontrollers-senior-1",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Как безопасно обновлять прошивку по воздуху (OTA)?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-1-a",
+          "label": "Перезаписывать единственный раздел прошивки по HTTP без проверки подписи"
+        },
+        {
+          "id": "microcontrollers-senior-1-b",
+          "label": "Два раздела с откатом, проверка подписи образа и целостности"
+        },
+        {
+          "id": "microcontrollers-senior-1-c",
+          "label": "Загружать прошивку по HTTP без подписи"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-1-b",
+      "explanation": "Подпись защищает от подмены, откат — от неудачного обновления.",
+      "source": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html"
+    },
+    {
+      "id": "microcontrollers-senior-2",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Что такое безопасная загрузка (secure boot)?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-2-a",
+          "label": "Загрузка прошивки без интернета с локального сервера"
+        },
+        {
+          "id": "microcontrollers-senior-2-b",
+          "label": "Проверка подписи кода на каждом этапе загрузки"
+        },
+        {
+          "id": "microcontrollers-senior-2-c",
+          "label": "Шифрование USB"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-2-b",
+      "explanation": "Устройство запускает только доверенное ПО.",
+      "source": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/secure-boot-v2.html"
+    },
+    {
+      "id": "microcontrollers-senior-3",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Как проектировать устройство с учётом электромагнитной совместимости?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-3-a",
+          "label": "Добавить больше проводов и увеличить напряжение питания платы"
+        },
+        {
+          "id": "microcontrollers-senior-3-b",
+          "label": "Увеличить напряжение"
+        },
+        {
+          "id": "microcontrollers-senior-3-c",
+          "label": "Правильная разводка земли, фильтрация питания и экранирование"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-3-c",
+      "explanation": "Проблемы ЭМС дешевле решить на этапе платы.",
+      "source": "https://www.ti.com/lit/an/szza009/szza009.pdf"
+    },
+    {
+      "id": "microcontrollers-senior-4",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Как измерить время выполнения критичного кода?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-4-a",
+          "label": "По ощущениям"
+        },
+        {
+          "id": "microcontrollers-senior-4-b",
+          "label": "printf с текущим временем в начале и в конце функции через UART"
+        },
+        {
+          "id": "microcontrollers-senior-4-c",
+          "label": "Аппаратным таймером или переключением вывода и осциллографом"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-4-c",
+      "explanation": "printf сам вносит большую задержку.",
+      "source": "https://developer.arm.com/documentation/ddi0403/latest/"
+    },
+    {
+      "id": "microcontrollers-senior-5",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Как обеспечить детерминированное время реакции?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-5-a",
+          "label": "Использовать динамическую память везде и отключить аппаратные таймеры для простоты"
+        },
+        {
+          "id": "microcontrollers-senior-5-b",
+          "label": "Отключить таймеры"
+        },
+        {
+          "id": "microcontrollers-senior-5-c",
+          "label": "Анализ худшего времени выполнения, приоритеты прерываний и ограничение блокировок"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-5-c",
+      "explanation": "Жёсткое реальное время требует гарантий, а не средних значений.",
+      "source": "https://www.freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/01-RTOS-fundamentals"
+    },
+    {
+      "id": "microcontrollers-senior-6",
+      "grade": "senior",
+      "skillId": "microcontrollers",
+      "prompt": "Почему во встраиваемых системах осторожно используют динамическую память?",
+      "options": [
+        {
+          "id": "microcontrollers-senior-6-a",
+          "label": "Фрагментация и непредсказуемое время выделения"
+        },
+        {
+          "id": "microcontrollers-senior-6-b",
+          "label": "Её нет на микроконтроллерах вообще, malloc там не компилируется"
+        },
+        {
+          "id": "microcontrollers-senior-6-c",
+          "label": "Она запрещена языком C"
+        }
+      ],
+      "correctOptionId": "microcontrollers-senior-6-a",
+      "explanation": "Часто используют статическое выделение и пулы.",
+      "source": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+    },
+    {
+      "id": "microcontrollers-lead-1",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Как выбрать микроконтроллер для нового продукта?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-1-a",
+          "label": "По требованиям к производительности, энергопотреблению, периферии, цене и доступности поставок"
+        },
+        {
+          "id": "microcontrollers-lead-1-b",
+          "label": "Самый мощный микроконтроллер на рынке, чтобы запаса производительности хватило на любые будущие функции продукта"
+        },
+        {
+          "id": "microcontrollers-lead-1-c",
+          "label": "Самый дешёвый без анализа"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-1-a",
+      "explanation": "Доступность поставок критична для серийного производства.",
+      "source": "https://en.wikipedia.org/wiki/Microcontroller"
+    },
+    {
+      "id": "microcontrollers-lead-2",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Как организовать производственное тестирование устройств?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-2-a",
+          "label": "Тестовая прошивка и стенд с автоматической проверкой каждой платы"
+        },
+        {
+          "id": "microcontrollers-lead-2-b",
+          "label": "Проверять выборочно вручную несколько плат из каждой партии перед отгрузкой"
+        },
+        {
+          "id": "microcontrollers-lead-2-c",
+          "label": "Не тестировать"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-2-a",
+      "explanation": "Производственный тест ловит дефекты монтажа.",
+      "source": "https://en.wikipedia.org/wiki/In-circuit_test"
+    },
+    {
+      "id": "microcontrollers-lead-3",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Как обеспечить поддержку устройств в поле на годы?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-3-a",
+          "label": "Выпустить и забыть"
+        },
+        {
+          "id": "microcontrollers-lead-3-b",
+          "label": "Безопасные обновления, мониторинг и план поддержки компонентов"
+        },
+        {
+          "id": "microcontrollers-lead-3-c",
+          "label": "Менять железо при каждой найденной ошибке и выпускать новую ревизию платы"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-3-b",
+      "explanation": "Жизненный цикл IoT-устройства длится годы.",
+      "source": "https://www.etsi.org/deliver/etsi_en/303600_303699/303645/"
+    },
+    {
+      "id": "microcontrollers-lead-4",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Какие требования безопасности IoT-устройств важны?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-4-a",
+          "label": "Отсутствие стандартных паролей, безопасные обновления и защита данных"
+        },
+        {
+          "id": "microcontrollers-lead-4-b",
+          "label": "Только красивый корпус и открытый отладочный порт для сервиса"
+        },
+        {
+          "id": "microcontrollers-lead-4-c",
+          "label": "Открытый отладочный порт"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-4-a",
+      "explanation": "ETSI EN 303 645 описывает базовые требования.",
+      "source": "https://www.etsi.org/deliver/etsi_en/303600_303699/303645/"
+    },
+    {
+      "id": "microcontrollers-lead-5",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Как распределить работу между схемотехниками и программистами?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-5-a",
+          "label": "Сначала полностью развести плату, потом писать код без участия схемотехников"
+        },
+        {
+          "id": "microcontrollers-lead-5-b",
+          "label": "Совместное проектирование с ранними прототипами и общими требованиями"
+        },
+        {
+          "id": "microcontrollers-lead-5-c",
+          "label": "Работать независимо"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-5-b",
+      "explanation": "Ранняя интеграция выявляет проблемы раньше.",
+      "source": "https://en.wikipedia.org/wiki/Embedded_system"
+    },
+    {
+      "id": "microcontrollers-lead-6",
+      "grade": "lead",
+      "skillId": "microcontrollers",
+      "prompt": "Как снизить риски дефицита компонентов?",
+      "options": [
+        {
+          "id": "microcontrollers-lead-6-a",
+          "label": "Использовать уникальный компонент одного поставщика без замены"
+        },
+        {
+          "id": "microcontrollers-lead-6-b",
+          "label": "Альтернативные компоненты в проекте и запасы критичных позиций"
+        },
+        {
+          "id": "microcontrollers-lead-6-c",
+          "label": "Не планировать"
+        }
+      ],
+      "correctOptionId": "microcontrollers-lead-6-b",
+      "explanation": "Дефицит микросхем останавливал производство многих компаний.",
+      "source": "https://en.wikipedia.org/wiki/2020%E2%80%932023_global_chip_shortage"
+    },
+    {
+      "id": "cpp-intern-1",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Как вывести строку в стандартный вывод в C++?",
+      "options": [
+        {
+          "id": "cpp-intern-1-a",
+          "label": "std::cout << \"текст\";"
+        },
+        {
+          "id": "cpp-intern-1-b",
+          "label": "print(\"текст\");"
+        },
+        {
+          "id": "cpp-intern-1-c",
+          "label": "System.out.println(\"текст\");"
+        }
+      ],
+      "correctOptionId": "cpp-intern-1-a",
+      "explanation": "std::cout объявлен в <iostream>.",
+      "source": "https://en.cppreference.com/w/cpp/io/cout"
+    },
+    {
+      "id": "cpp-intern-2",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Чем std::string удобнее массива char?",
+      "options": [
+        {
+          "id": "cpp-intern-2-a",
+          "label": "Он всегда быстрее"
+        },
+        {
+          "id": "cpp-intern-2-b",
+          "label": "Сам управляет памятью и длиной строки"
+        },
+        {
+          "id": "cpp-intern-2-c",
+          "label": "Он не поддерживает Unicode совсем"
+        }
+      ],
+      "correctOptionId": "cpp-intern-2-b",
+      "explanation": "std::string безопаснее ручной работы с буферами.",
+      "source": "https://en.cppreference.com/w/cpp/string/basic_string"
+    },
+    {
+      "id": "cpp-intern-3",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Что такое std::vector?",
+      "options": [
+        {
+          "id": "cpp-intern-3-a",
+          "label": "Математический вектор"
+        },
+        {
+          "id": "cpp-intern-3-b",
+          "label": "Список с быстрой вставкой в середину"
+        },
+        {
+          "id": "cpp-intern-3-c",
+          "label": "Динамический массив, меняющий размер"
+        }
+      ],
+      "correctOptionId": "cpp-intern-3-c",
+      "explanation": "Элементы хранятся непрерывно.",
+      "source": "https://en.cppreference.com/w/cpp/container/vector"
+    },
+    {
+      "id": "cpp-intern-4",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Что такое ссылка (int&)?",
+      "options": [
+        {
+          "id": "cpp-intern-4-a",
+          "label": "Копия объекта"
+        },
+        {
+          "id": "cpp-intern-4-b",
+          "label": "Указатель, который может быть нулевым"
+        },
+        {
+          "id": "cpp-intern-4-c",
+          "label": "Псевдоним существующего объекта"
+        }
+      ],
+      "correctOptionId": "cpp-intern-4-c",
+      "explanation": "Ссылку нельзя перепривязать к другому объекту.",
+      "source": "https://en.cppreference.com/w/cpp/language/reference"
+    },
+    {
+      "id": "cpp-intern-5",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Что означает const у переменной?",
+      "options": [
+        {
+          "id": "cpp-intern-5-a",
+          "label": "Переменная глобальная"
+        },
+        {
+          "id": "cpp-intern-5-b",
+          "label": "Её значение нельзя изменить после инициализации"
+        },
+        {
+          "id": "cpp-intern-5-c",
+          "label": "Переменная хранится в регистре процессора и доступна быстрее"
+        }
+      ],
+      "correctOptionId": "cpp-intern-5-b",
+      "explanation": "const помогает компилятору и читателю.",
+      "source": "https://en.cppreference.com/w/cpp/language/cv"
+    },
+    {
+      "id": "cpp-intern-6",
+      "grade": "intern",
+      "skillId": "cpp",
+      "prompt": "Что делает цикл for (auto x : v)?",
+      "options": [
+        {
+          "id": "cpp-intern-6-a",
+          "label": "Перебирает элементы контейнера v"
+        },
+        {
+          "id": "cpp-intern-6-b",
+          "label": "Перебирает индексы от 0 до 10"
+        },
+        {
+          "id": "cpp-intern-6-c",
+          "label": "Копирует v"
+        }
+      ],
+      "correctOptionId": "cpp-intern-6-a",
+      "explanation": "Для изменения элементов используйте auto&.",
+      "source": "https://en.cppreference.com/w/cpp/language/range-for"
+    },
+    {
+      "id": "cpp-junior-1",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Что такое RAII?",
+      "options": [
+        {
+          "id": "cpp-junior-1-a",
+          "label": "Способ ускорения циклов за счёт выделения памяти заранее в начале программы для всех объектов"
+        },
+        {
+          "id": "cpp-junior-1-b",
+          "label": "Владение ресурсом привязано к времени жизни объекта: ресурс освобождается в деструкторе"
+        },
+        {
+          "id": "cpp-junior-1-c",
+          "label": "Шаблон проектирования интерфейса"
+        }
+      ],
+      "correctOptionId": "cpp-junior-1-b",
+      "explanation": "RAII гарантирует освобождение даже при исключениях.",
+      "source": "https://en.cppreference.com/w/cpp/language/raii"
+    },
+    {
+      "id": "cpp-junior-2",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Чем std::unique_ptr отличается от std::shared_ptr?",
+      "options": [
+        {
+          "id": "cpp-junior-2-a",
+          "label": "shared_ptr быстрее"
+        },
+        {
+          "id": "cpp-junior-2-b",
+          "label": "unique_ptr можно копировать, а shared_ptr можно только перемещать"
+        },
+        {
+          "id": "cpp-junior-2-c",
+          "label": "unique_ptr имеет единственного владельца, shared_ptr считает ссылки"
+        }
+      ],
+      "correctOptionId": "cpp-junior-2-c",
+      "explanation": "unique_ptr перемещается, но не копируется.",
+      "source": "https://en.cppreference.com/w/cpp/memory/unique_ptr"
+    },
+    {
+      "id": "cpp-junior-3",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Что такое виртуальная функция?",
+      "options": [
+        {
+          "id": "cpp-junior-3-a",
+          "label": "Функция без тела"
+        },
+        {
+          "id": "cpp-junior-3-b",
+          "label": "Функция, которая выполняется в отдельном потоке параллельно с основным"
+        },
+        {
+          "id": "cpp-junior-3-c",
+          "label": "Функция, вызов которой выбирается по фактическому типу объекта"
+        }
+      ],
+      "correctOptionId": "cpp-junior-3-c",
+      "explanation": "Базовый класс с виртуальными функциями должен иметь виртуальный деструктор.",
+      "source": "https://en.cppreference.com/w/cpp/language/virtual"
+    },
+    {
+      "id": "cpp-junior-4",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Почему передача большого объекта по const& часто лучше передачи по значению?",
+      "options": [
+        {
+          "id": "cpp-junior-4-a",
+          "label": "Избегается копирование"
+        },
+        {
+          "id": "cpp-junior-4-b",
+          "label": "Объект становится изменяемым"
+        },
+        {
+          "id": "cpp-junior-4-c",
+          "label": "Это запрещено для строк"
+        }
+      ],
+      "correctOptionId": "cpp-junior-4-a",
+      "explanation": "По значению передают, если функция всё равно сохраняет копию.",
+      "source": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-in"
+    },
+    {
+      "id": "cpp-junior-5",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Что делает std::map?",
+      "options": [
+        {
+          "id": "cpp-junior-5-a",
+          "label": "Хранит пары ключ–значение, упорядоченные по ключу"
+        },
+        {
+          "id": "cpp-junior-5-b",
+          "label": "Хранит элементы без порядка с поиском за постоянное время O(1)"
+        },
+        {
+          "id": "cpp-junior-5-c",
+          "label": "Отображает графику"
+        }
+      ],
+      "correctOptionId": "cpp-junior-5-a",
+      "explanation": "std::unordered_map — хеш-таблица без порядка.",
+      "source": "https://en.cppreference.com/w/cpp/container/map"
+    },
+    {
+      "id": "cpp-junior-6",
+      "grade": "junior",
+      "skillId": "cpp",
+      "prompt": "Что делает ключевое слово auto?",
+      "options": [
+        {
+          "id": "cpp-junior-6-a",
+          "label": "Выводит тип переменной из инициализатора"
+        },
+        {
+          "id": "cpp-junior-6-b",
+          "label": "Делает переменную автоматически удаляемой"
+        },
+        {
+          "id": "cpp-junior-6-c",
+          "label": "Объявляет потоковую переменную"
+        }
+      ],
+      "correctOptionId": "cpp-junior-6-a",
+      "explanation": "Тип известен на этапе компиляции.",
+      "source": "https://en.cppreference.com/w/cpp/language/auto"
+    },
+    {
+      "id": "cpp-middle-1",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Что такое семантика перемещения?",
+      "options": [
+        {
+          "id": "cpp-middle-1-a",
+          "label": "Перемещение файла"
+        },
+        {
+          "id": "cpp-middle-1-b",
+          "label": "Копирование объекта с проверкой целостности данных и счётчиком ссылок"
+        },
+        {
+          "id": "cpp-middle-1-c",
+          "label": "Передача ресурсов объекта другому без глубокого копирования"
+        }
+      ],
+      "correctOptionId": "cpp-middle-1-c",
+      "explanation": "std::move приводит к rvalue-ссылке и разрешает перемещение.",
+      "source": "https://en.cppreference.com/w/cpp/language/move_constructor"
+    },
+    {
+      "id": "cpp-middle-2",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Что такое правило нуля?",
+      "options": [
+        {
+          "id": "cpp-middle-2-a",
+          "label": "Все классы должны иметь пустой конструктор по умолчанию, а нулевые указатели использовать запрещено правилами языка"
+        },
+        {
+          "id": "cpp-middle-2-b",
+          "label": "Нельзя использовать нулевые указатели"
+        },
+        {
+          "id": "cpp-middle-2-c",
+          "label": "Классу не нужны собственные деструктор и операции копирования, если ресурсами владеют члены-RAII"
+        }
+      ],
+      "correctOptionId": "cpp-middle-2-c",
+      "explanation": "Пользовательские специальные функции нужны только классам, управляющим ресурсом.",
+      "source": "https://en.cppreference.com/w/cpp/language/rule_of_three"
+    },
+    {
+      "id": "cpp-middle-3",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Чем опасна инвалидация итераторов vector?",
+      "options": [
+        {
+          "id": "cpp-middle-3-a",
+          "label": "Итераторы vector никогда не инвалидируются, поэтому их можно хранить сколько угодно после любых вставок в контейнер"
+        },
+        {
+          "id": "cpp-middle-3-b",
+          "label": "Это ускоряет программу"
+        },
+        {
+          "id": "cpp-middle-3-c",
+          "label": "После вставки, вызвавшей перераспределение, старые итераторы указывают на освобождённую память"
+        }
+      ],
+      "correctOptionId": "cpp-middle-3-c",
+      "explanation": "Нужно учитывать правила инвалидации каждого контейнера.",
+      "source": "https://en.cppreference.com/w/cpp/container/vector"
+    },
+    {
+      "id": "cpp-middle-4",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Что такое шаблоны (templates)?",
+      "options": [
+        {
+          "id": "cpp-middle-4-a",
+          "label": "Обобщённый код, инстанцируемый для конкретных типов при компиляции"
+        },
+        {
+          "id": "cpp-middle-4-b",
+          "label": "Макросы препроцессора"
+        },
+        {
+          "id": "cpp-middle-4-c",
+          "label": "Динамическая типизация, при которой тип проверяется во время выполнения"
+        }
+      ],
+      "correctOptionId": "cpp-middle-4-a",
+      "explanation": "Концепты C++20 ограничивают параметры шаблонов.",
+      "source": "https://en.cppreference.com/w/cpp/language/templates"
+    },
+    {
+      "id": "cpp-middle-5",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Как защитить данные от гонок между потоками?",
+      "options": [
+        {
+          "id": "cpp-middle-5-a",
+          "label": "std::mutex с std::lock_guard или атомарные типы"
+        },
+        {
+          "id": "cpp-middle-5-b",
+          "label": "volatile"
+        },
+        {
+          "id": "cpp-middle-5-c",
+          "label": "Глобальные переменные и ключевое слово volatile"
+        }
+      ],
+      "correctOptionId": "cpp-middle-5-a",
+      "explanation": "volatile в C++ не обеспечивает синхронизацию.",
+      "source": "https://en.cppreference.com/w/cpp/thread/mutex"
+    },
+    {
+      "id": "cpp-middle-6",
+      "grade": "middle",
+      "skillId": "cpp",
+      "prompt": "Что такое noexcept?",
+      "options": [
+        {
+          "id": "cpp-middle-6-a",
+          "label": "Отключение исключений во всём проекте при компиляции"
+        },
+        {
+          "id": "cpp-middle-6-b",
+          "label": "Обещание, что функция не выбрасывает исключений"
+        },
+        {
+          "id": "cpp-middle-6-c",
+          "label": "Перехват всех исключений"
+        }
+      ],
+      "correctOptionId": "cpp-middle-6-b",
+      "explanation": "noexcept-конструкторы перемещения позволяют vector перемещать элементы.",
+      "source": "https://en.cppreference.com/w/cpp/language/noexcept_spec"
+    },
+    {
+      "id": "cpp-senior-1",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Что такое модель памяти C++ и memory_order?",
+      "options": [
+        {
+          "id": "cpp-senior-1-a",
+          "label": "Правила видимости операций между потоками и упорядочения атомарных операций"
+        },
+        {
+          "id": "cpp-senior-1-b",
+          "label": "Распределение памяти в куче между потоками процесса и размеры указателей на платформе"
+        },
+        {
+          "id": "cpp-senior-1-c",
+          "label": "Размер указателей"
+        }
+      ],
+      "correctOptionId": "cpp-senior-1-a",
+      "explanation": "Слабые порядки дают скорость ценой сложности рассуждений.",
+      "source": "https://en.cppreference.com/w/cpp/atomic/memory_order"
+    },
+    {
+      "id": "cpp-senior-2",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Что дают концепты C++20?",
+      "options": [
+        {
+          "id": "cpp-senior-2-a",
+          "label": "Именованные ограничения на параметры шаблонов с понятными ошибками"
+        },
+        {
+          "id": "cpp-senior-2-b",
+          "label": "Сборку мусора и рефлексию типов во время выполнения программы на C++"
+        },
+        {
+          "id": "cpp-senior-2-c",
+          "label": "Рефлексию"
+        }
+      ],
+      "correctOptionId": "cpp-senior-2-a",
+      "explanation": "Концепты делают интерфейсы шаблонов явными.",
+      "source": "https://en.cppreference.com/w/cpp/language/constraints"
+    },
+    {
+      "id": "cpp-senior-3",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Как найти гонки данных в многопоточной программе?",
+      "options": [
+        {
+          "id": "cpp-senior-3-a",
+          "label": "ThreadSanitizer"
+        },
+        {
+          "id": "cpp-senior-3-b",
+          "label": "Увеличить число потоков"
+        },
+        {
+          "id": "cpp-senior-3-c",
+          "label": "Добавить sleep"
+        }
+      ],
+      "correctOptionId": "cpp-senior-3-a",
+      "explanation": "TSan обнаруживает несинхронизированный доступ при выполнении.",
+      "source": "https://clang.llvm.org/docs/ThreadSanitizer.html"
+    },
+    {
+      "id": "cpp-senior-4",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Что такое ABI и почему его важно учитывать?",
+      "options": [
+        {
+          "id": "cpp-senior-4-a",
+          "label": "Формат исходного кода и стиль именования функций в публичных заголовках библиотеки"
+        },
+        {
+          "id": "cpp-senior-4-b",
+          "label": "Стиль именования"
+        },
+        {
+          "id": "cpp-senior-4-c",
+          "label": "Двоичный интерфейс; его изменение ломает совместимость скомпилированных библиотек"
+        }
+      ],
+      "correctOptionId": "cpp-senior-4-c",
+      "explanation": "Изменение размера класса меняет ABI.",
+      "source": "https://en.wikipedia.org/wiki/Application_binary_interface"
+    },
+    {
+      "id": "cpp-senior-5",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Как ускорить компиляцию большого C++-проекта?",
+      "options": [
+        {
+          "id": "cpp-senior-5-a",
+          "label": "Объединить все исходники в один файл и отключить оптимизацию в релизной сборке программы"
+        },
+        {
+          "id": "cpp-senior-5-b",
+          "label": "Отключить оптимизацию в релизе"
+        },
+        {
+          "id": "cpp-senior-5-c",
+          "label": "Сократить включения заголовков, использовать модули или предкомпилированные заголовки и кэш сборки"
+        }
+      ],
+      "correctOptionId": "cpp-senior-5-c",
+      "explanation": "Время сборки во многом определяется заголовками.",
+      "source": "https://en.cppreference.com/w/cpp/language/modules"
+    },
+    {
+      "id": "cpp-senior-6",
+      "grade": "senior",
+      "skillId": "cpp",
+      "prompt": "Почему false sharing замедляет программу?",
+      "options": [
+        {
+          "id": "cpp-senior-6-a",
+          "label": "Потоки делят одну переменную корректно, и замедление вызывает ошибка компилятора при оптимизации"
+        },
+        {
+          "id": "cpp-senior-6-b",
+          "label": "Это ошибка компилятора"
+        },
+        {
+          "id": "cpp-senior-6-c",
+          "label": "Потоки пишут в разные переменные одной кэш-линии, вызывая постоянную синхронизацию кэшей"
+        }
+      ],
+      "correctOptionId": "cpp-senior-6-c",
+      "explanation": "Выравнивание по кэш-линии устраняет проблему.",
+      "source": "https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size"
+    },
+    {
+      "id": "cpp-lead-1",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Как вводить современный C++ в старую кодовую базу?",
+      "options": [
+        {
+          "id": "cpp-lead-1-a",
+          "label": "Переписать всё сразу"
+        },
+        {
+          "id": "cpp-lead-1-b",
+          "label": "Запретить новые стандарты, чтобы не переписывать старый код"
+        },
+        {
+          "id": "cpp-lead-1-c",
+          "label": "Постепенно, с правилами Core Guidelines, линтерами и тестами"
+        }
+      ],
+      "correctOptionId": "cpp-lead-1-c",
+      "explanation": "Инкрементальные изменения снижают риск.",
+      "source": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines"
+    },
+    {
+      "id": "cpp-lead-2",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Какие инструменты качества обязательны в C++-проекте?",
+      "options": [
+        {
+          "id": "cpp-lead-2-a",
+          "label": "Только компиляция без предупреждений и ручная проверка кода на ревью перед релизом"
+        },
+        {
+          "id": "cpp-lead-2-b",
+          "label": "Предупреждения как ошибки, санитайзеры, статический анализ и форматирование в CI"
+        },
+        {
+          "id": "cpp-lead-2-c",
+          "label": "Ручная проверка"
+        }
+      ],
+      "correctOptionId": "cpp-lead-2-b",
+      "explanation": "clang-tidy автоматизирует многие правила.",
+      "source": "https://clang.llvm.org/extra/clang-tidy/"
+    },
+    {
+      "id": "cpp-lead-3",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Как управлять зависимостями C++?",
+      "options": [
+        {
+          "id": "cpp-lead-3-a",
+          "label": "Копировать исходники в репозиторий без версий"
+        },
+        {
+          "id": "cpp-lead-3-b",
+          "label": "Менеджер пакетов (Conan, vcpkg) с фиксированными версиями"
+        },
+        {
+          "id": "cpp-lead-3-c",
+          "label": "Устанавливать системные пакеты вручную на каждой машине разработчика"
+        }
+      ],
+      "correctOptionId": "cpp-lead-3-b",
+      "explanation": "Фиксация версий делает сборку воспроизводимой.",
+      "source": "https://learn.microsoft.com/en-us/vcpkg/"
+    },
+    {
+      "id": "cpp-lead-4",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Когда переписывать компонент на Rust?",
+      "options": [
+        {
+          "id": "cpp-lead-4-a",
+          "label": "Когда ошибки памяти дорого обходятся, а интеграция и компетенции позволяют"
+        },
+        {
+          "id": "cpp-lead-4-b",
+          "label": "Всегда"
+        },
+        {
+          "id": "cpp-lead-4-c",
+          "label": "Никогда: смешивать языки в одном проекте нельзя ни при каких условиях"
+        }
+      ],
+      "correctOptionId": "cpp-lead-4-a",
+      "explanation": "Смешанные проекты требуют стабильного FFI.",
+      "source": "https://doc.rust-lang.org/nomicon/ffi.html"
+    },
+    {
+      "id": "cpp-lead-5",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Как проводить ревью производительности?",
+      "options": [
+        {
+          "id": "cpp-lead-5-a",
+          "label": "На основе бенчмарков и профилей, а не догадок"
+        },
+        {
+          "id": "cpp-lead-5-b",
+          "label": "По количеству строк и мнению автора кода о скорости"
+        },
+        {
+          "id": "cpp-lead-5-c",
+          "label": "По мнению автора"
+        }
+      ],
+      "correctOptionId": "cpp-lead-5-a",
+      "explanation": "Google Benchmark помогает измерять.",
+      "source": "https://github.com/google/benchmark"
+    },
+    {
+      "id": "cpp-lead-6",
+      "grade": "lead",
+      "skillId": "cpp",
+      "prompt": "Как поддерживать стандарты кода в большой команде?",
+      "options": [
+        {
+          "id": "cpp-lead-6-a",
+          "label": "Каждый пишет по-своему"
+        },
+        {
+          "id": "cpp-lead-6-b",
+          "label": "Только устные договорённости на встречах команды раз в квартал"
+        },
+        {
+          "id": "cpp-lead-6-c",
+          "label": "Документированный гайд, автоформатирование и обучение"
+        }
+      ],
+      "correctOptionId": "cpp-lead-6-c",
+      "explanation": "Автоматизация убирает споры о стиле.",
+      "source": "https://clang.llvm.org/docs/ClangFormat.html"
+    },
+    {
+      "id": "operating_systems-intern-1",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Что такое процесс?",
+      "options": [
+        {
+          "id": "operating_systems-intern-1-a",
+          "label": "Файл на диске"
+        },
+        {
+          "id": "operating_systems-intern-1-b",
+          "label": "Выполняющаяся программа со своим адресным пространством"
+        },
+        {
+          "id": "operating_systems-intern-1-c",
+          "label": "Аппаратное устройство для выполнения программ в компьютере"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-1-b",
+      "explanation": "Процессы изолированы друг от друга.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-intro.pdf"
+    },
+    {
+      "id": "operating_systems-intern-2",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Чем поток отличается от процесса?",
+      "options": [
+        {
+          "id": "operating_systems-intern-2-a",
+          "label": "Потоки одного процесса делят память"
+        },
+        {
+          "id": "operating_systems-intern-2-b",
+          "label": "Потоки изолированы как процессы"
+        },
+        {
+          "id": "operating_systems-intern-2-c",
+          "label": "Поток — это файл"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-2-a",
+      "explanation": "Общая память упрощает обмен, но требует синхронизации.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-intro.pdf"
+    },
+    {
+      "id": "operating_systems-intern-3",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Что делает ядро операционной системы?",
+      "options": [
+        {
+          "id": "operating_systems-intern-3-a",
+          "label": "Отображает рабочий стол"
+        },
+        {
+          "id": "operating_systems-intern-3-b",
+          "label": "Управляет процессами, памятью, устройствами и файлами"
+        },
+        {
+          "id": "operating_systems-intern-3-c",
+          "label": "Только запускает браузер и отображает рабочий стол пользователя"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-3-b",
+      "explanation": "Ядро работает в привилегированном режиме.",
+      "source": "https://en.wikipedia.org/wiki/Kernel_(operating_system)"
+    },
+    {
+      "id": "operating_systems-intern-4",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Что такое системный вызов?",
+      "options": [
+        {
+          "id": "operating_systems-intern-4-a",
+          "label": "Обращение программы к ядру за услугой, например чтением файла"
+        },
+        {
+          "id": "operating_systems-intern-4-b",
+          "label": "Звонок в службу поддержки производителя операционной системы"
+        },
+        {
+          "id": "operating_systems-intern-4-c",
+          "label": "Ошибка программы"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-4-a",
+      "explanation": "open, read, write — системные вызовы.",
+      "source": "https://man7.org/linux/man-pages/man2/syscalls.2.html"
+    },
+    {
+      "id": "operating_systems-intern-5",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Что такое файловая система?",
+      "options": [
+        {
+          "id": "operating_systems-intern-5-a",
+          "label": "Способ хранения и организации файлов на носителе"
+        },
+        {
+          "id": "operating_systems-intern-5-b",
+          "label": "Папка «Документы» на компьютере пользователя с его файлами"
+        },
+        {
+          "id": "operating_systems-intern-5-c",
+          "label": "Тип процессора"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-5-a",
+      "explanation": "Примеры — ext4, NTFS, APFS.",
+      "source": "https://en.wikipedia.org/wiki/File_system"
+    },
+    {
+      "id": "operating_systems-intern-6",
+      "grade": "intern",
+      "skillId": "operating_systems",
+      "prompt": "Что такое виртуальная память?",
+      "options": [
+        {
+          "id": "operating_systems-intern-6-a",
+          "label": "Память видеокарты, которую процессор использует вместо оперативной памяти при её нехватке"
+        },
+        {
+          "id": "operating_systems-intern-6-b",
+          "label": "Абстракция, дающая процессу собственное адресное пространство, отображаемое на физическую память"
+        },
+        {
+          "id": "operating_systems-intern-6-c",
+          "label": "Облачное хранилище"
+        }
+      ],
+      "correctOptionId": "operating_systems-intern-6-b",
+      "explanation": "Страницы могут временно храниться на диске.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-intro.pdf"
+    },
+    {
+      "id": "operating_systems-junior-1",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое состояние гонки?",
+      "options": [
+        {
+          "id": "operating_systems-junior-1-a",
+          "label": "Соревнование процессов за приоритет при запуске на одном ядре процессора"
+        },
+        {
+          "id": "operating_systems-junior-1-b",
+          "label": "Результат зависит от непредсказуемого порядка выполнения потоков"
+        },
+        {
+          "id": "operating_systems-junior-1-c",
+          "label": "Ошибка компиляции"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-1-b",
+      "explanation": "Решается синхронизацией доступа.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-locks.pdf"
+    },
+    {
+      "id": "operating_systems-junior-2",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Какие условия необходимы для взаимной блокировки (deadlock)?",
+      "options": [
+        {
+          "id": "operating_systems-junior-2-a",
+          "label": "Только высокая загрузка процессора и наличие более двух потоков в процессе"
+        },
+        {
+          "id": "operating_systems-junior-2-b",
+          "label": "Наличие более двух потоков"
+        },
+        {
+          "id": "operating_systems-junior-2-c",
+          "label": "Взаимное исключение, удержание с ожиданием, отсутствие вытеснения и круговое ожидание"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-2-c",
+      "explanation": "Нарушение одного условия предотвращает deadlock.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-bugs.pdf"
+    },
+    {
+      "id": "operating_systems-junior-3",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое переключение контекста?",
+      "options": [
+        {
+          "id": "operating_systems-junior-3-a",
+          "label": "Смена пользователя системы без выхода из запущенных программ и сеансов"
+        },
+        {
+          "id": "operating_systems-junior-3-b",
+          "label": "Перезагрузка"
+        },
+        {
+          "id": "operating_systems-junior-3-c",
+          "label": "Сохранение состояния одного потока и восстановление другого"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-3-c",
+      "explanation": "Частые переключения дорого обходятся.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-mechanisms.pdf"
+    },
+    {
+      "id": "operating_systems-junior-4",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое страничная ошибка (page fault)?",
+      "options": [
+        {
+          "id": "operating_systems-junior-4-a",
+          "label": "Обращение к странице, отсутствующей в физической памяти"
+        },
+        {
+          "id": "operating_systems-junior-4-b",
+          "label": "Повреждение диска"
+        },
+        {
+          "id": "operating_systems-junior-4-c",
+          "label": "Ошибка в коде страницы сайта, из-за которой браузер её не отображает"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-4-a",
+      "explanation": "Ядро подгружает страницу или завершает процесс при недопустимом доступе.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-beyondphys.pdf"
+    },
+    {
+      "id": "operating_systems-junior-5",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Чем мьютекс отличается от семафора?",
+      "options": [
+        {
+          "id": "operating_systems-junior-5-a",
+          "label": "Мьютекс даёт исключительный доступ одному владельцу, семафор считает доступные ресурсы"
+        },
+        {
+          "id": "operating_systems-junior-5-b",
+          "label": "Это одно и то же: семафор просто работает только в ядре, а мьютекс — в пользовательском режиме"
+        },
+        {
+          "id": "operating_systems-junior-5-c",
+          "label": "Семафор работает только в ядре"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-5-a",
+      "explanation": "Семафор со счётчиком 1 похож на мьютекс, но без владельца.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-sema.pdf"
+    },
+    {
+      "id": "operating_systems-junior-6",
+      "grade": "junior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое файловый дескриптор?",
+      "options": [
+        {
+          "id": "operating_systems-junior-6-a",
+          "label": "Число, обозначающее открытый файл или сокет процесса"
+        },
+        {
+          "id": "operating_systems-junior-6-b",
+          "label": "Имя файла"
+        },
+        {
+          "id": "operating_systems-junior-6-c",
+          "label": "Размер открытого файла в байтах, который возвращает операционная система"
+        }
+      ],
+      "correctOptionId": "operating_systems-junior-6-a",
+      "explanation": "0, 1, 2 — стандартные ввод, вывод и ошибки.",
+      "source": "https://man7.org/linux/man-pages/man2/open.2.html"
+    },
+    {
+      "id": "operating_systems-middle-1",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Как работает планировщик с вытеснением?",
+      "options": [
+        {
+          "id": "operating_systems-middle-1-a",
+          "label": "Поток работает, пока сам не отдаст процессор"
+        },
+        {
+          "id": "operating_systems-middle-1-b",
+          "label": "Ядро прерывает поток по таймеру и передаёт процессор другому"
+        },
+        {
+          "id": "operating_systems-middle-1-c",
+          "label": "Поток работает, пока сам не отдаст процессор, а ядро не вмешивается"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-1-b",
+      "explanation": "Вытеснение обеспечивает отзывчивость.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched.pdf"
+    },
+    {
+      "id": "operating_systems-middle-2",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Что такое TLB?",
+      "options": [
+        {
+          "id": "operating_systems-middle-2-a",
+          "label": "Кэш трансляции виртуальных адресов в физические"
+        },
+        {
+          "id": "operating_systems-middle-2-b",
+          "label": "Таблица открытых файлов процесса и их дескрипторов"
+        },
+        {
+          "id": "operating_systems-middle-2-c",
+          "label": "Буфер сети"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-2-a",
+      "explanation": "Промахи TLB замедляют доступ к памяти.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-tlbs.pdf"
+    },
+    {
+      "id": "operating_systems-middle-3",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Что делает системный вызов fork?",
+      "options": [
+        {
+          "id": "operating_systems-middle-3-a",
+          "label": "Запускает новую программу в текущем процессе"
+        },
+        {
+          "id": "operating_systems-middle-3-b",
+          "label": "Создаёт копию процесса"
+        },
+        {
+          "id": "operating_systems-middle-3-c",
+          "label": "Завершает процесс"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-3-b",
+      "explanation": "exec заменяет образ процесса новой программой.",
+      "source": "https://man7.org/linux/man-pages/man2/fork.2.html"
+    },
+    {
+      "id": "operating_systems-middle-4",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Что такое copy-on-write при fork?",
+      "options": [
+        {
+          "id": "operating_systems-middle-4-a",
+          "label": "Весь процесс копируется в памяти сразу при вызове fork"
+        },
+        {
+          "id": "operating_systems-middle-4-b",
+          "label": "Запрет записи в память"
+        },
+        {
+          "id": "operating_systems-middle-4-c",
+          "label": "Страницы копируются только при записи в них"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-4-c",
+      "explanation": "Это делает fork быстрым.",
+      "source": "https://man7.org/linux/man-pages/man2/fork.2.html"
+    },
+    {
+      "id": "operating_systems-middle-5",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Чем журналируемая файловая система защищает данные?",
+      "options": [
+        {
+          "id": "operating_systems-middle-5-a",
+          "label": "Шифрует файлы и дублирует каждый диск на резервный носитель в реальном времени"
+        },
+        {
+          "id": "operating_systems-middle-5-b",
+          "label": "Дублирует диск"
+        },
+        {
+          "id": "operating_systems-middle-5-c",
+          "label": "Записывает изменения в журнал до применения и восстанавливается после сбоя"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-5-c",
+      "explanation": "Журнал сохраняет согласованность метаданных.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/file-journaling.pdf"
+    },
+    {
+      "id": "operating_systems-middle-6",
+      "grade": "middle",
+      "skillId": "operating_systems",
+      "prompt": "Что такое epoll?",
+      "options": [
+        {
+          "id": "operating_systems-middle-6-a",
+          "label": "Файловая система Linux с поддержкой журналирования событий"
+        },
+        {
+          "id": "operating_systems-middle-6-b",
+          "label": "Механизм Linux для эффективного ожидания событий на множестве дескрипторов"
+        },
+        {
+          "id": "operating_systems-middle-6-c",
+          "label": "Планировщик процессов"
+        }
+      ],
+      "correctOptionId": "operating_systems-middle-6-b",
+      "explanation": "Используется в высоконагруженных серверах.",
+      "source": "https://man7.org/linux/man-pages/man7/epoll.7.html"
+    },
+    {
+      "id": "operating_systems-senior-1",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое io_uring?",
+      "options": [
+        {
+          "id": "operating_systems-senior-1-a",
+          "label": "Интерфейс асинхронного ввода-вывода Linux через общие кольцевые буферы"
+        },
+        {
+          "id": "operating_systems-senior-1-b",
+          "label": "Файловая система Linux для быстрых SSD-накопителей с кольцевой структурой журнала"
+        },
+        {
+          "id": "operating_systems-senior-1-c",
+          "label": "Драйвер сети"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-1-a",
+      "explanation": "Уменьшает число системных вызовов.",
+      "source": "https://man7.org/linux/man-pages/man7/io_uring.7.html"
+    },
+    {
+      "id": "operating_systems-senior-2",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Как NUMA влияет на производительность?",
+      "options": [
+        {
+          "id": "operating_systems-senior-2-a",
+          "label": "Доступ к памяти чужого узла медленнее; важно размещать данные рядом с ядрами"
+        },
+        {
+          "id": "operating_systems-senior-2-b",
+          "label": "Не влияет: все ядра видят одну общую память с одинаковой задержкой"
+        },
+        {
+          "id": "operating_systems-senior-2-c",
+          "label": "Ускоряет любой доступ"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-2-a",
+      "explanation": "numactl позволяет управлять размещением.",
+      "source": "https://man7.org/linux/man-pages/man8/numactl.8.html"
+    },
+    {
+      "id": "operating_systems-senior-3",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое lock-free структура данных?",
+      "options": [
+        {
+          "id": "operating_systems-senior-3-a",
+          "label": "Структура без синхронизации вообще, которую может использовать только один поток"
+        },
+        {
+          "id": "operating_systems-senior-3-b",
+          "label": "Структура, где хотя бы один поток всегда продвигается без блокировок"
+        },
+        {
+          "id": "operating_systems-senior-3-c",
+          "label": "Структура только для одного потока"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-3-b",
+      "explanation": "Строится на атомарных операциях вроде CAS.",
+      "source": "https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange"
+    },
+    {
+      "id": "operating_systems-senior-4",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Как ядро изолирует процессы друг от друга?",
+      "options": [
+        {
+          "id": "operating_systems-senior-4-a",
+          "label": "Только именами процессов и правами пользователя, который их запустил в системе"
+        },
+        {
+          "id": "operating_systems-senior-4-b",
+          "label": "Отдельные адресные пространства, режимы привилегий и проверки прав"
+        },
+        {
+          "id": "operating_systems-senior-4-c",
+          "label": "Никак"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-4-b",
+      "explanation": "Аппаратная защита памяти — основа изоляции.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-mechanism.pdf"
+    },
+    {
+      "id": "operating_systems-senior-5",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое eBPF?",
+      "options": [
+        {
+          "id": "operating_systems-senior-5-a",
+          "label": "Язык для веб-разработки, компилируемый в байт-код браузера"
+        },
+        {
+          "id": "operating_systems-senior-5-b",
+          "label": "Механизм безопасного выполнения проверенных программ в ядре для трассировки и сетей"
+        },
+        {
+          "id": "operating_systems-senior-5-c",
+          "label": "Файловая система"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-5-b",
+      "explanation": "eBPF используется в наблюдаемости и сетевых политиках.",
+      "source": "https://ebpf.io/what-is-ebpf/"
+    },
+    {
+      "id": "operating_systems-senior-6",
+      "grade": "senior",
+      "skillId": "operating_systems",
+      "prompt": "Что такое приоритетная инверсия и как её решают?",
+      "options": [
+        {
+          "id": "operating_systems-senior-6-a",
+          "label": "Высокоприоритетная задача ждёт низкоприоритетную; решают наследованием приоритета"
+        },
+        {
+          "id": "operating_systems-senior-6-b",
+          "label": "Задачи меняют приоритеты случайно; решают отключением планировщика на время работы"
+        },
+        {
+          "id": "operating_systems-senior-6-c",
+          "label": "Ошибка компилятора"
+        }
+      ],
+      "correctOptionId": "operating_systems-senior-6-a",
+      "explanation": "Известный пример — сбой Mars Pathfinder.",
+      "source": "https://en.wikipedia.org/wiki/Priority_inversion"
+    },
+    {
+      "id": "operating_systems-lead-1",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Как выбирать ОС для встраиваемого или серверного продукта?",
+      "options": [
+        {
+          "id": "operating_systems-lead-1-a",
+          "label": "По популярности дистрибутива среди разработчиков и наличию графического интерфейса"
+        },
+        {
+          "id": "operating_systems-lead-1-b",
+          "label": "По цвету логотипа"
+        },
+        {
+          "id": "operating_systems-lead-1-c",
+          "label": "По требованиям реального времени, поддержке оборудования, безопасности и сроку поддержки"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-1-c",
+      "explanation": "Срок поддержки ядра важен для долгоживущих продуктов.",
+      "source": "https://www.kernel.org/category/releases.html"
+    },
+    {
+      "id": "operating_systems-lead-2",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Как организовать поддержку собственных патчей ядра?",
+      "options": [
+        {
+          "id": "operating_systems-lead-2-a",
+          "label": "Держать большой форк ядра навсегда и не обновлять его, чтобы ничего не сломать"
+        },
+        {
+          "id": "operating_systems-lead-2-b",
+          "label": "Не обновлять ядро"
+        },
+        {
+          "id": "operating_systems-lead-2-c",
+          "label": "Минимизировать расхождение с основной веткой и отправлять патчи в апстрим"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-2-c",
+      "explanation": "Форк ядра дорого поддерживать.",
+      "source": "https://www.kernel.org/doc/html/latest/process/submitting-patches.html"
+    },
+    {
+      "id": "operating_systems-lead-3",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Как обеспечить безопасность системного ПО?",
+      "options": [
+        {
+          "id": "operating_systems-lead-3-a",
+          "label": "Запускать всё от root и отключить обновления"
+        },
+        {
+          "id": "operating_systems-lead-3-b",
+          "label": "Отключить обновления"
+        },
+        {
+          "id": "operating_systems-lead-3-c",
+          "label": "Минимальные привилегии, изоляция, фаззинг и своевременные обновления"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-3-c",
+      "explanation": "Системное ПО — привлекательная цель атак.",
+      "source": "https://www.kernel.org/doc/html/latest/admin-guide/LSM/index.html"
+    },
+    {
+      "id": "operating_systems-lead-4",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Как оценивать производительность системного ПО?",
+      "options": [
+        {
+          "id": "operating_systems-lead-4-a",
+          "label": "Воспроизводимые бенчмарки и профилирование на целевом оборудовании"
+        },
+        {
+          "id": "operating_systems-lead-4-b",
+          "label": "Один запуск на ноутбуке разработчика и сравнение по ощущениям"
+        },
+        {
+          "id": "operating_systems-lead-4-c",
+          "label": "По ощущениям"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-4-a",
+      "explanation": "Результаты зависят от железа и нагрузки.",
+      "source": "https://www.brendangregg.com/methodology.html"
+    },
+    {
+      "id": "operating_systems-lead-5",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Как обучать команду системному программированию?",
+      "options": [
+        {
+          "id": "operating_systems-lead-5-a",
+          "label": "Разбор реального кода ядра, учебные проекты и наставничество"
+        },
+        {
+          "id": "operating_systems-lead-5-b",
+          "label": "Только книги"
+        },
+        {
+          "id": "operating_systems-lead-5-c",
+          "label": "Сразу поручать новичкам драйверы для продакшена, чтобы учились на практике"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-5-a",
+      "explanation": "Практика с наставником сокращает ошибки.",
+      "source": "https://pages.cs.wisc.edu/~remzi/OSTEP/"
+    },
+    {
+      "id": "operating_systems-lead-6",
+      "grade": "lead",
+      "skillId": "operating_systems",
+      "prompt": "Когда использовать ядро реального времени?",
+      "options": [
+        {
+          "id": "operating_systems-lead-6-a",
+          "label": "Всегда, для любой системы, потому что ядро реального времени быстрее обычного"
+        },
+        {
+          "id": "operating_systems-lead-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "operating_systems-lead-6-c",
+          "label": "Когда нужны гарантированные сроки реакции, а не только средняя скорость"
+        }
+      ],
+      "correctOptionId": "operating_systems-lead-6-c",
+      "explanation": "PREEMPT_RT добавляет детерминированность в Linux.",
+      "source": "https://wiki.linuxfoundation.org/realtime/start"
+    },
+    {
+      "id": "csharp-intern-1",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Как вывести строку в консоль на C#?",
+      "options": [
+        {
+          "id": "csharp-intern-1-a",
+          "label": "print(\"текст\");"
+        },
+        {
+          "id": "csharp-intern-1-b",
+          "label": "echo \"текст\";"
+        },
+        {
+          "id": "csharp-intern-1-c",
+          "label": "Console.WriteLine(\"текст\");"
+        }
+      ],
+      "correctOptionId": "csharp-intern-1-c",
+      "explanation": "Console находится в пространстве имён System.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/api/system.console.writeline"
+    },
+    {
+      "id": "csharp-intern-2",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Чем int отличается от string?",
+      "options": [
+        {
+          "id": "csharp-intern-2-a",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "csharp-intern-2-b",
+          "label": "int хранит целое число, string — текст"
+        },
+        {
+          "id": "csharp-intern-2-c",
+          "label": "string хранит только цифры"
+        }
+      ],
+      "correctOptionId": "csharp-intern-2-b",
+      "explanation": "Строка не преобразуется в число автоматически.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types"
+    },
+    {
+      "id": "csharp-intern-3",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Что делает оператор if?",
+      "options": [
+        {
+          "id": "csharp-intern-3-a",
+          "label": "Повторяет код"
+        },
+        {
+          "id": "csharp-intern-3-b",
+          "label": "Выполняет блок кода, если условие истинно"
+        },
+        {
+          "id": "csharp-intern-3-c",
+          "label": "Объявляет класс с условием создания объекта"
+        }
+      ],
+      "correctOptionId": "csharp-intern-3-b",
+      "explanation": "else выполняется, когда условие ложно.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements"
+    },
+    {
+      "id": "csharp-intern-4",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Что такое класс?",
+      "options": [
+        {
+          "id": "csharp-intern-4-a",
+          "label": "Переменная"
+        },
+        {
+          "id": "csharp-intern-4-b",
+          "label": "Файл с картинкой, подключённый к проекту"
+        },
+        {
+          "id": "csharp-intern-4-c",
+          "label": "Шаблон объектов с полями и методами"
+        }
+      ],
+      "correctOptionId": "csharp-intern-4-c",
+      "explanation": "Объекты создаются оператором new.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes"
+    },
+    {
+      "id": "csharp-intern-5",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Как объявить список целых чисел?",
+      "options": [
+        {
+          "id": "csharp-intern-5-a",
+          "label": "int[] numbers = list();"
+        },
+        {
+          "id": "csharp-intern-5-b",
+          "label": "List numbers = \"1,2,3\";"
+        },
+        {
+          "id": "csharp-intern-5-c",
+          "label": "var numbers = new List<int>();"
+        }
+      ],
+      "correctOptionId": "csharp-intern-5-c",
+      "explanation": "List<T> — динамический список из System.Collections.Generic.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1"
+    },
+    {
+      "id": "csharp-intern-6",
+      "grade": "intern",
+      "skillId": "csharp",
+      "prompt": "Что делает цикл foreach?",
+      "options": [
+        {
+          "id": "csharp-intern-6-a",
+          "label": "Выполняется бесконечно"
+        },
+        {
+          "id": "csharp-intern-6-b",
+          "label": "Перебирает элементы коллекции"
+        },
+        {
+          "id": "csharp-intern-6-c",
+          "label": "Сортирует коллекцию"
+        }
+      ],
+      "correctOptionId": "csharp-intern-6-b",
+      "explanation": "Изменять коллекцию внутри foreach нельзя.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements"
+    },
+    {
+      "id": "csharp-junior-1",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Чем struct отличается от class в C#?",
+      "options": [
+        {
+          "id": "csharp-junior-1-a",
+          "label": "struct — тип-значение, копируется при присваивании; class — ссылочный тип"
+        },
+        {
+          "id": "csharp-junior-1-b",
+          "label": "struct нельзя использовать в коллекциях, а class нельзя наследовать от других классов"
+        },
+        {
+          "id": "csharp-junior-1-c",
+          "label": "class нельзя наследовать"
+        }
+      ],
+      "correctOptionId": "csharp-junior-1-a",
+      "explanation": "Небольшие неизменяемые структуры удобны в играх.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct"
+    },
+    {
+      "id": "csharp-junior-2",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Что такое интерфейс?",
+      "options": [
+        {
+          "id": "csharp-junior-2-a",
+          "label": "Контракт из членов, которые реализует класс или структура"
+        },
+        {
+          "id": "csharp-junior-2-b",
+          "label": "Графический интерфейс"
+        },
+        {
+          "id": "csharp-junior-2-c",
+          "label": "Абстрактный класс с полями и реализацией по умолчанию для всех наследников"
+        }
+      ],
+      "correctOptionId": "csharp-junior-2-a",
+      "explanation": "Класс может реализовать несколько интерфейсов.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces"
+    },
+    {
+      "id": "csharp-junior-3",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Что делает LINQ-запрос items.Where(x => x.Hp > 0)?",
+      "options": [
+        {
+          "id": "csharp-junior-3-a",
+          "label": "Отбирает элементы с положительным здоровьем"
+        },
+        {
+          "id": "csharp-junior-3-b",
+          "label": "Сортирует элементы"
+        },
+        {
+          "id": "csharp-junior-3-c",
+          "label": "Удаляет из списка элементы с нулевым здоровьем"
+        }
+      ],
+      "correctOptionId": "csharp-junior-3-a",
+      "explanation": "LINQ выполняется лениво до перечисления.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/linq/"
+    },
+    {
+      "id": "csharp-junior-4",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Что такое свойство (property)?",
+      "options": [
+        {
+          "id": "csharp-junior-4-a",
+          "label": "Глобальная переменная, доступная всем классам"
+        },
+        {
+          "id": "csharp-junior-4-b",
+          "label": "Член класса с методами доступа get и set"
+        },
+        {
+          "id": "csharp-junior-4-c",
+          "label": "Атрибут файла"
+        }
+      ],
+      "correctOptionId": "csharp-junior-4-b",
+      "explanation": "Свойства инкапсулируют доступ к данным.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties"
+    },
+    {
+      "id": "csharp-junior-5",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Как обработать исключение?",
+      "options": [
+        {
+          "id": "csharp-junior-5-a",
+          "label": "try { … } catch (Exception e) { … }"
+        },
+        {
+          "id": "csharp-junior-5-b",
+          "label": "if (error) …"
+        },
+        {
+          "id": "csharp-junior-5-c",
+          "label": "Исключения нельзя обработать"
+        }
+      ],
+      "correctOptionId": "csharp-junior-5-a",
+      "explanation": "finally выполняется всегда.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/"
+    },
+    {
+      "id": "csharp-junior-6",
+      "grade": "junior",
+      "skillId": "csharp",
+      "prompt": "Что такое null-условный оператор ?.?",
+      "options": [
+        {
+          "id": "csharp-junior-6-a",
+          "label": "Оператор сравнения объекта с null, возвращающий bool без исключения"
+        },
+        {
+          "id": "csharp-junior-6-b",
+          "label": "Обращение к члену, возвращающее null, если объект равен null"
+        },
+        {
+          "id": "csharp-junior-6-c",
+          "label": "Приведение типа"
+        }
+      ],
+      "correctOptionId": "csharp-junior-6-b",
+      "explanation": "player?.Name не выбросит NullReferenceException.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-"
+    },
+    {
+      "id": "csharp-middle-1",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Почему частые выделения памяти вредны в игровом цикле на C#?",
+      "options": [
+        {
+          "id": "csharp-middle-1-a",
+          "label": "Память на C# бесконечна, поэтому выделения ни на что не влияют"
+        },
+        {
+          "id": "csharp-middle-1-b",
+          "label": "Сборщик мусора может вызвать заметные паузы и просадки кадров"
+        },
+        {
+          "id": "csharp-middle-1-c",
+          "label": "Выделения ускоряют игру"
+        }
+      ],
+      "correctOptionId": "csharp-middle-1-b",
+      "explanation": "Используют пулы объектов и структуры.",
+      "source": "https://docs.unity3d.com/Manual/performance-garbage-collection-best-practices.html"
+    },
+    {
+      "id": "csharp-middle-2",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Что такое делегаты и события?",
+      "options": [
+        {
+          "id": "csharp-middle-2-a",
+          "label": "Классы данных для передачи сообщений между потоками"
+        },
+        {
+          "id": "csharp-middle-2-b",
+          "label": "Потоки"
+        },
+        {
+          "id": "csharp-middle-2-c",
+          "label": "Ссылки на методы и механизм подписки на уведомления"
+        }
+      ],
+      "correctOptionId": "csharp-middle-2-c",
+      "explanation": "События позволяют слабо связывать компоненты.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/delegates-overview"
+    },
+    {
+      "id": "csharp-middle-3",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Что делает async/await в C#?",
+      "options": [
+        {
+          "id": "csharp-middle-3-a",
+          "label": "Позволяет ждать асинхронные операции без блокировки потока"
+        },
+        {
+          "id": "csharp-middle-3-b",
+          "label": "Создаёт новый процесс операционной системы для каждой асинхронной операции"
+        },
+        {
+          "id": "csharp-middle-3-c",
+          "label": "Делает код синхронным"
+        }
+      ],
+      "correctOptionId": "csharp-middle-3-a",
+      "explanation": "В Unity часто используют корутины или async с осторожностью.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"
+    },
+    {
+      "id": "csharp-middle-4",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Что такое обобщения (generics)?",
+      "options": [
+        {
+          "id": "csharp-middle-4-a",
+          "label": "Динамические типы"
+        },
+        {
+          "id": "csharp-middle-4-b",
+          "label": "Типобезопасный код для разных типов без упаковки"
+        },
+        {
+          "id": "csharp-middle-4-c",
+          "label": "Наследование всех типов от object с проверкой во время выполнения"
+        }
+      ],
+      "correctOptionId": "csharp-middle-4-b",
+      "explanation": "List<int> не упаковывает числа.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics"
+    },
+    {
+      "id": "csharp-middle-5",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Что такое упаковка (boxing)?",
+      "options": [
+        {
+          "id": "csharp-middle-5-a",
+          "label": "Сжатие данных объекта перед сохранением в файл на диске для экономии места"
+        },
+        {
+          "id": "csharp-middle-5-b",
+          "label": "Преобразование значимого типа в object с выделением памяти в куче"
+        },
+        {
+          "id": "csharp-middle-5-c",
+          "label": "Сериализация"
+        }
+      ],
+      "correctOptionId": "csharp-middle-5-b",
+      "explanation": "Упаковка создаёт мусор.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/types/boxing-and-unboxing"
+    },
+    {
+      "id": "csharp-middle-6",
+      "grade": "middle",
+      "skillId": "csharp",
+      "prompt": "Что такое Span<T>?",
+      "options": [
+        {
+          "id": "csharp-middle-6-a",
+          "label": "Представление непрерывного участка памяти без копирования"
+        },
+        {
+          "id": "csharp-middle-6-b",
+          "label": "Список с быстрой вставкой элементов в середину коллекции"
+        },
+        {
+          "id": "csharp-middle-6-c",
+          "label": "Поток"
+        }
+      ],
+      "correctOptionId": "csharp-middle-6-a",
+      "explanation": "Span снижает выделения при обработке данных.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/api/system.span-1"
+    },
+    {
+      "id": "csharp-senior-1",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Что даёт Burst-компилятор Unity вместе с Job System?",
+      "options": [
+        {
+          "id": "csharp-senior-1-a",
+          "label": "Высокопроизводительный машинный код для многопоточных задач"
+        },
+        {
+          "id": "csharp-senior-1-b",
+          "label": "Сборку мусора быстрее и сетевую синхронизацию объектов"
+        },
+        {
+          "id": "csharp-senior-1-c",
+          "label": "Сетевую синхронизацию"
+        }
+      ],
+      "correctOptionId": "csharp-senior-1-a",
+      "explanation": "Burst компилирует подмножество C# через LLVM.",
+      "source": "https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html"
+    },
+    {
+      "id": "csharp-senior-2",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Как найти источник выделений памяти в игре?",
+      "options": [
+        {
+          "id": "csharp-senior-2-a",
+          "label": "Подсчитать строки кода и увеличить размер кучи"
+        },
+        {
+          "id": "csharp-senior-2-b",
+          "label": "Увеличить кучу"
+        },
+        {
+          "id": "csharp-senior-2-c",
+          "label": "Профилировщик памяти и отслеживание GC Alloc по кадрам"
+        }
+      ],
+      "correctOptionId": "csharp-senior-2-c",
+      "explanation": "Unity Profiler показывает выделения по функциям.",
+      "source": "https://docs.unity3d.com/Manual/ProfilerMemory.html"
+    },
+    {
+      "id": "csharp-senior-3",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Что такое ECS?",
+      "options": [
+        {
+          "id": "csharp-senior-3-a",
+          "label": "Система сохранения игры, которая записывает сущности и компоненты в файл на диске по кадрам"
+        },
+        {
+          "id": "csharp-senior-3-b",
+          "label": "Архитектура, разделяющая данные (компоненты) и логику (системы) для эффективной обработки"
+        },
+        {
+          "id": "csharp-senior-3-c",
+          "label": "Сетевой протокол"
+        }
+      ],
+      "correctOptionId": "csharp-senior-3-b",
+      "explanation": "Данные в массивах хорошо используют кэш процессора.",
+      "source": "https://docs.unity3d.com/Packages/com.unity.entities@1.3/manual/index.html"
+    },
+    {
+      "id": "csharp-senior-4",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Как избежать утечек подписок на события?",
+      "options": [
+        {
+          "id": "csharp-senior-4-a",
+          "label": "Отписываться при уничтожении объекта"
+        },
+        {
+          "id": "csharp-senior-4-b",
+          "label": "Никогда не отписываться"
+        },
+        {
+          "id": "csharp-senior-4-c",
+          "label": "Использовать статические события везде"
+        }
+      ],
+      "correctOptionId": "csharp-senior-4-a",
+      "explanation": "Подписка удерживает объект от сборки мусора.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/standard/events/"
+    },
+    {
+      "id": "csharp-senior-5",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Как безопасно работать с объектами Unity из других потоков?",
+      "options": [
+        {
+          "id": "csharp-senior-5-a",
+          "label": "Вызывать любые API Unity из любых потоков, потому что движок сам синхронизирует доступ к объектам"
+        },
+        {
+          "id": "csharp-senior-5-b",
+          "label": "Отключить главный поток"
+        },
+        {
+          "id": "csharp-senior-5-c",
+          "label": "API Unity вызывать только из главного потока, данные передавать через очереди или Jobs"
+        }
+      ],
+      "correctOptionId": "csharp-senior-5-c",
+      "explanation": "Большинство API Unity не потокобезопасны.",
+      "source": "https://docs.unity3d.com/Manual/job-system-overview.html"
+    },
+    {
+      "id": "csharp-senior-6",
+      "grade": "senior",
+      "skillId": "csharp",
+      "prompt": "Что такое Roslyn-анализаторы?",
+      "options": [
+        {
+          "id": "csharp-senior-6-a",
+          "label": "Отладчик"
+        },
+        {
+          "id": "csharp-senior-6-b",
+          "label": "Проверки кода на этапе компиляции, расширяющие правила языка"
+        },
+        {
+          "id": "csharp-senior-6-c",
+          "label": "Профилировщик производительности, встроенный в Visual Studio"
+        }
+      ],
+      "correctOptionId": "csharp-senior-6-b",
+      "explanation": "Анализаторы автоматизируют стандарты команды.",
+      "source": "https://learn.microsoft.com/en-us/visualstudio/code-quality/roslyn-analyzers-overview"
+    },
+    {
+      "id": "csharp-lead-1",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как организовать архитектуру кода большой игры?",
+      "options": [
+        {
+          "id": "csharp-lead-1-a",
+          "label": "Модули по подсистемам, явные зависимости и данные, отделённые от логики"
+        },
+        {
+          "id": "csharp-lead-1-b",
+          "label": "Один огромный скрипт"
+        },
+        {
+          "id": "csharp-lead-1-c",
+          "label": "Глобальные синглтоны везде и один огромный скрипт на всю игру с общими данными"
+        }
+      ],
+      "correctOptionId": "csharp-lead-1-a",
+      "explanation": "Assembly definitions в Unity ускоряют компиляцию.",
+      "source": "https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html"
+    },
+    {
+      "id": "csharp-lead-2",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как следить за производительностью игры в процессе разработки?",
+      "options": [
+        {
+          "id": "csharp-lead-2-a",
+          "label": "Проверять производительность только перед релизом на мощном ПК разработчика без бюджетов кадра"
+        },
+        {
+          "id": "csharp-lead-2-b",
+          "label": "Бюджеты кадра, автоматические тесты производительности и профилирование на целевых устройствах"
+        },
+        {
+          "id": "csharp-lead-2-c",
+          "label": "Только на мощном ПК разработчика"
+        }
+      ],
+      "correctOptionId": "csharp-lead-2-b",
+      "explanation": "Регрессии проще ловить сразу.",
+      "source": "https://docs.unity3d.com/Packages/com.unity.test-framework.performance@3.0/manual/index.html"
+    },
+    {
+      "id": "csharp-lead-3",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как вести стандарты кода C# в команде?",
+      "options": [
+        {
+          "id": "csharp-lead-3-a",
+          "label": "Устные договорённости"
+        },
+        {
+          "id": "csharp-lead-3-b",
+          "label": "Каждый как хочет"
+        },
+        {
+          "id": "csharp-lead-3-c",
+          "label": ".editorconfig, анализаторы и ревью"
+        }
+      ],
+      "correctOptionId": "csharp-lead-3-c",
+      "explanation": "Автоматические правила применяются одинаково.",
+      "source": "https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options"
+    },
+    {
+      "id": "csharp-lead-4",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как выбирать между Unity и собственным движком?",
+      "options": [
+        {
+          "id": "csharp-lead-4-a",
+          "label": "Всегда свой движок, чтобы не зависеть от лицензий"
+        },
+        {
+          "id": "csharp-lead-4-b",
+          "label": "Всегда Unity"
+        },
+        {
+          "id": "csharp-lead-4-c",
+          "label": "По требованиям проекта, срокам, лицензии и компетенциям"
+        }
+      ],
+      "correctOptionId": "csharp-lead-4-c",
+      "explanation": "Свой движок оправдан редко.",
+      "source": "https://unity.com/products/unity-engine"
+    },
+    {
+      "id": "csharp-lead-5",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как обучать новых программистов в игровой команде?",
+      "options": [
+        {
+          "id": "csharp-lead-5-a",
+          "label": "Сразу поручить ответственную подсистему без онбординга и документации"
+        },
+        {
+          "id": "csharp-lead-5-b",
+          "label": "Без онбординга"
+        },
+        {
+          "id": "csharp-lead-5-c",
+          "label": "Документация архитектуры, наставничество и небольшие задачи в реальном коде"
+        }
+      ],
+      "correctOptionId": "csharp-lead-5-c",
+      "explanation": "Постепенный вход снижает ошибки.",
+      "source": "https://docs.unity3d.com/Manual/index.html"
+    },
+    {
+      "id": "csharp-lead-6",
+      "grade": "lead",
+      "skillId": "csharp",
+      "prompt": "Как управлять техническим долгом в игровом проекте?",
+      "options": [
+        {
+          "id": "csharp-lead-6-a",
+          "label": "Игнорировать до релиза"
+        },
+        {
+          "id": "csharp-lead-6-b",
+          "label": "Переписывать всю игру каждые полгода, чтобы долг не накапливался"
+        },
+        {
+          "id": "csharp-lead-6-c",
+          "label": "Видимый список долга и выделение времени между вехами"
+        }
+      ],
+      "correctOptionId": "csharp-lead-6-c",
+      "explanation": "Долг накапливается быстрее при кранчах.",
+      "source": "https://martinfowler.com/bliki/TechnicalDebt.html"
+    },
+    {
+      "id": "game_development-intern-1",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Что такое игровой цикл?",
+      "options": [
+        {
+          "id": "game_development-intern-1-a",
+          "label": "Повторяющийся цикл: обработка ввода, обновление состояния, отрисовка"
+        },
+        {
+          "id": "game_development-intern-1-b",
+          "label": "Сюжет игры, который повторяется в каждом новом уровне с усложнением"
+        },
+        {
+          "id": "game_development-intern-1-c",
+          "label": "Уровень сложности"
+        }
+      ],
+      "correctOptionId": "game_development-intern-1-a",
+      "explanation": "Цикл выполняется каждый кадр.",
+      "source": "https://gameprogrammingpatterns.com/game-loop.html"
+    },
+    {
+      "id": "game_development-intern-2",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Что такое FPS в контексте производительности?",
+      "options": [
+        {
+          "id": "game_development-intern-2-a",
+          "label": "Жанр шутера"
+        },
+        {
+          "id": "game_development-intern-2-b",
+          "label": "Формат файлов"
+        },
+        {
+          "id": "game_development-intern-2-c",
+          "label": "Число кадров в секунду"
+        }
+      ],
+      "correctOptionId": "game_development-intern-2-c",
+      "explanation": "60 FPS — 16,7 мс на кадр.",
+      "source": "https://en.wikipedia.org/wiki/Frame_rate"
+    },
+    {
+      "id": "game_development-intern-3",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Что такое спрайт?",
+      "options": [
+        {
+          "id": "game_development-intern-3-a",
+          "label": "Звуковой эффект, который проигрывается при столкновении"
+        },
+        {
+          "id": "game_development-intern-3-b",
+          "label": "Двухмерное изображение для отображения объекта"
+        },
+        {
+          "id": "game_development-intern-3-c",
+          "label": "Скрипт"
+        }
+      ],
+      "correctOptionId": "game_development-intern-3-b",
+      "explanation": "Спрайты объединяют в атласы.",
+      "source": "https://docs.unity3d.com/Manual/sprite/sprite-landing.html"
+    },
+    {
+      "id": "game_development-intern-4",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Что такое коллайдер?",
+      "options": [
+        {
+          "id": "game_development-intern-4-a",
+          "label": "Источник света, освещающий объект со всех сторон"
+        },
+        {
+          "id": "game_development-intern-4-b",
+          "label": "Форма для расчёта столкновений объекта"
+        },
+        {
+          "id": "game_development-intern-4-c",
+          "label": "Камера"
+        }
+      ],
+      "correctOptionId": "game_development-intern-4-b",
+      "explanation": "Коллайдер может отличаться от видимой модели.",
+      "source": "https://docs.unity3d.com/Manual/collider-types-introduction.html"
+    },
+    {
+      "id": "game_development-intern-5",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Что такое игровой движок?",
+      "options": [
+        {
+          "id": "game_development-intern-5-a",
+          "label": "Видеокарта"
+        },
+        {
+          "id": "game_development-intern-5-b",
+          "label": "Набор инструментов для рендеринга, физики, звука и логики игры"
+        },
+        {
+          "id": "game_development-intern-5-c",
+          "label": "Игровой контроллер с поддержкой вибрации и датчиков"
+        }
+      ],
+      "correctOptionId": "game_development-intern-5-b",
+      "explanation": "Примеры — Unity, Unreal Engine, Godot.",
+      "source": "https://en.wikipedia.org/wiki/Game_engine"
+    },
+    {
+      "id": "game_development-intern-6",
+      "grade": "intern",
+      "skillId": "game_development",
+      "prompt": "Почему движение умножают на deltaTime?",
+      "options": [
+        {
+          "id": "game_development-intern-6-a",
+          "label": "Чтобы игра работала быстрее на слабых компьютерах игроков"
+        },
+        {
+          "id": "game_development-intern-6-b",
+          "label": "Чтобы избежать столкновений"
+        },
+        {
+          "id": "game_development-intern-6-c",
+          "label": "Чтобы скорость не зависела от частоты кадров"
+        }
+      ],
+      "correctOptionId": "game_development-intern-6-c",
+      "explanation": "Иначе на быстрых ПК объекты двигались бы быстрее.",
+      "source": "https://docs.unity3d.com/ScriptReference/Time-deltaTime.html"
+    },
+    {
+      "id": "game_development-junior-1",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Чем Update отличается от FixedUpdate в Unity?",
+      "options": [
+        {
+          "id": "game_development-junior-1-a",
+          "label": "Это одно и то же, просто Update вызывается только для звука, а FixedUpdate — для интерфейса"
+        },
+        {
+          "id": "game_development-junior-1-b",
+          "label": "Update используется только для звука"
+        },
+        {
+          "id": "game_development-junior-1-c",
+          "label": "FixedUpdate вызывается с фиксированным шагом для физики, Update — каждый кадр"
+        }
+      ],
+      "correctOptionId": "game_development-junior-1-c",
+      "explanation": "Физические силы применяют в FixedUpdate.",
+      "source": "https://docs.unity3d.com/Manual/fixed-updates.html"
+    },
+    {
+      "id": "game_development-junior-2",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Что такое префаб?",
+      "options": [
+        {
+          "id": "game_development-junior-2-a",
+          "label": "Готовая игра, собранная для одной платформы и загруженная в магазин"
+        },
+        {
+          "id": "game_development-junior-2-b",
+          "label": "Текстура"
+        },
+        {
+          "id": "game_development-junior-2-c",
+          "label": "Шаблон игрового объекта для многократного использования"
+        }
+      ],
+      "correctOptionId": "game_development-junior-2-c",
+      "explanation": "Изменения префаба применяются ко всем экземплярам.",
+      "source": "https://docs.unity3d.com/Manual/Prefabs.html"
+    },
+    {
+      "id": "game_development-junior-3",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Что такое пул объектов?",
+      "options": [
+        {
+          "id": "game_development-junior-3-a",
+          "label": "Повторное использование заранее созданных объектов вместо создания и удаления"
+        },
+        {
+          "id": "game_development-junior-3-b",
+          "label": "Бассейн в игре, где игрок восстанавливает здоровье персонажа между уровнями"
+        },
+        {
+          "id": "game_development-junior-3-c",
+          "label": "Набор текстур"
+        }
+      ],
+      "correctOptionId": "game_development-junior-3-a",
+      "explanation": "Пулы снижают выделения памяти и паузы.",
+      "source": "https://gameprogrammingpatterns.com/object-pool.html"
+    },
+    {
+      "id": "game_development-junior-4",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Что такое конечный автомат для ИИ персонажа?",
+      "options": [
+        {
+          "id": "game_development-junior-4-a",
+          "label": "Нейросеть"
+        },
+        {
+          "id": "game_development-junior-4-b",
+          "label": "Набор состояний (патруль, погоня, атака) и переходов между ними"
+        },
+        {
+          "id": "game_development-junior-4-c",
+          "label": "Генератор уровней на основе нейросети, обученной на картах игроков"
+        }
+      ],
+      "correctOptionId": "game_development-junior-4-b",
+      "explanation": "Простой и предсказуемый способ поведения.",
+      "source": "https://gameprogrammingpatterns.com/state.html"
+    },
+    {
+      "id": "game_development-junior-5",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Что такое draw call?",
+      "options": [
+        {
+          "id": "game_development-junior-5-a",
+          "label": "Звонок игроку"
+        },
+        {
+          "id": "game_development-junior-5-b",
+          "label": "Команда процессора видеокарте на отрисовку набора геометрии"
+        },
+        {
+          "id": "game_development-junior-5-c",
+          "label": "Загрузка уровня в память видеокарты целиком перед началом игры"
+        }
+      ],
+      "correctOptionId": "game_development-junior-5-b",
+      "explanation": "Много draw call нагружают процессор.",
+      "source": "https://docs.unity3d.com/Manual/optimizing-draw-calls.html"
+    },
+    {
+      "id": "game_development-junior-6",
+      "grade": "junior",
+      "skillId": "game_development",
+      "prompt": "Как хранить настройки игры между сессиями?",
+      "options": [
+        {
+          "id": "game_development-junior-6-a",
+          "label": "В переменных скрипта до выхода из игры, этого достаточно для настроек"
+        },
+        {
+          "id": "game_development-junior-6-b",
+          "label": "Нигде"
+        },
+        {
+          "id": "game_development-junior-6-c",
+          "label": "Сохранять в файл или PlayerPrefs и загружать при старте"
+        }
+      ],
+      "correctOptionId": "game_development-junior-6-c",
+      "explanation": "Для сложных сохранений используют сериализацию в файлы.",
+      "source": "https://docs.unity3d.com/ScriptReference/PlayerPrefs.html"
+    },
+    {
+      "id": "game_development-middle-1",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Как уменьшить число draw call?",
+      "options": [
+        {
+          "id": "game_development-middle-1-a",
+          "label": "Добавить больше материалов"
+        },
+        {
+          "id": "game_development-middle-1-b",
+          "label": "Увеличить разрешение"
+        },
+        {
+          "id": "game_development-middle-1-c",
+          "label": "Батчинг, атласы текстур и инстансинг"
+        }
+      ],
+      "correctOptionId": "game_development-middle-1-c",
+      "explanation": "Объекты с общим материалом можно рисовать вместе.",
+      "source": "https://docs.unity3d.com/Manual/optimizing-draw-calls.html"
+    },
+    {
+      "id": "game_development-middle-2",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Что такое LOD?",
+      "options": [
+        {
+          "id": "game_development-middle-2-a",
+          "label": "Уровень сложности игры, выбираемый в настройках"
+        },
+        {
+          "id": "game_development-middle-2-b",
+          "label": "Формат анимации"
+        },
+        {
+          "id": "game_development-middle-2-c",
+          "label": "Уровни детализации модели в зависимости от расстояния"
+        }
+      ],
+      "correctOptionId": "game_development-middle-2-c",
+      "explanation": "Дальние объекты рисуются упрощёнными.",
+      "source": "https://docs.unity3d.com/Manual/LevelOfDetail.html"
+    },
+    {
+      "id": "game_development-middle-3",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Как найти путь персонажа по уровню?",
+      "options": [
+        {
+          "id": "game_development-middle-3-a",
+          "label": "Случайным движением"
+        },
+        {
+          "id": "game_development-middle-3-b",
+          "label": "Алгоритмом A* по навигационной сетке"
+        },
+        {
+          "id": "game_development-middle-3-c",
+          "label": "Прямой линией всегда"
+        }
+      ],
+      "correctOptionId": "game_development-middle-3-b",
+      "explanation": "NavMesh описывает проходимые области.",
+      "source": "https://docs.unity3d.com/Packages/com.unity.ai.navigation@2.0/manual/index.html"
+    },
+    {
+      "id": "game_development-middle-4",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Что такое шейдер?",
+      "options": [
+        {
+          "id": "game_development-middle-4-a",
+          "label": "Программа для видеокарты, определяющая отрисовку"
+        },
+        {
+          "id": "game_development-middle-4-b",
+          "label": "Звуковой фильтр"
+        },
+        {
+          "id": "game_development-middle-4-c",
+          "label": "Скрипт сохранения игры в облаке между устройствами игрока"
+        }
+      ],
+      "correctOptionId": "game_development-middle-4-a",
+      "explanation": "Вершинный и фрагментный шейдеры — основные этапы.",
+      "source": "https://docs.unity3d.com/Manual/shader-introduction.html"
+    },
+    {
+      "id": "game_development-middle-5",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Как синхронизировать состояние в сетевой игре?",
+      "options": [
+        {
+          "id": "game_development-middle-5-a",
+          "label": "Каждый клиент решает сам и рассылает результат остальным"
+        },
+        {
+          "id": "game_development-middle-5-b",
+          "label": "Авторитетный сервер с предсказанием на клиенте и коррекцией"
+        },
+        {
+          "id": "game_development-middle-5-c",
+          "label": "Синхронизация не нужна"
+        }
+      ],
+      "correctOptionId": "game_development-middle-5-b",
+      "explanation": "Серверная авторитетность защищает от читов.",
+      "source": "https://www.gabrielgambetta.com/client-server-game-architecture.html"
+    },
+    {
+      "id": "game_development-middle-6",
+      "grade": "middle",
+      "skillId": "game_development",
+      "prompt": "Как загружать большие ресурсы без зависаний?",
+      "options": [
+        {
+          "id": "game_development-middle-6-a",
+          "label": "Загружать всё синхронно при старте, чтобы потом не было пауз"
+        },
+        {
+          "id": "game_development-middle-6-b",
+          "label": "Не загружать"
+        },
+        {
+          "id": "game_development-middle-6-c",
+          "label": "Асинхронной загрузкой и потоковой подгрузкой"
+        }
+      ],
+      "correctOptionId": "game_development-middle-6-c",
+      "explanation": "Addressables в Unity управляют загрузкой.",
+      "source": "https://docs.unity3d.com/Packages/com.unity.addressables@2.3/manual/index.html"
+    },
+    {
+      "id": "game_development-senior-1",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Как оптимизировать игру под мобильные устройства?",
+      "options": [
+        {
+          "id": "game_development-senior-1-a",
+          "label": "Оптимизировать только на мощном ПК и увеличить качество графики для красивых скриншотов"
+        },
+        {
+          "id": "game_development-senior-1-b",
+          "label": "Профилировать на целевых устройствах и укладываться в бюджет кадра по CPU, GPU и памяти"
+        },
+        {
+          "id": "game_development-senior-1-c",
+          "label": "Увеличить качество графики"
+        }
+      ],
+      "correctOptionId": "game_development-senior-1-b",
+      "explanation": "Мобильные GPU и тепловые ограничения отличаются.",
+      "source": "https://developer.android.com/games/optimize"
+    },
+    {
+      "id": "game_development-senior-2",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Что такое детерминированная симуляция и где она нужна?",
+      "options": [
+        {
+          "id": "game_development-senior-2-a",
+          "label": "Одинаковый результат при одинаковом вводе; нужна для lockstep-сетевых игр и повторов"
+        },
+        {
+          "id": "game_development-senior-2-b",
+          "label": "Случайная генерация уровней с одинаковым зерном, нужная только для одиночных игр"
+        },
+        {
+          "id": "game_development-senior-2-c",
+          "label": "Отрисовка теней"
+        }
+      ],
+      "correctOptionId": "game_development-senior-2-a",
+      "explanation": "Плавающая точка может нарушать детерминизм между платформами.",
+      "source": "https://gafferongames.com/post/deterministic_lockstep/"
+    },
+    {
+      "id": "game_development-senior-3",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Как бороться с читами в онлайн-игре?",
+      "options": [
+        {
+          "id": "game_development-senior-3-a",
+          "label": "Проверять действия на сервере и не доверять клиенту"
+        },
+        {
+          "id": "game_development-senior-3-b",
+          "label": "Обфусцировать клиент и доверять ему расчёт результатов матча"
+        },
+        {
+          "id": "game_development-senior-3-c",
+          "label": "Игнорировать"
+        }
+      ],
+      "correctOptionId": "game_development-senior-3-a",
+      "explanation": "Клиент находится под контролем игрока.",
+      "source": "https://www.gabrielgambetta.com/client-server-game-architecture.html"
+    },
+    {
+      "id": "game_development-senior-4",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Как организовать сборку контента для нескольких платформ?",
+      "options": [
+        {
+          "id": "game_development-senior-4-a",
+          "label": "Автоматизированный конвейер ассетов с настройками под платформы"
+        },
+        {
+          "id": "game_development-senior-4-b",
+          "label": "Ручной экспорт каждой текстуры с одинаковыми настройками для всех платформ"
+        },
+        {
+          "id": "game_development-senior-4-c",
+          "label": "Одинаковые настройки для всех"
+        }
+      ],
+      "correctOptionId": "game_development-senior-4-a",
+      "explanation": "Сжатие текстур отличается по платформам.",
+      "source": "https://docs.unity3d.com/Manual/texture-compression-formats.html"
+    },
+    {
+      "id": "game_development-senior-5",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Как проектировать систему сохранений?",
+      "options": [
+        {
+          "id": "game_development-senior-5-a",
+          "label": "Сериализация внутренних объектов игры без версий в двоичный файл"
+        },
+        {
+          "id": "game_development-senior-5-b",
+          "label": "Без сохранений"
+        },
+        {
+          "id": "game_development-senior-5-c",
+          "label": "Версионированный формат с миграциями и защитой от повреждения"
+        }
+      ],
+      "correctOptionId": "game_development-senior-5-c",
+      "explanation": "Обновления игры не должны ломать старые сохранения.",
+      "source": "https://docs.unity3d.com/Manual/script-serialization.html"
+    },
+    {
+      "id": "game_development-senior-6",
+      "grade": "senior",
+      "skillId": "game_development",
+      "prompt": "Как измерять удержание игроков?",
+      "options": [
+        {
+          "id": "game_development-senior-6-a",
+          "label": "По числу скачиваний, оценкам и отзывам игроков в магазине приложений"
+        },
+        {
+          "id": "game_development-senior-6-b",
+          "label": "Аналитикой событий: удержание D1, D7, D30 и воронки прохождения"
+        },
+        {
+          "id": "game_development-senior-6-c",
+          "label": "По отзывам"
+        }
+      ],
+      "correctOptionId": "game_development-senior-6-b",
+      "explanation": "Данные показывают, где игроки уходят.",
+      "source": "https://docs.unity.com/ugs/manual/analytics/manual/overview"
+    },
+    {
+      "id": "game_development-lead-1",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как планировать производство игры?",
+      "options": [
+        {
+          "id": "game_development-lead-1-a",
+          "label": "Сразу производство всего контента без прототипов, чтобы успеть к сроку"
+        },
+        {
+          "id": "game_development-lead-1-b",
+          "label": "Препродакшен с прототипами, вертикальный срез и вехи с проверкой"
+        },
+        {
+          "id": "game_development-lead-1-c",
+          "label": "Без планирования"
+        }
+      ],
+      "correctOptionId": "game_development-lead-1-b",
+      "explanation": "Вертикальный срез проверяет качество до масштабирования.",
+      "source": "https://en.wikipedia.org/wiki/Video_game_development"
+    },
+    {
+      "id": "game_development-lead-2",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как избегать кранчей в команде?",
+      "options": [
+        {
+          "id": "game_development-lead-2-a",
+          "label": "Реалистичное планирование, управление объёмом и защита сроков"
+        },
+        {
+          "id": "game_development-lead-2-b",
+          "label": "Обязательные переработки перед каждой вехой проекта"
+        },
+        {
+          "id": "game_development-lead-2-c",
+          "label": "Игнорировать сроки"
+        }
+      ],
+      "correctOptionId": "game_development-lead-2-a",
+      "explanation": "Кранчи снижают качество и приводят к выгоранию.",
+      "source": "https://igda.org/"
+    },
+    {
+      "id": "game_development-lead-3",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как принимать решения по геймдизайну на основе данных?",
+      "options": [
+        {
+          "id": "game_development-lead-3-a",
+          "label": "Только мнение руководителя проекта без плейтестов и аналитики"
+        },
+        {
+          "id": "game_development-lead-3-b",
+          "label": "Плейтесты и аналитика в сочетании с видением игры"
+        },
+        {
+          "id": "game_development-lead-3-c",
+          "label": "Только метрики без видения"
+        }
+      ],
+      "correctOptionId": "game_development-lead-3-b",
+      "explanation": "Данные проверяют гипотезы дизайна.",
+      "source": "https://www.gamedeveloper.com/"
+    },
+    {
+      "id": "game_development-lead-4",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как выбирать движок для проекта?",
+      "options": [
+        {
+          "id": "game_development-lead-4-a",
+          "label": "Самый популярный движок по рейтингам за прошлый год, независимо от проекта"
+        },
+        {
+          "id": "game_development-lead-4-b",
+          "label": "Самый новый"
+        },
+        {
+          "id": "game_development-lead-4-c",
+          "label": "По жанру, платформам, требованиям графики, лицензии и опыту команды"
+        }
+      ],
+      "correctOptionId": "game_development-lead-4-c",
+      "explanation": "Смена движка в середине проекта очень дорога.",
+      "source": "https://en.wikipedia.org/wiki/Game_engine"
+    },
+    {
+      "id": "game_development-lead-5",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как организовать работу программистов и художников?",
+      "options": [
+        {
+          "id": "game_development-lead-5-a",
+          "label": "Конвейер ассетов, общие требования и инструменты для художников"
+        },
+        {
+          "id": "game_development-lead-5-b",
+          "label": "Художники ждут программистов и работают отдельно без координации"
+        },
+        {
+          "id": "game_development-lead-5-c",
+          "label": "Отдельно без координации"
+        }
+      ],
+      "correctOptionId": "game_development-lead-5-a",
+      "explanation": "Хорошие инструменты ускоряют производство контента.",
+      "source": "https://docs.unity3d.com/Manual/index.html"
+    },
+    {
+      "id": "game_development-lead-6",
+      "grade": "lead",
+      "skillId": "game_development",
+      "prompt": "Как соблюдать требования платформ при выпуске?",
+      "options": [
+        {
+          "id": "game_development-lead-6-a",
+          "label": "Узнать требования платформ при отказе в сертификации и исправлять по замечаниям"
+        },
+        {
+          "id": "game_development-lead-6-b",
+          "label": "Изучить требования сертификации платформ и тестировать по ним заранее"
+        },
+        {
+          "id": "game_development-lead-6-c",
+          "label": "Игнорировать"
+        }
+      ],
+      "correctOptionId": "game_development-lead-6-b",
+      "explanation": "Консоли и магазины имеют обязательные требования.",
+      "source": "https://developer.apple.com/app-store/review/guidelines/"
+    }
+  ]
+}

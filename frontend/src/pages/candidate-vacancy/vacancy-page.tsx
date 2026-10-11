@@ -100,7 +100,9 @@ export function CandidateVacancyPage({ vacancyId }: { vacancyId: string }) {
                     {vacancy.match.explanation} Соответствие рассчитано сервером по вашему подтверждённому профилю.
                   </p>
                 ) : (
-                  <p className="small muted">Соответствие появится после подтверждения грейда тестом знаний.</p>
+                  <p className="small muted">
+                    Соответствие появится, когда у профиля будет категория: по GitHub и ФСП или по тесту знаний.
+                  </p>
                 )}
               </section>
               <hr className="divider" />

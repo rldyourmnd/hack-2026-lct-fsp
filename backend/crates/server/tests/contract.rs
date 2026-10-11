@@ -6,7 +6,10 @@ use std::sync::Arc;
 
 use axum::body::Body;
 use axum::http::{HeaderMap, Request, StatusCode, header};
-use fsp_application::{PlatformService, VerificationDelivery};
+use fsp_application::{
+    InterviewAnswerInput, InterviewGateway, InterviewStartInput, InterviewStatusView,
+    InterviewView, InterviewsView, PlatformService, VerificationDelivery,
+};
 use fsp_http::{HttpConfig, router};
 use fsp_integration_fsp_synthetic::HttpFsp;
 use fsp_storage_postgres::PostgresRepository;
@@ -22,6 +25,59 @@ fn test_admin_url() -> String {
 }
 
 struct FixedDelivery;
+
+struct FixedInterview;
+
+#[async_trait::async_trait]
+impl InterviewGateway for FixedInterview {
+    async fn list(
+        &self,
+        _candidate_id: &str,
+    ) -> Result<InterviewsView, fsp_application::IntegrationError> {
+        Ok(InterviewsView { items: Vec::new() })
+    }
+
+    async fn start(
+        &self,
+        candidate_id: &str,
+        input: &InterviewStartInput,
+    ) -> Result<InterviewView, fsp_application::IntegrationError> {
+        Ok(interview_fixture(candidate_id, &input.blueprint_id, 0))
+    }
+
+    async fn get(
+        &self,
+        _interview_id: &str,
+    ) -> Result<InterviewView, fsp_application::IntegrationError> {
+        Ok(interview_fixture("candidate024", "backend-middle-v1", 0))
+    }
+
+    async fn answer(
+        &self,
+        _interview_id: &str,
+        input: &InterviewAnswerInput,
+    ) -> Result<InterviewView, fsp_application::IntegrationError> {
+        Ok(interview_fixture(
+            "candidate024",
+            "backend-middle-v1",
+            input.revision + 1,
+        ))
+    }
+}
+
+fn interview_fixture(candidate_id: &str, blueprint_id: &str, revision: u32) -> InterviewView {
+    InterviewView {
+        id: "interview-test".into(),
+        candidate_id: candidate_id.into(),
+        blueprint_id: blueprint_id.into(),
+        status: InterviewStatusView::Active,
+        revision,
+        current_question: None,
+        nodes: Vec::new(),
+        evidence: Vec::new(),
+        model_mode: "fixture".into(),
+    }
+}
 
 #[async_trait::async_trait]
 impl VerificationDelivery for FixedDelivery {
@@ -229,10 +285,17 @@ async fn fresh_candidate_completes_assessment() {
     .await;
     assert_eq!(status, StatusCode::OK, "{profile}");
     assert_eq!(profile["onboarding"]["questionnaireComplete"], true);
+    assert_eq!(profile["onboarding"]["blockers"], json!(["category"]));
+    assert_eq!(profile["category"]["source"], Value::Null);
+    assert_eq!(profile["estimate"], Value::Null);
     assert_eq!(
         profile["assessmentEligibility"]["selectedReason"],
         Value::Null
     );
+    // Without a connected source there is nothing to estimate from.
+    let (status, refused) = post(&app, "/api/v1/me/profile/estimate", Some(&cookie)).await;
+    assert_eq!(status, StatusCode::CONFLICT, "{refused}");
+    assert_eq!(code(&refused), "source_not_connected");
     let (status, assessment) = send_keyed(
         &app,
         "POST",
@@ -249,7 +312,7 @@ async fn fresh_candidate_completes_assessment() {
         "PUT",
         &format!("/api/v1/me/assessments/{assessment_id}/answer"),
         Some(&cookie),
-        knowledge_answer("junior", true),
+        knowledge_answer(&assessment["task"], true),
     )
     .await;
     assert_eq!(status, StatusCode::OK, "{body}");
@@ -277,6 +340,8 @@ async fn fresh_candidate_completes_assessment() {
     assert_eq!(status, StatusCode::OK);
     assert_eq!(profile["verifiedGrade"], "junior");
     assert_eq!(profile["verifiedSpecialization"], "backend");
+    assert_eq!(profile["category"]["source"], "assessment");
+    assert_eq!(profile["category"]["grade"], "junior");
 }
 
 #[tokio::test]
@@ -899,7 +964,7 @@ async fn assessments_full_flow_and_grade_change() {
         "PUT",
         &format!("/api/v1/me/assessments/{assessment_id}/answer"),
         Some(&candidate),
-        knowledge_answer("middle", true),
+        knowledge_answer(&assessment["task"], true),
     )
     .await;
     assert_eq!(status, StatusCode::OK, "{body}");
@@ -982,6 +1047,98 @@ async fn assessments_full_flow_and_grade_change() {
 }
 
 #[tokio::test]
+async fn graph_interview_is_scoped_to_the_authenticated_candidate() {
+    let (repository, _database) =
+        PostgresRepository::connect_test_database(&test_admin_url()).await;
+    let app = app_with_service(
+        PlatformService::new(Arc::new(repository), Arc::new(FixedDelivery))
+            .with_interviews(Arc::new(FixedInterview)),
+    )
+    .await;
+    let candidate = login(&app, CANDIDATE_JUNIOR, "candidate").await;
+    let (status, interview) = send(
+        &app,
+        "POST",
+        "/api/v1/me/interviews",
+        Some(&candidate),
+        json!({"blueprintId":"backend-middle-v1","maxTurns":10}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::CREATED, "{interview}");
+    assert_eq!(interview["candidateId"], "candidate024");
+    let (status, _) = send(
+        &app,
+        "POST",
+        "/api/v1/me/interviews/interview-test/answers",
+        Some(&candidate),
+        json!({"questionId":"question-1","answer":"Ответ","responseMode":"text","revision":0}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    assert_eq!(
+        get(&app, "/api/v1/me/interviews", Some(&candidate)).await.0,
+        StatusCode::OK
+    );
+    let other_candidate = login(&app, CANDIDATE, "candidate").await;
+    let (status, body) = get(
+        &app,
+        "/api/v1/me/interviews/interview-test",
+        Some(&other_candidate),
+    )
+    .await;
+    assert_eq!(status, StatusCode::NOT_FOUND, "{body}");
+    let employer = login(&app, EMPLOYER, "employer").await;
+    assert_eq!(
+        get(&app, "/api/v1/me/interviews", Some(&employer)).await.0,
+        StatusCode::FORBIDDEN
+    );
+
+    let (status, _) = send(
+        &app,
+        "PATCH",
+        "/api/v1/me/profile",
+        Some(&candidate),
+        json!({"consents":{"processing":false,"publication":false}}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    for (path, body) in [
+        (
+            "/api/v1/me/interviews",
+            json!({"blueprintId":"backend-middle-v1","maxTurns":10}),
+        ),
+        (
+            "/api/v1/me/interviews/interview-test/answers",
+            json!({"questionId":"question-1","answer":"Ответ","responseMode":"text","revision":0}),
+        ),
+    ] {
+        let (status, body) = send(&app, "POST", path, Some(&candidate), body).await;
+        assert_eq!(status, StatusCode::FORBIDDEN, "{body}");
+        assert_eq!(code(&body), "processing_consent_required");
+    }
+    // Revocation stops new processing, not access to the candidate's own history.
+    assert_eq!(
+        get(
+            &app,
+            "/api/v1/me/interviews/interview-test",
+            Some(&candidate)
+        )
+        .await
+        .0,
+        StatusCode::OK
+    );
+    let (status, _) = send(
+        &app,
+        "POST",
+        "/api/v1/me/interviews/interview-test/answers",
+        Some(&other_candidate),
+        json!({"questionId":"question-1","answer":"Ответ","responseMode":"text","revision":0}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::NOT_FOUND);
+}
+
+#[tokio::test]
 async fn assessment_guards_cooldown_and_downgrade() {
     let app = test_app().await;
     let senior = login(&app, CANDIDATE, "candidate").await;
@@ -997,8 +1154,8 @@ async fn assessment_guards_cooldown_and_downgrade() {
     .await;
     assert_eq!(status, StatusCode::UNPROCESSABLE_ENTITY);
     assert_eq!(code(&body), "grade_downgrade_forbidden");
-    // The frontend specialization is outside the supported scope.
-    let (status, body) = send_keyed(
+    // Every catalog specialization and grade has a test now; other guards may still apply.
+    let (_, body) = send_keyed(
         &app,
         "POST",
         "/api/v1/me/assessments",
@@ -1007,8 +1164,7 @@ async fn assessment_guards_cooldown_and_downgrade() {
         json!({"specialization": "frontend", "grade": "senior"}),
     )
     .await;
-    assert_eq!(status, StatusCode::UNPROCESSABLE_ENTITY);
-    assert_eq!(code(&body), "assessment_scope_unavailable");
+    assert_ne!(code(&body), "assessment_scope_unavailable");
 }
 
 #[tokio::test]
@@ -1343,6 +1499,35 @@ async fn candidate_bank_anonymous_and_sorted() {
             .iter()
             .all(|item| item["fspVerified"] == true)
     );
+    // Seeded categories are test-confirmed; the confirmation filter separates them from estimates.
+    let (status, confirmed) = get(
+        &app,
+        "/api/v1/candidates?categorySource=assessment&page=1&pageSize=10",
+        Some(&employer),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    assert_eq!(confirmed["total"], page["total"]);
+    for item in confirmed["items"].as_array().unwrap() {
+        assert_eq!(item["categorySource"], "assessment");
+        assert_eq!(item["grade"], item["verifiedGrade"]);
+        assert_eq!(item["estimate"], Value::Null);
+    }
+    let (status, estimated) = get(
+        &app,
+        "/api/v1/candidates?categorySource=estimate",
+        Some(&employer),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    assert_eq!(estimated["total"], 0);
+    let (status, invalid) = get(
+        &app,
+        "/api/v1/candidates?categorySource=guess",
+        Some(&employer),
+    )
+    .await;
+    assert_eq!(status, StatusCode::BAD_REQUEST, "{invalid}");
 }
 
 #[tokio::test]
@@ -1553,12 +1738,6 @@ impl fsp_application::LlmGateway for TestAnalysis {
             ),
         })
     }
-    async fn extract_graph(
-        &self,
-        _: &fsp_domain::GraphExtractionRequest,
-    ) -> Result<fsp_domain::ExtractedGraph, fsp_application::IntegrationError> {
-        unreachable!()
-    }
     async fn match_repository(
         &self,
         _: &fsp_domain::RepositoryMatchRequest,
@@ -1595,7 +1774,7 @@ async fn assistant_uses_saved_answer_and_never_issues_a_grade() {
         "PUT",
         &format!("/api/v1/me/assessments/{id}/answer"),
         Some(&candidate),
-        knowledge_answer("middle", true),
+        knowledge_answer(&assessment["task"], true),
     )
     .await;
     assert_eq!(status, StatusCode::OK, "{saved}");
@@ -1609,7 +1788,9 @@ async fn assistant_uses_saved_answer_and_never_issues_a_grade() {
     .await;
     assert_eq!(status, StatusCode::OK, "{reply}");
     assert_eq!(reply["simulation"], false);
-    assert!(reply["message"].as_str().unwrap().contains("mr-arc"));
+    // The variant (and so the questions) depends on the assessment id; the saved answer names them.
+    let question = assessment["task"]["questions"][0]["id"].as_str().unwrap();
+    assert!(reply["message"].as_str().unwrap().contains(question));
     assert!(
         reply["message"]
             .as_str()
@@ -1635,15 +1816,27 @@ async fn assistant_uses_saved_answer_and_never_issues_a_grade() {
     assert_eq!(status, StatusCode::BAD_REQUEST);
 }
 
-fn knowledge_answer(grade: &str, correct: bool) -> Value {
-    let bank: Value =
+fn knowledge_answer(task: &Value, correct: bool) -> Value {
+    let legacy: Value =
         serde_json::from_str(include_str!("../../domain/data/knowledge-v1.json")).unwrap();
-    let responses: Vec<Value> = bank["questions"]
+    let additions: Value = serde_json::from_str(include_str!(
+        "../../domain/data/knowledge-v2-additions.json"
+    ))
+    .unwrap();
+    let questions = legacy["questions"]
         .as_array()
         .unwrap()
         .iter()
-        .filter(|q| q["grade"] == grade)
-        .map(|q| {
+        .chain(additions["questions"].as_array().unwrap());
+    let responses: Vec<Value> = task["questions"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|public| {
+            let q = questions
+                .clone()
+                .find(|candidate| candidate["id"] == public["id"])
+                .unwrap();
             let option = if correct {
                 &q["correctOptionId"]
             } else {
@@ -1696,7 +1889,7 @@ async fn knowledge_test_rejects_forged_answers_and_scores_failure_without_changi
         .await;
         assert_eq!(status, StatusCode::BAD_REQUEST);
     }
-    let mut duplicate = knowledge_answer("middle", false);
+    let mut duplicate = knowledge_answer(&assessment["task"], false);
     duplicate["responses"][1] = duplicate["responses"][0].clone();
     let (status, _) = send(
         &app,
@@ -1724,7 +1917,7 @@ async fn knowledge_test_rejects_forged_answers_and_scores_failure_without_changi
         "PUT",
         &format!("{path}/answer"),
         Some(&candidate),
-        knowledge_answer("middle", false),
+        knowledge_answer(&assessment["task"], false),
     )
     .await;
     assert_eq!(status, StatusCode::OK);
@@ -1854,10 +2047,17 @@ async fn fsp_http_sync_preserves_snapshot_on_failure_and_never_changes_grade() {
     )
     .await;
     assert_eq!(status, StatusCode::OK, "{linked}");
-    assert_eq!(linked["fspResults"].as_array().unwrap().len(), 2);
-    assert_eq!(linked["fspResults"][0]["scope"], "team");
-    assert_eq!(linked["fspResults"][1]["status"], "pending");
-    assert_eq!(linked["competitionIds"].as_array().unwrap().len(), 1);
+    // The demo history: four published results (team and individual) and one pending.
+    let results = linked["fspResults"].as_array().unwrap();
+    assert_eq!(results.len(), 5);
+    assert_eq!(results[0]["scope"], "team");
+    assert!(
+        results
+            .iter()
+            .any(|result| result["scope"] == "individual" && result["status"] == "published")
+    );
+    assert_eq!(results[4]["status"], "pending");
+    assert_eq!(linked["competitionIds"].as_array().unwrap().len(), 4);
     let (_, before) = get(&app, "/api/v1/me/sources", Some(&candidate)).await;
     let before = before["items"]
         .as_array()

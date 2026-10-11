@@ -9,11 +9,11 @@ import { ButtonLink, Callout, Card, EmptyState, Icon, PageHeader, Tag } from '@/
 
 const reasonView: Record<
   NonNullable<MyTasks['reason']>,
-  { text: string; action: { label: string; to: '/candidate/assessments' | '/candidate/settings' } | null }
+  { text: string; action: { label: string; to: '/candidate/onboarding' | '/candidate/settings' } | null }
 > = {
-  assessment: {
-    text: 'Задания предлагаются после подтверждения грейда: компании дают задачи под проверенный уровень.',
-    action: { label: 'Перейти к проверкам', to: '/candidate/assessments' },
+  category: {
+    text: 'Задания предлагаются, когда у профиля есть категория: компании дают задачи под её уровень. Подключите GitHub или ФСП либо пройдите тест.',
+    action: { label: 'Открыть анкету', to: '/candidate/onboarding' },
   },
   processing_consent: {
     text: 'Для заданий нужно согласие на обработку данных.',

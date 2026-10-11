@@ -112,6 +112,13 @@ const paths = {
     <path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" />
   ),
   play: <path d="M7 5v14l11-7z" />,
+  stop: <rect x="6" y="6" width="12" height="12" rx="2" />,
+  mic: (
+    <>
+      <rect x="9" y="3" width="6" height="12" rx="3" />
+      <path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8" />
+    </>
+  ),
   target: (
     <>
       <circle cx="12" cy="12" r="9" />

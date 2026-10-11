@@ -1,5 +1,7 @@
+import { SKILLS } from './catalog.ts';
 import { fspResults } from './fsp-fixture.ts';
 import type { components } from './generated/schema.d.ts';
+import { githubFixtureReport, githubSource } from './github-fixture.ts';
 
 type S = components['schemas'];
 export type Grade = S['Profile']['selectedGrade'];
@@ -19,6 +21,7 @@ export type Application = S['Application'];
 export type TaskResponse = S['TaskResponse'];
 export type Job = S['Job'];
 export type Disclosure = S['Disclosure'];
+export type Interview = S['Interview'];
 
 export interface Candidate {
   id: string;
@@ -35,9 +38,12 @@ export interface Candidate {
   stack: SkillId[];
   teamRole: string;
   experienceMonths: number | null;
+  experienceSince: number | null;
   experience: string;
   softSkills: string[];
   consents: S['Profile']['consents'];
+  estimate: S['ProfileEstimate'] | null;
+  autoFields: S['Profile']['autoFields'];
   revision: number;
   updatedAt: string;
   workModes: S['AnonymousCandidate']['workModes'];
@@ -118,19 +124,19 @@ export interface State {
   taskResponses: Map<string, TaskResponse>;
   disclosures: Map<string, Disclosure>;
   assessments: Map<string, AssessmentRecord>;
+  interviews: Map<string, Interview>;
   jobs: Map<string, JobRecord>;
   idempotency: Map<string, StoredResponse>;
   counters: Record<string, number>;
 }
 
 export const CLOCK = '2026-10-05T12:00:00.000Z';
-export const SKILLS: S['Meta']['skills'] = [
-  { id: 'rust', label: 'Rust' },
-  { id: 'postgresql', label: 'PostgreSQL' },
-  { id: 'docker', label: 'Docker' },
-  { id: 'redis', label: 'Redis' },
-  { id: 'react', label: 'React' },
-];
+export { SKILLS } from './catalog.ts';
+
+/** The skills the seeded demo candidates hold evidence for. */
+const DEMO_SKILLS = SKILLS.filter((skill) =>
+  ['rust', 'postgresql', 'docker', 'redis', 'typescript', 'react'].includes(skill.id),
+);
 export const COMPETITIONS: S['Meta']['competitions'] = [
   {
     id: 'competition-demo-api',
@@ -250,7 +256,12 @@ export function sources(candidateId: string, options: SourceOptions = {}): [Sour
       verifiedParticipation: false,
       competitionIds: [],
       notice:
-        'Демонстрационные открытые данные. Анализ выполняется автоматически. Часы работы по GitHub не измеряются.',
+        'Демонстрационные данные GitHub. В рабочем режиме анализируются только публичные репозитории; метрики — сигналы активности, а не оценка навыков.',
+      github: githubSource(
+        candidateId,
+        connected ? githubFixtureReport(`demo-${candidateId.slice(-3)}`, CLOCK) : null,
+        connected ? CLOCK : null,
+      ),
     },
     {
       id: `source-${candidateId}-fsp`,
@@ -269,6 +280,7 @@ export function sources(candidateId: string, options: SourceOptions = {}): [Sour
       competitionIds: options.fspVerified ? ['competition-demo-api'] : [],
       notice:
         'Синтетический источник ФСП. Реальный API и данные участников не подключены. Участие в ФСП необязательно.',
+      github: null,
     },
   ];
 }
@@ -307,7 +319,9 @@ export function makeSkills(
   missingPostgres = false,
   frontend = false,
 ): SelfSkill[] {
-  return SKILLS.filter((skill) => (frontend ? skill.id === 'react' : skill.id !== 'react')).map((skill) => {
+  return DEMO_SKILLS.filter((skill) =>
+    frontend ? ['typescript', 'react'].includes(skill.id) : !['typescript', 'react'].includes(skill.id),
+  ).map((skill) => {
     const status: SkillStatus =
       frontend || skill.id === 'rust' || (skill.id === 'postgresql' && qualified && !missingPostgres)
         ? 'confirmed'
@@ -372,9 +386,12 @@ export function makeCandidate(
     stack: fresh ? [] : frontend ? ['react'] : ['rust', 'postgresql', 'docker'],
     teamRole: fresh ? '' : 'Разработчик',
     experienceMonths: fresh ? null : 18,
+    experienceSince: null,
     experience: fresh ? '' : 'Разработка API и командная работа над учебными и открытыми проектами.',
     softSkills: fresh ? [] : ['Командная работа', 'Объяснение решений'],
     consents: { processing: !fresh, publication: !fresh },
+    estimate: null,
+    autoFields: [],
     revision: 1,
     updatedAt: CLOCK,
     workModes: ['remote'],
@@ -754,6 +771,7 @@ export function createState(scenario: Scenario = 'baseline'): State {
     taskResponses: seedTaskResponses(candidates, tasks),
     disclosures: new Map(),
     assessments: new Map([[historyId, history]]),
+    interviews: new Map(),
     jobs: new Map(),
     idempotency: new Map(),
     counters: {},

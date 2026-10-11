@@ -33,6 +33,11 @@ pub struct GitHubAnalysis {
     pub active_days: u32,
     pub observed_from: Option<String>,
     pub observed_to: Option<String>,
+    /// Absent in snapshots stored before the insights service existed.
+    #[serde(default)]
+    pub report: Option<crate::GitHubReport>,
+    #[serde(default)]
+    pub ownership: Option<crate::GitHubOwnership>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]

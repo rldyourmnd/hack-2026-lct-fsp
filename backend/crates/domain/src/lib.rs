@@ -1,12 +1,17 @@
 //! Pure domain types and rules for the reverse-hiring platform.
 
+pub mod catalog;
 mod documents;
+mod estimate;
+mod github;
 mod knowledge;
 mod llm;
 mod matching;
 mod sources;
 
 pub use documents::*;
+pub use estimate::*;
+pub use github::*;
 pub use knowledge::*;
 pub use llm::*;
 pub use matching::*;
@@ -19,28 +24,174 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Grade {
+    Intern,
     Junior,
     Middle,
     Senior,
+    Lead,
 }
 
 impl Grade {
+    pub const ALL: [Self; 5] = [
+        Self::Intern,
+        Self::Junior,
+        Self::Middle,
+        Self::Senior,
+        Self::Lead,
+    ];
+
     #[must_use]
     pub fn as_str(self) -> &'static str {
         match self {
+            Self::Intern => "intern",
             Self::Junior => "junior",
             Self::Middle => "middle",
             Self::Senior => "senior",
+            Self::Lead => "lead",
         }
+    }
+
+    /// The catalog label, e.g. «Мидл».
+    #[must_use]
+    pub fn label(self) -> &'static str {
+        catalog::grade_label(self)
     }
 }
 
+/// The catalog's specializations (`data/catalog.json`), in its order.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
+#[serde(rename_all = "snake_case")]
 pub enum Specialization {
     Backend,
     Frontend,
     Fullstack,
+    Ios,
+    Android,
+    MobileCrossplatform,
+    Devops,
+    DataEngineering,
+    DataScience,
+    MlEngineering,
+    QaManual,
+    QaAutomation,
+    Security,
+    Embedded,
+    Systems,
+    Gamedev,
+    Onec,
+    Erp,
+    SystemAnalysis,
+    BusinessAnalysis,
+    DataAnalytics,
+    Dba,
+    Sysadmin,
+    Design,
+    Management,
+}
+
+impl Specialization {
+    pub const ALL: [Self; 25] = [
+        Self::Backend,
+        Self::Frontend,
+        Self::Fullstack,
+        Self::Ios,
+        Self::Android,
+        Self::MobileCrossplatform,
+        Self::Devops,
+        Self::DataEngineering,
+        Self::DataScience,
+        Self::MlEngineering,
+        Self::QaManual,
+        Self::QaAutomation,
+        Self::Security,
+        Self::Embedded,
+        Self::Systems,
+        Self::Gamedev,
+        Self::Onec,
+        Self::Erp,
+        Self::SystemAnalysis,
+        Self::BusinessAnalysis,
+        Self::DataAnalytics,
+        Self::Dba,
+        Self::Sysadmin,
+        Self::Design,
+        Self::Management,
+    ];
+
+    #[must_use]
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::Backend => "backend",
+            Self::Frontend => "frontend",
+            Self::Fullstack => "fullstack",
+            Self::Ios => "ios",
+            Self::Android => "android",
+            Self::MobileCrossplatform => "mobile_crossplatform",
+            Self::Devops => "devops",
+            Self::DataEngineering => "data_engineering",
+            Self::DataScience => "data_science",
+            Self::MlEngineering => "ml_engineering",
+            Self::QaManual => "qa_manual",
+            Self::QaAutomation => "qa_automation",
+            Self::Security => "security",
+            Self::Embedded => "embedded",
+            Self::Systems => "systems",
+            Self::Gamedev => "gamedev",
+            Self::Onec => "onec",
+            Self::Erp => "erp",
+            Self::SystemAnalysis => "system_analysis",
+            Self::BusinessAnalysis => "business_analysis",
+            Self::DataAnalytics => "data_analytics",
+            Self::Dba => "dba",
+            Self::Sysadmin => "sysadmin",
+            Self::Design => "design",
+            Self::Management => "management",
+        }
+    }
+
+    /// The catalog label, e.g. «Разработка на 1С».
+    #[must_use]
+    pub fn label(self) -> &'static str {
+        catalog::specialization(self).label.as_str()
+    }
+
+    /// The short catalog label, e.g. «1С».
+    #[must_use]
+    pub fn short_label(self) -> &'static str {
+        catalog::specialization(self).short.as_str()
+    }
+}
+
+impl std::str::FromStr for Specialization {
+    type Err = UnknownValue;
+
+    fn from_str(value: &str) -> Result<Self, Self::Err> {
+        Self::ALL
+            .into_iter()
+            .find(|item| item.as_str() == value)
+            .ok_or_else(|| UnknownValue(value.to_owned()))
+    }
+}
+
+impl std::str::FromStr for Grade {
+    type Err = UnknownValue;
+
+    fn from_str(value: &str) -> Result<Self, Self::Err> {
+        Self::ALL
+            .into_iter()
+            .find(|item| item.as_str() == value)
+            .ok_or_else(|| UnknownValue(value.to_owned()))
+    }
+}
+
+/// A grade or specialization id outside the catalog.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UnknownValue(pub String);
+
+impl std::fmt::Display for UnknownValue {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(formatter, "unknown catalog value: {}", self.0)
+    }
 }
 
 /// An account has exactly one role, fixed at registration.
@@ -78,14 +229,50 @@ pub struct CandidateProfile {
     pub stack: Vec<String>,
     pub team_role: String,
     pub experience_months: Option<u32>,
+    /// The year the candidate started in IT (study, own projects, work); experience counts from it.
+    pub experience_since: Option<u16>,
     pub experience: String,
     pub soft_skills: Vec<String>,
     pub consents: Consents,
     pub verified_grade: Option<Grade>,
     pub verified_specialization: Option<Specialization>,
     pub grade_confirmed_at: Option<String>,
+    /// The latest estimate from GitHub and FSP evidence.
+    pub estimate: Option<ProfileEstimate>,
+    /// Questionnaire fields last filled from evidence; editing a field removes it.
+    pub auto_fields: Vec<String>,
     pub revision: u64,
     pub updated_at: String,
+}
+
+/// Where a candidate's category comes from.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CategorySource {
+    Assessment,
+    Estimate,
+}
+
+/// The employer-visible category: a passed test, otherwise an estimate of at least medium confidence.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Category {
+    pub specialization: Specialization,
+    pub grade: Grade,
+    pub source: CategorySource,
+    /// The estimate's confidence; `None` for a test result.
+    pub confidence: Option<SignalConfidence>,
+}
+
+impl Category {
+    /// Strength of the confirmation: a test, then high and medium estimates.
+    #[must_use]
+    pub fn strength(&self) -> u8 {
+        match (self.source, self.confidence) {
+            (CategorySource::Assessment, _) => 3,
+            (CategorySource::Estimate, Some(SignalConfidence::High)) => 2,
+            (CategorySource::Estimate, _) => 1,
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -103,10 +290,12 @@ pub struct CandidateIndexRecord {
 impl CandidateIndexRecord {
     #[must_use]
     pub fn rankable(&self) -> Option<RankableCandidate> {
+        let category = self.profile.category()?;
         Some(RankableCandidate {
             id: self.profile.id.clone(),
-            specialization: self.profile.verified_specialization?,
-            verified_grade: self.profile.verified_grade?,
+            specialization: category.specialization,
+            grade: category.grade,
+            confirmation: category.strength(),
             fsp_verified: self.fsp_verified,
             skills: self.skills.clone(),
         })
@@ -139,15 +328,47 @@ impl CandidateProfile {
             && !self.experience.trim().is_empty()
     }
 
+    /// The category a passed test gives, otherwise an estimate with at least medium confidence.
+    #[must_use]
+    pub fn category(&self) -> Option<Category> {
+        if let (Some(specialization), Some(grade)) =
+            (self.verified_specialization, self.verified_grade)
+        {
+            return Some(Category {
+                specialization,
+                grade,
+                source: CategorySource::Assessment,
+                confidence: None,
+            });
+        }
+        let estimate = self.estimate.as_ref()?;
+        if estimate.confidence == SignalConfidence::Low {
+            return None;
+        }
+        // The candidate may choose among the specializations the evidence supports.
+        let chosen = estimate
+            .specializations
+            .iter()
+            .any(|share| share.id == self.specialization);
+        Some(Category {
+            specialization: if chosen {
+                self.specialization
+            } else {
+                estimate.specialization?
+            },
+            grade: estimate.grade?,
+            source: CategorySource::Estimate,
+            confidence: Some(estimate.confidence),
+        })
+    }
+
     /// Mirrors the mock's `onboarding.visibleToEmployers`: verified e-mail,
-    /// complete questionnaire, a passed assessment (grade and specialization)
-    /// and both consents.
+    /// complete questionnaire, a category (test or estimate) and both consents.
     #[must_use]
     pub fn visible_to_employers(&self, email_verified: bool) -> bool {
         email_verified
             && self.questionnaire_complete()
-            && self.verified_grade.is_some()
-            && self.verified_specialization.is_some()
+            && self.category().is_some()
             && self.consents.processing
             && self.consents.publication
     }
@@ -624,6 +845,7 @@ mod tests {
             stack: vec!["rust".into()],
             team_role: "Разработчик".into(),
             experience_months: Some(12),
+            experience_since: None,
             experience: "Два года в продуктовой разработке".into(),
             soft_skills: Vec::new(),
             consents: Consents {
@@ -633,6 +855,8 @@ mod tests {
             verified_grade: Some(Grade::Junior),
             verified_specialization: Some(Specialization::Backend),
             grade_confirmed_at: None,
+            estimate: None,
+            auto_fields: Vec::new(),
             revision: 1,
             updated_at: "2026-10-06T00:00:00Z".into(),
         };
@@ -640,5 +864,76 @@ mod tests {
         assert!(!profile.visible_to_employers(false));
         profile.consents.publication = false;
         assert!(!profile.visible_to_employers(true));
+    }
+
+    #[test]
+    fn an_estimate_of_medium_confidence_gives_a_category_below_a_test() {
+        let report: GitHubReport = serde_json::from_str(include_str!(
+            "../../../../contracts/fixtures/github-report.json"
+        ))
+        .unwrap();
+        let estimate = estimate_profile(&EstimateInput {
+            github: Some(&report),
+            fsp: &[],
+            stated_experience_months: None,
+            stated_team_role: None,
+            now: "2026-10-10T00:00:00Z",
+        });
+        let mut profile = CandidateProfile {
+            id: "candidate-2".into(),
+            alias: "Кандидат №002".into(),
+            email: "estimate@example.test".into(),
+            name: "Кандидат".into(),
+            specialization: Specialization::Backend,
+            selected_grade: Grade::Junior,
+            stack: vec!["rust".into()],
+            team_role: "Разработчик".into(),
+            experience_months: None,
+            experience_since: None,
+            experience: "Публичные проекты".into(),
+            soft_skills: Vec::new(),
+            consents: Consents {
+                processing: true,
+                publication: true,
+            },
+            verified_grade: None,
+            verified_specialization: None,
+            grade_confirmed_at: None,
+            estimate: Some(estimate.clone()),
+            auto_fields: Vec::new(),
+            revision: 1,
+            updated_at: "2026-10-10T00:00:00Z".into(),
+        };
+        let category = profile.category().unwrap();
+        assert_eq!(category.source, CategorySource::Estimate);
+        assert_eq!(Some(category.grade), estimate.grade);
+        assert!(profile.visible_to_employers(true));
+        assert!(category.strength() < 3);
+        // The candidate may choose among the supported specializations, not beyond them.
+        let supported = estimate
+            .specializations
+            .iter()
+            .map(|share| share.id)
+            .find(|id| Some(*id) != estimate.specialization);
+        if let Some(supported) = supported {
+            profile.specialization = supported;
+            assert_eq!(profile.category().unwrap().specialization, supported);
+        }
+        profile.specialization = Specialization::Design;
+        assert_eq!(
+            Some(profile.category().unwrap().specialization),
+            estimate.specialization
+        );
+        // A low-confidence estimate gives no category.
+        if let Some(stored) = profile.estimate.as_mut() {
+            stored.confidence = SignalConfidence::Low;
+        }
+        assert!(profile.category().is_none());
+        // A test result wins over any estimate.
+        profile.verified_grade = Some(Grade::Middle);
+        profile.verified_specialization = Some(Specialization::Frontend);
+        let category = profile.category().unwrap();
+        assert_eq!(category.source, CategorySource::Assessment);
+        assert_eq!(category.strength(), 3);
     }
 }

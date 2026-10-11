@@ -4,6 +4,7 @@ import { needsQuery } from '@/entities/need';
 import { scopeOf, sessionQueryOptions } from '@/entities/session';
 import { shortlistsQuery } from '@/entities/shortlist';
 import { EmployerCandidatesPage } from '@/pages/employer-candidates';
+import { GRADE_IDS, SKILL_IDS, SPECIALIZATION_IDS } from '@/shared/api';
 
 const id = z.string().regex(/^[A-Za-z0-9_.:-]{1,100}$/);
 
@@ -11,9 +12,10 @@ const id = z.string().regex(/^[A-Za-z0-9_.:-]{1,100}$/);
 const searchSchema = z.object({
   needId: id.optional().catch(undefined),
   mode: z.enum(['recommended', 'bank']).optional().catch(undefined),
-  specialization: z.enum(['backend', 'frontend', 'fullstack']).optional().catch(undefined),
-  grade: z.enum(['junior', 'middle', 'senior']).optional().catch(undefined),
-  skill: z.enum(['rust', 'postgresql', 'docker', 'redis', 'react']).optional().catch(undefined),
+  specialization: z.enum(SPECIALIZATION_IDS).optional().catch(undefined),
+  grade: z.enum(GRADE_IDS).optional().catch(undefined),
+  categorySource: z.enum(['assessment', 'estimate']).optional().catch(undefined),
+  skill: z.enum(SKILL_IDS).optional().catch(undefined),
   fsp: z.enum(['any', 'verified']).optional().catch(undefined),
   page: z.number().int().min(1).max(1000).optional().catch(undefined),
   shortlistId: id.optional().catch(undefined),

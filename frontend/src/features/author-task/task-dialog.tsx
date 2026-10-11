@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { type SkillId, useMeta } from '@/entities/meta';
+import type { SkillId } from '@/entities/meta';
 import { useScope } from '@/entities/session';
 import { createTask, type TaskInput, tasksKey } from '@/entities/task';
 import { describeError, isApiError } from '@/shared/api';
-import { gradeLabel, gradeOrder } from '@/shared/lib';
+import { gradeLabel, gradeOrder, skillOptions } from '@/shared/lib';
 import { Button, ButtonLink, Callout, Dialog, SelectField, TextareaField, TextField, useToast } from '@/shared/ui';
 
 type Props = { open: boolean; onClose: () => void };
@@ -20,7 +20,6 @@ const empty = {
 /** A short task the platform offers weekly to candidates with evidence for its skill at or above its grade. */
 export function TaskDialog({ open, onClose }: Props) {
   const scope = useScope();
-  const meta = useMeta();
   const queryClient = useQueryClient();
   const toast = useToast();
   const [values, setValues] = useState(empty);
@@ -111,7 +110,7 @@ export function TaskDialog({ open, onClose }: Props) {
             value={values.skillId}
             error={shown('skillId')}
             onValueChange={(skillId) => setValues({ ...values, skillId })}
-            options={meta.skills.map((skill) => ({ value: skill.id, label: skill.label }))}
+            options={skillOptions}
           />
           <SelectField
             id="task-grade"

@@ -1,5 +1,9 @@
 # Real feature completion plan
 
+Owner policy update (2026-10-08, [#54](https://github.com/KirpaDmitriy/sport-programming-federation/issues/54)):
+backups, snapshots and redundant mirror copies are disabled; existing backup archives were deleted.
+Backup/mirror actions below are historical evidence, not instructions to repeat them.
+
 Historical delivery record. For current behavior, verification and explicit limits, read
 [current-state.md](current-state.md); completed baseline findings below are not open defects.
 
@@ -81,7 +85,8 @@ examples do not replace this project's Rust hexagonal architecture. PDF parsing 
 - At completion of #31, email and GitHub OAuth were deferred. The owner subsequently authorized real
   email in [#38](domain-email-plan.md); only GitHub OAuth remains deferred. No official FSP integration
   or arbitrary code runner is planned. Remaining quality limits are public-bank calibration/leak resistance,
-  inline jobs, measured large-bank capacity and off-host backup automation; none is claimed implemented.
+  process-local job/review execution and measured large-bank capacity; none is claimed solved by this delivery.
+  Backup automation was subsequently prohibited by #54 and is not an outstanding task.
 
 ## Runtime recovery follow-up
 

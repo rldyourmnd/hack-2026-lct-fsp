@@ -6,8 +6,7 @@ WORKDIR /app/frontend
 COPY frontend/package.json frontend/bun.lock ./
 RUN bun install --frozen-lockfile
 COPY frontend/ ./
-# Local Compose defaults to demo auth. Real-email capability hides fixed-code and seed-account hints;
-# VITE_DEMO_STAND still labels the fictional FSP data independently of the authentication mode.
+# The public demo keeps three seeded accounts available while all other addresses use real email.
 ARG VITE_DEMO_STAND=1
 ARG VITE_DEMO_EMAIL_CODE=123456
 RUN bun run build && bun scripts/check-bundle.ts

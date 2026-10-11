@@ -1,0 +1,15 @@
+[package]
+name = "fsp-integration-interview"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+async-trait.workspace = true
+fsp-application.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+
+[lints]
+workspace = true

@@ -22,7 +22,7 @@ test('UI-20 UI-21 UI-23 anonymous until acceptance, then only chosen fields for 
   await companyA.page.goto('/employer/candidates/candidate024?needId=need-001');
   await companyA.page.getByRole('tab', { name: 'Навыки' }).click();
   await companyA.page.getByRole('button', { name: 'Граф' }).click();
-  await expect(companyA.page.getByRole('button', { name: /Навык: PostgreSQL/ })).toBeVisible();
+  await expect(companyA.page.getByRole('button', { name: /Технология: PostgreSQL/ })).toBeVisible();
   const html = await companyA.page.content();
   for (const marker of PRIVATE_MARKERS) {
     expect(html).not.toContain(marker);

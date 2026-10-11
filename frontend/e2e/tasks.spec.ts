@@ -40,7 +40,7 @@ test('UI-31 the weekly task is answered once, reviewed by its company and keeps 
   await expect(other.page.getByText('Кандидат №024')).toHaveCount(0);
 });
 
-test('UI-32 companies add and archive tasks; a candidate without a verified grade is told why there is none', async ({
+test('UI-32 companies add and archive tasks; a candidate without a category is told why there is none', async ({
   page,
 }) => {
   await signIn(page, COMPANY_A, 'employer');
@@ -63,5 +63,5 @@ test('UI-32 companies add and archive tasks; a candidate without a verified grad
   await signIn(page, 'new@example.com', 'candidate');
   await page.goto('/candidate/tasks');
   await expect(page.getByRole('heading', { name: 'Задания на этой неделе нет' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Перейти к проверкам' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Открыть анкету' })).toBeVisible();
 });

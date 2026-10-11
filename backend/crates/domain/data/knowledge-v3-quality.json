@@ -1,0 +1,3455 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "test_design-intern-1",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Что такое тест-кейс?",
+      "options": [
+        {
+          "id": "test_design-intern-1-a",
+          "label": "Отчёт об ошибке"
+        },
+        {
+          "id": "test_design-intern-1-b",
+          "label": "Описание шагов, входных данных и ожидаемого результата проверки"
+        },
+        {
+          "id": "test_design-intern-1-c",
+          "label": "Автоматический скрипт развёртывания приложения на тестовом стенде перед проверкой"
+        }
+      ],
+      "correctOptionId": "test_design-intern-1-b",
+      "explanation": "Тест-кейс воспроизводим другим человеком и даёт однозначный вердикт.",
+      "source": "https://glossary.istqb.org/en_US/term/test-case"
+    },
+    {
+      "id": "test_design-intern-2",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Чем ожидаемый результат отличается от фактического?",
+      "options": [
+        {
+          "id": "test_design-intern-2-a",
+          "label": "Ожидаемый описан требованиями до проверки, фактический получен при выполнении"
+        },
+        {
+          "id": "test_design-intern-2-b",
+          "label": "Это одно и то же: ожидаемый результат записывают после выполнения проверки по факту"
+        },
+        {
+          "id": "test_design-intern-2-c",
+          "label": "Фактический результат пишет разработчик"
+        }
+      ],
+      "correctOptionId": "test_design-intern-2-a",
+      "explanation": "Расхождение между ними — признак дефекта или ошибки в требованиях.",
+      "source": "https://glossary.istqb.org/en_US/term/expected-result"
+    },
+    {
+      "id": "test_design-intern-3",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Что такое позитивный тест?",
+      "options": [
+        {
+          "id": "test_design-intern-3-a",
+          "label": "Тест, который всегда проходит успешно независимо от входных данных"
+        },
+        {
+          "id": "test_design-intern-3-b",
+          "label": "Проверка с корректными данными по основному сценарию"
+        },
+        {
+          "id": "test_design-intern-3-c",
+          "label": "Проверка с ошибочными данными"
+        }
+      ],
+      "correctOptionId": "test_design-intern-3-b",
+      "explanation": "Негативный тест проверяет реакцию на неверный ввод.",
+      "source": "https://glossary.istqb.org/en_US/term/test-case"
+    },
+    {
+      "id": "test_design-intern-4",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Поле принимает возраст от 18 до 65. Какое значение — граничное?",
+      "options": [
+        {
+          "id": "test_design-intern-4-a",
+          "label": "40"
+        },
+        {
+          "id": "test_design-intern-4-b",
+          "label": "30"
+        },
+        {
+          "id": "test_design-intern-4-c",
+          "label": "18"
+        }
+      ],
+      "correctOptionId": "test_design-intern-4-c",
+      "explanation": "Граничные значения — края допустимого диапазона и соседние с ними.",
+      "source": "https://glossary.istqb.org/en_US/term/boundary-value-analysis"
+    },
+    {
+      "id": "test_design-intern-5",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Что такое баг-репорт?",
+      "options": [
+        {
+          "id": "test_design-intern-5-a",
+          "label": "Описание дефекта с шагами воспроизведения, ожидаемым и фактическим результатом"
+        },
+        {
+          "id": "test_design-intern-5-b",
+          "label": "План тестирования релиза со списком проверок, окружений, сроков и ответственных"
+        },
+        {
+          "id": "test_design-intern-5-c",
+          "label": "Список требований"
+        }
+      ],
+      "correctOptionId": "test_design-intern-5-a",
+      "explanation": "Хороший отчёт позволяет разработчику воспроизвести ошибку без вопросов.",
+      "source": "https://glossary.istqb.org/en_US/term/defect-report"
+    },
+    {
+      "id": "test_design-intern-6",
+      "grade": "intern",
+      "skillId": "test_design",
+      "prompt": "Что такое регрессионное тестирование?",
+      "options": [
+        {
+          "id": "test_design-intern-6-a",
+          "label": "Повторная проверка, что изменения не сломали уже работавшее"
+        },
+        {
+          "id": "test_design-intern-6-b",
+          "label": "Тестирование только новых функций релиза перед их выпуском пользователям"
+        },
+        {
+          "id": "test_design-intern-6-c",
+          "label": "Проверка производительности"
+        }
+      ],
+      "correctOptionId": "test_design-intern-6-a",
+      "explanation": "Регрессию обычно автоматизируют, потому что её выполняют часто.",
+      "source": "https://glossary.istqb.org/en_US/term/regression-testing"
+    },
+    {
+      "id": "test_design-junior-1",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "Поле принимает целые числа от 1 до 100. Какой набор значений даёт анализ граничных значений?",
+      "options": [
+        {
+          "id": "test_design-junior-1-a",
+          "label": "1, 50, 100"
+        },
+        {
+          "id": "test_design-junior-1-b",
+          "label": "-100, 0, 1000"
+        },
+        {
+          "id": "test_design-junior-1-c",
+          "label": "0, 1, 100, 101"
+        }
+      ],
+      "correctOptionId": "test_design-junior-1-c",
+      "explanation": "Проверяются границы и ближайшие значения за ними.",
+      "source": "https://glossary.istqb.org/en_US/term/boundary-value-analysis"
+    },
+    {
+      "id": "test_design-junior-2",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "В чём смысл разбиения на классы эквивалентности?",
+      "options": [
+        {
+          "id": "test_design-junior-2-a",
+          "label": "Нужно проверить каждое возможное значение, потому что любое из них может обрабатываться по-своему"
+        },
+        {
+          "id": "test_design-junior-2-b",
+          "label": "Классы задают порядок выполнения тестов"
+        },
+        {
+          "id": "test_design-junior-2-c",
+          "label": "Значения одного класса обрабатываются одинаково, поэтому достаточно одного представителя"
+        }
+      ],
+      "correctOptionId": "test_design-junior-2-c",
+      "explanation": "Это сокращает число тестов без потери покрытия логики.",
+      "source": "https://glossary.istqb.org/en_US/term/equivalence-partitioning"
+    },
+    {
+      "id": "test_design-junior-3",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "Когда полезна таблица решений?",
+      "options": [
+        {
+          "id": "test_design-junior-3-a",
+          "label": "Когда результат зависит от комбинаций нескольких условий"
+        },
+        {
+          "id": "test_design-junior-3-b",
+          "label": "Когда нужно проверить одно поле"
+        },
+        {
+          "id": "test_design-junior-3-c",
+          "label": "Только для нагрузочного тестирования"
+        }
+      ],
+      "correctOptionId": "test_design-junior-3-a",
+      "explanation": "Таблица перечисляет комбинации условий и ожидаемые действия.",
+      "source": "https://glossary.istqb.org/en_US/term/decision-table-testing"
+    },
+    {
+      "id": "test_design-junior-4",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "Чем серьёзность (severity) дефекта отличается от приоритета (priority)?",
+      "options": [
+        {
+          "id": "test_design-junior-4-a",
+          "label": "Серьёзность — влияние на систему, приоритет — срочность исправления"
+        },
+        {
+          "id": "test_design-junior-4-b",
+          "label": "Это одно и то же: оба показателя определяют, насколько срочно исправлять дефект"
+        },
+        {
+          "id": "test_design-junior-4-c",
+          "label": "Приоритет определяет только тестировщик"
+        }
+      ],
+      "correctOptionId": "test_design-junior-4-a",
+      "explanation": "Опечатка на главной странице может быть низкой серьёзности, но высокого приоритета.",
+      "source": "https://glossary.istqb.org/en_US/term/severity"
+    },
+    {
+      "id": "test_design-junior-5",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "Что такое smoke-тестирование?",
+      "options": [
+        {
+          "id": "test_design-junior-5-a",
+          "label": "Быстрая проверка, что основные функции работают и сборку можно тестировать дальше"
+        },
+        {
+          "id": "test_design-junior-5-b",
+          "label": "Полная регрессия всех функций перед релизом с участием всей команды тестирования продукта"
+        },
+        {
+          "id": "test_design-junior-5-c",
+          "label": "Тестирование безопасности"
+        }
+      ],
+      "correctOptionId": "test_design-junior-5-a",
+      "explanation": "Smoke-набор короткий и запускается на каждой сборке.",
+      "source": "https://glossary.istqb.org/en_US/term/smoke-test"
+    },
+    {
+      "id": "test_design-junior-6",
+      "grade": "junior",
+      "skillId": "test_design",
+      "prompt": "Что такое исследовательское тестирование?",
+      "options": [
+        {
+          "id": "test_design-junior-6-a",
+          "label": "Тестирование без цели и без записей"
+        },
+        {
+          "id": "test_design-junior-6-b",
+          "label": "Тестирование только по заранее утверждённым тест-кейсам без отклонений от сценария"
+        },
+        {
+          "id": "test_design-junior-6-c",
+          "label": "Одновременное изучение системы, проектирование и выполнение тестов"
+        }
+      ],
+      "correctOptionId": "test_design-junior-6-c",
+      "explanation": "Его проводят сессиями с целью (чартером) и фиксируют находки.",
+      "source": "https://glossary.istqb.org/en_US/term/exploratory-testing"
+    },
+    {
+      "id": "test_design-middle-1",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Как сократить число комбинаций при проверке пяти параметров с тремя значениями у каждого?",
+      "options": [
+        {
+          "id": "test_design-middle-1-a",
+          "label": "Проверить все 243 комбинации вручную"
+        },
+        {
+          "id": "test_design-middle-1-b",
+          "label": "Попарным тестированием (pairwise)"
+        },
+        {
+          "id": "test_design-middle-1-c",
+          "label": "Проверить только значения по умолчанию"
+        }
+      ],
+      "correctOptionId": "test_design-middle-1-b",
+      "explanation": "Попарный набор покрывает все пары значений, где проявляется большинство дефектов взаимодействия.",
+      "source": "https://glossary.istqb.org/en_US/term/pairwise-testing"
+    },
+    {
+      "id": "test_design-middle-2",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Когда применять тестирование переходов состояний?",
+      "options": [
+        {
+          "id": "test_design-middle-2-a",
+          "label": "Когда у системы нет состояний и результат определяется только входными данными"
+        },
+        {
+          "id": "test_design-middle-2-b",
+          "label": "Когда поведение зависит от состояния объекта, например статуса заказа"
+        },
+        {
+          "id": "test_design-middle-2-c",
+          "label": "Только для проверки вёрстки"
+        }
+      ],
+      "correctOptionId": "test_design-middle-2-b",
+      "explanation": "Диаграмма состояний помогает проверить допустимые и запрещённые переходы.",
+      "source": "https://glossary.istqb.org/en_US/term/state-transition-testing"
+    },
+    {
+      "id": "test_design-middle-3",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Что такое тестирование на основе рисков?",
+      "options": [
+        {
+          "id": "test_design-middle-3-a",
+          "label": "Тестирование только после инцидентов"
+        },
+        {
+          "id": "test_design-middle-3-b",
+          "label": "Распределение усилий по вероятности и ущербу возможных сбоев"
+        },
+        {
+          "id": "test_design-middle-3-c",
+          "label": "Проверка финансовых отчётов"
+        }
+      ],
+      "correctOptionId": "test_design-middle-3-b",
+      "explanation": "Сначала проверяется то, что может причинить наибольший вред.",
+      "source": "https://glossary.istqb.org/en_US/term/risk-based-testing"
+    },
+    {
+      "id": "test_design-middle-4",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Что такое пирамида тестирования?",
+      "options": [
+        {
+          "id": "test_design-middle-4-a",
+          "label": "Сначала ручные тесты, потом автоматические, а затем нагрузочные проверки системы"
+        },
+        {
+          "id": "test_design-middle-4-b",
+          "label": "Схема иерархии тестировщиков"
+        },
+        {
+          "id": "test_design-middle-4-c",
+          "label": "Больше быстрых модульных тестов, меньше интеграционных и ещё меньше сквозных"
+        }
+      ],
+      "correctOptionId": "test_design-middle-4-c",
+      "explanation": "Такая структура даёт быструю и устойчивую обратную связь.",
+      "source": "https://martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "id": "test_design-middle-5",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Что такое критерии приёмки?",
+      "options": [
+        {
+          "id": "test_design-middle-5-a",
+          "label": "Проверяемые условия, при которых история считается выполненной"
+        },
+        {
+          "id": "test_design-middle-5-b",
+          "label": "Список багов, которые нужно исправить перед релизом этой пользовательской истории"
+        },
+        {
+          "id": "test_design-middle-5-c",
+          "label": "Отчёт о покрытии кода"
+        }
+      ],
+      "correctOptionId": "test_design-middle-5-a",
+      "explanation": "Критерии формулируют до разработки, тесты строятся на них.",
+      "source": "https://glossary.istqb.org/en_US/term/acceptance-criteria"
+    },
+    {
+      "id": "test_design-middle-6",
+      "grade": "middle",
+      "skillId": "test_design",
+      "prompt": "Как поступить с требованием «система должна работать быстро»?",
+      "options": [
+        {
+          "id": "test_design-middle-6-a",
+          "label": "Уточнить измеримый критерий, например 95% ответов быстрее 300 мс"
+        },
+        {
+          "id": "test_design-middle-6-b",
+          "label": "Пропустить требование, потому что его нельзя проверить, и сообщить об этом позже"
+        },
+        {
+          "id": "test_design-middle-6-c",
+          "label": "Пропустить требование"
+        }
+      ],
+      "correctOptionId": "test_design-middle-6-a",
+      "explanation": "Непроверяемые требования уточняют до тестирования.",
+      "source": "https://glossary.istqb.org/en_US/term/testability"
+    },
+    {
+      "id": "test_design-senior-1",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Как выбрать объём регрессии перед срочным релизом?",
+      "options": [
+        {
+          "id": "test_design-senior-1-a",
+          "label": "Запускать всю регрессию целиком всегда, независимо от сроков и затронутых областей"
+        },
+        {
+          "id": "test_design-senior-1-b",
+          "label": "По анализу влияния изменений и рискам затронутых областей"
+        },
+        {
+          "id": "test_design-senior-1-c",
+          "label": "Не тестировать срочные релизы"
+        }
+      ],
+      "correctOptionId": "test_design-senior-1-b",
+      "explanation": "Анализ влияния выделяет области, которые изменения могли затронуть.",
+      "source": "https://glossary.istqb.org/en_US/term/impact-analysis"
+    },
+    {
+      "id": "test_design-senior-2",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Что такое мутационное тестирование?",
+      "options": [
+        {
+          "id": "test_design-senior-2-a",
+          "label": "Тестирование мобильных устройств с разными версиями операционных систем"
+        },
+        {
+          "id": "test_design-senior-2-b",
+          "label": "Генерация случайных входных данных"
+        },
+        {
+          "id": "test_design-senior-2-c",
+          "label": "Внесение небольших изменений в код для проверки, ловят ли их тесты"
+        }
+      ],
+      "correctOptionId": "test_design-senior-2-c",
+      "explanation": "Доля выживших мутантов показывает слабые места набора тестов.",
+      "source": "https://glossary.istqb.org/en_US/term/mutation-testing"
+    },
+    {
+      "id": "test_design-senior-3",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Чем полезно тестирование на основе свойств (property-based)?",
+      "options": [
+        {
+          "id": "test_design-senior-3-a",
+          "label": "Проверяет инварианты на множестве сгенерированных входных данных"
+        },
+        {
+          "id": "test_design-senior-3-b",
+          "label": "Проверяет только свойства CSS"
+        },
+        {
+          "id": "test_design-senior-3-c",
+          "label": "Заменяет ручное тестирование полностью"
+        }
+      ],
+      "correctOptionId": "test_design-senior-3-a",
+      "explanation": "Например: сериализация и разбор должны давать исходный объект.",
+      "source": "https://hypothesis.readthedocs.io/en/latest/"
+    },
+    {
+      "id": "test_design-senior-4",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Как оценить качество набора тестов, кроме процента покрытия строк?",
+      "options": [
+        {
+          "id": "test_design-senior-4-a",
+          "label": "По покрытию требований и рисков, найденным дефектам и мутационному анализу"
+        },
+        {
+          "id": "test_design-senior-4-b",
+          "label": "Только по числу тестов и времени их выполнения в конвейере сборки проекта"
+        },
+        {
+          "id": "test_design-senior-4-c",
+          "label": "По времени выполнения"
+        }
+      ],
+      "correctOptionId": "test_design-senior-4-a",
+      "explanation": "Высокое покрытие строк не гарантирует проверку поведения.",
+      "source": "https://martinfowler.com/bliki/TestCoverage.html"
+    },
+    {
+      "id": "test_design-senior-5",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Что такое контрактное тестирование?",
+      "options": [
+        {
+          "id": "test_design-senior-5-a",
+          "label": "Юридическая проверка договоров с поставщиками API на соответствие требованиям"
+        },
+        {
+          "id": "test_design-senior-5-b",
+          "label": "Тестирование только UI"
+        },
+        {
+          "id": "test_design-senior-5-c",
+          "label": "Проверка, что поставщик и потребитель API соблюдают общий контракт"
+        }
+      ],
+      "correctOptionId": "test_design-senior-5-c",
+      "explanation": "Контрактные тесты ловят несовместимость сервисов без полного окружения.",
+      "source": "https://docs.pact.io/"
+    },
+    {
+      "id": "test_design-senior-6",
+      "grade": "senior",
+      "skillId": "test_design",
+      "prompt": "Как тестировать систему, где результат зависит от времени?",
+      "options": [
+        {
+          "id": "test_design-senior-6-a",
+          "label": "Управлять временем в тестах через внедряемые часы"
+        },
+        {
+          "id": "test_design-senior-6-b",
+          "label": "Запускать тесты в нужное время суток"
+        },
+        {
+          "id": "test_design-senior-6-c",
+          "label": "Не тестировать такие функции"
+        }
+      ],
+      "correctOptionId": "test_design-senior-6-a",
+      "explanation": "Подменяемые часы делают тесты детерминированными.",
+      "source": "https://martinfowler.com/articles/nonDeterminism.html"
+    },
+    {
+      "id": "test_design-lead-1",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Как построить стратегию тестирования продукта?",
+      "options": [
+        {
+          "id": "test_design-lead-1-a",
+          "label": "Скопировать стратегию из другого проекта без изменений"
+        },
+        {
+          "id": "test_design-lead-1-b",
+          "label": "Тестировать всё вручную перед каждым релизом"
+        },
+        {
+          "id": "test_design-lead-1-c",
+          "label": "Определить риски, уровни и типы тестов, окружения и критерии выхода"
+        }
+      ],
+      "correctOptionId": "test_design-lead-1-c",
+      "explanation": "Стратегия связывает цели качества с затратами на тестирование.",
+      "source": "https://glossary.istqb.org/en_US/term/test-strategy"
+    },
+    {
+      "id": "test_design-lead-2",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Какие метрики качества полезны руководству?",
+      "options": [
+        {
+          "id": "test_design-lead-2-a",
+          "label": "Число написанных тест-кейсов и количество часов работы тестировщиков за каждый месяц"
+        },
+        {
+          "id": "test_design-lead-2-b",
+          "label": "Число часов тестировщиков"
+        },
+        {
+          "id": "test_design-lead-2-c",
+          "label": "Утечка дефектов в продакшен, время обнаружения и исправления, стабильность тестов"
+        }
+      ],
+      "correctOptionId": "test_design-lead-2-c",
+      "explanation": "Метрики должны отражать результат для пользователей.",
+      "source": "https://dora.dev/guides/dora-metrics-four-keys/"
+    },
+    {
+      "id": "test_design-lead-3",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Как распределить ответственность за качество в команде?",
+      "options": [
+        {
+          "id": "test_design-lead-3-a",
+          "label": "Только тестировщики отвечают за баги, а разработчики не пишут тесты, чтобы не терять время на задачи"
+        },
+        {
+          "id": "test_design-lead-3-b",
+          "label": "Разработчики не пишут тесты"
+        },
+        {
+          "id": "test_design-lead-3-c",
+          "label": "Качество — общая ответственность; тестировщики помогают проектировать проверки и оценивать риски"
+        }
+      ],
+      "correctOptionId": "test_design-lead-3-c",
+      "explanation": "Shift-left переносит проверки ближе к разработке.",
+      "source": "https://martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "id": "test_design-lead-4",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Что делать с нестабильными (flaky) тестами?",
+      "options": [
+        {
+          "id": "test_design-lead-4-a",
+          "label": "Перезапускать до зелёного"
+        },
+        {
+          "id": "test_design-lead-4-b",
+          "label": "Удалить все сквозные тесты и перезапускать остальные до зелёного результата"
+        },
+        {
+          "id": "test_design-lead-4-c",
+          "label": "Изолировать, найти причину и исправить; не игнорировать падения"
+        }
+      ],
+      "correctOptionId": "test_design-lead-4-c",
+      "explanation": "Нестабильные тесты разрушают доверие к проверкам.",
+      "source": "https://martinfowler.com/articles/nonDeterminism.html"
+    },
+    {
+      "id": "test_design-lead-5",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Как решать, что автоматизировать в первую очередь?",
+      "options": [
+        {
+          "id": "test_design-lead-5-a",
+          "label": "Всё подряд по алфавиту"
+        },
+        {
+          "id": "test_design-lead-5-b",
+          "label": "Частые, стабильные и критичные проверки с высоким риском"
+        },
+        {
+          "id": "test_design-lead-5-c",
+          "label": "Только редкие сложные сценарии"
+        }
+      ],
+      "correctOptionId": "test_design-lead-5-b",
+      "explanation": "Автоматизация окупается на повторяемых проверках.",
+      "source": "https://glossary.istqb.org/en_US/term/test-automation"
+    },
+    {
+      "id": "test_design-lead-6",
+      "grade": "lead",
+      "skillId": "test_design",
+      "prompt": "Когда релиз можно выпускать с известными дефектами?",
+      "options": [
+        {
+          "id": "test_design-lead-6-a",
+          "label": "Когда риски оценены, согласованы с владельцем продукта и есть план исправления"
+        },
+        {
+          "id": "test_design-lead-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "test_design-lead-6-c",
+          "label": "Всегда, если сроки горят и заказчик торопит с выпуском новой версии продукта"
+        }
+      ],
+      "correctOptionId": "test_design-lead-6-a",
+      "explanation": "Решение о выпуске — управление рисками, а не отсутствие багов.",
+      "source": "https://glossary.istqb.org/en_US/term/exit-criteria"
+    },
+    {
+      "id": "web_testing-intern-1",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Что открывает инструмент разработчика браузера по клавише F12?",
+      "options": [
+        {
+          "id": "web_testing-intern-1-a",
+          "label": "Настройки операционной системы"
+        },
+        {
+          "id": "web_testing-intern-1-b",
+          "label": "DevTools: элементы, консоль, сеть"
+        },
+        {
+          "id": "web_testing-intern-1-c",
+          "label": "Историю браузера"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-1-b",
+      "explanation": "DevTools помогает найти ошибки в консоли и запросах.",
+      "source": "https://developer.chrome.com/docs/devtools/overview"
+    },
+    {
+      "id": "web_testing-intern-2",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Что означает код ответа 404?",
+      "options": [
+        {
+          "id": "web_testing-intern-2-a",
+          "label": "Ошибка сервера"
+        },
+        {
+          "id": "web_testing-intern-2-b",
+          "label": "Ресурс не найден"
+        },
+        {
+          "id": "web_testing-intern-2-c",
+          "label": "Успешный ответ"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-2-b",
+      "explanation": "2xx — успех, 4xx — ошибка клиента, 5xx — ошибка сервера.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "id": "web_testing-intern-3",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Зачем проверять сайт в разных браузерах?",
+      "options": [
+        {
+          "id": "web_testing-intern-3-a",
+          "label": "Чтобы увеличить нагрузку на сервер"
+        },
+        {
+          "id": "web_testing-intern-3-b",
+          "label": "Браузеры по-разному поддерживают и отображают возможности веба"
+        },
+        {
+          "id": "web_testing-intern-3-c",
+          "label": "Это нужно только для мобильных приложений, а сайты везде выглядят одинаково"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-3-b",
+      "explanation": "Кросс-браузерное тестирование выявляет различия отображения и поведения.",
+      "source": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Testing/Introduction"
+    },
+    {
+      "id": "web_testing-intern-4",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Что проверить в форме регистрации в первую очередь?",
+      "options": [
+        {
+          "id": "web_testing-intern-4-a",
+          "label": "Обязательные поля, валидацию и сообщения об ошибках"
+        },
+        {
+          "id": "web_testing-intern-4-b",
+          "label": "Цвет фона"
+        },
+        {
+          "id": "web_testing-intern-4-c",
+          "label": "Шрифт в подвале страницы и цвет фона формы регистрации"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-4-a",
+      "explanation": "Функциональность и понятные ошибки важнее оформления.",
+      "source": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation"
+    },
+    {
+      "id": "web_testing-intern-5",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Что такое адаптивная вёрстка?",
+      "options": [
+        {
+          "id": "web_testing-intern-5-a",
+          "label": "Сайт загружается быстрее"
+        },
+        {
+          "id": "web_testing-intern-5-b",
+          "label": "Сайт работает без интернета"
+        },
+        {
+          "id": "web_testing-intern-5-c",
+          "label": "Интерфейс подстраивается под ширину экрана"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-5-c",
+      "explanation": "Проверяют на разных разрешениях и устройствах.",
+      "source": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design"
+    },
+    {
+      "id": "web_testing-intern-6",
+      "grade": "intern",
+      "skillId": "web_testing",
+      "prompt": "Что такое cookie?",
+      "options": [
+        {
+          "id": "web_testing-intern-6-a",
+          "label": "Вирус в браузере, который передаёт данные злоумышленникам"
+        },
+        {
+          "id": "web_testing-intern-6-b",
+          "label": "Тип изображения"
+        },
+        {
+          "id": "web_testing-intern-6-c",
+          "label": "Небольшие данные, которые сайт сохраняет в браузере"
+        }
+      ],
+      "correctOptionId": "web_testing-intern-6-c",
+      "explanation": "Cookie часто хранят сессию пользователя.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies"
+    },
+    {
+      "id": "web_testing-junior-1",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Как увидеть, какой запрос отправила форма и что ответил сервер?",
+      "options": [
+        {
+          "id": "web_testing-junior-1-a",
+          "label": "Вкладка Elements"
+        },
+        {
+          "id": "web_testing-junior-1-b",
+          "label": "Исходный код страницы"
+        },
+        {
+          "id": "web_testing-junior-1-c",
+          "label": "Вкладка Network в DevTools"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-1-c",
+      "explanation": "Network показывает метод, адрес, заголовки, тело и статус.",
+      "source": "https://developer.chrome.com/docs/devtools/network"
+    },
+    {
+      "id": "web_testing-junior-2",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Чем ошибка 401 отличается от 403?",
+      "options": [
+        {
+          "id": "web_testing-junior-2-a",
+          "label": "Это синонимы"
+        },
+        {
+          "id": "web_testing-junior-2-b",
+          "label": "401 — нужна аутентификация, 403 — доступ запрещён даже аутентифицированному"
+        },
+        {
+          "id": "web_testing-junior-2-c",
+          "label": "403 означает, что сервер временно недоступен, а 401 — что запрошенный ресурс удалён"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-2-b",
+      "explanation": "Важно проверять обе ситуации для разных ролей.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+    },
+    {
+      "id": "web_testing-junior-3",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Что проверить при тестировании загрузки файла?",
+      "options": [
+        {
+          "id": "web_testing-junior-3-a",
+          "label": "Только загрузку маленькой картинки"
+        },
+        {
+          "id": "web_testing-junior-3-b",
+          "label": "Только загрузку маленькой картинки и наличие кнопки «Загрузить» на странице профиля"
+        },
+        {
+          "id": "web_testing-junior-3-c",
+          "label": "Допустимые типы и размер, граничные размеры, повреждённые файлы и понятные ошибки"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-3-c",
+      "explanation": "Загрузка файлов — частый источник ошибок и уязвимостей.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_testing-junior-4",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Как проверить доступность формы с клавиатуры?",
+      "options": [
+        {
+          "id": "web_testing-junior-4-a",
+          "label": "Нажать мышью на все элементы и убедиться, что они реагируют на клик"
+        },
+        {
+          "id": "web_testing-junior-4-b",
+          "label": "Уменьшить масштаб страницы"
+        },
+        {
+          "id": "web_testing-junior-4-c",
+          "label": "Пройти все поля и кнопки клавишей Tab и убедиться в видимом фокусе"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-4-c",
+      "explanation": "Пользователи без мыши должны выполнять все действия.",
+      "source": "https://www.w3.org/WAI/WCAG22/quickref/#keyboard"
+    },
+    {
+      "id": "web_testing-junior-5",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Что такое API-тестирование?",
+      "options": [
+        {
+          "id": "web_testing-junior-5-a",
+          "label": "Проверка дизайна"
+        },
+        {
+          "id": "web_testing-junior-5-b",
+          "label": "Проверка скорости загрузки страниц сайта в разных браузерах"
+        },
+        {
+          "id": "web_testing-junior-5-c",
+          "label": "Проверка запросов и ответов сервера без интерфейса"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-5-c",
+      "explanation": "Например, в Postman проверяют статус, тело и ошибки валидации.",
+      "source": "https://learning.postman.com/docs/introduction/overview/"
+    },
+    {
+      "id": "web_testing-junior-6",
+      "grade": "junior",
+      "skillId": "web_testing",
+      "prompt": "Двойное нажатие на «Оплатить» создало два заказа. Как это назвать в отчёте?",
+      "options": [
+        {
+          "id": "web_testing-junior-6-a",
+          "label": "Дефект: нет защиты от повторной отправки"
+        },
+        {
+          "id": "web_testing-junior-6-b",
+          "label": "Ожидаемое поведение: пользователь сам нажал кнопку дважды"
+        },
+        {
+          "id": "web_testing-junior-6-c",
+          "label": "Ошибка браузера"
+        }
+      ],
+      "correctOptionId": "web_testing-junior-6-a",
+      "explanation": "Повторные действия нужно обрабатывать идемпотентно.",
+      "source": "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent"
+    },
+    {
+      "id": "web_testing-middle-1",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Как проверить, что сессия завершается после выхода?",
+      "options": [
+        {
+          "id": "web_testing-middle-1-a",
+          "label": "Обновить страницу один раз"
+        },
+        {
+          "id": "web_testing-middle-1-b",
+          "label": "Повторить запрос со старой cookie после выхода и убедиться в отказе"
+        },
+        {
+          "id": "web_testing-middle-1-c",
+          "label": "Проверить, что кнопка «Выйти» видна и после нажатия открывается главная страница"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-1-b",
+      "explanation": "Сервер должен аннулировать сессию, а не только интерфейс.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_testing-middle-2",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Как найти уязвимость IDOR при ручном тестировании?",
+      "options": [
+        {
+          "id": "web_testing-middle-2-a",
+          "label": "Подменить идентификатор чужого объекта в запросе и проверить доступ"
+        },
+        {
+          "id": "web_testing-middle-2-b",
+          "label": "Ввести очень длинный пароль и проверить, что форма не падает при отправке"
+        },
+        {
+          "id": "web_testing-middle-2-c",
+          "label": "Открыть сайт в другом браузере"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-2-a",
+      "explanation": "Сервер должен проверять право на каждый объект.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_testing-middle-3",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Что проверить при медленной сети?",
+      "options": [
+        {
+          "id": "web_testing-middle-3-a",
+          "label": "Индикаторы загрузки, таймауты и поведение при повторных нажатиях"
+        },
+        {
+          "id": "web_testing-middle-3-b",
+          "label": "Только время загрузки картинок"
+        },
+        {
+          "id": "web_testing-middle-3-c",
+          "label": "Только время загрузки картинок, потому что остальное от сети не зависит"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-3-a",
+      "explanation": "Throttling в DevTools имитирует медленное соединение.",
+      "source": "https://developer.chrome.com/docs/devtools/settings/throttling"
+    },
+    {
+      "id": "web_testing-middle-4",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Как проверить корректность кэширования страниц?",
+      "options": [
+        {
+          "id": "web_testing-middle-4-a",
+          "label": "Посмотреть заголовки Cache-Control и поведение после обновления данных"
+        },
+        {
+          "id": "web_testing-middle-4-b",
+          "label": "Очистить кэш браузера один раз и считать задачу проверки кэширования выполненной"
+        },
+        {
+          "id": "web_testing-middle-4-c",
+          "label": "Кэширование не тестируется"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-4-a",
+      "explanation": "Неверное кэширование может показывать устаревшие или чужие данные.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching"
+    },
+    {
+      "id": "web_testing-middle-5",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Как проверить локализацию интерфейса?",
+      "options": [
+        {
+          "id": "web_testing-middle-5-a",
+          "label": "Длинные строки, форматы дат и чисел, отсутствие непереведённых текстов"
+        },
+        {
+          "id": "web_testing-middle-5-b",
+          "label": "Только перевод заголовка страницы и названия кнопок на главном экране сайта"
+        },
+        {
+          "id": "web_testing-middle-5-c",
+          "label": "Только язык браузера"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-5-a",
+      "explanation": "Длинные переводы часто ломают вёрстку.",
+      "source": "https://en.wikipedia.org/wiki/Internationalization_and_localization"
+    },
+    {
+      "id": "web_testing-middle-6",
+      "grade": "middle",
+      "skillId": "web_testing",
+      "prompt": "Что проверить в письме с подтверждением регистрации?",
+      "options": [
+        {
+          "id": "web_testing-middle-6-a",
+          "label": "Только наличие логотипа компании и корректную тему письма с подтверждением адреса"
+        },
+        {
+          "id": "web_testing-middle-6-b",
+          "label": "Доставку, корректность ссылки или кода, срок действия и повторное использование"
+        },
+        {
+          "id": "web_testing-middle-6-c",
+          "label": "Только тему письма"
+        }
+      ],
+      "correctOptionId": "web_testing-middle-6-b",
+      "explanation": "Одноразовые коды и ссылки нельзя использовать повторно.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_testing-senior-1",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Как организовать тестирование производительности веб-приложения?",
+      "options": [
+        {
+          "id": "web_testing-senior-1-a",
+          "label": "Открыть сайт в десяти вкладках"
+        },
+        {
+          "id": "web_testing-senior-1-b",
+          "label": "Открыть сайт в десяти вкладках браузера и проверить, что все страницы загружаются без ошибок"
+        },
+        {
+          "id": "web_testing-senior-1-c",
+          "label": "Определить профиль нагрузки и цели, провести нагрузочный тест и проанализировать узкие места"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-1-c",
+      "explanation": "Цели формулируют в перцентилях задержки при заданной нагрузке.",
+      "source": "https://grafana.com/docs/k6/latest/testing-guides/test-types/"
+    },
+    {
+      "id": "web_testing-senior-2",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Как проверить соответствие требованиям доступности WCAG?",
+      "options": [
+        {
+          "id": "web_testing-senior-2-a",
+          "label": "Только автоматическим сканером"
+        },
+        {
+          "id": "web_testing-senior-2-b",
+          "label": "Автоматические проверки плюс ручная проверка клавиатурой и экранным диктором"
+        },
+        {
+          "id": "web_testing-senior-2-c",
+          "label": "Только визуальным осмотром"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-2-b",
+      "explanation": "Сканеры находят лишь часть проблем.",
+      "source": "https://www.w3.org/WAI/test-evaluate/"
+    },
+    {
+      "id": "web_testing-senior-3",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Как тестировать миграцию данных при обновлении системы?",
+      "options": [
+        {
+          "id": "web_testing-senior-3-a",
+          "label": "Проверить, что база данных запускается после миграции и отвечает на простой запрос SELECT 1, этого достаточно"
+        },
+        {
+          "id": "web_testing-senior-3-b",
+          "label": "Проверить только новые записи"
+        },
+        {
+          "id": "web_testing-senior-3-c",
+          "label": "Сверить объёмы и контрольные суммы, проверить выборку записей и поведение функций на перенесённых данных"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-3-c",
+      "explanation": "Ошибки миграции часто видны только на старых данных.",
+      "source": "https://glossary.istqb.org/en_US/term/data-migration-testing"
+    },
+    {
+      "id": "web_testing-senior-4",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Чем полезны фича-флаги для тестирования?",
+      "options": [
+        {
+          "id": "web_testing-senior-4-a",
+          "label": "Позволяют включать функцию для ограниченной группы и быстро отключать при проблемах"
+        },
+        {
+          "id": "web_testing-senior-4-b",
+          "label": "Заменяют тестирование, потому что ошибочную функцию всегда можно отключить в продакшене"
+        },
+        {
+          "id": "web_testing-senior-4-c",
+          "label": "Ускоряют загрузку страниц"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-4-a",
+      "explanation": "Флаги снижают риск, но комбинации флагов тоже нужно тестировать.",
+      "source": "https://martinfowler.com/articles/feature-toggles.html"
+    },
+    {
+      "id": "web_testing-senior-5",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Как проверить поведение приложения при сбое зависимого сервиса?",
+      "options": [
+        {
+          "id": "web_testing-senior-5-a",
+          "label": "Дождаться реального сбоя зависимого сервиса в продакшене и посмотреть, что произойдёт с приложением"
+        },
+        {
+          "id": "web_testing-senior-5-b",
+          "label": "Сымитировать недоступность и медленные ответы и проверить понятные ошибки и восстановление"
+        },
+        {
+          "id": "web_testing-senior-5-c",
+          "label": "Отключить логи"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-5-b",
+      "explanation": "Тестирование отказов проверяет таймауты и деградацию.",
+      "source": "https://principlesofchaos.org/"
+    },
+    {
+      "id": "web_testing-senior-6",
+      "grade": "senior",
+      "skillId": "web_testing",
+      "prompt": "Как тестировщику участвовать в разборе требований?",
+      "options": [
+        {
+          "id": "web_testing-senior-6-a",
+          "label": "Ждать готовой сборки и оценивать сроки тестирования, не вмешиваясь в требования"
+        },
+        {
+          "id": "web_testing-senior-6-b",
+          "label": "Только оценивать сроки"
+        },
+        {
+          "id": "web_testing-senior-6-c",
+          "label": "Задавать вопросы о граничных случаях и проверяемости до начала разработки"
+        }
+      ],
+      "correctOptionId": "web_testing-senior-6-c",
+      "explanation": "Раннее участие дешевле поиска дефектов после реализации.",
+      "source": "https://glossary.istqb.org/en_US/term/review"
+    },
+    {
+      "id": "web_testing-lead-1",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Как выстроить процесс приёмки релизов для нескольких команд?",
+      "options": [
+        {
+          "id": "web_testing-lead-1-a",
+          "label": "Каждая команда тестирует как хочет, а релиз выпускается по готовности последней из команд"
+        },
+        {
+          "id": "web_testing-lead-1-b",
+          "label": "Единые критерии готовности, автоматические проверки в конвейере и ответственный за решение"
+        },
+        {
+          "id": "web_testing-lead-1-c",
+          "label": "Выпускать без проверки"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-1-b",
+      "explanation": "Прозрачные критерии ускоряют релизы и снижают риски.",
+      "source": "https://dora.dev/capabilities/continuous-delivery/"
+    },
+    {
+      "id": "web_testing-lead-2",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Как использовать данные продакшена для улучшения тестирования?",
+      "options": [
+        {
+          "id": "web_testing-lead-2-a",
+          "label": "Копировать персональные данные из продакшена в тестовое окружение без изменений для точности"
+        },
+        {
+          "id": "web_testing-lead-2-b",
+          "label": "Анализировать частые сценарии и инциденты; использовать обезличенные данные"
+        },
+        {
+          "id": "web_testing-lead-2-c",
+          "label": "Игнорировать продакшен"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-2-b",
+      "explanation": "Обезличивание обязательно при работе с персональными данными.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "web_testing-lead-3",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Как обучать новых тестировщиков в команде?",
+      "options": [
+        {
+          "id": "web_testing-lead-3-a",
+          "label": "Только самостоятельное изучение документации без наставника и разбора реальных задач"
+        },
+        {
+          "id": "web_testing-lead-3-b",
+          "label": "Сразу поручить релизы"
+        },
+        {
+          "id": "web_testing-lead-3-c",
+          "label": "Наставничество, документированные практики и разбор реальных дефектов"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-3-c",
+      "explanation": "Систематическое обучение сокращает время до самостоятельной работы.",
+      "source": "https://glossary.istqb.org/en_US/term/test-process"
+    },
+    {
+      "id": "web_testing-lead-4",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Как доказать бизнесу ценность тестирования?",
+      "options": [
+        {
+          "id": "web_testing-lead-4-a",
+          "label": "Показать число написанных тест-кейсов и часов работы отдела за последний год"
+        },
+        {
+          "id": "web_testing-lead-4-b",
+          "label": "Показать снижение инцидентов и стоимости исправлений с данными"
+        },
+        {
+          "id": "web_testing-lead-4-c",
+          "label": "Не нужно доказывать"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-4-b",
+      "explanation": "Ценность выражается в рисках и затратах, которых удалось избежать.",
+      "source": "https://dora.dev/guides/dora-metrics-four-keys/"
+    },
+    {
+      "id": "web_testing-lead-5",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Как управлять тестовыми окружениями?",
+      "options": [
+        {
+          "id": "web_testing-lead-5-a",
+          "label": "Воспроизводимые окружения из кода с контролируемыми данными"
+        },
+        {
+          "id": "web_testing-lead-5-b",
+          "label": "Одно общее окружение, которое настраивают вручную"
+        },
+        {
+          "id": "web_testing-lead-5-c",
+          "label": "Тестировать сразу в продакшене"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-5-a",
+      "explanation": "Окружения из кода исключают «у меня работает».",
+      "source": "https://www.terraform.io/use-cases/infrastructure-as-code"
+    },
+    {
+      "id": "web_testing-lead-6",
+      "grade": "lead",
+      "skillId": "web_testing",
+      "prompt": "Когда стоит привлекать внешний аудит качества или безопасности?",
+      "options": [
+        {
+          "id": "web_testing-lead-6-a",
+          "label": "Никогда: внешние аудиторы не знают продукт и только тратят бюджет компании на отчёты"
+        },
+        {
+          "id": "web_testing-lead-6-b",
+          "label": "Вместо собственной команды тестирования"
+        },
+        {
+          "id": "web_testing-lead-6-c",
+          "label": "Для независимой оценки высокорисковых систем и проверки соответствия требованиям"
+        }
+      ],
+      "correctOptionId": "web_testing-lead-6-c",
+      "explanation": "Независимая оценка находит то, к чему команда привыкла.",
+      "source": "https://owasp.org/www-project-web-security-testing-guide/"
+    },
+    {
+      "id": "test_automation-intern-1",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Что такое автотест?",
+      "options": [
+        {
+          "id": "test_automation-intern-1-a",
+          "label": "Программа, которая выполняет проверку и сравнивает результат с ожидаемым"
+        },
+        {
+          "id": "test_automation-intern-1-b",
+          "label": "Ручная проверка по чек-листу, которую выполняет тестировщик перед релизом"
+        },
+        {
+          "id": "test_automation-intern-1-c",
+          "label": "Отчёт об ошибке"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-1-a",
+      "explanation": "Автотесты быстро и одинаково повторяют проверки.",
+      "source": "https://glossary.istqb.org/en_US/term/test-automation"
+    },
+    {
+      "id": "test_automation-intern-2",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Что делает assert в тесте?",
+      "options": [
+        {
+          "id": "test_automation-intern-2-a",
+          "label": "Запускает приложение и записывает результат в журнал"
+        },
+        {
+          "id": "test_automation-intern-2-b",
+          "label": "Проверяет условие и проваливает тест, если оно ложно"
+        },
+        {
+          "id": "test_automation-intern-2-c",
+          "label": "Печатает лог"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-2-b",
+      "explanation": "Без утверждений тест ничего не проверяет.",
+      "source": "https://docs.pytest.org/en/stable/how-to/assert.html"
+    },
+    {
+      "id": "test_automation-intern-3",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Какой инструмент автоматизирует действия в браузере?",
+      "options": [
+        {
+          "id": "test_automation-intern-3-a",
+          "label": "Playwright или Selenium"
+        },
+        {
+          "id": "test_automation-intern-3-b",
+          "label": "Git"
+        },
+        {
+          "id": "test_automation-intern-3-c",
+          "label": "Excel"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-3-a",
+      "explanation": "Они управляют браузером: открывают страницы, нажимают кнопки, читают текст.",
+      "source": "https://playwright.dev/docs/intro"
+    },
+    {
+      "id": "test_automation-intern-4",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Что такое модульный (unit) тест?",
+      "options": [
+        {
+          "id": "test_automation-intern-4-a",
+          "label": "Тест всей системы через интерфейс"
+        },
+        {
+          "id": "test_automation-intern-4-b",
+          "label": "Нагрузочный тест"
+        },
+        {
+          "id": "test_automation-intern-4-c",
+          "label": "Тест отдельной функции или класса в изоляции"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-4-c",
+      "explanation": "Модульные тесты быстрые и точно указывают место ошибки.",
+      "source": "https://martinfowler.com/bliki/UnitTest.html"
+    },
+    {
+      "id": "test_automation-intern-5",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Зачем запускать автотесты в CI?",
+      "options": [
+        {
+          "id": "test_automation-intern-5-a",
+          "label": "Чтобы тесты шли медленнее"
+        },
+        {
+          "id": "test_automation-intern-5-b",
+          "label": "Чтобы тесты шли медленнее и не мешали разработчикам работать"
+        },
+        {
+          "id": "test_automation-intern-5-c",
+          "label": "Чтобы каждое изменение проверялось автоматически до слияния"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-5-c",
+      "explanation": "CI даёт быструю обратную связь команде.",
+      "source": "https://martinfowler.com/articles/continuousIntegration.html"
+    },
+    {
+      "id": "test_automation-intern-6",
+      "grade": "intern",
+      "skillId": "test_automation",
+      "prompt": "Что такое локатор элемента?",
+      "options": [
+        {
+          "id": "test_automation-intern-6-a",
+          "label": "Адрес тестового сервера, на котором запускаются автотесты по ночам"
+        },
+        {
+          "id": "test_automation-intern-6-b",
+          "label": "Имя теста"
+        },
+        {
+          "id": "test_automation-intern-6-c",
+          "label": "Способ найти элемент на странице, например по роли или тексту"
+        }
+      ],
+      "correctOptionId": "test_automation-intern-6-c",
+      "explanation": "Устойчивые локаторы делают UI-тесты надёжнее.",
+      "source": "https://playwright.dev/docs/locators"
+    },
+    {
+      "id": "test_automation-junior-1",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Какой локатор устойчивее для кнопки «Отправить»?",
+      "options": [
+        {
+          "id": "test_automation-junior-1-a",
+          "label": "По абсолютному XPath от корня документа до кнопки через все вложенные div"
+        },
+        {
+          "id": "test_automation-junior-1-b",
+          "label": "По роли и доступному имени: getByRole('button', { name: 'Отправить' })"
+        },
+        {
+          "id": "test_automation-junior-1-c",
+          "label": "По порядковому номеру div на странице"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-1-b",
+      "explanation": "Роли и имена отражают то, что видит пользователь, и меньше зависят от вёрстки.",
+      "source": "https://playwright.dev/docs/locators#locate-by-role"
+    },
+    {
+      "id": "test_automation-junior-2",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Почему не стоит использовать фиксированные паузы sleep(5) в UI-тестах?",
+      "options": [
+        {
+          "id": "test_automation-junior-2-a",
+          "label": "sleep запрещён во всех языках программирования и вызывает ошибку компиляции"
+        },
+        {
+          "id": "test_automation-junior-2-b",
+          "label": "Тесты становятся медленными и всё равно нестабильными; лучше ждать условие"
+        },
+        {
+          "id": "test_automation-junior-2-c",
+          "label": "sleep ускоряет тест"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-2-b",
+      "explanation": "Автоожидания ждут готовности элемента ровно столько, сколько нужно.",
+      "source": "https://playwright.dev/docs/actionability"
+    },
+    {
+      "id": "test_automation-junior-3",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Что такое паттерн Page Object?",
+      "options": [
+        {
+          "id": "test_automation-junior-3-a",
+          "label": "Скриншот страницы для сравнения с эталоном в отчёте"
+        },
+        {
+          "id": "test_automation-junior-3-b",
+          "label": "Тип базы данных"
+        },
+        {
+          "id": "test_automation-junior-3-c",
+          "label": "Класс, инкапсулирующий элементы и действия страницы"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-3-c",
+      "explanation": "Изменение вёрстки правится в одном месте, а не во всех тестах.",
+      "source": "https://martinfowler.com/bliki/PageObject.html"
+    },
+    {
+      "id": "test_automation-junior-4",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Что такое фикстура в pytest?",
+      "options": [
+        {
+          "id": "test_automation-junior-4-a",
+          "label": "Функция, подготавливающая данные или окружение для тестов"
+        },
+        {
+          "id": "test_automation-junior-4-b",
+          "label": "Падающий тест"
+        },
+        {
+          "id": "test_automation-junior-4-c",
+          "label": "Отчёт о покрытии кода тестами после прогона"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-4-a",
+      "explanation": "Фикстуры переиспользуют подготовку и очистку.",
+      "source": "https://docs.pytest.org/en/stable/explanation/fixtures.html"
+    },
+    {
+      "id": "test_automation-junior-5",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Почему тесты не должны зависеть друг от друга?",
+      "options": [
+        {
+          "id": "test_automation-junior-5-a",
+          "label": "Чтобы тестов было больше, и отчёт о прогоне выглядел солиднее для руководства"
+        },
+        {
+          "id": "test_automation-junior-5-b",
+          "label": "Это требование только для Java"
+        },
+        {
+          "id": "test_automation-junior-5-c",
+          "label": "Иначе порядок запуска влияет на результат, и падения трудно разбирать"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-5-c",
+      "explanation": "Каждый тест готовит своё состояние.",
+      "source": "https://martinfowler.com/articles/nonDeterminism.html"
+    },
+    {
+      "id": "test_automation-junior-6",
+      "grade": "junior",
+      "skillId": "test_automation",
+      "prompt": "Что такое мок (mock) в тесте?",
+      "options": [
+        {
+          "id": "test_automation-junior-6-a",
+          "label": "Настоящая база данных, запущенная специально для одного теста и удаляемая после него"
+        },
+        {
+          "id": "test_automation-junior-6-b",
+          "label": "Подмена зависимости с контролируемым поведением и проверкой вызовов"
+        },
+        {
+          "id": "test_automation-junior-6-c",
+          "label": "Тест производительности"
+        }
+      ],
+      "correctOptionId": "test_automation-junior-6-b",
+      "explanation": "Моки изолируют тестируемый код от внешних систем.",
+      "source": "https://martinfowler.com/articles/mocksArentStubs.html"
+    },
+    {
+      "id": "test_automation-middle-1",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Как сделать тесты API независимыми от общих тестовых данных?",
+      "options": [
+        {
+          "id": "test_automation-middle-1-a",
+          "label": "Создавать нужные данные в каждом тесте и удалять после"
+        },
+        {
+          "id": "test_automation-middle-1-b",
+          "label": "Использовать данные, созданные вручную вчера"
+        },
+        {
+          "id": "test_automation-middle-1-c",
+          "label": "Запускать тесты строго по одному в определённом порядке"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-1-a",
+      "explanation": "Изоляция данных позволяет запускать тесты параллельно.",
+      "source": "https://martinfowler.com/articles/nonDeterminism.html"
+    },
+    {
+      "id": "test_automation-middle-2",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Как ускорить долгий набор сквозных тестов?",
+      "options": [
+        {
+          "id": "test_automation-middle-2-a",
+          "label": "Добавить паузы между шагами и запускать набор раз в месяц, чтобы не тратить время команды"
+        },
+        {
+          "id": "test_automation-middle-2-b",
+          "label": "Запускать раз в месяц"
+        },
+        {
+          "id": "test_automation-middle-2-c",
+          "label": "Параллельный запуск, перенос проверок на нижние уровни и подготовка данных через API"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-2-c",
+      "explanation": "Подготовка состояния через API быстрее, чем через интерфейс.",
+      "source": "https://playwright.dev/docs/test-parallel"
+    },
+    {
+      "id": "test_automation-middle-3",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Что такое тестовые двойники (stub, fake, mock)?",
+      "options": [
+        {
+          "id": "test_automation-middle-3-a",
+          "label": "Дубликаты тест-кейсов, которые запускаются дважды для надёжности результата"
+        },
+        {
+          "id": "test_automation-middle-3-b",
+          "label": "Копии продакшен-базы"
+        },
+        {
+          "id": "test_automation-middle-3-c",
+          "label": "Объекты-заменители зависимостей с разным уровнем поведения и проверок"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-3-c",
+      "explanation": "Fake имеет рабочую упрощённую реализацию, stub возвращает заготовки, mock проверяет вызовы.",
+      "source": "https://martinfowler.com/bliki/TestDouble.html"
+    },
+    {
+      "id": "test_automation-middle-4",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Как тестировать интеграцию с базой данных надёжно?",
+      "options": [
+        {
+          "id": "test_automation-middle-4-a",
+          "label": "Запускать настоящую СУБД в контейнере (например, Testcontainers) для каждого прогона"
+        },
+        {
+          "id": "test_automation-middle-4-b",
+          "label": "Мокать все SQL-запросы"
+        },
+        {
+          "id": "test_automation-middle-4-c",
+          "label": "Мокать все SQL-запросы и проверять только текст запросов, которые отправляет приложение"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-4-a",
+      "explanation": "Реальная база ловит ошибки SQL, которые моки пропускают.",
+      "source": "https://testcontainers.com/"
+    },
+    {
+      "id": "test_automation-middle-5",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Что такое визуальное регрессионное тестирование?",
+      "options": [
+        {
+          "id": "test_automation-middle-5-a",
+          "label": "Проверка цвета логотипа вручную на каждом экране приложения перед релизом"
+        },
+        {
+          "id": "test_automation-middle-5-b",
+          "label": "Сравнение скриншотов с эталоном для поиска изменений интерфейса"
+        },
+        {
+          "id": "test_automation-middle-5-c",
+          "label": "Тестирование видеоплеера"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-5-b",
+      "explanation": "Нужны стабильные данные и допуск на мелкие различия рендеринга.",
+      "source": "https://playwright.dev/docs/test-snapshots"
+    },
+    {
+      "id": "test_automation-middle-6",
+      "grade": "middle",
+      "skillId": "test_automation",
+      "prompt": "Как хранить секреты для автотестов в CI?",
+      "options": [
+        {
+          "id": "test_automation-middle-6-a",
+          "label": "В коде тестов"
+        },
+        {
+          "id": "test_automation-middle-6-b",
+          "label": "В защищённом хранилище секретов CI, а не в репозитории"
+        },
+        {
+          "id": "test_automation-middle-6-c",
+          "label": "В публичном README, чтобы все разработчики имели доступ"
+        }
+      ],
+      "correctOptionId": "test_automation-middle-6-b",
+      "explanation": "Секреты в репозитории легко утекают.",
+      "source": "https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions"
+    },
+    {
+      "id": "test_automation-senior-1",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как построить фреймворк автотестов, который выдержит рост проекта?",
+      "options": [
+        {
+          "id": "test_automation-senior-1-a",
+          "label": "Один большой файл со всеми тестами, чтобы их было проще найти поиском по тексту"
+        },
+        {
+          "id": "test_automation-senior-1-b",
+          "label": "Слои: тесты, бизнес-действия, клиенты и данные; общие утилиты и стандарты"
+        },
+        {
+          "id": "test_automation-senior-1-c",
+          "label": "Копирование кода между тестами"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-1-b",
+      "explanation": "Разделение ответственности упрощает поддержку.",
+      "source": "https://martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "id": "test_automation-senior-2",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как бороться с нестабильными UI-тестами системно?",
+      "options": [
+        {
+          "id": "test_automation-senior-2-a",
+          "label": "Собирать статистику падений, разбирать причины и исправлять ожидания и данные"
+        },
+        {
+          "id": "test_automation-senior-2-b",
+          "label": "Перезапускать упавшие тесты до трёх раз и не разбирать"
+        },
+        {
+          "id": "test_automation-senior-2-c",
+          "label": "Отключать нестабильные навсегда"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-2-a",
+      "explanation": "Повторный запуск маскирует реальные проблемы гонок.",
+      "source": "https://playwright.dev/docs/test-retries"
+    },
+    {
+      "id": "test_automation-senior-3",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как проверять асинхронную обработку событий в тестах?",
+      "options": [
+        {
+          "id": "test_automation-senior-3-a",
+          "label": "Добавить паузу в 10 секунд"
+        },
+        {
+          "id": "test_automation-senior-3-b",
+          "label": "Ждать наблюдаемого результата с таймаутом, а не фиксированное время"
+        },
+        {
+          "id": "test_automation-senior-3-c",
+          "label": "Проверять сразу после отправки события"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-3-b",
+      "explanation": "Опрос состояния до таймаута делает тест быстрым и надёжным.",
+      "source": "https://martinfowler.com/articles/nonDeterminism.html"
+    },
+    {
+      "id": "test_automation-senior-4",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как тестировать микросервисы без полного окружения?",
+      "options": [
+        {
+          "id": "test_automation-senior-4-a",
+          "label": "Контрактные тесты между сервисами и компонентные тесты с заглушками"
+        },
+        {
+          "id": "test_automation-senior-4-b",
+          "label": "Только сквозными тестами на всех сервисах"
+        },
+        {
+          "id": "test_automation-senior-4-c",
+          "label": "Только ручным тестированием"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-4-a",
+      "explanation": "Контракты фиксируют ожидания потребителей.",
+      "source": "https://docs.pact.io/"
+    },
+    {
+      "id": "test_automation-senior-5",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как оценить ценность автотеста?",
+      "options": [
+        {
+          "id": "test_automation-senior-5-a",
+          "label": "По количеству строк кода теста и времени его выполнения в конвейере сборки"
+        },
+        {
+          "id": "test_automation-senior-5-b",
+          "label": "По рискам, которые он ловит, частоте запуска и стоимости поддержки"
+        },
+        {
+          "id": "test_automation-senior-5-c",
+          "label": "По времени выполнения"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-5-b",
+      "explanation": "Дорогие и бесполезные тесты стоит удалять или переносить ниже.",
+      "source": "https://martinfowler.com/bliki/TestPyramid.html"
+    },
+    {
+      "id": "test_automation-senior-6",
+      "grade": "senior",
+      "skillId": "test_automation",
+      "prompt": "Как тестировать производительность в CI?",
+      "options": [
+        {
+          "id": "test_automation-senior-6-a",
+          "label": "Короткие нагрузочные тесты с пороговыми значениями и сравнением с прошлыми результатами"
+        },
+        {
+          "id": "test_automation-senior-6-b",
+          "label": "Полный стресс-тест на каждом коммите или не тестировать производительность в CI вообще"
+        },
+        {
+          "id": "test_automation-senior-6-c",
+          "label": "Не тестировать"
+        }
+      ],
+      "correctOptionId": "test_automation-senior-6-a",
+      "explanation": "Пороги в CI ловят регрессии производительности рано.",
+      "source": "https://grafana.com/docs/k6/latest/using-k6/thresholds/"
+    },
+    {
+      "id": "test_automation-lead-1",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Как спланировать переход команды от ручного к автоматизированному тестированию?",
+      "options": [
+        {
+          "id": "test_automation-lead-1-a",
+          "label": "Автоматизировать всё за один спринт и сразу отказаться от ручных проверок во всех командах"
+        },
+        {
+          "id": "test_automation-lead-1-b",
+          "label": "Начать с критичных регрессионных сценариев, обучить людей и измерять эффект"
+        },
+        {
+          "id": "test_automation-lead-1-c",
+          "label": "Уволить ручных тестировщиков сразу"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-1-b",
+      "explanation": "Постепенный переход сохраняет качество во время изменений.",
+      "source": "https://glossary.istqb.org/en_US/term/test-automation"
+    },
+    {
+      "id": "test_automation-lead-2",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Кто должен писать автотесты в продуктовой команде?",
+      "options": [
+        {
+          "id": "test_automation-lead-2-a",
+          "label": "Только отдельная команда автоматизации после релиза"
+        },
+        {
+          "id": "test_automation-lead-2-b",
+          "label": "Никто, тесты генерируются сами"
+        },
+        {
+          "id": "test_automation-lead-2-c",
+          "label": "Разработчики и инженеры по качеству вместе, по договорённому разделению уровней"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-2-c",
+      "explanation": "Совместная ответственность ускоряет обратную связь.",
+      "source": "https://martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "id": "test_automation-lead-3",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Как выбрать инструмент автоматизации UI?",
+      "options": [
+        {
+          "id": "test_automation-lead-3-a",
+          "label": "По популярности в прошлом году и наличию красивого логотипа на сайте проекта инструмента"
+        },
+        {
+          "id": "test_automation-lead-3-b",
+          "label": "По поддержке нужных браузеров, надёжности ожиданий, скорости и компетенциям команды"
+        },
+        {
+          "id": "test_automation-lead-3-c",
+          "label": "По наличию красивого логотипа"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-3-b",
+      "explanation": "Пилот на реальных сценариях лучше сравнения по статьям.",
+      "source": "https://playwright.dev/docs/intro"
+    },
+    {
+      "id": "test_automation-lead-4",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Как сделать результаты тестов полезными для команды?",
+      "options": [
+        {
+          "id": "test_automation-lead-4-a",
+          "label": "Отправлять только число прошедших тестов в общий чат команды после каждой сборки"
+        },
+        {
+          "id": "test_automation-lead-4-b",
+          "label": "Скрывать падения до релиза"
+        },
+        {
+          "id": "test_automation-lead-4-c",
+          "label": "Понятные отчёты с артефактами (логи, трейсы, скриншоты) и быстрый разбор падений"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-4-c",
+      "explanation": "Артефакты сокращают время диагностики.",
+      "source": "https://playwright.dev/docs/trace-viewer"
+    },
+    {
+      "id": "test_automation-lead-5",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Как поддерживать тесты при частых изменениях интерфейса?",
+      "options": [
+        {
+          "id": "test_automation-lead-5-a",
+          "label": "Использовать координаты кликов"
+        },
+        {
+          "id": "test_automation-lead-5-b",
+          "label": "Договориться о доступных ролях и тестовых идентификаторах с разработчиками"
+        },
+        {
+          "id": "test_automation-lead-5-c",
+          "label": "Переписывать тесты после каждого релиза"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-5-b",
+      "explanation": "Стабильный контракт интерфейса для тестов снижает затраты.",
+      "source": "https://playwright.dev/docs/locators"
+    },
+    {
+      "id": "test_automation-lead-6",
+      "grade": "lead",
+      "skillId": "test_automation",
+      "prompt": "Какая доля сквозных тестов разумна?",
+      "options": [
+        {
+          "id": "test_automation-lead-6-a",
+          "label": "Все тесты должны быть сквозными, потому что только они проверяют систему по-настоящему"
+        },
+        {
+          "id": "test_automation-lead-6-b",
+          "label": "Небольшая: ключевые пользовательские сценарии, остальное ниже по пирамиде"
+        },
+        {
+          "id": "test_automation-lead-6-c",
+          "label": "Сквозные тесты не нужны"
+        }
+      ],
+      "correctOptionId": "test_automation-lead-6-b",
+      "explanation": "Сквозные тесты дорогие и медленные, но проверяют систему целиком.",
+      "source": "https://martinfowler.com/bliki/TestPyramid.html"
+    },
+    {
+      "id": "web_security-intern-1",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Что такое HTTPS?",
+      "options": [
+        {
+          "id": "web_security-intern-1-a",
+          "label": "Более быстрая версия HTTP без шифрования трафика для мобильных сетей"
+        },
+        {
+          "id": "web_security-intern-1-b",
+          "label": "Протокол электронной почты"
+        },
+        {
+          "id": "web_security-intern-1-c",
+          "label": "HTTP поверх TLS: шифрование и проверка подлинности сервера"
+        }
+      ],
+      "correctOptionId": "web_security-intern-1-c",
+      "explanation": "Сертификат подтверждает, что вы общаетесь с нужным сервером.",
+      "source": "https://developer.mozilla.org/en-US/docs/Glossary/HTTPS"
+    },
+    {
+      "id": "web_security-intern-2",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Почему пароли нельзя хранить в открытом виде?",
+      "options": [
+        {
+          "id": "web_security-intern-2-a",
+          "label": "Утечка базы сразу раскроет пароли пользователей"
+        },
+        {
+          "id": "web_security-intern-2-b",
+          "label": "Это замедляет вход"
+        },
+        {
+          "id": "web_security-intern-2-c",
+          "label": "Пароли в открытом виде занимают больше места"
+        }
+      ],
+      "correctOptionId": "web_security-intern-2-a",
+      "explanation": "Пароли хранят как хеши с солью специальными алгоритмами.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-intern-3",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Что такое фишинг?",
+      "options": [
+        {
+          "id": "web_security-intern-3-a",
+          "label": "Обман с целью выманить данные, например поддельным письмом или сайтом"
+        },
+        {
+          "id": "web_security-intern-3-b",
+          "label": "Тип шифрования почтовых сообщений, применяемый в корпоративных сетях компаний"
+        },
+        {
+          "id": "web_security-intern-3-c",
+          "label": "Защита от вирусов"
+        }
+      ],
+      "correctOptionId": "web_security-intern-3-a",
+      "explanation": "Проверяйте адрес отправителя и домен сайта.",
+      "source": "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing"
+    },
+    {
+      "id": "web_security-intern-4",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Что такое двухфакторная аутентификация?",
+      "options": [
+        {
+          "id": "web_security-intern-4-a",
+          "label": "Вход с двумя разными факторами, например паролем и одноразовым кодом"
+        },
+        {
+          "id": "web_security-intern-4-b",
+          "label": "Ввод одного и того же пароля дважды подряд для подтверждения входа в аккаунт"
+        },
+        {
+          "id": "web_security-intern-4-c",
+          "label": "Два разных пароля"
+        }
+      ],
+      "correctOptionId": "web_security-intern-4-a",
+      "explanation": "Второй фактор защищает при утечке пароля.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-intern-5",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Что такое OWASP Top 10?",
+      "options": [
+        {
+          "id": "web_security-intern-5-a",
+          "label": "Рейтинг десяти лучших антивирусов для защиты веб-серверов от вредоносных программ"
+        },
+        {
+          "id": "web_security-intern-5-b",
+          "label": "Список языков программирования"
+        },
+        {
+          "id": "web_security-intern-5-c",
+          "label": "Список самых распространённых рисков безопасности веб-приложений"
+        }
+      ],
+      "correctOptionId": "web_security-intern-5-c",
+      "explanation": "Документ регулярно обновляется сообществом OWASP.",
+      "source": "https://owasp.org/www-project-top-ten/"
+    },
+    {
+      "id": "web_security-intern-6",
+      "grade": "intern",
+      "skillId": "web_security",
+      "prompt": "Почему важно обновлять зависимости приложения?",
+      "options": [
+        {
+          "id": "web_security-intern-6-a",
+          "label": "Новые версии всегда быстрее"
+        },
+        {
+          "id": "web_security-intern-6-b",
+          "label": "Без обновлений приложение не запустится"
+        },
+        {
+          "id": "web_security-intern-6-c",
+          "label": "В старых версиях могут быть известные уязвимости"
+        }
+      ],
+      "correctOptionId": "web_security-intern-6-c",
+      "explanation": "Известные уязвимости активно эксплуатируются.",
+      "source": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    },
+    {
+      "id": "web_security-junior-1",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Что такое SQL-инъекция?",
+      "options": [
+        {
+          "id": "web_security-junior-1-a",
+          "label": "Внедрение SQL-кода через входные данные, которые склеиваются с запросом"
+        },
+        {
+          "id": "web_security-junior-1-b",
+          "label": "Перегрузка базы данных большим числом одновременных запросов от пользователей"
+        },
+        {
+          "id": "web_security-junior-1-c",
+          "label": "Утечка пароля из логов"
+        }
+      ],
+      "correctOptionId": "web_security-junior-1-a",
+      "explanation": "Защита — параметризованные запросы.",
+      "source": "https://owasp.org/www-community/attacks/SQL_Injection"
+    },
+    {
+      "id": "web_security-junior-2",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Что такое XSS?",
+      "options": [
+        {
+          "id": "web_security-junior-2-a",
+          "label": "Подбор паролей"
+        },
+        {
+          "id": "web_security-junior-2-b",
+          "label": "Перехват трафика Wi-Fi в публичной сети и подмена страниц у других посетителей"
+        },
+        {
+          "id": "web_security-junior-2-c",
+          "label": "Выполнение внедрённого скрипта в браузере другого пользователя"
+        }
+      ],
+      "correctOptionId": "web_security-junior-2-c",
+      "explanation": "Защита — контекстное экранирование вывода и Content Security Policy.",
+      "source": "https://owasp.org/www-community/attacks/xss/"
+    },
+    {
+      "id": "web_security-junior-3",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Что защищает от CSRF?",
+      "options": [
+        {
+          "id": "web_security-junior-3-a",
+          "label": "Длинный пароль"
+        },
+        {
+          "id": "web_security-junior-3-b",
+          "label": "Атрибут cookie SameSite и проверка CSRF-токена или Origin"
+        },
+        {
+          "id": "web_security-junior-3-c",
+          "label": "Использование HTTPS на всех страницах сайта само по себе защищает от подделки"
+        }
+      ],
+      "correctOptionId": "web_security-junior-3-b",
+      "explanation": "CSRF использует автоматическую отправку cookie браузером.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-junior-4",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Какие атрибуты стоит выставить cookie сессии?",
+      "options": [
+        {
+          "id": "web_security-junior-4-a",
+          "label": "Expires через 100 лет"
+        },
+        {
+          "id": "web_security-junior-4-b",
+          "label": "HttpOnly, Secure и SameSite"
+        },
+        {
+          "id": "web_security-junior-4-c",
+          "label": "Domain для всех сайтов"
+        }
+      ],
+      "correctOptionId": "web_security-junior-4-b",
+      "explanation": "HttpOnly скрывает cookie от JavaScript, Secure передаёт только по HTTPS.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#security"
+    },
+    {
+      "id": "web_security-junior-5",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Почему сообщение «пароль неверен для пользователя ivan» хуже, чем «неверный логин или пароль»?",
+      "options": [
+        {
+          "id": "web_security-junior-5-a",
+          "label": "Оно длиннее"
+        },
+        {
+          "id": "web_security-junior-5-b",
+          "label": "Оно не переведено и выглядит недружелюбно для пользователя"
+        },
+        {
+          "id": "web_security-junior-5-c",
+          "label": "Оно раскрывает, что пользователь существует"
+        }
+      ],
+      "correctOptionId": "web_security-junior-5-c",
+      "explanation": "Перебор существующих аккаунтов облегчает атаки.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-junior-6",
+      "grade": "junior",
+      "skillId": "web_security",
+      "prompt": "Что такое принцип наименьших привилегий?",
+      "options": [
+        {
+          "id": "web_security-junior-6-a",
+          "label": "Давать всем права администратора"
+        },
+        {
+          "id": "web_security-junior-6-b",
+          "label": "Запрещать любой доступ"
+        },
+        {
+          "id": "web_security-junior-6-c",
+          "label": "Давать только права, необходимые для задачи"
+        }
+      ],
+      "correctOptionId": "web_security-junior-6-c",
+      "explanation": "Он ограничивает ущерб при компрометации.",
+      "source": "https://csrc.nist.gov/glossary/term/least_privilege"
+    },
+    {
+      "id": "web_security-middle-1",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Что такое SSRF?",
+      "options": [
+        {
+          "id": "web_security-middle-1-a",
+          "label": "Атака, при которой браузер пользователя отправляет запросы на чужой сайт с его cookie без ведома"
+        },
+        {
+          "id": "web_security-middle-1-b",
+          "label": "Перебор паролей"
+        },
+        {
+          "id": "web_security-middle-1-c",
+          "label": "Атака, при которой сервер делает запросы к внутренним адресам по указанию атакующего"
+        }
+      ],
+      "correctOptionId": "web_security-middle-1-c",
+      "explanation": "Защита — белые списки адресов и запрет внутренних сетей для исходящих запросов.",
+      "source": "https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/"
+    },
+    {
+      "id": "web_security-middle-2",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Чем полезна политика Content-Security-Policy?",
+      "options": [
+        {
+          "id": "web_security-middle-2-a",
+          "label": "Шифрует трафик между браузером и сервером и ускоряет загрузку страниц сайта"
+        },
+        {
+          "id": "web_security-middle-2-b",
+          "label": "Ускоряет загрузку страниц"
+        },
+        {
+          "id": "web_security-middle-2-c",
+          "label": "Ограничивает источники скриптов и ресурсов, снижая последствия XSS"
+        }
+      ],
+      "correctOptionId": "web_security-middle-2-c",
+      "explanation": "CSP — дополнительный уровень защиты, а не замена экранированию.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"
+    },
+    {
+      "id": "web_security-middle-3",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Как безопасно хранить пароли?",
+      "options": [
+        {
+          "id": "web_security-middle-3-a",
+          "label": "MD5 без соли"
+        },
+        {
+          "id": "web_security-middle-3-b",
+          "label": "Шифрование паролей общим ключом приложения с возможностью расшифровки"
+        },
+        {
+          "id": "web_security-middle-3-c",
+          "label": "Медленные функции хеширования с солью: Argon2id, scrypt или bcrypt"
+        }
+      ],
+      "correctOptionId": "web_security-middle-3-c",
+      "explanation": "Медленные хеши затрудняют перебор после утечки.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-middle-4",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Что проверить в JWT при его приёме?",
+      "options": [
+        {
+          "id": "web_security-middle-4-a",
+          "label": "Только наличие токена"
+        },
+        {
+          "id": "web_security-middle-4-b",
+          "label": "Подпись, алгоритм, срок действия и аудиторию"
+        },
+        {
+          "id": "web_security-middle-4-c",
+          "label": "Только длину токена"
+        }
+      ],
+      "correctOptionId": "web_security-middle-4-b",
+      "explanation": "Неверная проверка алгоритма позволяла подделывать токены.",
+      "source": "https://www.rfc-editor.org/rfc/rfc8725"
+    },
+    {
+      "id": "web_security-middle-5",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Как защититься от перебора паролей?",
+      "options": [
+        {
+          "id": "web_security-middle-5-a",
+          "label": "Скрыть кнопку входа"
+        },
+        {
+          "id": "web_security-middle-5-b",
+          "label": "Запретить длинные пароли"
+        },
+        {
+          "id": "web_security-middle-5-c",
+          "label": "Ограничение попыток, задержки и второй фактор"
+        }
+      ],
+      "correctOptionId": "web_security-middle-5-c",
+      "explanation": "Ограничения по аккаунту и адресу останавливают автоматический перебор.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-middle-6",
+      "grade": "middle",
+      "skillId": "web_security",
+      "prompt": "Что такое небезопасная десериализация?",
+      "options": [
+        {
+          "id": "web_security-middle-6-a",
+          "label": "Медленный разбор JSON"
+        },
+        {
+          "id": "web_security-middle-6-b",
+          "label": "Медленный разбор больших JSON-документов на сервере приложения"
+        },
+        {
+          "id": "web_security-middle-6-c",
+          "label": "Разбор недоверенных данных в объекты, ведущий к выполнению кода"
+        }
+      ],
+      "correctOptionId": "web_security-middle-6-c",
+      "explanation": "Используйте простые форматы данных и проверку схемы.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-senior-1",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Как встроить безопасность в процесс разработки?",
+      "options": [
+        {
+          "id": "web_security-senior-1-a",
+          "label": "Пентест раз в несколько лет и антивирус на серверах приложений"
+        },
+        {
+          "id": "web_security-senior-1-b",
+          "label": "Только антивирус на серверах"
+        },
+        {
+          "id": "web_security-senior-1-c",
+          "label": "Моделирование угроз, проверки в CI (SAST, анализ зависимостей) и ревью"
+        }
+      ],
+      "correctOptionId": "web_security-senior-1-c",
+      "explanation": "Ранние проверки дешевле исправлений после инцидента.",
+      "source": "https://owasp.org/www-project-samm/"
+    },
+    {
+      "id": "web_security-senior-2",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Что такое моделирование угроз?",
+      "options": [
+        {
+          "id": "web_security-senior-2-a",
+          "label": "Систематический анализ того, что может пойти не так, и мер защиты"
+        },
+        {
+          "id": "web_security-senior-2-b",
+          "label": "Запуск вредоносного кода в песочнице для изучения его поведения"
+        },
+        {
+          "id": "web_security-senior-2-c",
+          "label": "Список паролей"
+        }
+      ],
+      "correctOptionId": "web_security-senior-2-a",
+      "explanation": "Методы вроде STRIDE помогают не упустить классы угроз.",
+      "source": "https://owasp.org/www-community/Threat_Modeling"
+    },
+    {
+      "id": "web_security-senior-3",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Как безопасно хранить секреты приложения?",
+      "options": [
+        {
+          "id": "web_security-senior-3-a",
+          "label": "В менеджере секретов с ротацией и ограниченным доступом"
+        },
+        {
+          "id": "web_security-senior-3-b",
+          "label": "В репозитории в зашифрованном архиве с паролем в README"
+        },
+        {
+          "id": "web_security-senior-3-c",
+          "label": "В переменной окружения на ноутбуке разработчика"
+        }
+      ],
+      "correctOptionId": "web_security-senior-3-a",
+      "explanation": "Ротация ограничивает срок жизни утёкшего секрета.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+    },
+    {
+      "id": "web_security-senior-4",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Как защитить цепочку поставки ПО?",
+      "options": [
+        {
+          "id": "web_security-senior-4-a",
+          "label": "Устанавливать последние версии без проверки"
+        },
+        {
+          "id": "web_security-senior-4-b",
+          "label": "Собирать на личных машинах"
+        },
+        {
+          "id": "web_security-senior-4-c",
+          "label": "Фиксировать зависимости, проверять подписи и собирать в изолированной среде"
+        }
+      ],
+      "correctOptionId": "web_security-senior-4-c",
+      "explanation": "Атаки через зависимости и сборку становятся всё чаще.",
+      "source": "https://slsa.dev/"
+    },
+    {
+      "id": "web_security-senior-5",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Как реагировать на обнаруженную уязвимость в продакшене?",
+      "options": [
+        {
+          "id": "web_security-senior-5-a",
+          "label": "Оценить критичность, закрыть или смягчить, проверить следы эксплуатации и сообщить затронутым"
+        },
+        {
+          "id": "web_security-senior-5-b",
+          "label": "Скрыть информацию об уязвимости и исправить её в следующем плановом релизе через несколько месяцев"
+        },
+        {
+          "id": "web_security-senior-5-c",
+          "label": "Ждать следующего планового релиза"
+        }
+      ],
+      "correctOptionId": "web_security-senior-5-a",
+      "explanation": "Процесс реагирования должен быть описан заранее.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/61/r2/final"
+    },
+    {
+      "id": "web_security-senior-6",
+      "grade": "senior",
+      "skillId": "web_security",
+      "prompt": "Что такое уязвимость контроля доступа (Broken Access Control)?",
+      "options": [
+        {
+          "id": "web_security-senior-6-a",
+          "label": "Пользователь может выполнять действия или видеть данные вне своих прав"
+        },
+        {
+          "id": "web_security-senior-6-b",
+          "label": "Сервер слишком медленно отвечает на запросы авторизованных пользователей"
+        },
+        {
+          "id": "web_security-senior-6-c",
+          "label": "Пароль слишком короткий"
+        }
+      ],
+      "correctOptionId": "web_security-senior-6-a",
+      "explanation": "Это первая категория OWASP Top 10 2021.",
+      "source": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    },
+    {
+      "id": "web_security-lead-1",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Как построить программу безопасной разработки?",
+      "options": [
+        {
+          "id": "web_security-lead-1-a",
+          "label": "Купить один инструмент сканирования и поручить его настройку одному специалисту"
+        },
+        {
+          "id": "web_security-lead-1-b",
+          "label": "Оценить зрелость, определить приоритеты, обучить команды и измерять прогресс"
+        },
+        {
+          "id": "web_security-lead-1-c",
+          "label": "Поручить всё одному специалисту"
+        }
+      ],
+      "correctOptionId": "web_security-lead-1-b",
+      "explanation": "OWASP SAMM описывает практики и уровни зрелости.",
+      "source": "https://owasp.org/www-project-samm/"
+    },
+    {
+      "id": "web_security-lead-2",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Зачем программа bug bounty?",
+      "options": [
+        {
+          "id": "web_security-lead-2-a",
+          "label": "Заменяет внутреннее тестирование и позволяет сократить команду безопасности"
+        },
+        {
+          "id": "web_security-lead-2-b",
+          "label": "Наказывает разработчиков за баги"
+        },
+        {
+          "id": "web_security-lead-2-c",
+          "label": "Привлекает внешних исследователей находить уязвимости по понятным правилам"
+        }
+      ],
+      "correctOptionId": "web_security-lead-2-c",
+      "explanation": "Правила и вознаграждения делают раскрытие безопасным.",
+      "source": "https://www.iso.org/standard/72311.html"
+    },
+    {
+      "id": "web_security-lead-3",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Какие требования закона важны при утечке персональных данных в России?",
+      "options": [
+        {
+          "id": "web_security-lead-3-a",
+          "label": "Ничего не делать, если утечка небольшая"
+        },
+        {
+          "id": "web_security-lead-3-b",
+          "label": "Удалить журналы событий"
+        },
+        {
+          "id": "web_security-lead-3-c",
+          "label": "Уведомить Роскомнадзор в установленные сроки и расследовать инцидент"
+        }
+      ],
+      "correctOptionId": "web_security-lead-3-c",
+      "explanation": "152-ФЗ требует уведомлять уполномоченный орган об инцидентах с персональными данными.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "web_security-lead-4",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Как приоритизировать уязвимости при ограниченных ресурсах?",
+      "options": [
+        {
+          "id": "web_security-lead-4-a",
+          "label": "По критичности, доступности для эксплуатации и ценности затронутых активов"
+        },
+        {
+          "id": "web_security-lead-4-b",
+          "label": "По порядку обнаружения уязвимостей и длине их описания в отчёте сканера"
+        },
+        {
+          "id": "web_security-lead-4-c",
+          "label": "По длине описания"
+        }
+      ],
+      "correctOptionId": "web_security-lead-4-a",
+      "explanation": "CVSS и контекст системы помогают выбрать порядок.",
+      "source": "https://www.first.org/cvss/"
+    },
+    {
+      "id": "web_security-lead-5",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Как оценить безопасность стороннего сервиса перед интеграцией?",
+      "options": [
+        {
+          "id": "web_security-lead-5-a",
+          "label": "Проверить обработку данных, сертификаты соответствия, договорные гарантии и минимизировать передаваемые данные"
+        },
+        {
+          "id": "web_security-lead-5-b",
+          "label": "Доверять сервису по известности бренда и передать все данные, чтобы интеграция была удобнее и быстрее для команды"
+        },
+        {
+          "id": "web_security-lead-5-c",
+          "label": "Передать все данные для удобства"
+        }
+      ],
+      "correctOptionId": "web_security-lead-5-a",
+      "explanation": "Риски поставщиков — часть управления безопасностью.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/161/r1/final"
+    },
+    {
+      "id": "web_security-lead-6",
+      "grade": "lead",
+      "skillId": "web_security",
+      "prompt": "Как обучать разработчиков безопасности?",
+      "options": [
+        {
+          "id": "web_security-lead-6-a",
+          "label": "Практика на реальных уязвимостях кода команды и регулярные короткие занятия"
+        },
+        {
+          "id": "web_security-lead-6-b",
+          "label": "Одна лекция при найме"
+        },
+        {
+          "id": "web_security-lead-6-c",
+          "label": "Не обучать: безопасность — работа отдельного отдела"
+        }
+      ],
+      "correctOptionId": "web_security-lead-6-a",
+      "explanation": "Знания, применённые к своему коду, запоминаются лучше.",
+      "source": "https://owasp.org/www-project-security-culture/"
+    },
+    {
+      "id": "network_security-intern-1",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Что делает межсетевой экран?",
+      "options": [
+        {
+          "id": "network_security-intern-1-a",
+          "label": "Разрешает или блокирует трафик по правилам"
+        },
+        {
+          "id": "network_security-intern-1-b",
+          "label": "Ускоряет интернет за счёт кэширования популярных сайтов"
+        },
+        {
+          "id": "network_security-intern-1-c",
+          "label": "Хранит пароли"
+        }
+      ],
+      "correctOptionId": "network_security-intern-1-a",
+      "explanation": "Правила основаны на адресах, портах и протоколах.",
+      "source": "https://csrc.nist.gov/glossary/term/firewall"
+    },
+    {
+      "id": "network_security-intern-2",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Почему опасны открытые Wi-Fi сети?",
+      "options": [
+        {
+          "id": "network_security-intern-2-a",
+          "label": "Трафик может перехватить или подменить злоумышленник рядом"
+        },
+        {
+          "id": "network_security-intern-2-b",
+          "label": "Они медленнее мобильного интернета и часто обрываются"
+        },
+        {
+          "id": "network_security-intern-2-c",
+          "label": "Они не позволяют открывать сайты"
+        }
+      ],
+      "correctOptionId": "network_security-intern-2-a",
+      "explanation": "Используйте HTTPS и VPN в недоверенных сетях.",
+      "source": "https://www.cisa.gov/news-events/news/securing-wireless-networks"
+    },
+    {
+      "id": "network_security-intern-3",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Что такое VPN с точки зрения безопасности?",
+      "options": [
+        {
+          "id": "network_security-intern-3-a",
+          "label": "Зашифрованный туннель для защиты трафика в недоверенной сети"
+        },
+        {
+          "id": "network_security-intern-3-b",
+          "label": "Антивирус"
+        },
+        {
+          "id": "network_security-intern-3-c",
+          "label": "Программа для блокировки рекламы и вредоносных сайтов в браузере"
+        }
+      ],
+      "correctOptionId": "network_security-intern-3-a",
+      "explanation": "VPN не защищает от вредоносных сайтов и фишинга.",
+      "source": "https://csrc.nist.gov/glossary/term/virtual_private_network"
+    },
+    {
+      "id": "network_security-intern-4",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Что такое сканирование портов?",
+      "options": [
+        {
+          "id": "network_security-intern-4-a",
+          "label": "Очистка компьютера от вирусов"
+        },
+        {
+          "id": "network_security-intern-4-b",
+          "label": "Измерение скорости интернета"
+        },
+        {
+          "id": "network_security-intern-4-c",
+          "label": "Проверка, какие сетевые сервисы доступны на узле"
+        }
+      ],
+      "correctOptionId": "network_security-intern-4-c",
+      "explanation": "Злоумышленники ищут так уязвимые сервисы; администраторы — лишние открытые порты.",
+      "source": "https://nmap.org/book/man.html"
+    },
+    {
+      "id": "network_security-intern-5",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Зачем менять стандартный пароль на роутере?",
+      "options": [
+        {
+          "id": "network_security-intern-5-a",
+          "label": "Чтобы роутер работал быстрее"
+        },
+        {
+          "id": "network_security-intern-5-b",
+          "label": "Это требует провайдер"
+        },
+        {
+          "id": "network_security-intern-5-c",
+          "label": "Стандартные пароли известны и легко подбираются"
+        }
+      ],
+      "correctOptionId": "network_security-intern-5-c",
+      "explanation": "Стандартные учётные данные — частая причина взлома устройств.",
+      "source": "https://www.cisa.gov/secure-our-world/use-strong-passwords"
+    },
+    {
+      "id": "network_security-intern-6",
+      "grade": "intern",
+      "skillId": "network_security",
+      "prompt": "Что такое DDoS-атака?",
+      "options": [
+        {
+          "id": "network_security-intern-6-a",
+          "label": "Перегрузка сервиса запросами с множества источников"
+        },
+        {
+          "id": "network_security-intern-6-b",
+          "label": "Кража пароля"
+        },
+        {
+          "id": "network_security-intern-6-c",
+          "label": "Подмена сайта злоумышленником через поддельный домен"
+        }
+      ],
+      "correctOptionId": "network_security-intern-6-a",
+      "explanation": "Цель — сделать сервис недоступным.",
+      "source": "https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attack/"
+    },
+    {
+      "id": "network_security-junior-1",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Что такое атака «человек посередине» (MITM)?",
+      "options": [
+        {
+          "id": "network_security-junior-1-a",
+          "label": "Перегрузка сервера большим числом запросов с одного компьютера"
+        },
+        {
+          "id": "network_security-junior-1-b",
+          "label": "Злоумышленник незаметно перехватывает и может изменять обмен двух сторон"
+        },
+        {
+          "id": "network_security-junior-1-c",
+          "label": "Подбор пароля"
+        }
+      ],
+      "correctOptionId": "network_security-junior-1-b",
+      "explanation": "TLS с проверкой сертификата защищает от MITM.",
+      "source": "https://owasp.org/www-community/attacks/Manipulator-in-the-middle_attack"
+    },
+    {
+      "id": "network_security-junior-2",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Зачем сегментировать сеть?",
+      "options": [
+        {
+          "id": "network_security-junior-2-a",
+          "label": "Чтобы увеличить скорость Wi-Fi и сэкономить IP-адреса"
+        },
+        {
+          "id": "network_security-junior-2-b",
+          "label": "Чтобы сэкономить IP-адреса"
+        },
+        {
+          "id": "network_security-junior-2-c",
+          "label": "Чтобы ограничить распространение атаки между частями сети"
+        }
+      ],
+      "correctOptionId": "network_security-junior-2-c",
+      "explanation": "Компрометация одного сегмента не даёт сразу доступа к остальным.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "id": "network_security-junior-3",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Что такое IDS?",
+      "options": [
+        {
+          "id": "network_security-junior-3-a",
+          "label": "Система резервного копирования данных сетевых устройств"
+        },
+        {
+          "id": "network_security-junior-3-b",
+          "label": "Сервер имён"
+        },
+        {
+          "id": "network_security-junior-3-c",
+          "label": "Система обнаружения вторжений, анализирующая трафик или события"
+        }
+      ],
+      "correctOptionId": "network_security-junior-3-c",
+      "explanation": "IPS дополнительно блокирует подозрительный трафик.",
+      "source": "https://csrc.nist.gov/glossary/term/intrusion_detection_system"
+    },
+    {
+      "id": "network_security-junior-4",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Почему Telnet заменяют на SSH?",
+      "options": [
+        {
+          "id": "network_security-junior-4-a",
+          "label": "Telnet передаёт данные и пароли без шифрования"
+        },
+        {
+          "id": "network_security-junior-4-b",
+          "label": "SSH бесплатный, а Telnet платный"
+        },
+        {
+          "id": "network_security-junior-4-c",
+          "label": "Telnet не работает в Linux"
+        }
+      ],
+      "correctOptionId": "network_security-junior-4-a",
+      "explanation": "SSH шифрует сеанс и проверяет подлинность сервера.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4251"
+    },
+    {
+      "id": "network_security-junior-5",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Что такое ARP-спуфинг?",
+      "options": [
+        {
+          "id": "network_security-junior-5-a",
+          "label": "Подмена соответствия IP и MAC в локальной сети для перехвата трафика"
+        },
+        {
+          "id": "network_security-junior-5-b",
+          "label": "Подмена DNS-записи на авторитетном сервере зоны компании"
+        },
+        {
+          "id": "network_security-junior-5-c",
+          "label": "Перебор портов"
+        }
+      ],
+      "correctOptionId": "network_security-junior-5-a",
+      "explanation": "Защита — динамическая проверка ARP на коммутаторах и шифрование трафика.",
+      "source": "https://en.wikipedia.org/wiki/ARP_spoofing"
+    },
+    {
+      "id": "network_security-junior-6",
+      "grade": "junior",
+      "skillId": "network_security",
+      "prompt": "Зачем собирать журналы сетевых устройств централизованно?",
+      "options": [
+        {
+          "id": "network_security-junior-6-a",
+          "label": "Чтобы освободить место на устройствах и ускорить их работу"
+        },
+        {
+          "id": "network_security-junior-6-b",
+          "label": "Чтобы ускорить сеть"
+        },
+        {
+          "id": "network_security-junior-6-c",
+          "label": "Чтобы обнаруживать атаки и расследовать инциденты по полной картине"
+        }
+      ],
+      "correctOptionId": "network_security-junior-6-c",
+      "explanation": "Злоумышленник может удалить локальные журналы.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/92/final"
+    },
+    {
+      "id": "network_security-middle-1",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Что проверяет сертификат TLS?",
+      "options": [
+        {
+          "id": "network_security-middle-1-a",
+          "label": "Что открытый ключ принадлежит указанному имени по подписи доверенного центра"
+        },
+        {
+          "id": "network_security-middle-1-b",
+          "label": "Скорость соединения и отсутствие вирусов на сайте по проверке центра"
+        },
+        {
+          "id": "network_security-middle-1-c",
+          "label": "Отсутствие вирусов на сайте"
+        }
+      ],
+      "correctOptionId": "network_security-middle-1-a",
+      "explanation": "Браузер проверяет цепочку доверия и имя хоста.",
+      "source": "https://www.rfc-editor.org/rfc/rfc5280"
+    },
+    {
+      "id": "network_security-middle-2",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Какие версии TLS допустимы сегодня?",
+      "options": [
+        {
+          "id": "network_security-middle-2-a",
+          "label": "SSL 3.0 и TLS 1.0"
+        },
+        {
+          "id": "network_security-middle-2-b",
+          "label": "TLS 1.2 и TLS 1.3"
+        },
+        {
+          "id": "network_security-middle-2-c",
+          "label": "Любые, если есть сертификат"
+        }
+      ],
+      "correctOptionId": "network_security-middle-2-b",
+      "explanation": "Старые версии имеют известные уязвимости.",
+      "source": "https://www.rfc-editor.org/rfc/rfc8996"
+    },
+    {
+      "id": "network_security-middle-3",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Как ограничить доступ администраторов к серверам?",
+      "options": [
+        {
+          "id": "network_security-middle-3-a",
+          "label": "Открыть SSH для всего интернета и выдать всем администраторам общий пароль"
+        },
+        {
+          "id": "network_security-middle-3-b",
+          "label": "Через бастион-хост или VPN с многофакторной аутентификацией и журналированием"
+        },
+        {
+          "id": "network_security-middle-3-c",
+          "label": "Дать общий пароль"
+        }
+      ],
+      "correctOptionId": "network_security-middle-3-b",
+      "explanation": "Единая точка входа упрощает контроль и аудит.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "id": "network_security-middle-4",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Что такое SIEM?",
+      "options": [
+        {
+          "id": "network_security-middle-4-a",
+          "label": "Сетевой протокол передачи журналов между серверами компании"
+        },
+        {
+          "id": "network_security-middle-4-b",
+          "label": "Система сбора и корреляции событий безопасности из разных источников"
+        },
+        {
+          "id": "network_security-middle-4-c",
+          "label": "Межсетевой экран"
+        }
+      ],
+      "correctOptionId": "network_security-middle-4-b",
+      "explanation": "SIEM помогает обнаруживать сложные атаки по совокупности событий.",
+      "source": "https://csrc.nist.gov/glossary/term/security_information_and_event_management"
+    },
+    {
+      "id": "network_security-middle-5",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Как защитить DNS-инфраструктуру компании?",
+      "options": [
+        {
+          "id": "network_security-middle-5-a",
+          "label": "Ограничить рекурсию, разделить внутренние и внешние зоны и мониторить запросы"
+        },
+        {
+          "id": "network_security-middle-5-b",
+          "label": "Сделать открытый рекурсивный резолвер для всех и отключить журналирование запросов"
+        },
+        {
+          "id": "network_security-middle-5-c",
+          "label": "Отключить журналирование"
+        }
+      ],
+      "correctOptionId": "network_security-middle-5-a",
+      "explanation": "Открытые резолверы используются для усиленных DDoS-атак.",
+      "source": "https://www.cisa.gov/news-events/alerts/2013/03/29/dns-amplification-attacks"
+    },
+    {
+      "id": "network_security-middle-6",
+      "grade": "middle",
+      "skillId": "network_security",
+      "prompt": "Как проверить защищённость периметра?",
+      "options": [
+        {
+          "id": "network_security-middle-6-a",
+          "label": "Спросить провайдера, были ли атаки, и ничего не делать, если не было"
+        },
+        {
+          "id": "network_security-middle-6-b",
+          "label": "Ничего не делать, если не было атак"
+        },
+        {
+          "id": "network_security-middle-6-c",
+          "label": "Регулярным внешним сканированием и тестами на проникновение по согласованному плану"
+        }
+      ],
+      "correctOptionId": "network_security-middle-6-c",
+      "explanation": "Отсутствие замеченных атак не означает отсутствие уязвимостей.",
+      "source": "https://owasp.org/www-project-web-security-testing-guide/"
+    },
+    {
+      "id": "network_security-senior-1",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Как обнаружить горизонтальное перемещение атакующего внутри сети?",
+      "options": [
+        {
+          "id": "network_security-senior-1-a",
+          "label": "Анализ необычных подключений между узлами и аутентификаций с помощью журналов и NDR"
+        },
+        {
+          "id": "network_security-senior-1-b",
+          "label": "Только антивирусом на рабочих станциях и сканированием портов раз в год"
+        },
+        {
+          "id": "network_security-senior-1-c",
+          "label": "Сканированием портов раз в год"
+        }
+      ],
+      "correctOptionId": "network_security-senior-1-a",
+      "explanation": "Сегментация и мониторинг восток–запад затрудняют перемещение.",
+      "source": "https://attack.mitre.org/tactics/TA0008/"
+    },
+    {
+      "id": "network_security-senior-2",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Что такое MITRE ATT&CK и как его использовать?",
+      "options": [
+        {
+          "id": "network_security-senior-2-a",
+          "label": "База тактик и техник атакующих для оценки покрытия обнаружения"
+        },
+        {
+          "id": "network_security-senior-2-b",
+          "label": "Антивирусный движок для серверов Windows"
+        },
+        {
+          "id": "network_security-senior-2-c",
+          "label": "Стандарт шифрования"
+        }
+      ],
+      "correctOptionId": "network_security-senior-2-a",
+      "explanation": "По матрице проверяют, какие техники вы умеете обнаруживать.",
+      "source": "https://attack.mitre.org/"
+    },
+    {
+      "id": "network_security-senior-3",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Как защитить ключи TLS сервера?",
+      "options": [
+        {
+          "id": "network_security-senior-3-a",
+          "label": "Хранить ключ в общем каталоге"
+        },
+        {
+          "id": "network_security-senior-3-b",
+          "label": "Ограничить доступ к ключам, использовать HSM или KMS и автоматическую ротацию"
+        },
+        {
+          "id": "network_security-senior-3-c",
+          "label": "Использовать один ключ на все сервисы навсегда"
+        }
+      ],
+      "correctOptionId": "network_security-senior-3-b",
+      "explanation": "Компрометация ключа позволяет выдавать себя за сервер.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html"
+    },
+    {
+      "id": "network_security-senior-4",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Что даёт mTLS между сервисами?",
+      "options": [
+        {
+          "id": "network_security-senior-4-a",
+          "label": "Взаимную проверку подлинности клиента и сервера и шифрование трафика"
+        },
+        {
+          "id": "network_security-senior-4-b",
+          "label": "Ускорение запросов"
+        },
+        {
+          "id": "network_security-senior-4-c",
+          "label": "Автоматическую авторизацию пользователей"
+        }
+      ],
+      "correctOptionId": "network_security-senior-4-a",
+      "explanation": "mTLS подтверждает, какой сервис обращается, но права нужно проверять отдельно.",
+      "source": "https://www.cloudflare.com/learning/access-management/what-is-mutual-tls/"
+    },
+    {
+      "id": "network_security-senior-5",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Как организовать реагирование на сетевой инцидент?",
+      "options": [
+        {
+          "id": "network_security-senior-5-a",
+          "label": "Отключить всё оборудование, удалить журналы, чтобы не мешали, и ждать, пока атака закончится сама"
+        },
+        {
+          "id": "network_security-senior-5-b",
+          "label": "Обнаружение, сдерживание, устранение, восстановление и разбор по заранее подготовленному плану"
+        },
+        {
+          "id": "network_security-senior-5-c",
+          "label": "Удалить журналы, чтобы не мешали"
+        }
+      ],
+      "correctOptionId": "network_security-senior-5-b",
+      "explanation": "Сохранение журналов важно для расследования.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/61/r2/final"
+    },
+    {
+      "id": "network_security-senior-6",
+      "grade": "senior",
+      "skillId": "network_security",
+      "prompt": "Как управлять уязвимостями сетевого оборудования?",
+      "options": [
+        {
+          "id": "network_security-senior-6-a",
+          "label": "Обновлять только при поломке, чтобы ничего не сломать обновлениями"
+        },
+        {
+          "id": "network_security-senior-6-b",
+          "label": "Инвентаризация, мониторинг бюллетеней производителей и плановые обновления"
+        },
+        {
+          "id": "network_security-senior-6-c",
+          "label": "Не обновлять, чтобы ничего не сломать"
+        }
+      ],
+      "correctOptionId": "network_security-senior-6-b",
+      "explanation": "Уязвимости граничных устройств часто эксплуатируются массово.",
+      "source": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+      "id": "network_security-lead-1",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Как построить архитектуру нулевого доверия?",
+      "options": [
+        {
+          "id": "network_security-lead-1-a",
+          "label": "Проверка каждого доступа по личности, устройству и контексту с минимальными правами"
+        },
+        {
+          "id": "network_security-lead-1-b",
+          "label": "Доверять всем устройствам внутри офиса и выдать один пароль Wi-Fi всем сотрудникам компании"
+        },
+        {
+          "id": "network_security-lead-1-c",
+          "label": "Один пароль Wi-Fi для всех"
+        }
+      ],
+      "correctOptionId": "network_security-lead-1-a",
+      "explanation": "Zero trust убирает неявное доверие к сетевому расположению.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "id": "network_security-lead-2",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Как оценить риски информационной безопасности компании?",
+      "options": [
+        {
+          "id": "network_security-lead-2-a",
+          "label": "Определить активы, угрозы, уязвимости и ущерб, затем выбрать меры по приоритету"
+        },
+        {
+          "id": "network_security-lead-2-b",
+          "label": "Купить все доступные средства защиты и ориентироваться на новости об атаках на другие компании"
+        },
+        {
+          "id": "network_security-lead-2-c",
+          "label": "Ориентироваться на новости"
+        }
+      ],
+      "correctOptionId": "network_security-lead-2-a",
+      "explanation": "Управление рисками описано в ISO/IEC 27005.",
+      "source": "https://www.iso.org/standard/80585.html"
+    },
+    {
+      "id": "network_security-lead-3",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Какие требования к защите объектов КИИ существуют в России?",
+      "options": [
+        {
+          "id": "network_security-lead-3-a",
+          "label": "Только установка антивируса на все рабочие станции организации"
+        },
+        {
+          "id": "network_security-lead-3-b",
+          "label": "Требований нет"
+        },
+        {
+          "id": "network_security-lead-3-c",
+          "label": "Категорирование объектов и выполнение мер по 187-ФЗ и требованиям ФСТЭК"
+        }
+      ],
+      "correctOptionId": "network_security-lead-3-c",
+      "explanation": "Закон о безопасности критической информационной инфраструктуры определяет обязанности субъектов.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_220885/"
+    },
+    {
+      "id": "network_security-lead-4",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Как проверять готовность к атакам на практике?",
+      "options": [
+        {
+          "id": "network_security-lead-4-a",
+          "label": "Ждать реальной атаки"
+        },
+        {
+          "id": "network_security-lead-4-b",
+          "label": "Только опросы сотрудников"
+        },
+        {
+          "id": "network_security-lead-4-c",
+          "label": "Учения red team и blue team с разбором результатов"
+        }
+      ],
+      "correctOptionId": "network_security-lead-4-c",
+      "explanation": "Учения показывают реальные пробелы обнаружения и реагирования.",
+      "source": "https://attack.mitre.org/resources/"
+    },
+    {
+      "id": "network_security-lead-5",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Как измерять эффективность службы безопасности?",
+      "options": [
+        {
+          "id": "network_security-lead-5-a",
+          "label": "Число заблокированных писем и размер бюджета службы безопасности за год"
+        },
+        {
+          "id": "network_security-lead-5-b",
+          "label": "Время обнаружения и реагирования, покрытие активов и закрытие критичных уязвимостей"
+        },
+        {
+          "id": "network_security-lead-5-c",
+          "label": "Размер бюджета"
+        }
+      ],
+      "correctOptionId": "network_security-lead-5-b",
+      "explanation": "Метрики должны показывать снижение рисков.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/55/v1/final"
+    },
+    {
+      "id": "network_security-lead-6",
+      "grade": "lead",
+      "skillId": "network_security",
+      "prompt": "Как снижать риски, связанные с сотрудниками?",
+      "options": [
+        {
+          "id": "network_security-lead-6-a",
+          "label": "Запретить сотрудникам пользоваться почтой"
+        },
+        {
+          "id": "network_security-lead-6-b",
+          "label": "Обучение, минимальные права, контроль доступа и простые каналы сообщения об инцидентах"
+        },
+        {
+          "id": "network_security-lead-6-c",
+          "label": "Полностью доверять всем"
+        }
+      ],
+      "correctOptionId": "network_security-lead-6-b",
+      "explanation": "Большинство атак начинается с социальной инженерии.",
+      "source": "https://www.cisa.gov/secure-our-world"
+    }
+  ]
+}

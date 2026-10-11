@@ -1,0 +1,31 @@
+[Unit]
+Description=Graph-guided candidate interview service
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fsp
+Group=fsp
+Environment=INTERVIEW_HOST=127.0.0.1
+Environment=INTERVIEW_PORT=4040
+EnvironmentFile=/etc/fsp/interview.env
+EnvironmentFile=/etc/fsp/db.env
+EnvironmentFile=-/etc/fsp/llm.env
+ExecStart=/opt/fsp/current/bin/fsp-interview-service
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+LockPersonality=yes
+MemoryMax=1G
+
+[Install]
+WantedBy=multi-user.target

@@ -36,9 +36,9 @@ export const eligibilityView: Record<
     text: 'Заполните анкету: компания увидит специализацию и опыт из неё.',
     action: { label: 'Заполнить анкету', to: '/candidate/onboarding' },
   },
-  assessment: {
-    text: 'Откликаться можно после подтверждения грейда тестом знаний. Результат не подтверждает практический опыт.',
-    action: { label: 'Перейти к проверкам', to: '/candidate/assessments' },
+  category: {
+    text: 'Откликаться можно, когда у профиля есть категория: подключите GitHub или ФСП для автоматической оценки либо пройдите тест знаний.',
+    action: { label: 'Открыть анкету', to: '/candidate/onboarding' },
   },
   processing_consent: {
     text: 'Для отклика нужно согласие на обработку данных.',

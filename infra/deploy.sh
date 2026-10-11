@@ -9,9 +9,10 @@ DEPLOY_HOST="${FSP_DEPLOY_HOST:-fsp-demo}"
 cd "$(git rev-parse --show-toplevel)"
 SSH_CONFIG="${FSP_SSH_CONFIG:-.fsp-infra/ssh/config}"
 SHA="$(git rev-parse --verify "$REF^{commit}")"
-ARCHIVE="$(mktemp --suffix=.tar.gz)"
+TEMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/fsp-deploy.XXXXXX")"
+ARCHIVE="$TEMP_DIR/release.tar.gz"
 REMOTE_ARCHIVE="/tmp/fsp-$SHA-${ARCHIVE##*/}"
-trap 'rm -f "$ARCHIVE"' EXIT
+trap 'rm -f "$ARCHIVE"; rmdir "$TEMP_DIR"' EXIT
 
 git archive --format=tar.gz -o "$ARCHIVE" "$SHA" frontend mock-server backend infra
 scp -q -F "$SSH_CONFIG" "$ARCHIVE" "$DEPLOY_HOST:$REMOTE_ARCHIVE"

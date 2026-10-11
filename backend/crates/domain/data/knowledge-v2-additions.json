@@ -1,0 +1,367 @@
+{
+  "version": "knowledge-v2",
+  "questions": [
+    {
+      "id": "jr-iter-v2", "specialization": "backend", "grade": "junior", "skillId": "rust",
+      "prompt": "Что делает collect::<Vec<_>>() после iterator.map(...)?",
+      "options": [
+        {"id": "jr-iter-a", "label": "Лениво сохраняет замыкание без выполнения"},
+        {"id": "jr-iter-b", "label": "Потребляет итератор и собирает элементы в Vec"},
+        {"id": "jr-iter-c", "label": "Всегда возвращает срез исходной коллекции"}
+      ],
+      "correctOptionId": "jr-iter-b",
+      "explanation": "collect потребляет Iterator и строит коллекцию, тип которой указан вызывающим кодом.",
+      "source": "https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"
+    },
+    {
+      "id": "jp-fk-v2", "specialization": "backend", "grade": "junior", "skillId": "postgresql",
+      "prompt": "Что гарантирует FOREIGN KEY между application.candidate_id и candidate.id?",
+      "options": [
+        {"id": "jp-fk-a", "label": "Каждая ссылка указывает на существующую строку либо допустимый NULL"},
+        {"id": "jp-fk-b", "label": "Значения candidate_id автоматически становятся уникальными"},
+        {"id": "jp-fk-c", "label": "Все SELECT автоматически получают сортировку по candidate_id"}
+      ],
+      "correctOptionId": "jp-fk-a",
+      "explanation": "Внешний ключ поддерживает ссылочную целостность; уникальность и сортировку он не добавляет.",
+      "source": "https://www.postgresql.org/docs/16/ddl-constraints.html#DDL-CONSTRAINTS-FK"
+    },
+    {
+      "id": "mr-select-v2", "specialization": "backend", "grade": "middle", "skillId": "rust",
+      "prompt": "Несколько async-операций нужно ожидать одновременно и продолжить по первой завершившейся. Что использовать в Tokio?",
+      "options": [
+        {"id": "mr-select-a", "label": "tokio::select!"},
+        {"id": "mr-select-b", "label": "std::thread::sleep"},
+        {"id": "mr-select-c", "label": "unsafe без синхронизации"}
+      ],
+      "correctOptionId": "mr-select-a",
+      "explanation": "tokio::select! конкурентно ожидает несколько async-ветвей и выполняет первую готовую.",
+      "source": "https://docs.rs/tokio/latest/tokio/macro.select.html"
+    },
+    {
+      "id": "mp-cover-v2", "specialization": "backend", "grade": "middle", "skillId": "postgresql",
+      "prompt": "Запрос фильтрует по company_id и сортирует по created_at, id. Какой индекс чаще всего соответствует этому пути?",
+      "options": [
+        {"id": "mp-cover-a", "label": "Составной индекс (company_id, created_at, id)"},
+        {"id": "mp-cover-b", "label": "Три несвязанных CHECK-ограничения"},
+        {"id": "mp-cover-c", "label": "Индекс только на поле description"}
+      ],
+      "correctOptionId": "mp-cover-a",
+      "explanation": "Многоколоночный B-tree может поддержать равенство по первому столбцу и упорядоченное чтение по следующим.",
+      "source": "https://www.postgresql.org/docs/16/indexes-multicolumn.html"
+    },
+    {
+      "id": "sr-cancel-v2", "specialization": "backend", "grade": "senior", "skillId": "rust",
+      "prompt": "Future был отброшен до завершения. Какое общее свойство Rust Future важно учитывать при проектировании операции?",
+      "options": [
+        {"id": "sr-cancel-a", "label": "Его дальнейшее выполнение прекращается, поэтому операция должна учитывать отмену в точках await"},
+        {"id": "sr-cancel-b", "label": "Runtime обязан синхронно довыполнить его до результата"},
+        {"id": "sr-cancel-c", "label": "Все уже выполненные внешние эффекты автоматически откатываются"}
+      ],
+      "correctOptionId": "sr-cancel-a",
+      "explanation": "Отброшенный Future больше не poll-ится; уже совершённые внешние эффекты автоматически не откатываются.",
+      "source": "https://doc.rust-lang.org/std/future/trait.Future.html"
+    },
+    {
+      "id": "sp-partial-v2", "specialization": "backend", "grade": "senior", "skillId": "postgresql",
+      "prompt": "Нужно обеспечить уникальность активного username только для строк deleted_at IS NULL. Что подходит?",
+      "options": [
+        {"id": "sp-partial-a", "label": "Уникальный частичный индекс с WHERE deleted_at IS NULL"},
+        {"id": "sp-partial-b", "label": "Неуникальный индекс без предиката"},
+        {"id": "sp-partial-c", "label": "VACUUM после каждого INSERT"}
+      ],
+      "correctOptionId": "sp-partial-a",
+      "explanation": "Частичный уникальный индекс применяет ограничение только к строкам, удовлетворяющим предикату.",
+      "source": "https://www.postgresql.org/docs/16/indexes-partial.html"
+    },
+
+    {
+      "id": "fj-ts-narrow", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Значение имеет тип string | undefined. Какая проверка безопасно сужает его до string?",
+      "options": [
+        {"id": "fj-ts-narrow-a", "label": "if (value !== undefined)"},
+        {"id": "fj-ts-narrow-b", "label": "value as string без проверки"},
+        {"id": "fj-ts-narrow-c", "label": "Отключить strictNullChecks"}
+      ],
+      "correctOptionId": "fj-ts-narrow-a",
+      "explanation": "Проверка типа/значения является type guard и сужает union в соответствующей ветке.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"
+    },
+    {
+      "id": "fj-ts-unknown", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Почему ответ внешнего API безопаснее сначала считать unknown, а не any?",
+      "options": [
+        {"id": "fj-ts-unknown-a", "label": "unknown требует проверить значение перед использованием"},
+        {"id": "fj-ts-unknown-b", "label": "unknown автоматически валидирует JSON во время выполнения"},
+        {"id": "fj-ts-unknown-c", "label": "unknown разрешает любые свойства без проверки"}
+      ],
+      "correctOptionId": "fj-ts-unknown-a",
+      "explanation": "unknown запрещает небезопасные операции до сужения; реальную runtime-валидацию всё равно выполняет код.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown"
+    },
+    {
+      "id": "fj-ts-interface", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Объект должен обязательно иметь id: string и необязательный name. Как описать name?",
+      "options": [
+        {"id": "fj-ts-interface-a", "label": "name?: string"},
+        {"id": "fj-ts-interface-b", "label": "name!: never"},
+        {"id": "fj-ts-interface-c", "label": "delete name: string"}
+      ],
+      "correctOptionId": "fj-ts-interface-a",
+      "explanation": "Знак вопроса после имени свойства обозначает optional property.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/objects.html#optional-properties"
+    },
+    {
+      "id": "fj-ts-generic", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Функция возвращает значение того же типа, который получила. Какая сигнатура сохраняет тип?",
+      "options": [
+        {"id": "fj-ts-generic-a", "label": "function identity<T>(value: T): T"},
+        {"id": "fj-ts-generic-b", "label": "function identity(value: any): number"},
+        {"id": "fj-ts-generic-c", "label": "function identity(value: unknown): never"}
+      ],
+      "correctOptionId": "fj-ts-generic-a",
+      "explanation": "Generic-параметр связывает тип аргумента и результата без потери информации.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/generics.html"
+    },
+    {
+      "id": "fj-ts-union", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Какой тип принимает только строки \"loading\" или \"ready\"?",
+      "options": [
+        {"id": "fj-ts-union-a", "label": "\"loading\" | \"ready\""},
+        {"id": "fj-ts-union-b", "label": "string & number"},
+        {"id": "fj-ts-union-c", "label": "object"}
+      ],
+      "correctOptionId": "fj-ts-union-a",
+      "explanation": "Union строковых литералов ограничивает значение перечисленными вариантами.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types"
+    },
+    {
+      "id": "fj-ts-async", "specialization": "frontend", "grade": "junior", "skillId": "typescript",
+      "prompt": "Что всегда возвращает async-функция JavaScript/TypeScript?",
+      "options": [
+        {"id": "fj-ts-async-a", "label": "Promise"},
+        {"id": "fj-ts-async-b", "label": "Синхронный результат без оболочки"},
+        {"id": "fj-ts-async-c", "label": "Только AsyncIterator"}
+      ],
+      "correctOptionId": "fj-ts-async-a",
+      "explanation": "Возвращаемое значение async-функции оборачивается в Promise.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function"
+    },
+    {
+      "id": "fj-react-key", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Зачем элементам списка React нужен стабильный key?",
+      "options": [
+        {"id": "fj-react-key-a", "label": "Чтобы React сопоставлял элементы между рендерами"},
+        {"id": "fj-react-key-b", "label": "Чтобы браузер применял CSS"},
+        {"id": "fj-react-key-c", "label": "Чтобы автоматически сортировать массив"}
+      ],
+      "correctOptionId": "fj-react-key-a",
+      "explanation": "key помогает React понять, какой элемент был добавлен, удалён или перемещён.",
+      "source": "https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key"
+    },
+    {
+      "id": "fj-react-state", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Нужно обновить state на основе предыдущего значения. Какой вариант устойчив к очереди обновлений?",
+      "options": [
+        {"id": "fj-react-state-a", "label": "setCount(previous => previous + 1)"},
+        {"id": "fj-react-state-b", "label": "count = count + 1 напрямую"},
+        {"id": "fj-react-state-c", "label": "Изменить внутреннее поле объекта state без setter"}
+      ],
+      "correctOptionId": "fj-react-state-a",
+      "explanation": "Updater-функция получает актуальное предыдущее состояние из очереди React.",
+      "source": "https://react.dev/learn/queueing-a-series-of-state-updates"
+    },
+    {
+      "id": "fj-react-pure", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Какое требование React предъявляет к вычислениям во время рендера компонента?",
+      "options": [
+        {"id": "fj-react-pure-a", "label": "Рендер должен быть чистым и не изменять внешние значения"},
+        {"id": "fj-react-pure-b", "label": "Рендер обязан выполнять сетевой запрос"},
+        {"id": "fj-react-pure-c", "label": "Рендер должен изменять DOM вручную"}
+      ],
+      "correctOptionId": "fj-react-pure-a",
+      "explanation": "Одинаковые props/state/context должны давать одинаковый JSX без побочных эффектов во время рендера.",
+      "source": "https://react.dev/learn/keeping-components-pure"
+    },
+    {
+      "id": "fj-react-event", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Как передать обработчик кнопке, не вызывая его во время рендера?",
+      "options": [
+        {"id": "fj-react-event-a", "label": "onClick={handleClick}"},
+        {"id": "fj-react-event-b", "label": "onClick={handleClick()}"},
+        {"id": "fj-react-event-c", "label": "click={true}"}
+      ],
+      "correctOptionId": "fj-react-event-a",
+      "explanation": "React ожидает функцию-обработчик; скобки вызвали бы её при рендере.",
+      "source": "https://react.dev/learn/responding-to-events"
+    },
+    {
+      "id": "fj-react-lift", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Два соседних компонента должны использовать одно согласованное значение. Где обычно хранить state?",
+      "options": [
+        {"id": "fj-react-lift-a", "label": "В их ближайшем общем родителе"},
+        {"id": "fj-react-lift-b", "label": "В двух независимых локальных state без синхронизации"},
+        {"id": "fj-react-lift-c", "label": "В глобальной переменной модуля для любого случая"}
+      ],
+      "correctOptionId": "fj-react-lift-a",
+      "explanation": "Подъём состояния к общему родителю создаёт единый источник истины для дочерних компонентов.",
+      "source": "https://react.dev/learn/sharing-state-between-components"
+    },
+    {
+      "id": "fj-react-effect", "specialization": "frontend", "grade": "junior", "skillId": "react",
+      "prompt": "Для чего прежде всего предназначен useEffect?",
+      "options": [
+        {"id": "fj-react-effect-a", "label": "Для синхронизации с внешней системой"},
+        {"id": "fj-react-effect-b", "label": "Для вычисления любого значения вместо обычного выражения"},
+        {"id": "fj-react-effect-c", "label": "Для объявления JSX-элементов"}
+      ],
+      "correctOptionId": "fj-react-effect-a",
+      "explanation": "Effect связывает React-компонент с сетью, DOM API, подпиской или другой внешней системой.",
+      "source": "https://react.dev/learn/synchronizing-with-effects"
+    },
+
+    {
+      "id": "fm-ts-discriminated", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Как надёжно обработать разные варианты результата загрузки с разными полями?",
+      "options": [
+        {"id": "fm-ts-discriminated-a", "label": "Использовать discriminated union с общим литеральным полем status"},
+        {"id": "fm-ts-discriminated-b", "label": "Сделать все поля optional в одном большом типе"},
+        {"id": "fm-ts-discriminated-c", "label": "Заменить тип на any"}
+      ],
+      "correctOptionId": "fm-ts-discriminated-a",
+      "explanation": "Общий discriminant позволяет исчерпывающе сузить union и получить поля конкретного варианта.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions"
+    },
+    {
+      "id": "fm-ts-never", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Зачем присваивать оставшееся значение переменной типа never в default-ветке switch?",
+      "options": [
+        {"id": "fm-ts-never-a", "label": "Чтобы компилятор обнаружил необработанный вариант union"},
+        {"id": "fm-ts-never-b", "label": "Чтобы ускорить JavaScript в браузере"},
+        {"id": "fm-ts-never-c", "label": "Чтобы отключить проверку типов"}
+      ],
+      "correctOptionId": "fm-ts-never-a",
+      "explanation": "После исчерпывающего сужения значение должно иметь тип never; новый вариант нарушит это присваивание.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking"
+    },
+    {
+      "id": "fm-ts-keyof", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Generic-функция читает свойство объекта по ключу. Как связать ключ с объектом?",
+      "options": [
+        {"id": "fm-ts-keyof-a", "label": "K extends keyof T"},
+        {"id": "fm-ts-keyof-b", "label": "K extends number для любого объекта"},
+        {"id": "fm-ts-keyof-c", "label": "key: any и результат any"}
+      ],
+      "correctOptionId": "fm-ts-keyof-a",
+      "explanation": "keyof T формирует union известных ключей T, а constraint ограничивает generic-параметр этим набором.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/keyof-types.html"
+    },
+    {
+      "id": "fm-ts-satisfies", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Нужно проверить соответствие объекта типу, сохранив точные литеральные типы его свойств. Что использовать?",
+      "options": [
+        {"id": "fm-ts-satisfies-a", "label": "Оператор satisfies"},
+        {"id": "fm-ts-satisfies-b", "label": "Двойное приведение through any"},
+        {"id": "fm-ts-satisfies-c", "label": "Комментарий @ts-ignore"}
+      ],
+      "correctOptionId": "fm-ts-satisfies-a",
+      "explanation": "satisfies проверяет совместимость выражения, не заменяя его наиболее конкретный выведенный тип.",
+      "source": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator"
+    },
+    {
+      "id": "fm-ts-partial", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Как получить тип, в котором все свойства исходного T необязательны?",
+      "options": [
+        {"id": "fm-ts-partial-a", "label": "Partial<T>"},
+        {"id": "fm-ts-partial-b", "label": "Required<T>"},
+        {"id": "fm-ts-partial-c", "label": "ReturnType<T>"}
+      ],
+      "correctOptionId": "fm-ts-partial-a",
+      "explanation": "Utility type Partial строит тип с optional-версией каждого свойства T.",
+      "source": "https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype"
+    },
+    {
+      "id": "fm-ts-catch", "specialization": "frontend", "grade": "middle", "skillId": "typescript",
+      "prompt": "Почему значение в catch следует проверять перед чтением error.message?",
+      "options": [
+        {"id": "fm-ts-catch-a", "label": "В JavaScript можно бросить значение любого типа"},
+        {"id": "fm-ts-catch-b", "label": "catch всегда получает только DOMException"},
+        {"id": "fm-ts-catch-c", "label": "message существует у каждого unknown"}
+      ],
+      "correctOptionId": "fm-ts-catch-a",
+      "explanation": "throw принимает любое выражение, поэтому catch-переменную безопасно сужают, например через instanceof Error.",
+      "source": "https://www.typescriptlang.org/tsconfig/useUnknownInCatchVariables.html"
+    },
+    {
+      "id": "fm-react-derived", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "filteredItems полностью вычисляется из props items и filter. Где его обычно хранить?",
+      "options": [
+        {"id": "fm-react-derived-a", "label": "Вычислять во время рендера, при необходимости мемоизировать"},
+        {"id": "fm-react-derived-b", "label": "Дублировать в state и синхронизировать Effect-ом"},
+        {"id": "fm-react-derived-c", "label": "Записывать в глобальную переменную"}
+      ],
+      "correctOptionId": "fm-react-derived-a",
+      "explanation": "Избыточный state и Effect создают лишний рендер и риск рассинхронизации; производные данные вычисляют из текущих входов.",
+      "source": "https://react.dev/learn/you-might-not-need-an-effect"
+    },
+    {
+      "id": "fm-react-cleanup", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "Effect подписывается на внешний источник событий. Что должна делать cleanup-функция?",
+      "options": [
+        {"id": "fm-react-cleanup-a", "label": "Отменять соответствующую подписку"},
+        {"id": "fm-react-cleanup-b", "label": "Повторно создавать компонент"},
+        {"id": "fm-react-cleanup-c", "label": "Изменять props родителя"}
+      ],
+      "correctOptionId": "fm-react-cleanup-a",
+      "explanation": "Cleanup зеркально прекращает синхронизацию перед повторным Effect или размонтированием.",
+      "source": "https://react.dev/learn/lifecycle-of-reactive-effects"
+    },
+    {
+      "id": "fm-react-reducer", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "Состояние формы меняется множеством связанных действий. Когда полезен useReducer?",
+      "options": [
+        {"id": "fm-react-reducer-a", "label": "Когда обновления удобно централизовать как переходы по actions"},
+        {"id": "fm-react-reducer-b", "label": "Только чтобы выполнять HTTP-запросы во время рендера"},
+        {"id": "fm-react-reducer-c", "label": "Чтобы мутировать state без возврата нового значения"}
+      ],
+      "correctOptionId": "fm-react-reducer-a",
+      "explanation": "Reducer собирает логику переходов состояния в чистой функции, получающей state и action.",
+      "source": "https://react.dev/learn/extracting-state-logic-into-a-reducer"
+    },
+    {
+      "id": "fm-react-context", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "Как избежать передачи одного значения через много промежуточных компонентов, которым оно не нужно?",
+      "options": [
+        {"id": "fm-react-context-a", "label": "Передать значение через Context от подходящего provider"},
+        {"id": "fm-react-context-b", "label": "Копировать значение в локальный state каждого компонента"},
+        {"id": "fm-react-context-c", "label": "Искать DOM-узлы вручную"}
+      ],
+      "correctOptionId": "fm-react-context-a",
+      "explanation": "Context позволяет глубоко расположенным компонентам читать значение без промежуточного prop drilling.",
+      "source": "https://react.dev/learn/passing-data-deeply-with-context"
+    },
+    {
+      "id": "fm-react-transition", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "Тяжёлое обновление списка не должно блокировать немедленное обновление поля ввода. Как обозначить его как transition?",
+      "options": [
+        {"id": "fm-react-transition-a", "label": "Обернуть несрочное обновление в startTransition"},
+        {"id": "fm-react-transition-b", "label": "Вызвать setTimeout для каждого рендера"},
+        {"id": "fm-react-transition-c", "label": "Мутировать DOM напрямую"}
+      ],
+      "correctOptionId": "fm-react-transition-a",
+      "explanation": "Transition отмечает обновление как несрочное, сохраняя отзывчивость срочных обновлений интерфейса.",
+      "source": "https://react.dev/reference/react/startTransition"
+    },
+    {
+      "id": "fm-react-cache", "specialization": "frontend", "grade": "middle", "skillId": "react",
+      "prompt": "Когда useMemo может быть оправдан?",
+      "options": [
+        {"id": "fm-react-cache-a", "label": "Для измеримо дорогого чистого вычисления с устойчивыми зависимостями"},
+        {"id": "fm-react-cache-b", "label": "Для обязательного выполнения побочного эффекта"},
+        {"id": "fm-react-cache-c", "label": "Для исправления неправильной логики компонента"}
+      ],
+      "correctOptionId": "fm-react-cache-a",
+      "explanation": "useMemo является оптимизацией производительности для кэширования чистого вычисления, а не семантической гарантией.",
+      "source": "https://react.dev/reference/react/useMemo"
+    }
+  ]
+}

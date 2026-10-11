@@ -13,7 +13,8 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
 apt-get upgrade -yq
-apt-get install -yq nginx ufw curl unzip build-essential postgresql bubblewrap poppler-utils
+# git: the GitHub insights service reads public repositories through blobless clones.
+apt-get install -yq nginx ufw curl unzip build-essential postgresql bubblewrap poppler-utils git
 install -D -m 644 "$HERE/apparmor/fsp-pdf-bwrap" /etc/apparmor.d/fsp-pdf-bwrap
 apparmor_parser -r /etc/apparmor.d/fsp-pdf-bwrap
 
@@ -84,11 +85,13 @@ SQL
   mv "$db_env" /etc/fsp/db.env
 fi
 
-install -d -m 700 -o postgres -g postgres /var/backups/fsp
-install -D -m 755 "$HERE/backup-db.sh" /usr/local/libexec/fsp-backup-db
-install -m 644 "$HERE/fsp-backup.service" "$HERE/fsp-backup.timer" /etc/systemd/system/
+# Owner policy: no database backups, including on previously provisioned stands.
+systemctl disable --now fsp-backup.timer 2>/dev/null || true
+systemctl stop fsp-backup.service 2>/dev/null || true
+rm -f /etc/systemd/system/fsp-backup.service /etc/systemd/system/fsp-backup.timer \
+  /usr/local/libexec/fsp-backup-db
+systemctl mask fsp-backup.service fsp-backup.timer
 systemctl daemon-reload
-systemctl enable --now fsp-backup.timer
 
 ufw allow OpenSSH >/dev/null
 ufw allow 'Nginx Full' >/dev/null
@@ -116,10 +119,22 @@ FSP_SECURE_COOKIE=1
 FSP_ALLOWED_ORIGINS=https://$PUBLIC_IP
 FSP_PUBLIC_WEB_URL=https://$PUBLIC_IP
 GITHUB_CALLBACK_URL=https://$PUBLIC_IP/api/v1/integrations/github/callback
+FSP_GITHUB_INSIGHTS_URL=http://127.0.0.1:4030
 EOF
 fi
-chown root:fsp /etc/fsp/{mock-api,rust-api,frontend-build}.env
-chmod 640 /etc/fsp/{mock-api,rust-api,frontend-build}.env
+if [ ! -f /etc/fsp/interview.env ]; then
+  interview_env="$(mktemp /etc/fsp/interview.env.XXXXXXXX)"
+  printf 'INTERVIEW_API_TOKEN=%s\n' "$(openssl rand -hex 32)" > "$interview_env"
+  chown root:fsp "$interview_env"
+  chmod 640 "$interview_env"
+  mv "$interview_env" /etc/fsp/interview.env
+fi
+# The GitHub analysis needs no token. An optional /etc/fsp/github-insights.env (root:fsp, 640) with a
+# read-only GITHUB_TOKEN only raises GitHub's per-IP limits for anonymous requests.
+install -m 644 "$HERE/fsp-github-insights.service" /etc/systemd/system/fsp-github-insights.service
+install -m 644 "$HERE/fsp-interview.service" /etc/systemd/system/fsp-interview.service
+chown root:fsp /etc/fsp/{mock-api,rust-api,frontend-build,interview}.env
+chmod 640 /etc/fsp/{mock-api,rust-api,frontend-build,interview}.env
 [ -f /etc/fsp/api-backend ] || echo mock > /etc/fsp/api-backend
 install -m 644 "$HERE/fsp-api.service" /etc/systemd/system/fsp-api.service
 install -m 644 "$HERE/fsp-mock-api.service" /etc/systemd/system/fsp-mock-api.service
@@ -131,8 +146,8 @@ install -m 644 "$HERE/fsp-bifrost.service" /etc/systemd/system/fsp-bifrost.servi
 install -d -m 700 -o fsp -g fsp /var/lib/fsp/cliproxy-auth /var/lib/fsp/bifrost
 systemctl daemon-reload
 case "$(cat /etc/fsp/api-backend)" in
-  rust) systemctl disable fsp-mock-api.service; systemctl enable fsp-api.service ;;
-  mock) systemctl disable fsp-api.service; systemctl enable fsp-mock-api.service ;;
+  rust) systemctl disable fsp-mock-api.service; systemctl enable fsp-api.service fsp-interview.service ;;
+  mock) systemctl disable fsp-api.service fsp-interview.service; systemctl enable fsp-mock-api.service ;;
   *) echo 'Invalid /etc/fsp/api-backend' >&2; exit 1 ;;
 esac
 if [ -f /etc/fsp/llm.env ]; then

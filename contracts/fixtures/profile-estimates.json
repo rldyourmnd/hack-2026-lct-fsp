@@ -1,0 +1,426 @@
+{
+  "fsp": {
+    "answers": {
+      "experience": "",
+      "experienceMonths": null,
+      "name": null,
+      "softSkills": [
+        "Работает в команде на соревнованиях",
+        "Решает задачи в ограниченное время"
+      ],
+      "stack": [],
+      "teamRole": "Бэкенд-разработчик"
+    },
+    "computedAt": "2026-01-01T00:00:00Z",
+    "confidence": "low",
+    "factors": [
+      {
+        "detail": "Опубликованных результатов: 1; лучшее место — 3 из 18",
+        "id": "fsp",
+        "label": "Результаты соревнований ФСП",
+        "max": 15,
+        "points": 8
+      }
+    ],
+    "focusSkills": [
+      "http_api",
+      "grpc",
+      "postgresql",
+      "mysql",
+      "redis"
+    ],
+    "grade": "intern",
+    "growth": [
+      {
+        "action": "Подключите GitHub: собственные проекты, их масштаб и инженерная культура дают основную часть оценки",
+        "id": "github",
+        "points": 0,
+        "title": "GitHub"
+      },
+      {
+        "action": "Новые опубликованные результаты ФСП: место в топ-10% и три участия дают до 15 баллов",
+        "id": "fsp",
+        "points": 7,
+        "title": "Соревнования ФСП"
+      },
+      {
+        "action": "По желанию: тест на уровень «Стажёр» подтверждает категорию, и подтверждённые кандидаты стоят выше в выдаче",
+        "id": "assessment",
+        "points": 0,
+        "title": "Тест знаний"
+      }
+    ],
+    "insufficient": null,
+    "notes": [],
+    "review": null,
+    "score": 16,
+    "sources": [
+      "fsp"
+    ],
+    "specialization": "backend",
+    "specializations": [
+      {
+        "id": "backend",
+        "percent": 50
+      },
+      {
+        "id": "fullstack",
+        "percent": 50
+      }
+    ],
+    "version": "estimate-v6"
+  },
+  "github": {
+    "answers": {
+      "experience": "Основные направления — бэкенд (83%) и фронтенд (17%); пишет в основном на Rust (71%) и TypeScript (17%). Ведёт 2 проекта в 1 организации (acme-labs). За год — 770 публичных коммитов. Ключевые технологии: GitHub Actions, Axum, FastAPI, HTTP-клиенты Python. Темы проектов: platform, rust, web. Главные проекты: project, platform.",
+      "experienceMonths": null,
+      "name": "Иван Петров",
+      "softSkills": [
+        "Понятно описывает изменения в коммитах"
+      ],
+      "stack": [
+        "rust",
+        "typescript",
+        "python",
+        "github_actions",
+        "actix",
+        "docker",
+        "fastapi",
+        "postgresql",
+        "react",
+        "sqlalchemy",
+        "tanstack",
+        "tokio"
+      ],
+      "teamRole": "Самостоятельно ведёт проекты"
+    },
+    "computedAt": "2026-01-01T00:00:00Z",
+    "confidence": "high",
+    "factors": [
+      {
+        "detail": "Масштаб работы пока ограничен",
+        "id": "github_scope",
+        "label": "Масштаб и сложность",
+        "max": 20,
+        "points": 6
+      },
+      {
+        "detail": "Несколько лет активности",
+        "id": "github_longevity",
+        "label": "Стаж",
+        "max": 15,
+        "points": 10
+      },
+      {
+        "detail": "Несколько собственных проектов",
+        "id": "github_ownership",
+        "label": "Собственные проекты",
+        "max": 15,
+        "points": 4
+      },
+      {
+        "detail": "Проекты оформлены зрело: CI, тесты, зависимости и стиль",
+        "id": "github_craft",
+        "label": "Инженерная культура",
+        "max": 15,
+        "points": 14
+      },
+      {
+        "detail": "Совместная работа подтверждается слабо",
+        "id": "github_collaboration",
+        "label": "Совместная работа",
+        "max": 15,
+        "points": 6
+      },
+      {
+        "detail": "Небольшое признание сообщества",
+        "id": "github_impact",
+        "label": "Признание",
+        "max": 10,
+        "points": 4
+      },
+      {
+        "detail": "Заметная вовлечённость",
+        "id": "github_engagement",
+        "label": "Вовлечённость",
+        "max": 5,
+        "points": 4
+      },
+      {
+        "detail": "Стабильная регулярная активность на протяжении года",
+        "id": "github_consistency",
+        "label": "Регулярность",
+        "max": 5,
+        "points": 5
+      }
+    ],
+    "focusSkills": [
+      "http_api",
+      "grpc",
+      "mysql",
+      "redis",
+      "kafka"
+    ],
+    "grade": "middle",
+    "growth": [
+      {
+        "action": "Развивайте свои проекты дольше полугода (сейчас таких 1) и фиксируйте архитектурные решения, контракты API и миграции (сейчас они есть в 1 проекте)",
+        "id": "github_scope",
+        "points": 14,
+        "title": "Масштаб и сложность"
+      },
+      {
+        "action": "Ведите собственные проекты до стабильного состояния: регулярные коммиты в течение года, связанные репозитории — в своей организации",
+        "id": "github_ownership",
+        "points": 11,
+        "title": "Собственные проекты"
+      },
+      {
+        "action": "Ревьюйте чужие pull request'ы и доводите изменения до принятия в независимых проектах: сейчас одобренных другими PR — 8, ревью в независимых репозиториях — 2",
+        "id": "github_collaboration",
+        "points": 9,
+        "title": "Совместная работа"
+      },
+      {
+        "action": "Делайте проекты полезными другим: документация, релизы и анонсы приносят звёзды и форки, а вклад в проекты от 1000 звёзд ценится отдельно",
+        "id": "github_impact",
+        "points": 6,
+        "title": "Признание"
+      },
+      {
+        "action": "Укажите ФСП ID или участвуйте в соревнованиях: результат в топ-10% даёт до 10 баллов, три опубликованных участия — ещё 5",
+        "id": "fsp",
+        "points": 15,
+        "title": "Соревнования ФСП"
+      },
+      {
+        "action": "По желанию: тест на уровень «Мидл» подтверждает категорию, и подтверждённые кандидаты стоят выше в выдаче",
+        "id": "assessment",
+        "points": 0,
+        "title": "Тест знаний"
+      }
+    ],
+    "insufficient": null,
+    "notes": [
+      "До уровня «Сеньор» не хватает 7 баллов; больше всего можно добавить в «Масштаб и сложность» (ещё до 14) и «Собственные проекты» (ещё до 11)"
+    ],
+    "review": null,
+    "score": 53,
+    "sources": [
+      "github"
+    ],
+    "specialization": "backend",
+    "specializations": [
+      {
+        "id": "backend",
+        "percent": 59
+      },
+      {
+        "id": "frontend",
+        "percent": 19
+      },
+      {
+        "id": "fullstack",
+        "percent": 7
+      }
+    ],
+    "version": "estimate-v6"
+  },
+  "githubFsp": {
+    "answers": {
+      "experience": "Основные направления — бэкенд (83%) и фронтенд (17%); пишет в основном на Rust (71%) и TypeScript (17%). Ведёт 2 проекта в 1 организации (acme-labs). За год — 770 публичных коммитов. Ключевые технологии: GitHub Actions, Axum, FastAPI, HTTP-клиенты Python. Темы проектов: platform, rust, web. Главные проекты: project, platform.",
+      "experienceMonths": null,
+      "name": "Иван Петров",
+      "softSkills": [
+        "Понятно описывает изменения в коммитах",
+        "Работает в команде на соревнованиях",
+        "Решает задачи в ограниченное время"
+      ],
+      "stack": [
+        "rust",
+        "typescript",
+        "python",
+        "github_actions",
+        "actix",
+        "docker",
+        "fastapi",
+        "postgresql",
+        "react",
+        "sqlalchemy",
+        "tanstack",
+        "tokio"
+      ],
+      "teamRole": "Самостоятельно ведёт проекты"
+    },
+    "computedAt": "2026-01-01T00:00:00Z",
+    "confidence": "high",
+    "factors": [
+      {
+        "detail": "Масштаб работы пока ограничен",
+        "id": "github_scope",
+        "label": "Масштаб и сложность",
+        "max": 20,
+        "points": 6
+      },
+      {
+        "detail": "Несколько лет активности",
+        "id": "github_longevity",
+        "label": "Стаж",
+        "max": 15,
+        "points": 10
+      },
+      {
+        "detail": "Несколько собственных проектов",
+        "id": "github_ownership",
+        "label": "Собственные проекты",
+        "max": 15,
+        "points": 4
+      },
+      {
+        "detail": "Проекты оформлены зрело: CI, тесты, зависимости и стиль",
+        "id": "github_craft",
+        "label": "Инженерная культура",
+        "max": 15,
+        "points": 14
+      },
+      {
+        "detail": "Совместная работа подтверждается слабо",
+        "id": "github_collaboration",
+        "label": "Совместная работа",
+        "max": 15,
+        "points": 6
+      },
+      {
+        "detail": "Небольшое признание сообщества",
+        "id": "github_impact",
+        "label": "Признание",
+        "max": 10,
+        "points": 4
+      },
+      {
+        "detail": "Заметная вовлечённость",
+        "id": "github_engagement",
+        "label": "Вовлечённость",
+        "max": 5,
+        "points": 4
+      },
+      {
+        "detail": "Стабильная регулярная активность на протяжении года",
+        "id": "github_consistency",
+        "label": "Регулярность",
+        "max": 5,
+        "points": 5
+      },
+      {
+        "detail": "Опубликованных результатов: 1; лучшее место — 3 из 18",
+        "id": "fsp",
+        "label": "Результаты соревнований ФСП",
+        "max": 15,
+        "points": 8
+      }
+    ],
+    "focusSkills": [
+      "http_api",
+      "grpc",
+      "mysql",
+      "redis",
+      "kafka"
+    ],
+    "grade": "senior",
+    "growth": [
+      {
+        "action": "Развивайте свои проекты дольше полугода (сейчас таких 1) и фиксируйте архитектурные решения, контракты API и миграции (сейчас они есть в 1 проекте)",
+        "id": "github_scope",
+        "points": 14,
+        "title": "Масштаб и сложность"
+      },
+      {
+        "action": "Ведите собственные проекты до стабильного состояния: регулярные коммиты в течение года, связанные репозитории — в своей организации",
+        "id": "github_ownership",
+        "points": 11,
+        "title": "Собственные проекты"
+      },
+      {
+        "action": "Ревьюйте чужие pull request'ы и доводите изменения до принятия в независимых проектах: сейчас одобренных другими PR — 8, ревью в независимых репозиториях — 2",
+        "id": "github_collaboration",
+        "points": 9,
+        "title": "Совместная работа"
+      },
+      {
+        "action": "Делайте проекты полезными другим: документация, релизы и анонсы приносят звёзды и форки, а вклад в проекты от 1000 звёзд ценится отдельно",
+        "id": "github_impact",
+        "points": 6,
+        "title": "Признание"
+      },
+      {
+        "action": "Новые опубликованные результаты ФСП: место в топ-10% и три участия дают до 15 баллов",
+        "id": "fsp",
+        "points": 7,
+        "title": "Соревнования ФСП"
+      },
+      {
+        "action": "По желанию: тест на уровень «Сеньор» подтверждает категорию, и подтверждённые кандидаты стоят выше в выдаче",
+        "id": "assessment",
+        "points": 0,
+        "title": "Тест знаний"
+      }
+    ],
+    "insufficient": null,
+    "notes": [
+      "До уровня «Лид» не хватает 19 баллов; больше всего можно добавить в «Масштаб и сложность» (ещё до 14) и «Собственные проекты» (ещё до 11)"
+    ],
+    "review": null,
+    "score": 61,
+    "sources": [
+      "github",
+      "fsp"
+    ],
+    "specialization": "backend",
+    "specializations": [
+      {
+        "id": "backend",
+        "percent": 57
+      },
+      {
+        "id": "fullstack",
+        "percent": 17
+      },
+      {
+        "id": "frontend",
+        "percent": 14
+      }
+    ],
+    "version": "estimate-v6"
+  },
+  "none": {
+    "answers": {
+      "experience": "",
+      "experienceMonths": null,
+      "name": null,
+      "softSkills": [],
+      "stack": [],
+      "teamRole": ""
+    },
+    "computedAt": "2026-01-01T00:00:00Z",
+    "confidence": "low",
+    "factors": [],
+    "focusSkills": [],
+    "grade": null,
+    "growth": [
+      {
+        "action": "Подключите GitHub и ФСП ID: по ним система заполнит анкету и оценит уровень",
+        "id": "sources",
+        "points": 0,
+        "title": "Источники"
+      }
+    ],
+    "insufficient": "Подключите GitHub или ФСП, чтобы оценить уровень",
+    "notes": [],
+    "review": null,
+    "score": 0,
+    "sources": [],
+    "specialization": null,
+    "specializations": [],
+    "version": "estimate-v6"
+  }
+}

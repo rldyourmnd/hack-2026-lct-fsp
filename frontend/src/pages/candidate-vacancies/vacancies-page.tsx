@@ -16,8 +16,10 @@ import {
   formatSalaryRange,
   gradeLabel,
   gradeOrder,
+  skillOptions,
   specializationLabel,
-  specializationOrder,
+  specializationOptions,
+  type specializationOrder,
   taxBasisLabel,
   useDocumentTitle,
   workModeLabel,
@@ -117,7 +119,6 @@ type Props = { search: VacancySearch; onSearchChange: (patch: Partial<VacancySea
 export function CandidateVacanciesPage({ search, onSearchChange }: Props) {
   useDocumentTitle('Вакансии');
   const scope = useScope();
-  const meta = useMeta();
   const results = useQuery(vacancySearchQuery(scope, vacancyFilters(search)));
   const filtered = Boolean(search.specialization || search.grade || search.workMode || search.skill);
   const resetFilters = () =>
@@ -166,10 +167,7 @@ export function CandidateVacanciesPage({ search, onSearchChange }: Props) {
             label="Специализация"
             value={search.specialization ?? ''}
             onValueChange={(value) => onSearchChange({ specialization: value || undefined, page: undefined })}
-            options={[
-              { value: '', label: 'Любая' },
-              ...specializationOrder.map((value) => ({ value, label: specializationLabel[value] })),
-            ]}
+            options={[{ value: '', label: 'Любая' }, ...specializationOptions]}
           />
           <SelectField
             id="vacancy-grade"
@@ -198,10 +196,7 @@ export function CandidateVacanciesPage({ search, onSearchChange }: Props) {
             onValueChange={(value) =>
               onSearchChange({ skill: (value || undefined) as SkillId | undefined, page: undefined })
             }
-            options={[
-              { value: '', label: 'Любой' },
-              ...meta.skills.map((skill) => ({ value: skill.id, label: skill.label })),
-            ]}
+            options={[{ value: '', label: 'Любой' }, ...skillOptions]}
           />
         </div>
         <Button variant="quiet" icon="x" disabled={!filtered} onClick={resetFilters}>

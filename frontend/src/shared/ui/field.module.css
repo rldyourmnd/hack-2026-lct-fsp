@@ -262,3 +262,42 @@ select.control {
   display: flex;
   gap: var(--fsp-space-2);
 }
+
+.picker {
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 20;
+  inset-inline: 0;
+  top: calc(100% + var(--fsp-space-1));
+  max-height: 18rem;
+  margin: 0;
+  padding: var(--fsp-space-1);
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-control);
+  background: var(--fsp-color-surface);
+  box-shadow: var(--fsp-shadow-overlay);
+}
+
+.suggestion {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--fsp-space-3);
+  padding: var(--fsp-space-2) var(--fsp-space-3);
+  border-radius: var(--fsp-radius-sm);
+  cursor: pointer;
+}
+
+.suggestion[aria-selected="true"] {
+  background: var(--fsp-color-surface-subtle);
+}
+
+.suggestionGroup {
+  color: var(--fsp-color-text-secondary);
+  font-size: var(--fsp-font-size-caption);
+  text-align: right;
+}

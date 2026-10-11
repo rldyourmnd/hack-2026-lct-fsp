@@ -10,7 +10,7 @@ visible; they are superseded by the new `fsp/*` policy, never rewritten as succe
 
 `gate.sh` preserves platform types/lint/contracts/components/build/browser acceptance, Rust fmt/clippy/tests
 with real PostgreSQL, real PDF extraction under the API's exact systemd restrictions, Compose images and HTTP
-checks, deployment fault recovery, nginx configuration, backup/restore and controller regression tests.
+checks, deployment fault recovery, nginx configuration and controller regression tests. Backup creation is disabled by owner policy.
 All four statuses (`fsp/platform`, `fsp/backend`, `fsp/compose`, `fsp/release-safety`) must pass. Exact Git tree
 and installed controller content identify evidence; identical integration trees reuse successful evidence and
 explicitly name its source SHA in the status. Failures do not pass and are not repeatedly retried automatically.
@@ -43,6 +43,53 @@ Configure mode-600 files in mode-700 `/etc/fsp-ci`:
 - `resend-acceptance-key`: the dedicated receiving-email test key, never the runtime sending key.
 - `deploy-enabled`: optional empty marker; create only after private deployment configuration is verified.
 
+### Dedicated GitHub credential
+
+On October 11, 2026, [#139](https://github.com/KirpaDmitriy/sport-programming-federation/issues/139) replaced the CI
+copy of the shared credential with a separate classic PAT for `rldyourmnd`, with only `repo` scope. The current
+credential expires **November 10, 2026 at 06:31:54 UTC**; renew it before that time using the procedure below.
+The original shared credential remains unchanged in its owner-managed tooling. Installation validation and
+subsequent CI/release receipts are recorded in the issue.
+
+For the current repository-collaborator identity, issue a separate classic PAT with only `repo` scope and an
+expiration date. It remains limited by the account's actual repository permissions; it is not a repository-specific
+installation token. Do not reduce or revoke a credential shared with other projects. Reconsider a repository-scoped
+GitHub App when the repository owner can install one; the current operator has push access without administration.
+
+Save the new PAT privately in the original checkout's ignored `.fsp-infra/ci-github-token`, mode `600`. Never put it
+in command arguments, Git, issues or chat. Read-only preflight from the repository root:
+
+```sh
+python3 infra/ci/install_token.py < .fsp-infra/ci-github-token
+```
+
+Install from the accepted `main` checkout on the authorized CI host (the input redirection is local):
+
+```sh
+ssh server-gha-runner-1 'python3 /var/lib/fsp-ci/deploy/infra/ci/install_token.py --install' < .fsp-infra/ci-github-token
+```
+
+The installer checks the canonical repository, push access, an admitted maintainer, exactly `repo` scope and a
+future expiration through bounded GitHub requests. Redirects are rejected. It holds the same file lock as the
+controller, so a running or newly starting cycle cannot race the change. A busy controller or failed validation
+leaves the active token untouched; retry after the cycle finishes. The replacement is atomic and root-only, with
+no old-token backup. The timer and the stand continue normally. Temporary activation files are removed on ordinary
+failure; a hard process/host crash can leave a private `.github-token-*` file requiring inspection.
+
+Then request a normal controller cycle and verify canonical fetch/API access; the next ordinary PR cycle must
+prove actual status writes and PR operations before declaring the replacement verified. `deployed.json` changes
+only for a newly accepted release, not merely a token change. Retain the shared token in its original owner-managed
+tooling. Remove the one-time local handoff file after successful replacement; the canonical active copy is
+`/etc/fsp-ci/github-token`.
+
+Tests run with `python3 -m unittest discover -s infra/ci -p 'test_*.py'` and in `fsp/release-safety`. They cover scope,
+identity, expiry, controller contention, provider errors, failed atomic replacement, private modes and secret-free
+errors; rejected HTTP responses are explicitly closed before reporting a sanitized status code. Sources: [GitHub PAT limitations](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
+[scope headers](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps),
+[expiration header](https://github.blog/changelog/2021-07-26-expiration-options-for-personal-access-tokens/).
+
+### Start the controller
+
 Enable `systemctl enable --now fsp-ci.timer`. `systemctl start fsp-ci.service` requests an immediate cycle; an
 OS file lock also prevents duplicate manual controllers. Secrets never enter the checkout, evidence JSON or logs.
 Deployment uses only verified current main and existing `infra/deploy.sh` locking/rollback. `public.sh` then executes
@@ -55,14 +102,16 @@ Inspect `journalctl -u fsp-ci.service` and private `/var/lib/fsp-ci/logs/<sha>/*
 `/var/lib/fsp-ci/evidence/`. A failed revision is retried by removing only its matching evidence JSON and requesting a
 cycle. New content automatically receives new checks. A deployment failure remains red, retries at most three times with five-minute spacing, and never blocks
 PR checks needed to fix it. After fixing infrastructure, remove only `deploy-attempts.json` to retry; a new main
-SHA or changed public URL/auth mode/inbox key starts a fresh acceptance cycle. `deployed.json` records only actual accepted releases. Stop the timer to pause
+SHA or changed public URL/auth mode/inbox key starts a fresh acceptance cycle. `deployed.json` records only actual accepted releases. If GitHub rejects the final success-status write, the next
+cycle reconciles it from the matching accepted SHA/configuration without redeploying or repeating browser
+acceptance; successful status receipts still bound duplicate writes. Stop the timer to pause
 new cycles; stop the service separately only when deliberately interrupting a running check/release.
 
 For controller upgrades: stop the timer, wait for the current service to finish, review the diff, run `install-host.sh`
 from the reviewed release, then restart the timer. For a single script update, review and validate it,
 install it with the existing root ownership/mode while the service is inactive, and restart the timer.
 Controller content changes invalidate cached proof. Keep the
-stand's earlier compatible releases/backups; reverting CI never requires database changes. Do not re-enable retired
+stand's earlier compatible application releases; reverting CI never requires database changes. Do not re-enable retired
 Actions workflows without restoring billing/permissions and deliberately migrating the gate policy.
 
 Primary references: [GitHub commit statuses](https://docs.github.com/en/rest/commits/statuses),

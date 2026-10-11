@@ -1,0 +1,2075 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "linux-intern-1",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Какая команда показывает содержимое текущего каталога?",
+      "options": [
+        {
+          "id": "linux-intern-1-a",
+          "label": "ls"
+        },
+        {
+          "id": "linux-intern-1-b",
+          "label": "cd"
+        },
+        {
+          "id": "linux-intern-1-c",
+          "label": "pwd"
+        }
+      ],
+      "correctOptionId": "linux-intern-1-a",
+      "explanation": "cd меняет каталог, pwd печатает путь к текущему.",
+      "source": "https://man7.org/linux/man-pages/man1/ls.1.html"
+    },
+    {
+      "id": "linux-intern-2",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Что означают права rwxr-xr-- у файла?",
+      "options": [
+        {
+          "id": "linux-intern-2-a",
+          "label": "Владелец может всё, группа читать и выполнять, остальные только читать"
+        },
+        {
+          "id": "linux-intern-2-b",
+          "label": "Все пользователи могут читать и изменять файл, а выполнять его может только владелец"
+        },
+        {
+          "id": "linux-intern-2-c",
+          "label": "Только root может читать файл"
+        }
+      ],
+      "correctOptionId": "linux-intern-2-a",
+      "explanation": "Три тройки прав: владелец, группа, остальные.",
+      "source": "https://man7.org/linux/man-pages/man1/chmod.1.html"
+    },
+    {
+      "id": "linux-intern-3",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Как выполнить команду с правами администратора?",
+      "options": [
+        {
+          "id": "linux-intern-3-a",
+          "label": "admin команда"
+        },
+        {
+          "id": "linux-intern-3-b",
+          "label": "sudo команда"
+        },
+        {
+          "id": "linux-intern-3-c",
+          "label": "run --root команда"
+        }
+      ],
+      "correctOptionId": "linux-intern-3-b",
+      "explanation": "sudo запускает команду от имени другого пользователя, по умолчанию root.",
+      "source": "https://man7.org/linux/man-pages/man8/sudo.8.html"
+    },
+    {
+      "id": "linux-intern-4",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Что делает конвейер ps aux | grep nginx?",
+      "options": [
+        {
+          "id": "linux-intern-4-a",
+          "label": "Передаёт список процессов команде grep для поиска строк с nginx"
+        },
+        {
+          "id": "linux-intern-4-b",
+          "label": "Запускает nginx от имени всех пользователей и выводит его процессы на экран"
+        },
+        {
+          "id": "linux-intern-4-c",
+          "label": "Завершает процессы nginx"
+        }
+      ],
+      "correctOptionId": "linux-intern-4-a",
+      "explanation": "Символ | направляет вывод одной команды на вход другой.",
+      "source": "https://www.gnu.org/software/bash/manual/html_node/Pipelines.html"
+    },
+    {
+      "id": "linux-intern-5",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Как посмотреть последние строки журнала и следить за новыми?",
+      "options": [
+        {
+          "id": "linux-intern-5-a",
+          "label": "head /var/log/syslog"
+        },
+        {
+          "id": "linux-intern-5-b",
+          "label": "cat -n /var/log/syslog"
+        },
+        {
+          "id": "linux-intern-5-c",
+          "label": "tail -f /var/log/syslog"
+        }
+      ],
+      "correctOptionId": "linux-intern-5-c",
+      "explanation": "tail -f продолжает выводить строки по мере их появления.",
+      "source": "https://man7.org/linux/man-pages/man1/tail.1.html"
+    },
+    {
+      "id": "linux-intern-6",
+      "grade": "intern",
+      "skillId": "linux",
+      "prompt": "Какой каталог обычно хранит конфигурационные файлы системы?",
+      "options": [
+        {
+          "id": "linux-intern-6-a",
+          "label": "/bin"
+        },
+        {
+          "id": "linux-intern-6-b",
+          "label": "/etc"
+        },
+        {
+          "id": "linux-intern-6-c",
+          "label": "/home"
+        }
+      ],
+      "correctOptionId": "linux-intern-6-b",
+      "explanation": "В /etc лежат настройки, в /bin — исполняемые файлы, в /home — данные пользователей.",
+      "source": "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s07.html"
+    },
+    {
+      "id": "linux-junior-1",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Как узнать, какой процесс слушает порт 8080?",
+      "options": [
+        {
+          "id": "linux-junior-1-a",
+          "label": "ss -ltnp | grep 8080"
+        },
+        {
+          "id": "linux-junior-1-b",
+          "label": "ls /proc/8080"
+        },
+        {
+          "id": "linux-junior-1-c",
+          "label": "kill -l 8080"
+        }
+      ],
+      "correctOptionId": "linux-junior-1-a",
+      "explanation": "ss показывает сокеты; -l слушающие, -t TCP, -n числовые порты, -p процесс.",
+      "source": "https://man7.org/linux/man-pages/man8/ss.8.html"
+    },
+    {
+      "id": "linux-junior-2",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Как запустить сервис и включить его автозапуск в systemd?",
+      "options": [
+        {
+          "id": "linux-junior-2-a",
+          "label": "systemctl enable --now myservice"
+        },
+        {
+          "id": "linux-junior-2-b",
+          "label": "systemctl start --forever myservice"
+        },
+        {
+          "id": "linux-junior-2-c",
+          "label": "service myservice autostart"
+        }
+      ],
+      "correctOptionId": "linux-junior-2-a",
+      "explanation": "enable создаёт ссылки для автозапуска, --now сразу запускает юнит.",
+      "source": "https://man7.org/linux/man-pages/man1/systemctl.1.html"
+    },
+    {
+      "id": "linux-junior-3",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Где посмотреть журнал сервиса под управлением systemd?",
+      "options": [
+        {
+          "id": "linux-junior-3-a",
+          "label": "cat /etc/systemd/myservice"
+        },
+        {
+          "id": "linux-junior-3-b",
+          "label": "systemctl log myservice"
+        },
+        {
+          "id": "linux-junior-3-c",
+          "label": "journalctl -u myservice"
+        }
+      ],
+      "correctOptionId": "linux-junior-3-c",
+      "explanation": "journalctl читает журнал systemd; -u фильтрует по юниту.",
+      "source": "https://man7.org/linux/man-pages/man1/journalctl.1.html"
+    },
+    {
+      "id": "linux-junior-4",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Чем kill -9 отличается от kill без параметров?",
+      "options": [
+        {
+          "id": "linux-junior-4-a",
+          "label": "kill -9 перезапускает процесс"
+        },
+        {
+          "id": "linux-junior-4-b",
+          "label": "SIGKILL нельзя перехватить: процесс завершится без корректного завершения работы"
+        },
+        {
+          "id": "linux-junior-4-c",
+          "label": "kill без параметров немедленно убивает все процессы текущего пользователя без предупреждения"
+        }
+      ],
+      "correctOptionId": "linux-junior-4-b",
+      "explanation": "По умолчанию отправляется SIGTERM, который программа может обработать.",
+      "source": "https://man7.org/linux/man-pages/man7/signal.7.html"
+    },
+    {
+      "id": "linux-junior-5",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Диск заполнен. Какой командой найти крупные каталоги?",
+      "options": [
+        {
+          "id": "linux-junior-5-a",
+          "label": "du -sh /var/* | sort -h"
+        },
+        {
+          "id": "linux-junior-5-b",
+          "label": "df -i"
+        },
+        {
+          "id": "linux-junior-5-c",
+          "label": "free -h"
+        }
+      ],
+      "correctOptionId": "linux-junior-5-a",
+      "explanation": "du считает размер каталогов; df показывает свободное место на файловых системах.",
+      "source": "https://man7.org/linux/man-pages/man1/du.1.html"
+    },
+    {
+      "id": "linux-junior-6",
+      "grade": "junior",
+      "skillId": "linux",
+      "prompt": "Как вход по SSH сделать безопаснее паролей?",
+      "options": [
+        {
+          "id": "linux-junior-6-a",
+          "label": "Использовать ключи и отключить вход по паролю"
+        },
+        {
+          "id": "linux-junior-6-b",
+          "label": "Использовать более короткий пароль"
+        },
+        {
+          "id": "linux-junior-6-c",
+          "label": "Открыть SSH для всех адресов на порту 22 без ограничений"
+        }
+      ],
+      "correctOptionId": "linux-junior-6-a",
+      "explanation": "Ключи устойчивы к подбору; PasswordAuthentication no отключает пароли.",
+      "source": "https://man.openbsd.org/sshd_config"
+    },
+    {
+      "id": "linux-middle-1",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Что показывает load average?",
+      "options": [
+        {
+          "id": "linux-middle-1-a",
+          "label": "Процент загрузки процессора за последнюю минуту, пять и пятнадцать минут по всем ядрам сервера"
+        },
+        {
+          "id": "linux-middle-1-b",
+          "label": "Среднее число процессов, выполняющихся или ждущих процессор и непрерываемый ввод-вывод"
+        },
+        {
+          "id": "linux-middle-1-c",
+          "label": "Объём свободной памяти"
+        }
+      ],
+      "correctOptionId": "linux-middle-1-b",
+      "explanation": "Значение сравнивают с числом ядер; высокое значение при низкой загрузке CPU указывает на ввод-вывод.",
+      "source": "https://man7.org/linux/man-pages/man5/proc.5.html"
+    },
+    {
+      "id": "linux-middle-2",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Свободной памяти по free почти нет, но большая часть в buff/cache. Это проблема?",
+      "options": [
+        {
+          "id": "linux-middle-2-a",
+          "label": "Да: почти вся память занята, сервер нужно срочно перезагрузить и увеличить объём RAM"
+        },
+        {
+          "id": "linux-middle-2-b",
+          "label": "Обычно нет: кэш освобождается при нехватке памяти, смотрите available"
+        },
+        {
+          "id": "linux-middle-2-c",
+          "label": "Да, кэш означает утечку памяти"
+        }
+      ],
+      "correctOptionId": "linux-middle-2-b",
+      "explanation": "Linux использует свободную память под кэш файлов; показатель available учитывает это.",
+      "source": "https://man7.org/linux/man-pages/man1/free.1.html"
+    },
+    {
+      "id": "linux-middle-3",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Процесс убит, и в журнале ядра есть Out of memory. Что произошло?",
+      "options": [
+        {
+          "id": "linux-middle-3-a",
+          "label": "Процесс завершился по таймауту запуска в systemd из-за медленного старта"
+        },
+        {
+          "id": "linux-middle-3-b",
+          "label": "Диск переполнился"
+        },
+        {
+          "id": "linux-middle-3-c",
+          "label": "Сработал OOM killer из-за нехватки памяти"
+        }
+      ],
+      "correctOptionId": "linux-middle-3-c",
+      "explanation": "Нужно ограничить память процессов, найти утечку или добавить ресурсы.",
+      "source": "https://www.kernel.org/doc/gorman/html/understand/understand016.html"
+    },
+    {
+      "id": "linux-middle-4",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Как ограничить ресурсы сервиса в systemd?",
+      "options": [
+        {
+          "id": "linux-middle-4-a",
+          "label": "Через переменную окружения LIMIT в файле юнита сервиса"
+        },
+        {
+          "id": "linux-middle-4-b",
+          "label": "Только пересборкой ядра"
+        },
+        {
+          "id": "linux-middle-4-c",
+          "label": "Параметрами юнита MemoryMax и CPUQuota"
+        }
+      ],
+      "correctOptionId": "linux-middle-4-c",
+      "explanation": "systemd использует cgroups для ограничения ресурсов.",
+      "source": "https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html"
+    },
+    {
+      "id": "linux-middle-5",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Что делает strace -p PID?",
+      "options": [
+        {
+          "id": "linux-middle-5-a",
+          "label": "Показывает системные вызовы работающего процесса"
+        },
+        {
+          "id": "linux-middle-5-b",
+          "label": "Перезапускает процесс с отладкой"
+        },
+        {
+          "id": "linux-middle-5-c",
+          "label": "Показывает исходный код процесса"
+        }
+      ],
+      "correctOptionId": "linux-middle-5-a",
+      "explanation": "strace помогает понять, на чём процесс ждёт или падает.",
+      "source": "https://man7.org/linux/man-pages/man1/strace.1.html"
+    },
+    {
+      "id": "linux-middle-6",
+      "grade": "middle",
+      "skillId": "linux",
+      "prompt": "Почему место на диске не освобождается после удаления большого журнала?",
+      "options": [
+        {
+          "id": "linux-middle-6-a",
+          "label": "Удалённые файлы хранятся в корзине ядра до следующей перезагрузки сервера"
+        },
+        {
+          "id": "linux-middle-6-b",
+          "label": "Файл удерживает открытым процесс; место вернётся после закрытия дескриптора"
+        },
+        {
+          "id": "linux-middle-6-c",
+          "label": "Нужно выполнить fsck"
+        }
+      ],
+      "correctOptionId": "linux-middle-6-b",
+      "explanation": "lsof +L1 показывает удалённые, но открытые файлы.",
+      "source": "https://man7.org/linux/man-pages/man8/lsof.8.html"
+    },
+    {
+      "id": "linux-senior-1",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Как диагностировать медленный ввод-вывод на сервере?",
+      "options": [
+        {
+          "id": "linux-senior-1-a",
+          "label": "top без параметров, отсортированный по потреблению процессора процессами"
+        },
+        {
+          "id": "linux-senior-1-b",
+          "label": "ping до шлюза"
+        },
+        {
+          "id": "linux-senior-1-c",
+          "label": "iostat и pidstat для очередей и задержек устройств и процессов"
+        }
+      ],
+      "correctOptionId": "linux-senior-1-c",
+      "explanation": "Высокий await и утилизация устройства указывают на узкое место диска.",
+      "source": "https://man7.org/linux/man-pages/man1/iostat.1.html"
+    },
+    {
+      "id": "linux-senior-2",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Что изолируют namespaces в Linux?",
+      "options": [
+        {
+          "id": "linux-senior-2-a",
+          "label": "Объём памяти и процессорное время, доступные каждому процессу в системе"
+        },
+        {
+          "id": "linux-senior-2-b",
+          "label": "Скорость процессора"
+        },
+        {
+          "id": "linux-senior-2-c",
+          "label": "Видимость ресурсов процесса: процессы, сеть, монтирования, пользователей"
+        }
+      ],
+      "correctOptionId": "linux-senior-2-c",
+      "explanation": "Namespaces изолируют видимость, а cgroups ограничивают потребление ресурсов.",
+      "source": "https://man7.org/linux/man-pages/man7/namespaces.7.html"
+    },
+    {
+      "id": "linux-senior-3",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Как безопасно изменить параметры ядра навсегда?",
+      "options": [
+        {
+          "id": "linux-senior-3-a",
+          "label": "Изменить файлы в /proc/sys, и изменения сохранятся после перезагрузки"
+        },
+        {
+          "id": "linux-senior-3-b",
+          "label": "Описать их в файле /etc/sysctl.d/*.conf и применить sysctl --system"
+        },
+        {
+          "id": "linux-senior-3-c",
+          "label": "Пересобрать ядро"
+        }
+      ],
+      "correctOptionId": "linux-senior-3-b",
+      "explanation": "Запись в /proc/sys действует только до перезагрузки.",
+      "source": "https://man7.org/linux/man-pages/man8/sysctl.8.html"
+    },
+    {
+      "id": "linux-senior-4",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Что даёт неизменяемая инфраструктура?",
+      "options": [
+        {
+          "id": "linux-senior-4-a",
+          "label": "Серверы не правят вручную: изменения выкатываются новыми образами"
+        },
+        {
+          "id": "linux-senior-4-b",
+          "label": "Серверы нельзя перезагружать"
+        },
+        {
+          "id": "linux-senior-4-c",
+          "label": "Конфигурация серверов хранится только в оперативной памяти и сбрасывается при перезагрузке"
+        }
+      ],
+      "correctOptionId": "linux-senior-4-a",
+      "explanation": "Это исключает дрейф конфигурации между серверами.",
+      "source": "https://martinfowler.com/bliki/ImmutableServer.html"
+    },
+    {
+      "id": "linux-senior-5",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Как ограничить права сервиса, запущенного systemd?",
+      "options": [
+        {
+          "id": "linux-senior-5-a",
+          "label": "Опциями изоляции: отдельный пользователь, ProtectSystem, NoNewPrivileges, PrivateTmp"
+        },
+        {
+          "id": "linux-senior-5-b",
+          "label": "Запускать сервис от root, чтобы не было ошибок доступа, и ограничить его права через sudoers"
+        },
+        {
+          "id": "linux-senior-5-c",
+          "label": "Отключить SELinux или AppArmor"
+        }
+      ],
+      "correctOptionId": "linux-senior-5-a",
+      "explanation": "Минимальные привилегии ограничивают ущерб при компрометации сервиса.",
+      "source": "https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html"
+    },
+    {
+      "id": "linux-senior-6",
+      "grade": "senior",
+      "skillId": "linux",
+      "prompt": "Как найти причину высокой загрузки CPU в ядре (sy в top)?",
+      "options": [
+        {
+          "id": "linux-senior-6-a",
+          "label": "Увеличить swap"
+        },
+        {
+          "id": "linux-senior-6-b",
+          "label": "Перезапустить все сервисы"
+        },
+        {
+          "id": "linux-senior-6-c",
+          "label": "Профилировать perf top или perf record с символами ядра"
+        }
+      ],
+      "correctOptionId": "linux-senior-6-c",
+      "explanation": "perf показывает функции, на которые тратится процессорное время.",
+      "source": "https://perf.wiki.kernel.org/index.php/Tutorial"
+    },
+    {
+      "id": "linux-lead-1",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Как стандартизировать настройку сотен серверов?",
+      "options": [
+        {
+          "id": "linux-lead-1-a",
+          "label": "Ручная настройка по инструкции в вики"
+        },
+        {
+          "id": "linux-lead-1-b",
+          "label": "Управление конфигурацией как кодом (Ansible и подобные) с ревью и тестами"
+        },
+        {
+          "id": "linux-lead-1-c",
+          "label": "Копирование готовых настроек с соседнего сервера через rsync по необходимости"
+        }
+      ],
+      "correctOptionId": "linux-lead-1-b",
+      "explanation": "Код конфигурации воспроизводим и проверяем.",
+      "source": "https://docs.ansible.com/ansible/latest/getting_started/index.html"
+    },
+    {
+      "id": "linux-lead-2",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Как организовать обновления безопасности ОС без простоев?",
+      "options": [
+        {
+          "id": "linux-lead-2-a",
+          "label": "Обновлять все серверы одновременно в рабочее время, чтобы быстрее увидеть проблемы"
+        },
+        {
+          "id": "linux-lead-2-b",
+          "label": "Поэтапно по группам серверов с проверкой здоровья и возможностью отката"
+        },
+        {
+          "id": "linux-lead-2-c",
+          "label": "Не обновлять, пока работает"
+        }
+      ],
+      "correctOptionId": "linux-lead-2-b",
+      "explanation": "Поэтапные обновления ограничивают влияние неудачного пакета.",
+      "source": "https://sre.google/sre-book/release-engineering/"
+    },
+    {
+      "id": "linux-lead-3",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Как выстроить дежурства без выгорания?",
+      "options": [
+        {
+          "id": "linux-lead-3-a",
+          "label": "Ограничить нагрузку, убрать шумные алерты и разбирать инциденты"
+        },
+        {
+          "id": "linux-lead-3-b",
+          "label": "Дежурит один и тот же опытный человек постоянно, чтобы не передавать контекст"
+        },
+        {
+          "id": "linux-lead-3-c",
+          "label": "Отключить ночные оповещения"
+        }
+      ],
+      "correctOptionId": "linux-lead-3-a",
+      "explanation": "Алерты должны требовать действия; шум ведёт к пропуску важного.",
+      "source": "https://sre.google/sre-book/being-on-call/"
+    },
+    {
+      "id": "linux-lead-4",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Какие метрики сервера важно собирать по методу USE?",
+      "options": [
+        {
+          "id": "linux-lead-4-a",
+          "label": "Утилизацию, насыщение и ошибки каждого ресурса"
+        },
+        {
+          "id": "linux-lead-4-b",
+          "label": "Только число пользователей"
+        },
+        {
+          "id": "linux-lead-4-c",
+          "label": "Только аптайм"
+        }
+      ],
+      "correctOptionId": "linux-lead-4-a",
+      "explanation": "Метод USE систематически проверяет каждый ресурс.",
+      "source": "https://www.brendangregg.com/usemethod.html"
+    },
+    {
+      "id": "linux-lead-5",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Как управлять доступом администраторов к серверам?",
+      "options": [
+        {
+          "id": "linux-lead-5-a",
+          "label": "Общий пароль root для всех"
+        },
+        {
+          "id": "linux-lead-5-b",
+          "label": "Ключи без срока действия, которые администраторы передают друг другу в общем чате"
+        },
+        {
+          "id": "linux-lead-5-c",
+          "label": "Централизованные учётные записи, ключи с ограниченным сроком и журнал действий"
+        }
+      ],
+      "correctOptionId": "linux-lead-5-c",
+      "explanation": "Персональный доступ и аудит позволяют отследить и отозвать права.",
+      "source": "https://man.openbsd.org/ssh-keygen#CERTIFICATES"
+    },
+    {
+      "id": "linux-lead-6",
+      "grade": "lead",
+      "skillId": "linux",
+      "prompt": "Когда переносить сервисы с виртуальных машин в контейнеры?",
+      "options": [
+        {
+          "id": "linux-lead-6-a",
+          "label": "Всегда сразу, потому что контейнеры в любом случае проще и дешевле виртуальных машин"
+        },
+        {
+          "id": "linux-lead-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "linux-lead-6-c",
+          "label": "Когда это упрощает выкладку и масштабирование и команда готова к эксплуатации платформы"
+        }
+      ],
+      "correctOptionId": "linux-lead-6-c",
+      "explanation": "Контейнеризация несёт пользу и новые операционные затраты.",
+      "source": "https://kubernetes.io/docs/concepts/overview/"
+    },
+    {
+      "id": "kubernetes-intern-1",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Что такое Pod в Kubernetes?",
+      "options": [
+        {
+          "id": "kubernetes-intern-1-a",
+          "label": "Минимальная единица развёртывания: один или несколько контейнеров с общей сетью"
+        },
+        {
+          "id": "kubernetes-intern-1-b",
+          "label": "Физический сервер кластера, на котором запускаются контейнеры одного приложения"
+        },
+        {
+          "id": "kubernetes-intern-1-c",
+          "label": "Хранилище образов"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-1-a",
+      "explanation": "Контейнеры пода делят сетевое пространство и тома.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/pods/"
+    },
+    {
+      "id": "kubernetes-intern-2",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Какая команда показывает поды в текущем пространстве имён?",
+      "options": [
+        {
+          "id": "kubernetes-intern-2-a",
+          "label": "kubectl show containers"
+        },
+        {
+          "id": "kubernetes-intern-2-b",
+          "label": "kubectl get pods"
+        },
+        {
+          "id": "kubernetes-intern-2-c",
+          "label": "docker ps --k8s"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-2-b",
+      "explanation": "kubectl get выводит список ресурсов указанного типа.",
+      "source": "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+    },
+    {
+      "id": "kubernetes-intern-3",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Что такое контейнерный образ?",
+      "options": [
+        {
+          "id": "kubernetes-intern-3-a",
+          "label": "Работающий процесс"
+        },
+        {
+          "id": "kubernetes-intern-3-b",
+          "label": "Снимок состояния работающего контейнера с его памятью для быстрого перезапуска"
+        },
+        {
+          "id": "kubernetes-intern-3-c",
+          "label": "Неизменяемый шаблон с приложением и зависимостями для запуска контейнера"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-3-c",
+      "explanation": "Из одного образа запускаются многие контейнеры.",
+      "source": "https://kubernetes.io/docs/concepts/containers/images/"
+    },
+    {
+      "id": "kubernetes-intern-4",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Для чего нужен Deployment?",
+      "options": [
+        {
+          "id": "kubernetes-intern-4-a",
+          "label": "Хранит пароли"
+        },
+        {
+          "id": "kubernetes-intern-4-b",
+          "label": "Открывает доступ к приложению из интернета по доменному имени"
+        },
+        {
+          "id": "kubernetes-intern-4-c",
+          "label": "Поддерживает нужное число одинаковых подов и обновляет их"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-4-c",
+      "explanation": "Deployment управляет ReplicaSet и выполняет плавные обновления.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+    },
+    {
+      "id": "kubernetes-intern-5",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Что делает Service типа ClusterIP?",
+      "options": [
+        {
+          "id": "kubernetes-intern-5-a",
+          "label": "Открывает фиксированный порт на каждом узле кластера наружу"
+        },
+        {
+          "id": "kubernetes-intern-5-b",
+          "label": "Хранит конфигурацию приложения"
+        },
+        {
+          "id": "kubernetes-intern-5-c",
+          "label": "Даёт стабильный адрес внутри кластера для набора подов"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-5-c",
+      "explanation": "Поды меняются, а адрес сервиса остаётся постоянным.",
+      "source": "https://kubernetes.io/docs/concepts/services-networking/service/"
+    },
+    {
+      "id": "kubernetes-intern-6",
+      "grade": "intern",
+      "skillId": "kubernetes",
+      "prompt": "Что такое Namespace?",
+      "options": [
+        {
+          "id": "kubernetes-intern-6-a",
+          "label": "Отдельный физический кластер"
+        },
+        {
+          "id": "kubernetes-intern-6-b",
+          "label": "Сетевой протокол"
+        },
+        {
+          "id": "kubernetes-intern-6-c",
+          "label": "Логическое разделение ресурсов кластера"
+        }
+      ],
+      "correctOptionId": "kubernetes-intern-6-c",
+      "explanation": "Пространства имён разделяют ресурсы команд и окружений.",
+      "source": "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+    },
+    {
+      "id": "kubernetes-junior-1",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Как передать приложению настройки без пересборки образа?",
+      "options": [
+        {
+          "id": "kubernetes-junior-1-a",
+          "label": "Изменить файлы внутри работающего контейнера"
+        },
+        {
+          "id": "kubernetes-junior-1-b",
+          "label": "Вписать настройки в Dockerfile"
+        },
+        {
+          "id": "kubernetes-junior-1-c",
+          "label": "Через ConfigMap, а секреты — через Secret"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-1-c",
+      "explanation": "ConfigMap и Secret монтируются как файлы или переменные окружения.",
+      "source": "https://kubernetes.io/docs/concepts/configuration/configmap/"
+    },
+    {
+      "id": "kubernetes-junior-2",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Чем readinessProbe отличается от livenessProbe?",
+      "options": [
+        {
+          "id": "kubernetes-junior-2-a",
+          "label": "Это синонимы"
+        },
+        {
+          "id": "kubernetes-junior-2-b",
+          "label": "Liveness нужна только базам данных, а readiness — только веб-приложениям"
+        },
+        {
+          "id": "kubernetes-junior-2-c",
+          "label": "Readiness решает, принимать ли трафик; liveness — перезапускать ли контейнер"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-2-c",
+      "explanation": "Неготовый под исключается из сервиса, но не перезапускается.",
+      "source": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/"
+    },
+    {
+      "id": "kubernetes-junior-3",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Под в статусе CrashLoopBackOff. С чего начать?",
+      "options": [
+        {
+          "id": "kubernetes-junior-3-a",
+          "label": "Удалить узел кластера"
+        },
+        {
+          "id": "kubernetes-junior-3-b",
+          "label": "kubectl logs --previous и kubectl describe pod"
+        },
+        {
+          "id": "kubernetes-junior-3-c",
+          "label": "Увеличить число реплик, чтобы падения перестали влиять"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-3-b",
+      "explanation": "Логи предыдущего запуска и события пода показывают причину падения.",
+      "source": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+    },
+    {
+      "id": "kubernetes-junior-4",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Зачем задавать requests и limits ресурсов?",
+      "options": [
+        {
+          "id": "kubernetes-junior-4-a",
+          "label": "Requests нужны планировщику, limits ограничивают потребление"
+        },
+        {
+          "id": "kubernetes-junior-4-b",
+          "label": "Они ускоряют запуск контейнера и резервируют для него узел"
+        },
+        {
+          "id": "kubernetes-junior-4-c",
+          "label": "Без них под не запустится"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-4-a",
+      "explanation": "Без requests планировщик не знает реальных потребностей пода.",
+      "source": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+    },
+    {
+      "id": "kubernetes-junior-5",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Как откатить неудачное обновление Deployment?",
+      "options": [
+        {
+          "id": "kubernetes-junior-5-a",
+          "label": "kubectl delete deployment app"
+        },
+        {
+          "id": "kubernetes-junior-5-b",
+          "label": "kubectl rollout undo deployment/app"
+        },
+        {
+          "id": "kubernetes-junior-5-c",
+          "label": "kubectl restart cluster"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-5-b",
+      "explanation": "Kubernetes хранит историю ревизий Deployment.",
+      "source": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/kubectl_rollout_undo/"
+    },
+    {
+      "id": "kubernetes-junior-6",
+      "grade": "junior",
+      "skillId": "kubernetes",
+      "prompt": "Что делает Ingress?",
+      "options": [
+        {
+          "id": "kubernetes-junior-6-a",
+          "label": "Хранит образы контейнеров"
+        },
+        {
+          "id": "kubernetes-junior-6-b",
+          "label": "Автоматически масштабирует узлы кластера по входящему трафику"
+        },
+        {
+          "id": "kubernetes-junior-6-c",
+          "label": "Маршрутизирует внешний HTTP-трафик к сервисам по хостам и путям"
+        }
+      ],
+      "correctOptionId": "kubernetes-junior-6-c",
+      "explanation": "Для работы нужен контроллер Ingress, например nginx.",
+      "source": "https://kubernetes.io/docs/concepts/services-networking/ingress/"
+    },
+    {
+      "id": "kubernetes-middle-1",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Когда использовать StatefulSet вместо Deployment?",
+      "options": [
+        {
+          "id": "kubernetes-middle-1-a",
+          "label": "Для любых веб-сервисов без состояния, которым нужно больше трёх реплик на узле"
+        },
+        {
+          "id": "kubernetes-middle-1-b",
+          "label": "Когда нужно больше трёх реплик"
+        },
+        {
+          "id": "kubernetes-middle-1-c",
+          "label": "Для приложений со стабильными именами и собственными томами, например баз данных"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-1-c",
+      "explanation": "StatefulSet сохраняет идентичность пода и привязку к тому.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/"
+    },
+    {
+      "id": "kubernetes-middle-2",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Как HorizontalPodAutoscaler решает, сколько подов нужно?",
+      "options": [
+        {
+          "id": "kubernetes-middle-2-a",
+          "label": "По числу узлов кластера и свободной памяти на них"
+        },
+        {
+          "id": "kubernetes-middle-2-b",
+          "label": "По метрикам, например загрузке CPU относительно requests"
+        },
+        {
+          "id": "kubernetes-middle-2-c",
+          "label": "По времени суток всегда"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-2-b",
+      "explanation": "HPA сравнивает текущую метрику с целевой и меняет число реплик.",
+      "source": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/"
+    },
+    {
+      "id": "kubernetes-middle-3",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Почему Secret в Kubernetes по умолчанию недостаточно защищён?",
+      "options": [
+        {
+          "id": "kubernetes-middle-3-a",
+          "label": "Secret хранится в открытом виде внутри образа контейнера и попадает в реестр"
+        },
+        {
+          "id": "kubernetes-middle-3-b",
+          "label": "Значения закодированы base64, а не зашифрованы; нужны шифрование etcd и RBAC"
+        },
+        {
+          "id": "kubernetes-middle-3-c",
+          "label": "Secret доступен из интернета"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-3-b",
+      "explanation": "Base64 — не шифрование; доступ к etcd и API нужно ограничивать.",
+      "source": "https://kubernetes.io/docs/concepts/security/secrets-good-practices/"
+    },
+    {
+      "id": "kubernetes-middle-4",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Что даёт PodDisruptionBudget?",
+      "options": [
+        {
+          "id": "kubernetes-middle-4-a",
+          "label": "Ограничивает бюджет на облачные ресурсы кластера для каждого приложения"
+        },
+        {
+          "id": "kubernetes-middle-4-b",
+          "label": "Запрещает перезапуск подов"
+        },
+        {
+          "id": "kubernetes-middle-4-c",
+          "label": "Ограничивает число одновременно недоступных подов при плановых операциях"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-4-c",
+      "explanation": "PDB защищает доступность при обслуживании узлов.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/"
+    },
+    {
+      "id": "kubernetes-middle-5",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Как ограничить сетевой доступ между подами?",
+      "options": [
+        {
+          "id": "kubernetes-middle-5-a",
+          "label": "NetworkPolicy с поддерживающим её сетевым плагином"
+        },
+        {
+          "id": "kubernetes-middle-5-b",
+          "label": "Отдельный Namespace автоматически запрещает трафик"
+        },
+        {
+          "id": "kubernetes-middle-5-c",
+          "label": "Удалить сервисы"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-5-a",
+      "explanation": "По умолчанию поды могут общаться друг с другом.",
+      "source": "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+    },
+    {
+      "id": "kubernetes-middle-6",
+      "grade": "middle",
+      "skillId": "kubernetes",
+      "prompt": "Что такое Helm?",
+      "options": [
+        {
+          "id": "kubernetes-middle-6-a",
+          "label": "Сетевой плагин"
+        },
+        {
+          "id": "kubernetes-middle-6-b",
+          "label": "Среда выполнения контейнеров, заменяющая Docker на узлах кластера"
+        },
+        {
+          "id": "kubernetes-middle-6-c",
+          "label": "Менеджер пакетов для шаблонизированных манифестов Kubernetes"
+        }
+      ],
+      "correctOptionId": "kubernetes-middle-6-c",
+      "explanation": "Helm-чарт параметризует набор манифестов приложения.",
+      "source": "https://helm.sh/docs/intro/using_helm/"
+    },
+    {
+      "id": "kubernetes-senior-1",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Что такое GitOps?",
+      "options": [
+        {
+          "id": "kubernetes-senior-1-a",
+          "label": "Желаемое состояние кластера хранится в Git и автоматически синхронизируется"
+        },
+        {
+          "id": "kubernetes-senior-1-b",
+          "label": "Запуск Git внутри кластера"
+        },
+        {
+          "id": "kubernetes-senior-1-c",
+          "label": "Ручное применение манифестов с ноутбука администратора через kubectl apply"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-1-a",
+      "explanation": "Изменения проходят ревью в Git, контроллер (Argo CD, Flux) применяет их.",
+      "source": "https://opengitops.dev/"
+    },
+    {
+      "id": "kubernetes-senior-2",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Как минимизировать права сервисных аккаунтов?",
+      "options": [
+        {
+          "id": "kubernetes-senior-2-a",
+          "label": "Выдать роль cluster-admin всем приложениям, чтобы избежать ошибок доступа к API"
+        },
+        {
+          "id": "kubernetes-senior-2-b",
+          "label": "RBAC с ролями на нужные ресурсы и глаголы в нужном пространстве имён"
+        },
+        {
+          "id": "kubernetes-senior-2-c",
+          "label": "Отключить RBAC"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-2-b",
+      "explanation": "Принцип минимальных привилегий снижает ущерб при компрометации пода.",
+      "source": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"
+    },
+    {
+      "id": "kubernetes-senior-3",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Что проверяют Pod Security Standards уровня restricted?",
+      "options": [
+        {
+          "id": "kubernetes-senior-3-a",
+          "label": "Проверку подписей образов и запрет загрузки образов из публичных реестров"
+        },
+        {
+          "id": "kubernetes-senior-3-b",
+          "label": "Запрет привилегированных контейнеров, запуск не от root и ограничение возможностей"
+        },
+        {
+          "id": "kubernetes-senior-3-c",
+          "label": "Скорость сети"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-3-b",
+      "explanation": "Restricted — наиболее строгий профиль безопасности подов.",
+      "source": "https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+    },
+    {
+      "id": "kubernetes-senior-4",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Почему важно корректно обрабатывать SIGTERM в контейнере?",
+      "options": [
+        {
+          "id": "kubernetes-senior-4-a",
+          "label": "Под получает SIGTERM при остановке и должен успеть завершить запросы до SIGKILL"
+        },
+        {
+          "id": "kubernetes-senior-4-b",
+          "label": "SIGTERM нужен только для логов"
+        },
+        {
+          "id": "kubernetes-senior-4-c",
+          "label": "Kubernetes никогда не останавливает поды без команды администратора"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-4-a",
+      "explanation": "Корректное завершение предотвращает ошибки при выкладке.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination"
+    },
+    {
+      "id": "kubernetes-senior-5",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Как обновлять версию Kubernetes кластера?",
+      "options": [
+        {
+          "id": "kubernetes-senior-5-a",
+          "label": "По одной минорной версии за раз, сначала управляющий слой, затем узлы"
+        },
+        {
+          "id": "kubernetes-senior-5-b",
+          "label": "Перепрыгнуть сразу через несколько версий"
+        },
+        {
+          "id": "kubernetes-senior-5-c",
+          "label": "Удалить кластер и создать заново в рабочее время"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-5-a",
+      "explanation": "Политика совместимости версий допускает ограниченный перекос между компонентами.",
+      "source": "https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/"
+    },
+    {
+      "id": "kubernetes-senior-6",
+      "grade": "senior",
+      "skillId": "kubernetes",
+      "prompt": "Как обеспечить отказоустойчивость приложения на нескольких зонах?",
+      "options": [
+        {
+          "id": "kubernetes-senior-6-a",
+          "label": "Распределить реплики по зонам ограничениями topologySpreadConstraints"
+        },
+        {
+          "id": "kubernetes-senior-6-b",
+          "label": "Запустить все реплики на одном мощном узле, чтобы уменьшить сетевые задержки"
+        },
+        {
+          "id": "kubernetes-senior-6-c",
+          "label": "Увеличить ресурсы одного пода"
+        }
+      ],
+      "correctOptionId": "kubernetes-senior-6-a",
+      "explanation": "Распределение по зонам переживает отказ одной зоны.",
+      "source": "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/"
+    },
+    {
+      "id": "kubernetes-lead-1",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Когда Kubernetes избыточен для проекта?",
+      "options": [
+        {
+          "id": "kubernetes-lead-1-a",
+          "label": "Никогда"
+        },
+        {
+          "id": "kubernetes-lead-1-b",
+          "label": "Когда несколько сервисов проще обслуживать без платформы, а команды на неё нет"
+        },
+        {
+          "id": "kubernetes-lead-1-c",
+          "label": "Когда в проекте больше двух сервисов, Kubernetes уже обязателен"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-1-b",
+      "explanation": "Kubernetes даёт гибкость ценой значительной операционной сложности.",
+      "source": "https://kubernetes.io/docs/concepts/overview/"
+    },
+    {
+      "id": "kubernetes-lead-2",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Как разделить кластер между командами?",
+      "options": [
+        {
+          "id": "kubernetes-lead-2-a",
+          "label": "Пространства имён с квотами, RBAC и сетевыми политиками"
+        },
+        {
+          "id": "kubernetes-lead-2-b",
+          "label": "Дать всем полный доступ"
+        },
+        {
+          "id": "kubernetes-lead-2-c",
+          "label": "Отдельный кластер на каждый микросервис"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-2-a",
+      "explanation": "Квоты и политики обеспечивают изоляцию и справедливое распределение ресурсов.",
+      "source": "https://kubernetes.io/docs/concepts/security/multi-tenancy/"
+    },
+    {
+      "id": "kubernetes-lead-3",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Как контролировать расходы на кластер?",
+      "options": [
+        {
+          "id": "kubernetes-lead-3-a",
+          "label": "Задавать огромные limits всем подам, чтобы они никогда не упирались в ресурсы"
+        },
+        {
+          "id": "kubernetes-lead-3-b",
+          "label": "Не устанавливать requests"
+        },
+        {
+          "id": "kubernetes-lead-3-c",
+          "label": "Учёт ресурсов по командам, корректные requests и автомасштабирование узлов"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-3-c",
+      "explanation": "Точные requests позволяют плотнее размещать поды.",
+      "source": "https://kubernetes.io/docs/concepts/policy/resource-quotas/"
+    },
+    {
+      "id": "kubernetes-lead-4",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Как проверять безопасность образов до выкладки?",
+      "options": [
+        {
+          "id": "kubernetes-lead-4-a",
+          "label": "Проверять образы вручную раз в год перед аудитом безопасности"
+        },
+        {
+          "id": "kubernetes-lead-4-b",
+          "label": "Брать любые образы из интернета"
+        },
+        {
+          "id": "kubernetes-lead-4-c",
+          "label": "Сканировать уязвимости и проверять подписи в конвейере и при допуске в кластер"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-4-c",
+      "explanation": "Admission-политики могут запрещать неподписанные или уязвимые образы.",
+      "source": "https://kubernetes.io/docs/concepts/security/"
+    },
+    {
+      "id": "kubernetes-lead-5",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Как подготовиться к восстановлению кластера после аварии?",
+      "options": [
+        {
+          "id": "kubernetes-lead-5-a",
+          "label": "Резервировать etcd и манифесты, хранить их вне кластера и проверять восстановление"
+        },
+        {
+          "id": "kubernetes-lead-5-b",
+          "label": "Положиться на то, что кластер не упадёт"
+        },
+        {
+          "id": "kubernetes-lead-5-c",
+          "label": "Хранить манифесты только в работающем кластере"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-5-a",
+      "explanation": "Проверенный план восстановления — обязательная часть эксплуатации.",
+      "source": "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster"
+    },
+    {
+      "id": "kubernetes-lead-6",
+      "grade": "lead",
+      "skillId": "kubernetes",
+      "prompt": "Как определить SLO для сервиса на платформе?",
+      "options": [
+        {
+          "id": "kubernetes-lead-6-a",
+          "label": "По пользовательским показателям доступности и задержки с бюджетом ошибок"
+        },
+        {
+          "id": "kubernetes-lead-6-b",
+          "label": "По загрузке процессора узлов кластера и числу запущенных подов"
+        },
+        {
+          "id": "kubernetes-lead-6-c",
+          "label": "По числу подов"
+        }
+      ],
+      "correctOptionId": "kubernetes-lead-6-a",
+      "explanation": "Бюджет ошибок балансирует скорость изменений и надёжность.",
+      "source": "https://sre.google/sre-book/service-level-objectives/"
+    },
+    {
+      "id": "computer_networks-intern-1",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Что такое IP-адрес?",
+      "options": [
+        {
+          "id": "computer_networks-intern-1-a",
+          "label": "Имя сайта"
+        },
+        {
+          "id": "computer_networks-intern-1-b",
+          "label": "Физический адрес сетевой карты, записанный производителем"
+        },
+        {
+          "id": "computer_networks-intern-1-c",
+          "label": "Адрес устройства в сети для доставки пакетов"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-1-c",
+      "explanation": "Физический адрес — MAC; имя сайта преобразуется в IP через DNS.",
+      "source": "https://www.rfc-editor.org/rfc/rfc791"
+    },
+    {
+      "id": "computer_networks-intern-2",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Для чего нужна служба DNS?",
+      "options": [
+        {
+          "id": "computer_networks-intern-2-a",
+          "label": "Шифрует трафик"
+        },
+        {
+          "id": "computer_networks-intern-2-b",
+          "label": "Преобразует доменные имена в IP-адреса"
+        },
+        {
+          "id": "computer_networks-intern-2-c",
+          "label": "Раздаёт IP-адреса устройствам"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-2-b",
+      "explanation": "Раздачей адресов занимается DHCP.",
+      "source": "https://www.rfc-editor.org/rfc/rfc1034"
+    },
+    {
+      "id": "computer_networks-intern-3",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Какой протокол автоматически выдаёт устройствам IP-адреса?",
+      "options": [
+        {
+          "id": "computer_networks-intern-3-a",
+          "label": "DHCP"
+        },
+        {
+          "id": "computer_networks-intern-3-b",
+          "label": "FTP"
+        },
+        {
+          "id": "computer_networks-intern-3-c",
+          "label": "SMTP"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-3-a",
+      "explanation": "DHCP выдаёт адрес, маску, шлюз и DNS-серверы.",
+      "source": "https://www.rfc-editor.org/rfc/rfc2131"
+    },
+    {
+      "id": "computer_networks-intern-4",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Что проверяет команда ping?",
+      "options": [
+        {
+          "id": "computer_networks-intern-4-a",
+          "label": "Скорость диска"
+        },
+        {
+          "id": "computer_networks-intern-4-b",
+          "label": "Доступность узла и время ответа с помощью ICMP"
+        },
+        {
+          "id": "computer_networks-intern-4-c",
+          "label": "Открытые порты веб-сервера и версию его программного обеспечения"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-4-b",
+      "explanation": "ping отправляет ICMP Echo Request; ответ может блокироваться межсетевым экраном.",
+      "source": "https://man7.org/linux/man-pages/man8/ping.8.html"
+    },
+    {
+      "id": "computer_networks-intern-5",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Какой порт по умолчанию у HTTPS?",
+      "options": [
+        {
+          "id": "computer_networks-intern-5-a",
+          "label": "80"
+        },
+        {
+          "id": "computer_networks-intern-5-b",
+          "label": "443"
+        },
+        {
+          "id": "computer_networks-intern-5-c",
+          "label": "22"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-5-b",
+      "explanation": "80 — HTTP, 22 — SSH.",
+      "source": "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml"
+    },
+    {
+      "id": "computer_networks-intern-6",
+      "grade": "intern",
+      "skillId": "computer_networks",
+      "prompt": "Что такое маршрутизатор?",
+      "options": [
+        {
+          "id": "computer_networks-intern-6-a",
+          "label": "Устройство для хранения файлов, доступных в локальной сети"
+        },
+        {
+          "id": "computer_networks-intern-6-b",
+          "label": "Программа для просмотра сайтов"
+        },
+        {
+          "id": "computer_networks-intern-6-c",
+          "label": "Устройство, пересылающее пакеты между сетями"
+        }
+      ],
+      "correctOptionId": "computer_networks-intern-6-c",
+      "explanation": "Маршрутизатор выбирает путь пакета по таблице маршрутизации.",
+      "source": "https://en.wikipedia.org/wiki/Router_(computing)"
+    },
+    {
+      "id": "computer_networks-junior-1",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Сколько адресов узлов в подсети /24?",
+      "options": [
+        {
+          "id": "computer_networks-junior-1-a",
+          "label": "254"
+        },
+        {
+          "id": "computer_networks-junior-1-b",
+          "label": "256"
+        },
+        {
+          "id": "computer_networks-junior-1-c",
+          "label": "24"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-1-a",
+      "explanation": "256 адресов минус адрес сети и широковещательный.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4632"
+    },
+    {
+      "id": "computer_networks-junior-2",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Чем TCP отличается от UDP?",
+      "options": [
+        {
+          "id": "computer_networks-junior-2-a",
+          "label": "UDP всегда безопаснее TCP"
+        },
+        {
+          "id": "computer_networks-junior-2-b",
+          "label": "TCP устанавливает соединение и гарантирует доставку по порядку, UDP — нет"
+        },
+        {
+          "id": "computer_networks-junior-2-c",
+          "label": "TCP работает только в локальной сети, а UDP используется для интернета"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-2-b",
+      "explanation": "UDP быстрее и проще, подходит для DNS, видео и игр.",
+      "source": "https://www.rfc-editor.org/rfc/rfc9293"
+    },
+    {
+      "id": "computer_networks-junior-3",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Зачем нужен NAT?",
+      "options": [
+        {
+          "id": "computer_networks-junior-3-a",
+          "label": "Шифрует трафик между домашней сетью и провайдером интернета"
+        },
+        {
+          "id": "computer_networks-junior-3-b",
+          "label": "Ускоряет DNS"
+        },
+        {
+          "id": "computer_networks-junior-3-c",
+          "label": "Позволяет устройствам с частными адресами выходить в интернет через один публичный адрес"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-3-c",
+      "explanation": "NAT подменяет адреса и порты в пакетах на границе сети.",
+      "source": "https://www.rfc-editor.org/rfc/rfc3022"
+    },
+    {
+      "id": "computer_networks-junior-4",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Какие диапазоны адресов являются частными?",
+      "options": [
+        {
+          "id": "computer_networks-junior-4-a",
+          "label": "8.8.8.0/24 и 1.1.1.0/24"
+        },
+        {
+          "id": "computer_networks-junior-4-b",
+          "label": "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16"
+        },
+        {
+          "id": "computer_networks-junior-4-c",
+          "label": "127.0.0.0/8 и 0.0.0.0/8 только"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-4-b",
+      "explanation": "Частные адреса по RFC 1918 не маршрутизируются в интернете.",
+      "source": "https://www.rfc-editor.org/rfc/rfc1918"
+    },
+    {
+      "id": "computer_networks-junior-5",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Что показывает traceroute?",
+      "options": [
+        {
+          "id": "computer_networks-junior-5-a",
+          "label": "Скорость загрузки страницы и задержку DNS"
+        },
+        {
+          "id": "computer_networks-junior-5-b",
+          "label": "Список открытых портов"
+        },
+        {
+          "id": "computer_networks-junior-5-c",
+          "label": "Цепочку маршрутизаторов на пути до узла"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-5-c",
+      "explanation": "traceroute использует растущий TTL и ответы промежуточных узлов.",
+      "source": "https://man7.org/linux/man-pages/man8/traceroute.8.html"
+    },
+    {
+      "id": "computer_networks-junior-6",
+      "grade": "junior",
+      "skillId": "computer_networks",
+      "prompt": "Для чего нужна VLAN?",
+      "options": [
+        {
+          "id": "computer_networks-junior-6-a",
+          "label": "Логически разделяет один коммутатор на изолированные сети"
+        },
+        {
+          "id": "computer_networks-junior-6-b",
+          "label": "Ускоряет Wi-Fi"
+        },
+        {
+          "id": "computer_networks-junior-6-c",
+          "label": "Заменяет маршрутизатор при подключении офиса к интернету"
+        }
+      ],
+      "correctOptionId": "computer_networks-junior-6-a",
+      "explanation": "Трафик между VLAN идёт только через маршрутизацию.",
+      "source": "https://en.wikipedia.org/wiki/IEEE_802.1Q"
+    },
+    {
+      "id": "computer_networks-middle-1",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Сайт открывается по IP, но не по имени. Что проверить?",
+      "options": [
+        {
+          "id": "computer_networks-middle-1-a",
+          "label": "Скорость сетевой карты и настройки дуплекса на сервере сайта"
+        },
+        {
+          "id": "computer_networks-middle-1-b",
+          "label": "Сертификат TLS"
+        },
+        {
+          "id": "computer_networks-middle-1-c",
+          "label": "Разрешение имени: dig или nslookup и настройки DNS-резолвера"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-1-c",
+      "explanation": "Если IP работает, проблема в DNS.",
+      "source": "https://bind9.readthedocs.io/en/latest/manpages.html"
+    },
+    {
+      "id": "computer_networks-middle-2",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Как работает трёхстороннее рукопожатие TCP?",
+      "options": [
+        {
+          "id": "computer_networks-middle-2-a",
+          "label": "HELLO, OK, BYE"
+        },
+        {
+          "id": "computer_networks-middle-2-b",
+          "label": "SYN, SYN-ACK, ACK"
+        },
+        {
+          "id": "computer_networks-middle-2-c",
+          "label": "ACK, SYN, FIN"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-2-b",
+      "explanation": "После рукопожатия стороны согласовали порядковые номера и могут передавать данные.",
+      "source": "https://www.rfc-editor.org/rfc/rfc9293"
+    },
+    {
+      "id": "computer_networks-middle-3",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Что означает MTU и какая проблема возникает при его несовпадении?",
+      "options": [
+        {
+          "id": "computer_networks-middle-3-a",
+          "label": "Максимальная скорость канала; при превышении соединение замедляется до минимума"
+        },
+        {
+          "id": "computer_networks-middle-3-b",
+          "label": "Минимальное время ответа; появляются задержки"
+        },
+        {
+          "id": "computer_networks-middle-3-c",
+          "label": "Максимальный размер кадра; крупные пакеты могут теряться при туннелях и VPN"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-3-c",
+      "explanation": "Симптом — работают мелкие запросы, но зависают большие передачи.",
+      "source": "https://www.rfc-editor.org/rfc/rfc1191"
+    },
+    {
+      "id": "computer_networks-middle-4",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Что делает межсетевой экран с правилом по умолчанию DROP?",
+      "options": [
+        {
+          "id": "computer_networks-middle-4-a",
+          "label": "Отбрасывает весь трафик, кроме явно разрешённого"
+        },
+        {
+          "id": "computer_networks-middle-4-b",
+          "label": "Разрешает весь трафик"
+        },
+        {
+          "id": "computer_networks-middle-4-c",
+          "label": "Перенаправляет трафик на прокси"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-4-a",
+      "explanation": "Белый список правил безопаснее чёрного.",
+      "source": "https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes"
+    },
+    {
+      "id": "computer_networks-middle-5",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Чем балансировщик L4 отличается от L7?",
+      "options": [
+        {
+          "id": "computer_networks-middle-5-a",
+          "label": "L7 работает только с UDP"
+        },
+        {
+          "id": "computer_networks-middle-5-b",
+          "label": "L4 распределяет соединения по адресам и портам, L7 — запросы по содержимому HTTP"
+        },
+        {
+          "id": "computer_networks-middle-5-c",
+          "label": "L4 умеет маршрутизировать по путям URL, а L7 работает только с IP-адресами и портами"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-5-b",
+      "explanation": "L7 видит заголовки и пути, но тратит больше ресурсов.",
+      "source": "https://nginx.org/en/docs/http/load_balancing.html"
+    },
+    {
+      "id": "computer_networks-middle-6",
+      "grade": "middle",
+      "skillId": "computer_networks",
+      "prompt": "Что такое VPN?",
+      "options": [
+        {
+          "id": "computer_networks-middle-6-a",
+          "label": "Способ ускорить интернет за счёт сжатия трафика на сервере провайдера"
+        },
+        {
+          "id": "computer_networks-middle-6-b",
+          "label": "Защищённый туннель между узлами или сетями поверх общей сети"
+        },
+        {
+          "id": "computer_networks-middle-6-c",
+          "label": "Тип кабеля"
+        }
+      ],
+      "correctOptionId": "computer_networks-middle-6-b",
+      "explanation": "VPN шифрует трафик и объединяет удалённые сети.",
+      "source": "https://www.wireguard.com/"
+    },
+    {
+      "id": "computer_networks-senior-1",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Как BGP влияет на доступность сервиса?",
+      "options": [
+        {
+          "id": "computer_networks-senior-1-a",
+          "label": "Отвечает за выдачу IP-адресов в офисе; ошибки протокола ломают только локальную сеть"
+        },
+        {
+          "id": "computer_networks-senior-1-b",
+          "label": "Шифрует трафик между серверами"
+        },
+        {
+          "id": "computer_networks-senior-1-c",
+          "label": "Определяет маршруты между автономными системами; ошибки анонсов могут сделать сеть недоступной"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-1-c",
+      "explanation": "Ошибки BGP приводили к крупным глобальным сбоям.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4271"
+    },
+    {
+      "id": "computer_networks-senior-2",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Как защититься от подмены ответов DNS?",
+      "options": [
+        {
+          "id": "computer_networks-senior-2-a",
+          "label": "Увеличить TTL записей"
+        },
+        {
+          "id": "computer_networks-senior-2-b",
+          "label": "Перевести все сервисы только на IPv6 и увеличить TTL записей"
+        },
+        {
+          "id": "computer_networks-senior-2-c",
+          "label": "DNSSEC и защищённые каналы до резолвера (DoT, DoH)"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-2-c",
+      "explanation": "DNSSEC подписывает записи, DoT и DoH защищают канал.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4033"
+    },
+    {
+      "id": "computer_networks-senior-3",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Почему задержка между дата-центрами важнее пропускной способности для синхронных вызовов?",
+      "options": [
+        {
+          "id": "computer_networks-senior-3-a",
+          "label": "Пропускная способность не влияет ни на что"
+        },
+        {
+          "id": "computer_networks-senior-3-b",
+          "label": "Каждый последовательный запрос ждёт полный круг сети"
+        },
+        {
+          "id": "computer_networks-senior-3-c",
+          "label": "Задержка зависит только от размера пакета"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-3-b",
+      "explanation": "Цепочка синхронных вызовов умножает задержку.",
+      "source": "https://en.wikipedia.org/wiki/Round-trip_delay"
+    },
+    {
+      "id": "computer_networks-senior-4",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Как обеспечить отказоустойчивость шлюза по умолчанию?",
+      "options": [
+        {
+          "id": "computer_networks-senior-4-a",
+          "label": "Прописать на всех узлах два одинаковых шлюза вручную"
+        },
+        {
+          "id": "computer_networks-senior-4-b",
+          "label": "Перезагружать шлюз при сбое"
+        },
+        {
+          "id": "computer_networks-senior-4-c",
+          "label": "Протоколом резервирования, например VRRP, с общим виртуальным адресом"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-4-c",
+      "explanation": "VRRP переносит виртуальный адрес на резервный маршрутизатор.",
+      "source": "https://www.rfc-editor.org/rfc/rfc5798"
+    },
+    {
+      "id": "computer_networks-senior-5",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Как найти причину потерь пакетов на пути?",
+      "options": [
+        {
+          "id": "computer_networks-senior-5-a",
+          "label": "Перезагрузить все устройства на пути и проверить, исчезли ли потери"
+        },
+        {
+          "id": "computer_networks-senior-5-b",
+          "label": "mtr и сравнение счётчиков ошибок интерфейсов на каждом участке"
+        },
+        {
+          "id": "computer_networks-senior-5-c",
+          "label": "Увеличить размер пакетов"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-5-b",
+      "explanation": "mtr совмещает traceroute и ping и показывает, где растут потери.",
+      "source": "https://github.com/traviscross/mtr"
+    },
+    {
+      "id": "computer_networks-senior-6",
+      "grade": "senior",
+      "skillId": "computer_networks",
+      "prompt": "Как защитить сервис от объёмной DDoS-атаки?",
+      "options": [
+        {
+          "id": "computer_networks-senior-6-a",
+          "label": "Увеличить число потоков веб-сервера и размер очереди соединений на каждом сервере"
+        },
+        {
+          "id": "computer_networks-senior-6-b",
+          "label": "Фильтрацией у провайдера или в специализированном сервисе и ограничением частоты на границе"
+        },
+        {
+          "id": "computer_networks-senior-6-c",
+          "label": "Отключить логирование"
+        }
+      ],
+      "correctOptionId": "computer_networks-senior-6-b",
+      "explanation": "Объёмные атаки нужно поглощать до вашего канала.",
+      "source": "https://www.cloudflare.com/learning/ddos/ddos-mitigation/"
+    },
+    {
+      "id": "computer_networks-lead-1",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Как проектировать сеть для новых офисов компании?",
+      "options": [
+        {
+          "id": "computer_networks-lead-1-a",
+          "label": "Одна плоская сеть для всех устройств"
+        },
+        {
+          "id": "computer_networks-lead-1-b",
+          "label": "Каждый офис настраивает сеть как хочет"
+        },
+        {
+          "id": "computer_networks-lead-1-c",
+          "label": "Сегментация по назначению, резервирование каналов и единые стандарты адресации"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-1-c",
+      "explanation": "Сегментация ограничивает распространение атак и упрощает управление.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "id": "computer_networks-lead-2",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Что такое подход нулевого доверия (zero trust)?",
+      "options": [
+        {
+          "id": "computer_networks-lead-2-a",
+          "label": "Каждый запрос проверяется по личности и состоянию устройства, независимо от сети"
+        },
+        {
+          "id": "computer_networks-lead-2-b",
+          "label": "Доверие всем устройствам внутри корпоративной сети и проверка только внешних подключений"
+        },
+        {
+          "id": "computer_networks-lead-2-c",
+          "label": "Полный запрет удалённой работы"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-2-a",
+      "explanation": "Расположение в сети не даёт доступа само по себе.",
+      "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+    },
+    {
+      "id": "computer_networks-lead-3",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Как хранить конфигурации сетевого оборудования?",
+      "options": [
+        {
+          "id": "computer_networks-lead-3-a",
+          "label": "В системе контроля версий с автоматическим применением и ревью изменений"
+        },
+        {
+          "id": "computer_networks-lead-3-b",
+          "label": "Только на самих устройствах"
+        },
+        {
+          "id": "computer_networks-lead-3-c",
+          "label": "В личных заметках администраторов и в резервных копиях самих устройств"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-3-a",
+      "explanation": "Сеть как код делает изменения проверяемыми и откатываемыми.",
+      "source": "https://en.wikipedia.org/wiki/Infrastructure_as_code"
+    },
+    {
+      "id": "computer_networks-lead-4",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Как оценить, нужен ли второй провайдер интернета?",
+      "options": [
+        {
+          "id": "computer_networks-lead-4-a",
+          "label": "Всегда достаточно одного провайдера, если у него хороший договор"
+        },
+        {
+          "id": "computer_networks-lead-4-b",
+          "label": "По стоимости простоя относительно стоимости резервного канала"
+        },
+        {
+          "id": "computer_networks-lead-4-c",
+          "label": "По рекламе провайдеров"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-4-b",
+      "explanation": "Решение о резервировании принимают по рискам и ущербу.",
+      "source": "https://sre.google/sre-book/embracing-risk/"
+    },
+    {
+      "id": "computer_networks-lead-5",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Как планировать переход на IPv6?",
+      "options": [
+        {
+          "id": "computer_networks-lead-5-a",
+          "label": "Двойной стек, поэтапное включение и проверка всех сервисов и правил безопасности"
+        },
+        {
+          "id": "computer_networks-lead-5-b",
+          "label": "Отключить IPv4 одномоментно"
+        },
+        {
+          "id": "computer_networks-lead-5-c",
+          "label": "Отключить IPv4 одномоментно и не учитывать межсетевые экраны"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-5-a",
+      "explanation": "Двойной стек позволяет переходить постепенно.",
+      "source": "https://www.rfc-editor.org/rfc/rfc4213"
+    },
+    {
+      "id": "computer_networks-lead-6",
+      "grade": "lead",
+      "skillId": "computer_networks",
+      "prompt": "Как документировать сетевую инфраструктуру?",
+      "options": [
+        {
+          "id": "computer_networks-lead-6-a",
+          "label": "Одна схема, нарисованная при запуске офиса"
+        },
+        {
+          "id": "computer_networks-lead-6-b",
+          "label": "Актуальные схемы, адресный план и владельцы сегментов, обновляемые при изменениях"
+        },
+        {
+          "id": "computer_networks-lead-6-c",
+          "label": "Документация не нужна, всё видно на устройствах"
+        }
+      ],
+      "correctOptionId": "computer_networks-lead-6-b",
+      "explanation": "Устаревшая документация опасна при авариях.",
+      "source": "https://netbox.dev/"
+    }
+  ]
+}

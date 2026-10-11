@@ -1,0 +1,2075 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "http_api-intern-1",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "Какой метод HTTP обычно используют для получения данных?",
+      "options": [
+        {
+          "id": "http_api-intern-1-a",
+          "label": "GET"
+        },
+        {
+          "id": "http_api-intern-1-b",
+          "label": "POST"
+        },
+        {
+          "id": "http_api-intern-1-c",
+          "label": "DELETE"
+        }
+      ],
+      "correctOptionId": "http_api-intern-1-a",
+      "explanation": "GET не должен изменять состояние сервера.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET"
+    },
+    {
+      "id": "http_api-intern-2",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "Что означает код ответа 200?",
+      "options": [
+        {
+          "id": "http_api-intern-2-a",
+          "label": "Ресурс не найден"
+        },
+        {
+          "id": "http_api-intern-2-b",
+          "label": "Ошибка сервера"
+        },
+        {
+          "id": "http_api-intern-2-c",
+          "label": "Запрос выполнен успешно"
+        }
+      ],
+      "correctOptionId": "http_api-intern-2-c",
+      "explanation": "2xx — успешные ответы.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200"
+    },
+    {
+      "id": "http_api-intern-3",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "В каком формате чаще всего передают данные в REST API?",
+      "options": [
+        {
+          "id": "http_api-intern-3-a",
+          "label": "DOCX"
+        },
+        {
+          "id": "http_api-intern-3-b",
+          "label": "PNG"
+        },
+        {
+          "id": "http_api-intern-3-c",
+          "label": "JSON"
+        }
+      ],
+      "correctOptionId": "http_api-intern-3-c",
+      "explanation": "Тип содержимого указывают заголовком Content-Type: application/json.",
+      "source": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON"
+    },
+    {
+      "id": "http_api-intern-4",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "Что такое URL /users/42?",
+      "options": [
+        {
+          "id": "http_api-intern-4-a",
+          "label": "Команда удаления пользователя с номером 42 из базы"
+        },
+        {
+          "id": "http_api-intern-4-b",
+          "label": "Номер версии API"
+        },
+        {
+          "id": "http_api-intern-4-c",
+          "label": "Адрес ресурса пользователя с идентификатором 42"
+        }
+      ],
+      "correctOptionId": "http_api-intern-4-c",
+      "explanation": "В REST ресурсы адресуются путями.",
+      "source": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL"
+    },
+    {
+      "id": "http_api-intern-5",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "Какой метод используют для создания нового ресурса?",
+      "options": [
+        {
+          "id": "http_api-intern-5-a",
+          "label": "POST"
+        },
+        {
+          "id": "http_api-intern-5-b",
+          "label": "GET"
+        },
+        {
+          "id": "http_api-intern-5-c",
+          "label": "HEAD"
+        }
+      ],
+      "correctOptionId": "http_api-intern-5-a",
+      "explanation": "POST отправляет данные на обработку, например создание заказа.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST"
+    },
+    {
+      "id": "http_api-intern-6",
+      "grade": "intern",
+      "skillId": "http_api",
+      "prompt": "Что такое заголовок HTTP?",
+      "options": [
+        {
+          "id": "http_api-intern-6-a",
+          "label": "Метаданные запроса или ответа, например тип содержимого"
+        },
+        {
+          "id": "http_api-intern-6-b",
+          "label": "Название страницы"
+        },
+        {
+          "id": "http_api-intern-6-c",
+          "label": "Первая строка JSON-документа с названием ресурса и версией API"
+        }
+      ],
+      "correctOptionId": "http_api-intern-6-a",
+      "explanation": "Заголовки передаются отдельно от тела.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers"
+    },
+    {
+      "id": "http_api-junior-1",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Чем PUT отличается от PATCH?",
+      "options": [
+        {
+          "id": "http_api-junior-1-a",
+          "label": "PATCH удаляет ресурс, а PUT создаёт его заново с новым идентификатором"
+        },
+        {
+          "id": "http_api-junior-1-b",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "http_api-junior-1-c",
+          "label": "PUT заменяет ресурс целиком, PATCH изменяет его частично"
+        }
+      ],
+      "correctOptionId": "http_api-junior-1-c",
+      "explanation": "PUT идемпотентен; PATCH — не обязательно.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH"
+    },
+    {
+      "id": "http_api-junior-2",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Какие методы HTTP идемпотентны?",
+      "options": [
+        {
+          "id": "http_api-junior-2-a",
+          "label": "POST и PATCH"
+        },
+        {
+          "id": "http_api-junior-2-b",
+          "label": "Только POST"
+        },
+        {
+          "id": "http_api-junior-2-c",
+          "label": "GET, PUT, DELETE"
+        }
+      ],
+      "correctOptionId": "http_api-junior-2-c",
+      "explanation": "Повтор идемпотентного запроса даёт тот же результат.",
+      "source": "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent"
+    },
+    {
+      "id": "http_api-junior-3",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Какой код вернуть, если клиент передал некорректные данные?",
+      "options": [
+        {
+          "id": "http_api-junior-3-a",
+          "label": "200 с полем error"
+        },
+        {
+          "id": "http_api-junior-3-b",
+          "label": "500"
+        },
+        {
+          "id": "http_api-junior-3-c",
+          "label": "400 или 422 с описанием ошибки"
+        }
+      ],
+      "correctOptionId": "http_api-junior-3-c",
+      "explanation": "5xx означает ошибку сервера, а не клиента.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422"
+    },
+    {
+      "id": "http_api-junior-4",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Что такое CORS?",
+      "options": [
+        {
+          "id": "http_api-junior-4-a",
+          "label": "Шифрование трафика между браузером и сервером, которое заменяет TLS в старых браузерах"
+        },
+        {
+          "id": "http_api-junior-4-b",
+          "label": "Сжатие ответов"
+        },
+        {
+          "id": "http_api-junior-4-c",
+          "label": "Механизм, разрешающий браузеру запросы к другому источнику по заголовкам сервера"
+        }
+      ],
+      "correctOptionId": "http_api-junior-4-c",
+      "explanation": "Без разрешения сервера браузер не отдаст ответ скрипту.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+    },
+    {
+      "id": "http_api-junior-5",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Как правильно возвращать большие списки?",
+      "options": [
+        {
+          "id": "http_api-junior-5-a",
+          "label": "Постранично, с параметрами пагинации"
+        },
+        {
+          "id": "http_api-junior-5-b",
+          "label": "Целиком всегда"
+        },
+        {
+          "id": "http_api-junior-5-c",
+          "label": "Только первые 10 без возможности продолжить"
+        }
+      ],
+      "correctOptionId": "http_api-junior-5-a",
+      "explanation": "Пагинация ограничивает нагрузку и размер ответа.",
+      "source": "https://cloud.google.com/apis/design/design_patterns#list_pagination"
+    },
+    {
+      "id": "http_api-junior-6",
+      "grade": "junior",
+      "skillId": "http_api",
+      "prompt": "Что означает код 201 Created?",
+      "options": [
+        {
+          "id": "http_api-junior-6-a",
+          "label": "Ресурс не изменился"
+        },
+        {
+          "id": "http_api-junior-6-b",
+          "label": "Требуется авторизация; клиент должен повторить запрос с токеном"
+        },
+        {
+          "id": "http_api-junior-6-c",
+          "label": "Ресурс создан; обычно с заголовком Location"
+        }
+      ],
+      "correctOptionId": "http_api-junior-6-c",
+      "explanation": "Ответ может содержать созданный ресурс.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201"
+    },
+    {
+      "id": "http_api-middle-1",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Как сделать повторную отправку POST безопасной?",
+      "options": [
+        {
+          "id": "http_api-middle-1-a",
+          "label": "Ключ идемпотентности в заголовке и сохранение результата первого запроса"
+        },
+        {
+          "id": "http_api-middle-1-b",
+          "label": "Запретить повторную отправку на клиенте, отключив кнопку после первого нажатия"
+        },
+        {
+          "id": "http_api-middle-1-c",
+          "label": "Возвращать 500 на повтор"
+        }
+      ],
+      "correctOptionId": "http_api-middle-1-a",
+      "explanation": "Сервер возвращает сохранённый ответ на повторный ключ.",
+      "source": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/"
+    },
+    {
+      "id": "http_api-middle-2",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Как версионировать публичный API?",
+      "options": [
+        {
+          "id": "http_api-middle-2-a",
+          "label": "Менять поведение API без предупреждения, потому что клиенты обязаны обновляться сразу"
+        },
+        {
+          "id": "http_api-middle-2-b",
+          "label": "Совместимые изменения без версии, несовместимые — в новой версии с периодом поддержки старой"
+        },
+        {
+          "id": "http_api-middle-2-c",
+          "label": "Создавать новую версию на каждый релиз"
+        }
+      ],
+      "correctOptionId": "http_api-middle-2-b",
+      "explanation": "Добавление необязательного поля обратно совместимо.",
+      "source": "https://cloud.google.com/apis/design/versioning"
+    },
+    {
+      "id": "http_api-middle-3",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Что такое ETag и If-None-Match?",
+      "options": [
+        {
+          "id": "http_api-middle-3-a",
+          "label": "Шифрование ответа сервера ключом, который клиент получает при первом запросе"
+        },
+        {
+          "id": "http_api-middle-3-b",
+          "label": "Авторизация"
+        },
+        {
+          "id": "http_api-middle-3-c",
+          "label": "Механизм условных запросов: сервер возвращает 304, если ресурс не изменился"
+        }
+      ],
+      "correctOptionId": "http_api-middle-3-c",
+      "explanation": "Экономит трафик и помогает кэшированию.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag"
+    },
+    {
+      "id": "http_api-middle-4",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Как предотвратить потерю обновлений при одновременном редактировании?",
+      "options": [
+        {
+          "id": "http_api-middle-4-a",
+          "label": "Оптимистическая блокировка: версия или ETag с If-Match и ответом 409 или 412 при конфликте"
+        },
+        {
+          "id": "http_api-middle-4-b",
+          "label": "Последний записавший всегда прав: сервер молча сохраняет последнее изменение без проверки версий"
+        },
+        {
+          "id": "http_api-middle-4-c",
+          "label": "Запретить редактирование"
+        }
+      ],
+      "correctOptionId": "http_api-middle-4-a",
+      "explanation": "Клиент перечитывает ресурс при конфликте.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match"
+    },
+    {
+      "id": "http_api-middle-5",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Что описывает OpenAPI?",
+      "options": [
+        {
+          "id": "http_api-middle-5-a",
+          "label": "Машиночитаемый контракт HTTP API: пути, параметры, схемы и ответы"
+        },
+        {
+          "id": "http_api-middle-5-b",
+          "label": "Язык программирования для генерации серверов HTTP API на любой платформе"
+        },
+        {
+          "id": "http_api-middle-5-c",
+          "label": "Сервер базы данных"
+        }
+      ],
+      "correctOptionId": "http_api-middle-5-a",
+      "explanation": "По контракту генерируют клиенты и документацию.",
+      "source": "https://spec.openapis.org/oas/latest.html"
+    },
+    {
+      "id": "http_api-middle-6",
+      "grade": "middle",
+      "skillId": "http_api",
+      "prompt": "Как передавать ошибки API единообразно?",
+      "options": [
+        {
+          "id": "http_api-middle-6-a",
+          "label": "Текстом в теле с кодом 200"
+        },
+        {
+          "id": "http_api-middle-6-b",
+          "label": "Только код статуса без тела, потому что текст ошибки всё равно не нужен клиенту"
+        },
+        {
+          "id": "http_api-middle-6-c",
+          "label": "Единая структура ошибки с кодом, сообщением и деталями, например Problem Details"
+        }
+      ],
+      "correctOptionId": "http_api-middle-6-c",
+      "explanation": "RFC 9457 описывает формат application/problem+json.",
+      "source": "https://www.rfc-editor.org/rfc/rfc9457"
+    },
+    {
+      "id": "http_api-senior-1",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Чем HTTP/2 улучшает работу по сравнению с HTTP/1.1?",
+      "options": [
+        {
+          "id": "http_api-senior-1-a",
+          "label": "Отменяет необходимость TLS и убирает методы HTTP из протокола"
+        },
+        {
+          "id": "http_api-senior-1-b",
+          "label": "Убирает методы HTTP"
+        },
+        {
+          "id": "http_api-senior-1-c",
+          "label": "Мультиплексирование запросов в одном соединении и сжатие заголовков"
+        }
+      ],
+      "correctOptionId": "http_api-senior-1-c",
+      "explanation": "Нет блокировки очереди на уровне HTTP.",
+      "source": "https://www.rfc-editor.org/rfc/rfc9113"
+    },
+    {
+      "id": "http_api-senior-2",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Как ограничить частоту запросов к API?",
+      "options": [
+        {
+          "id": "http_api-senior-2-a",
+          "label": "Отвечать 500 при нагрузке и рассчитывать, что клиенты подождут сами"
+        },
+        {
+          "id": "http_api-senior-2-b",
+          "label": "Rate limiting по клиенту с ответом 429 и заголовком Retry-After"
+        },
+        {
+          "id": "http_api-senior-2-c",
+          "label": "Не ограничивать"
+        }
+      ],
+      "correctOptionId": "http_api-senior-2-b",
+      "explanation": "Ограничения защищают сервис от перегрузки.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http_api-senior-3",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Как выполнять долгие операции через API?",
+      "options": [
+        {
+          "id": "http_api-senior-3-a",
+          "label": "Держать соединение до завершения"
+        },
+        {
+          "id": "http_api-senior-3-b",
+          "label": "Возвращать 200 сразу без результата"
+        },
+        {
+          "id": "http_api-senior-3-c",
+          "label": "Принять запрос с 202 и вернуть ресурс задачи для опроса статуса"
+        }
+      ],
+      "correctOptionId": "http_api-senior-3-c",
+      "explanation": "Асинхронный шаблон устойчив к таймаутам.",
+      "source": "https://cloud.google.com/apis/design/design_patterns#long_running_operations"
+    },
+    {
+      "id": "http_api-senior-4",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Чем курсорная пагинация лучше постраничной по смещению?",
+      "options": [
+        {
+          "id": "http_api-senior-4-a",
+          "label": "Проще реализуется всегда"
+        },
+        {
+          "id": "http_api-senior-4-b",
+          "label": "Позволяет перейти на любую страницу сразу"
+        },
+        {
+          "id": "http_api-senior-4-c",
+          "label": "Стабильна при вставках и эффективна на больших объёмах"
+        }
+      ],
+      "correctOptionId": "http_api-senior-4-c",
+      "explanation": "Курсор кодирует позицию последнего элемента.",
+      "source": "https://cloud.google.com/apis/design/design_patterns#list_pagination"
+    },
+    {
+      "id": "http_api-senior-5",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Как безопасно аутентифицировать браузерное приложение с API на одном домене?",
+      "options": [
+        {
+          "id": "http_api-senior-5-a",
+          "label": "Токен в localStorage без защиты от XSS"
+        },
+        {
+          "id": "http_api-senior-5-b",
+          "label": "Пароль в каждом запросе"
+        },
+        {
+          "id": "http_api-senior-5-c",
+          "label": "Cookie сессии HttpOnly, Secure, SameSite и защита от CSRF"
+        }
+      ],
+      "correctOptionId": "http_api-senior-5-c",
+      "explanation": "Cookie HttpOnly недоступны скриптам.",
+      "source": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html"
+    },
+    {
+      "id": "http_api-senior-6",
+      "grade": "senior",
+      "skillId": "http_api",
+      "prompt": "Когда выбрать gRPC вместо REST?",
+      "options": [
+        {
+          "id": "http_api-senior-6-a",
+          "label": "Для публичного API, которое вызывают браузеры напрямую без прокси"
+        },
+        {
+          "id": "http_api-senior-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "http_api-senior-6-c",
+          "label": "Для внутреннего взаимодействия сервисов с жёсткими контрактами и потоками"
+        }
+      ],
+      "correctOptionId": "http_api-senior-6-c",
+      "explanation": "Браузеры поддерживают gRPC только через прокси.",
+      "source": "https://grpc.io/docs/what-is-grpc/introduction/"
+    },
+    {
+      "id": "http_api-lead-1",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как организовать дизайн API в компании?",
+      "options": [
+        {
+          "id": "http_api-lead-1-a",
+          "label": "Каждая команда делает как хочет"
+        },
+        {
+          "id": "http_api-lead-1-b",
+          "label": "Общие гайдлайны, ревью контрактов и единые форматы ошибок и пагинации"
+        },
+        {
+          "id": "http_api-lead-1-c",
+          "label": "API проектируют после реализации, а форматы ошибок каждая команда выбирает сама"
+        }
+      ],
+      "correctOptionId": "http_api-lead-1-b",
+      "explanation": "Contract-first упрощает работу команд.",
+      "source": "https://cloud.google.com/apis/design"
+    },
+    {
+      "id": "http_api-lead-2",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как выводить из эксплуатации старую версию API?",
+      "options": [
+        {
+          "id": "http_api-lead-2-a",
+          "label": "Отключить старую версию без предупреждения, чтобы клиенты быстрее перешли на новую"
+        },
+        {
+          "id": "http_api-lead-2-b",
+          "label": "Поддерживать вечно"
+        },
+        {
+          "id": "http_api-lead-2-c",
+          "label": "Объявить срок, сообщить потребителям, отслеживать использование и заголовки Deprecation"
+        }
+      ],
+      "correctOptionId": "http_api-lead-2-c",
+      "explanation": "Мониторинг показывает, кто ещё использует старую версию.",
+      "source": "https://www.rfc-editor.org/rfc/rfc9745"
+    },
+    {
+      "id": "http_api-lead-3",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как обеспечить надёжность API для внешних партнёров?",
+      "options": [
+        {
+          "id": "http_api-lead-3-a",
+          "label": "Только подробная документация без гарантий доступности и ограничений"
+        },
+        {
+          "id": "http_api-lead-3-b",
+          "label": "SLO, мониторинг, ограничения частоты и понятная документация"
+        },
+        {
+          "id": "http_api-lead-3-c",
+          "label": "Никаких гарантий"
+        }
+      ],
+      "correctOptionId": "http_api-lead-3-b",
+      "explanation": "Партнёры строят процессы на ваших гарантиях.",
+      "source": "https://sre.google/sre-book/service-level-objectives/"
+    },
+    {
+      "id": "http_api-lead-4",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как проверять совместимость контрактов в CI?",
+      "options": [
+        {
+          "id": "http_api-lead-4-a",
+          "label": "Проверять совместимость вручную перед каждым релизом по списку изменений"
+        },
+        {
+          "id": "http_api-lead-4-b",
+          "label": "Не проверять"
+        },
+        {
+          "id": "http_api-lead-4-c",
+          "label": "Сравнивать схему OpenAPI с предыдущей версией и запускать контрактные тесты"
+        }
+      ],
+      "correctOptionId": "http_api-lead-4-c",
+      "explanation": "Автоматическая проверка ловит ломающие изменения.",
+      "source": "https://docs.pact.io/"
+    },
+    {
+      "id": "http_api-lead-5",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как выбирать стиль API (REST, GraphQL, gRPC)?",
+      "options": [
+        {
+          "id": "http_api-lead-5-a",
+          "label": "По моде"
+        },
+        {
+          "id": "http_api-lead-5-b",
+          "label": "По потребителям, характеру данных и требованиям к производительности"
+        },
+        {
+          "id": "http_api-lead-5-c",
+          "label": "Всегда GraphQL, потому что он современнее REST и gRPC для любых задач"
+        }
+      ],
+      "correctOptionId": "http_api-lead-5-b",
+      "explanation": "Каждый стиль имеет свои компромиссы.",
+      "source": "https://graphql.org/learn/"
+    },
+    {
+      "id": "http_api-lead-6",
+      "grade": "lead",
+      "skillId": "http_api",
+      "prompt": "Как защищать API от злоупотреблений?",
+      "options": [
+        {
+          "id": "http_api-lead-6-a",
+          "label": "Скрыть документацию API и полагаться на HTTPS как на единственную защиту от злоупотреблений"
+        },
+        {
+          "id": "http_api-lead-6-b",
+          "label": "Только HTTPS"
+        },
+        {
+          "id": "http_api-lead-6-c",
+          "label": "Аутентификация, авторизация на объектах, ограничения частоты и мониторинг аномалий"
+        }
+      ],
+      "correctOptionId": "http_api-lead-6-c",
+      "explanation": "OWASP API Security Top 10 описывает основные риски.",
+      "source": "https://owasp.org/API-Security/"
+    },
+    {
+      "id": "rust-intern-1",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Как объявить изменяемую переменную в Rust?",
+      "options": [
+        {
+          "id": "rust-intern-1-a",
+          "label": "var count = 0;"
+        },
+        {
+          "id": "rust-intern-1-b",
+          "label": "let mut count = 0;"
+        },
+        {
+          "id": "rust-intern-1-c",
+          "label": "let count := 0;"
+        }
+      ],
+      "correctOptionId": "rust-intern-1-b",
+      "explanation": "Без mut переменная неизменяема.",
+      "source": "https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html"
+    },
+    {
+      "id": "rust-intern-2",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Что выведет println!(\"{}\", 2 + 3);?",
+      "options": [
+        {
+          "id": "rust-intern-2-a",
+          "label": "2 + 3"
+        },
+        {
+          "id": "rust-intern-2-b",
+          "label": "{}"
+        },
+        {
+          "id": "rust-intern-2-c",
+          "label": "5"
+        }
+      ],
+      "correctOptionId": "rust-intern-2-c",
+      "explanation": "{} подставляет значение аргумента.",
+      "source": "https://doc.rust-lang.org/std/macro.println.html"
+    },
+    {
+      "id": "rust-intern-3",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Какая команда создаёт новый проект Rust?",
+      "options": [
+        {
+          "id": "rust-intern-3-a",
+          "label": "rustc new hello"
+        },
+        {
+          "id": "rust-intern-3-b",
+          "label": "cargo new hello"
+        },
+        {
+          "id": "rust-intern-3-c",
+          "label": "npm init hello"
+        }
+      ],
+      "correctOptionId": "rust-intern-3-b",
+      "explanation": "Cargo — менеджер пакетов и сборки Rust.",
+      "source": "https://doc.rust-lang.org/cargo/getting-started/first-steps.html"
+    },
+    {
+      "id": "rust-intern-4",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Каким типом представлено логическое значение?",
+      "options": [
+        {
+          "id": "rust-intern-4-a",
+          "label": "bool"
+        },
+        {
+          "id": "rust-intern-4-b",
+          "label": "boolean"
+        },
+        {
+          "id": "rust-intern-4-c",
+          "label": "Bool"
+        }
+      ],
+      "correctOptionId": "rust-intern-4-a",
+      "explanation": "Значения true и false.",
+      "source": "https://doc.rust-lang.org/book/ch03-02-data-types.html"
+    },
+    {
+      "id": "rust-intern-5",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Как записать функцию, возвращающую сумму двух i32?",
+      "options": [
+        {
+          "id": "rust-intern-5-a",
+          "label": "fn sum(a: i32, b: i32) -> i32 { a + b }"
+        },
+        {
+          "id": "rust-intern-5-b",
+          "label": "function sum(a, b) { return a + b }"
+        },
+        {
+          "id": "rust-intern-5-c",
+          "label": "fn sum(a, b): i32 = a + b"
+        }
+      ],
+      "correctOptionId": "rust-intern-5-a",
+      "explanation": "Последнее выражение без точки с запятой — возвращаемое значение.",
+      "source": "https://doc.rust-lang.org/book/ch03-03-how-functions-work.html"
+    },
+    {
+      "id": "rust-intern-6",
+      "grade": "intern",
+      "skillId": "rust",
+      "prompt": "Что такое Vec<T>?",
+      "options": [
+        {
+          "id": "rust-intern-6-a",
+          "label": "Растущий массив элементов типа T"
+        },
+        {
+          "id": "rust-intern-6-b",
+          "label": "Математический вектор фиксированной длины"
+        },
+        {
+          "id": "rust-intern-6-c",
+          "label": "Строка"
+        }
+      ],
+      "correctOptionId": "rust-intern-6-a",
+      "explanation": "vec![1, 2, 3] создаёт вектор.",
+      "source": "https://doc.rust-lang.org/std/vec/struct.Vec.html"
+    },
+    {
+      "id": "rust-lead-1",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Как вводить Rust в команду, которая пишет на других языках?",
+      "options": [
+        {
+          "id": "rust-lead-1-a",
+          "label": "Переписать всё сразу"
+        },
+        {
+          "id": "rust-lead-1-b",
+          "label": "Начать с ограниченного сервиса, обучения и наставничества, измеряя результат"
+        },
+        {
+          "id": "rust-lead-1-c",
+          "label": "Запретить другие языки и переписать все сервисы на Rust одновременно"
+        }
+      ],
+      "correctOptionId": "rust-lead-1-b",
+      "explanation": "Постепенное внедрение снижает риск.",
+      "source": "https://doc.rust-lang.org/book/"
+    },
+    {
+      "id": "rust-lead-2",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Как поддерживать качество Rust-кода в команде?",
+      "options": [
+        {
+          "id": "rust-lead-2-a",
+          "label": "cargo fmt, clippy с -D warnings, тесты и ревью в CI"
+        },
+        {
+          "id": "rust-lead-2-b",
+          "label": "Только компиляция"
+        },
+        {
+          "id": "rust-lead-2-c",
+          "label": "Ручная проверка стиля на ревью и компиляция без тестов"
+        }
+      ],
+      "correctOptionId": "rust-lead-2-a",
+      "explanation": "Clippy ловит распространённые ошибки и неидиоматичный код.",
+      "source": "https://doc.rust-lang.org/clippy/"
+    },
+    {
+      "id": "rust-lead-3",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Как управлять зависимостями Rust-проекта безопасно?",
+      "options": [
+        {
+          "id": "rust-lead-3-a",
+          "label": "Обновлять всё без проверки и не фиксировать версии, чтобы получать исправления сразу"
+        },
+        {
+          "id": "rust-lead-3-b",
+          "label": "Не фиксировать версии"
+        },
+        {
+          "id": "rust-lead-3-c",
+          "label": "Фиксировать Cargo.lock, проверять уязвимости cargo audit и лицензии cargo deny"
+        }
+      ],
+      "correctOptionId": "rust-lead-3-c",
+      "explanation": "RustSec ведёт базу уязвимостей.",
+      "source": "https://rustsec.org/"
+    },
+    {
+      "id": "rust-lead-4",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Когда использовать unsafe?",
+      "options": [
+        {
+          "id": "rust-lead-4-a",
+          "label": "Везде, где нужна скорость, потому что unsafe отключает лишние проверки компилятора и ускоряет любой код"
+        },
+        {
+          "id": "rust-lead-4-b",
+          "label": "Только при необходимости, с изолированной безопасной обёрткой, документированными инвариантами и ревью"
+        },
+        {
+          "id": "rust-lead-4-c",
+          "label": "Никогда при FFI"
+        }
+      ],
+      "correctOptionId": "rust-lead-4-b",
+      "explanation": "Unsafe переносит ответственность за гарантии на разработчика.",
+      "source": "https://doc.rust-lang.org/nomicon/"
+    },
+    {
+      "id": "rust-lead-5",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Как организовать архитектуру большого Rust-сервиса?",
+      "options": [
+        {
+          "id": "rust-lead-5-a",
+          "label": "Один огромный файл main.rs"
+        },
+        {
+          "id": "rust-lead-5-b",
+          "label": "Глобальные изменяемые статики и один большой файл main.rs"
+        },
+        {
+          "id": "rust-lead-5-c",
+          "label": "Workspace из крейтов по слоям с зависимостями через трейты"
+        }
+      ],
+      "correctOptionId": "rust-lead-5-c",
+      "explanation": "Разделение на крейты ускоряет сборку и изолирует слои.",
+      "source": "https://doc.rust-lang.org/cargo/reference/workspaces.html"
+    },
+    {
+      "id": "rust-lead-6",
+      "grade": "lead",
+      "skillId": "rust",
+      "prompt": "Как фиксировать версию компилятора в проекте?",
+      "options": [
+        {
+          "id": "rust-lead-6-a",
+          "label": "Устно договориться"
+        },
+        {
+          "id": "rust-lead-6-b",
+          "label": "Файл rust-toolchain.toml"
+        },
+        {
+          "id": "rust-lead-6-c",
+          "label": "Всегда последняя nightly"
+        }
+      ],
+      "correctOptionId": "rust-lead-6-b",
+      "explanation": "Фиксированная версия делает сборку воспроизводимой.",
+      "source": "https://rust-lang.github.io/rustup/overrides.html"
+    },
+    {
+      "id": "postgresql-intern-1",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Какая утилита открывает интерактивную консоль PostgreSQL?",
+      "options": [
+        {
+          "id": "postgresql-intern-1-a",
+          "label": "pgadmin-cli"
+        },
+        {
+          "id": "postgresql-intern-1-b",
+          "label": "psql"
+        },
+        {
+          "id": "postgresql-intern-1-c",
+          "label": "postgres-shell"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-1-b",
+      "explanation": "psql выполняет SQL и служебные команды.",
+      "source": "https://www.postgresql.org/docs/current/app-psql.html"
+    },
+    {
+      "id": "postgresql-intern-2",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Как создать таблицу в PostgreSQL?",
+      "options": [
+        {
+          "id": "postgresql-intern-2-a",
+          "label": "NEW TABLE users"
+        },
+        {
+          "id": "postgresql-intern-2-b",
+          "label": "MAKE TABLE users WITH COLUMNS (id, name) PRIMARY id;"
+        },
+        {
+          "id": "postgresql-intern-2-c",
+          "label": "CREATE TABLE users (id bigint PRIMARY KEY, name text);"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-2-c",
+      "explanation": "CREATE TABLE задаёт столбцы и ограничения.",
+      "source": "https://www.postgresql.org/docs/current/sql-createtable.html"
+    },
+    {
+      "id": "postgresql-intern-3",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Какой тип PostgreSQL хранит текст произвольной длины?",
+      "options": [
+        {
+          "id": "postgresql-intern-3-a",
+          "label": "text"
+        },
+        {
+          "id": "postgresql-intern-3-b",
+          "label": "string"
+        },
+        {
+          "id": "postgresql-intern-3-c",
+          "label": "varchar2"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-3-a",
+      "explanation": "text и varchar без ограничения равнозначны по производительности.",
+      "source": "https://www.postgresql.org/docs/current/datatype-character.html"
+    },
+    {
+      "id": "postgresql-intern-4",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Как добавить строку в таблицу?",
+      "options": [
+        {
+          "id": "postgresql-intern-4-a",
+          "label": "ADD ROW users ('Аня');"
+        },
+        {
+          "id": "postgresql-intern-4-b",
+          "label": "INSERT INTO users (name) VALUES ('Аня');"
+        },
+        {
+          "id": "postgresql-intern-4-c",
+          "label": "UPDATE users ADD ROW ('Аня') INTO name;"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-4-b",
+      "explanation": "INSERT добавляет строки.",
+      "source": "https://www.postgresql.org/docs/current/sql-insert.html"
+    },
+    {
+      "id": "postgresql-intern-5",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Какой тип хранит дату и время с часовым поясом?",
+      "options": [
+        {
+          "id": "postgresql-intern-5-a",
+          "label": "datetime"
+        },
+        {
+          "id": "postgresql-intern-5-b",
+          "label": "date"
+        },
+        {
+          "id": "postgresql-intern-5-c",
+          "label": "timestamptz"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-5-c",
+      "explanation": "timestamptz хранит момент времени в UTC.",
+      "source": "https://www.postgresql.org/docs/current/datatype-datetime.html"
+    },
+    {
+      "id": "postgresql-intern-6",
+      "grade": "intern",
+      "skillId": "postgresql",
+      "prompt": "Что делает DELETE FROM orders без WHERE?",
+      "options": [
+        {
+          "id": "postgresql-intern-6-a",
+          "label": "Удаляет таблицу"
+        },
+        {
+          "id": "postgresql-intern-6-b",
+          "label": "Удаляет все строки таблицы"
+        },
+        {
+          "id": "postgresql-intern-6-c",
+          "label": "Ничего не делает без явного указания условия"
+        }
+      ],
+      "correctOptionId": "postgresql-intern-6-b",
+      "explanation": "Всегда проверяйте условие перед удалением.",
+      "source": "https://www.postgresql.org/docs/current/sql-delete.html"
+    },
+    {
+      "id": "postgresql-lead-1",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как организовать миграции схемы в команде?",
+      "options": [
+        {
+          "id": "postgresql-lead-1-a",
+          "label": "Версионированные миграции в репозитории, прогон в CI и ревью рискованных изменений"
+        },
+        {
+          "id": "postgresql-lead-1-b",
+          "label": "Изменения вручную в продакшене с записью команд в общий документ после выполнения"
+        },
+        {
+          "id": "postgresql-lead-1-c",
+          "label": "Миграции без версий"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-1-a",
+      "explanation": "Миграции должны быть воспроизводимыми.",
+      "source": "https://www.postgresql.org/docs/current/ddl-alter.html"
+    },
+    {
+      "id": "postgresql-lead-2",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как выбрать стратегию масштабирования PostgreSQL?",
+      "options": [
+        {
+          "id": "postgresql-lead-2-a",
+          "label": "Сразу шардирование всех таблиц, потому что один сервер PostgreSQL не выдерживает больших нагрузок"
+        },
+        {
+          "id": "postgresql-lead-2-b",
+          "label": "Сначала оптимизация запросов и индексов, затем реплики для чтения, партиционирование и шардирование по необходимости"
+        },
+        {
+          "id": "postgresql-lead-2-c",
+          "label": "Только покупка более мощного сервера без анализа"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-2-b",
+      "explanation": "Сложность растёт на каждом шаге.",
+      "source": "https://www.postgresql.org/docs/current/high-availability.html"
+    },
+    {
+      "id": "postgresql-lead-3",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как обеспечить доступность базы для критичного сервиса?",
+      "options": [
+        {
+          "id": "postgresql-lead-3-a",
+          "label": "Реплики с автоматическим переключением и проверенным восстановлением"
+        },
+        {
+          "id": "postgresql-lead-3-b",
+          "label": "Один сервер без реплик"
+        },
+        {
+          "id": "postgresql-lead-3-c",
+          "label": "Копирование файлов базы раз в неделю на другой сервер"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-3-a",
+      "explanation": "RPO и RTO определяют архитектуру.",
+      "source": "https://www.postgresql.org/docs/current/warm-standby.html"
+    },
+    {
+      "id": "postgresql-lead-4",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как контролировать нагрузку от новых запросов?",
+      "options": [
+        {
+          "id": "postgresql-lead-4-a",
+          "label": "Проверять производительность только при жалобах пользователей"
+        },
+        {
+          "id": "postgresql-lead-4-b",
+          "label": "Ревью планов запросов, pg_stat_statements и алерты на медленные запросы"
+        },
+        {
+          "id": "postgresql-lead-4-c",
+          "label": "Отключить статистику"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-4-b",
+      "explanation": "Мониторинг выявляет регрессии.",
+      "source": "https://www.postgresql.org/docs/current/pgstatstatements.html"
+    },
+    {
+      "id": "postgresql-lead-5",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как планировать обновления версий PostgreSQL?",
+      "options": [
+        {
+          "id": "postgresql-lead-5-a",
+          "label": "Никогда"
+        },
+        {
+          "id": "postgresql-lead-5-b",
+          "label": "Сразу после выхода новой версии в продакшене без тестирования"
+        },
+        {
+          "id": "postgresql-lead-5-c",
+          "label": "Регулярно, с тестированием на копии и учётом срока поддержки версий"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-5-c",
+      "explanation": "Каждая мажорная версия поддерживается пять лет.",
+      "source": "https://www.postgresql.org/support/versioning/"
+    },
+    {
+      "id": "postgresql-lead-6",
+      "grade": "lead",
+      "skillId": "postgresql",
+      "prompt": "Как разграничить доступ сервисов к общей базе?",
+      "options": [
+        {
+          "id": "postgresql-lead-6-a",
+          "label": "Один суперпользователь для всех сервисов с паролем в коде"
+        },
+        {
+          "id": "postgresql-lead-6-b",
+          "label": "Пароли в коде"
+        },
+        {
+          "id": "postgresql-lead-6-c",
+          "label": "Отдельные роли и схемы с минимальными правами для каждого сервиса"
+        }
+      ],
+      "correctOptionId": "postgresql-lead-6-c",
+      "explanation": "Изоляция ограничивает ущерб при компрометации.",
+      "source": "https://www.postgresql.org/docs/current/ddl-priv.html"
+    },
+    {
+      "id": "typescript-intern-1",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Как объявить переменную-строку с типом в TypeScript?",
+      "options": [
+        {
+          "id": "typescript-intern-1-a",
+          "label": "string name = 'Аня';"
+        },
+        {
+          "id": "typescript-intern-1-b",
+          "label": "let name = string('Аня');"
+        },
+        {
+          "id": "typescript-intern-1-c",
+          "label": "let name: string = 'Аня';"
+        }
+      ],
+      "correctOptionId": "typescript-intern-1-c",
+      "explanation": "Тип указывается после двоеточия.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html"
+    },
+    {
+      "id": "typescript-intern-2",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Чем const отличается от let?",
+      "options": [
+        {
+          "id": "typescript-intern-2-a",
+          "label": "const нельзя переприсвоить, let можно"
+        },
+        {
+          "id": "typescript-intern-2-b",
+          "label": "const делает объект полностью неизменяемым"
+        },
+        {
+          "id": "typescript-intern-2-c",
+          "label": "let работает только в функциях"
+        }
+      ],
+      "correctOptionId": "typescript-intern-2-a",
+      "explanation": "Свойства объекта под const можно менять.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const"
+    },
+    {
+      "id": "typescript-intern-3",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Что такое массив number[]?",
+      "options": [
+        {
+          "id": "typescript-intern-3-a",
+          "label": "Одно число"
+        },
+        {
+          "id": "typescript-intern-3-b",
+          "label": "Массив чисел"
+        },
+        {
+          "id": "typescript-intern-3-c",
+          "label": "Строка цифр"
+        }
+      ],
+      "correctOptionId": "typescript-intern-3-b",
+      "explanation": "Array<number> — эквивалентная запись.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays"
+    },
+    {
+      "id": "typescript-intern-4",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Что делает компилятор tsc?",
+      "options": [
+        {
+          "id": "typescript-intern-4-a",
+          "label": "Проверяет типы и преобразует TypeScript в JavaScript"
+        },
+        {
+          "id": "typescript-intern-4-b",
+          "label": "Запускает браузер"
+        },
+        {
+          "id": "typescript-intern-4-c",
+          "label": "Устанавливает пакеты из npm и запускает приложение в браузере"
+        }
+      ],
+      "correctOptionId": "typescript-intern-4-a",
+      "explanation": "Браузер выполняет JavaScript, а не TypeScript.",
+      "source": "https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html"
+    },
+    {
+      "id": "typescript-intern-5",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Как описать форму объекта?",
+      "options": [
+        {
+          "id": "typescript-intern-5-a",
+          "label": "interface User { id: number; name: string }"
+        },
+        {
+          "id": "typescript-intern-5-b",
+          "label": "class User = { id, name }"
+        },
+        {
+          "id": "typescript-intern-5-c",
+          "label": "type User: object"
+        }
+      ],
+      "correctOptionId": "typescript-intern-5-a",
+      "explanation": "Интерфейсы описывают структуру объектов.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/objects.html"
+    },
+    {
+      "id": "typescript-intern-6",
+      "grade": "intern",
+      "skillId": "typescript",
+      "prompt": "Что вернёт typeof 42 в JavaScript?",
+      "options": [
+        {
+          "id": "typescript-intern-6-a",
+          "label": "'integer'"
+        },
+        {
+          "id": "typescript-intern-6-b",
+          "label": "'number'"
+        },
+        {
+          "id": "typescript-intern-6-c",
+          "label": "'int'"
+        }
+      ],
+      "correctOptionId": "typescript-intern-6-b",
+      "explanation": "В JavaScript один числовой тип number.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof"
+    },
+    {
+      "id": "typescript-senior-1",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Что такое условные типы?",
+      "options": [
+        {
+          "id": "typescript-senior-1-a",
+          "label": "Типы с if внутри функций"
+        },
+        {
+          "id": "typescript-senior-1-b",
+          "label": "Типы вида T extends U ? X : Y, вычисляемые по отношению типов"
+        },
+        {
+          "id": "typescript-senior-1-c",
+          "label": "Типы для условных импортов модулей в зависимости от окружения"
+        }
+      ],
+      "correctOptionId": "typescript-senior-1-b",
+      "explanation": "Используются для утилит вроде Exclude и ReturnType.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html"
+    },
+    {
+      "id": "typescript-senior-2",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Что даёт ключевое слово infer?",
+      "options": [
+        {
+          "id": "typescript-senior-2-a",
+          "label": "Выводит часть типа внутри условного типа"
+        },
+        {
+          "id": "typescript-senior-2-b",
+          "label": "Включает вывод типов для переменных"
+        },
+        {
+          "id": "typescript-senior-2-c",
+          "label": "Отключает проверку типов"
+        }
+      ],
+      "correctOptionId": "typescript-senior-2-a",
+      "explanation": "type Return<T> = T extends (...a: never[]) => infer R ? R : never.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types"
+    },
+    {
+      "id": "typescript-senior-3",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Что такое сопоставленные типы (mapped types)?",
+      "options": [
+        {
+          "id": "typescript-senior-3-a",
+          "label": "Типы для объектов Map и Set с ключами строкового типа"
+        },
+        {
+          "id": "typescript-senior-3-b",
+          "label": "Типы для массивов"
+        },
+        {
+          "id": "typescript-senior-3-c",
+          "label": "Типы, получаемые перебором ключей другого типа"
+        }
+      ],
+      "correctOptionId": "typescript-senior-3-c",
+      "explanation": "Например { readonly [K in keyof T]: T[K] }.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html"
+    },
+    {
+      "id": "typescript-senior-4",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Что делает оператор satisfies?",
+      "options": [
+        {
+          "id": "typescript-senior-4-a",
+          "label": "Приводит значение к типу без проверки, как оператор as"
+        },
+        {
+          "id": "typescript-senior-4-b",
+          "label": "Проверяет соответствие типу, сохраняя более точный выведенный тип"
+        },
+        {
+          "id": "typescript-senior-4-c",
+          "label": "Объявляет интерфейс"
+        }
+      ],
+      "correctOptionId": "typescript-senior-4-b",
+      "explanation": "Удобно для конфигураций с литеральными ключами.",
+      "source": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator"
+    },
+    {
+      "id": "typescript-senior-5",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Почему unknown безопаснее any?",
+      "options": [
+        {
+          "id": "typescript-senior-5-a",
+          "label": "unknown быстрее"
+        },
+        {
+          "id": "typescript-senior-5-b",
+          "label": "unknown требует сужения перед использованием, any отключает проверки"
+        },
+        {
+          "id": "typescript-senior-5-c",
+          "label": "any нельзя присвоить переменной, а unknown можно использовать без проверок"
+        }
+      ],
+      "correctOptionId": "typescript-senior-5-b",
+      "explanation": "Данные извне стоит типизировать как unknown и проверять.",
+      "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown"
+    },
+    {
+      "id": "typescript-senior-6",
+      "grade": "senior",
+      "skillId": "typescript",
+      "prompt": "Что такое брендированные типы?",
+      "options": [
+        {
+          "id": "typescript-senior-6-a",
+          "label": "Типы компаний и брендов в интерфейсах интернет-магазинов с витринами"
+        },
+        {
+          "id": "typescript-senior-6-b",
+          "label": "Номинальные типы на основе структурных, например UserId как string с меткой"
+        },
+        {
+          "id": "typescript-senior-6-c",
+          "label": "Типы для CSS"
+        }
+      ],
+      "correctOptionId": "typescript-senior-6-b",
+      "explanation": "Защищают от смешивания похожих идентификаторов.",
+      "source": "https://www.typescriptlang.org/play/?#example/nominal-typing"
+    },
+    {
+      "id": "typescript-lead-1",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как ввести строгий режим TypeScript в большом проекте?",
+      "options": [
+        {
+          "id": "typescript-lead-1-a",
+          "label": "Включить сразу и отключить сборку до исправления всего"
+        },
+        {
+          "id": "typescript-lead-1-b",
+          "label": "Не включать никогда"
+        },
+        {
+          "id": "typescript-lead-1-c",
+          "label": "Включать проверки поэтапно по модулям с контролем новых ошибок в CI"
+        }
+      ],
+      "correctOptionId": "typescript-lead-1-c",
+      "explanation": "Поэтапное ужесточение не останавливает разработку.",
+      "source": "https://www.typescriptlang.org/tsconfig#strict"
+    },
+    {
+      "id": "typescript-lead-2",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как делить общий типизированный код между приложениями?",
+      "options": [
+        {
+          "id": "typescript-lead-2-a",
+          "label": "Пакеты в монорепозитории с проектными ссылками и общими контрактами"
+        },
+        {
+          "id": "typescript-lead-2-b",
+          "label": "Копировать типы между репозиториями и использовать any на границах"
+        },
+        {
+          "id": "typescript-lead-2-c",
+          "label": "Использовать any на границах"
+        }
+      ],
+      "correctOptionId": "typescript-lead-2-a",
+      "explanation": "Project references ускоряют сборку больших проектов.",
+      "source": "https://www.typescriptlang.org/docs/handbook/project-references.html"
+    },
+    {
+      "id": "typescript-lead-3",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как получать типы API без ручного дублирования?",
+      "options": [
+        {
+          "id": "typescript-lead-3-a",
+          "label": "Генерировать их из контракта, например OpenAPI"
+        },
+        {
+          "id": "typescript-lead-3-b",
+          "label": "Писать вручную по документации"
+        },
+        {
+          "id": "typescript-lead-3-c",
+          "label": "Использовать any"
+        }
+      ],
+      "correctOptionId": "typescript-lead-3-a",
+      "explanation": "Генерация убирает расхождения клиента и сервера.",
+      "source": "https://openapi-ts.dev/"
+    },
+    {
+      "id": "typescript-lead-4",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как поддерживать единый стиль кода в TS-команде?",
+      "options": [
+        {
+          "id": "typescript-lead-4-a",
+          "label": "Форматтер и линтер в CI с общими правилами"
+        },
+        {
+          "id": "typescript-lead-4-b",
+          "label": "Устные договорённости"
+        },
+        {
+          "id": "typescript-lead-4-c",
+          "label": "Разные правила в каждом пакете"
+        }
+      ],
+      "correctOptionId": "typescript-lead-4-a",
+      "explanation": "Biome или ESLint и Prettier автоматизируют стиль.",
+      "source": "https://biomejs.dev/"
+    },
+    {
+      "id": "typescript-lead-5",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как планировать обновления TypeScript?",
+      "options": [
+        {
+          "id": "typescript-lead-5-a",
+          "label": "Регулярно, читая заметки о выпусках и прогоняя проверку типов и тесты"
+        },
+        {
+          "id": "typescript-lead-5-b",
+          "label": "Раз в несколько лет"
+        },
+        {
+          "id": "typescript-lead-5-c",
+          "label": "Сразу в продакшене без проверки, потому что TypeScript обратно совместим всегда"
+        }
+      ],
+      "correctOptionId": "typescript-lead-5-a",
+      "explanation": "Новые версии ужесточают проверки и ломают сборку.",
+      "source": "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html"
+    },
+    {
+      "id": "typescript-lead-6",
+      "grade": "lead",
+      "skillId": "typescript",
+      "prompt": "Как защищаться от некорректных данных на границах приложения?",
+      "options": [
+        {
+          "id": "typescript-lead-6-a",
+          "label": "Проверять их во время выполнения схемами и выводить типы из схем"
+        },
+        {
+          "id": "typescript-lead-6-b",
+          "label": "Доверять типам TypeScript"
+        },
+        {
+          "id": "typescript-lead-6-c",
+          "label": "Использовать оператор as для приведения ответа сервера к ожидаемому типу"
+        }
+      ],
+      "correctOptionId": "typescript-lead-6-a",
+      "explanation": "Типы TypeScript исчезают после компиляции.",
+      "source": "https://zod.dev/"
+    },
+    {
+      "id": "react-intern-1",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Что такое компонент React?",
+      "options": [
+        {
+          "id": "react-intern-1-a",
+          "label": "Функция, возвращающая описание интерфейса"
+        },
+        {
+          "id": "react-intern-1-b",
+          "label": "CSS-файл"
+        },
+        {
+          "id": "react-intern-1-c",
+          "label": "Сервер"
+        }
+      ],
+      "correctOptionId": "react-intern-1-a",
+      "explanation": "Компоненты можно вкладывать друг в друга.",
+      "source": "https://react.dev/learn/your-first-component"
+    },
+    {
+      "id": "react-intern-2",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Как передать данные в компонент?",
+      "options": [
+        {
+          "id": "react-intern-2-a",
+          "label": "Через глобальную переменную"
+        },
+        {
+          "id": "react-intern-2-b",
+          "label": "Через пропсы: <Greeting name=\"Аня\" />"
+        },
+        {
+          "id": "react-intern-2-c",
+          "label": "Через CSS"
+        }
+      ],
+      "correctOptionId": "react-intern-2-b",
+      "explanation": "Пропсы доступны как параметр функции компонента.",
+      "source": "https://react.dev/learn/passing-props-to-a-component"
+    },
+    {
+      "id": "react-intern-3",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Что такое JSX?",
+      "options": [
+        {
+          "id": "react-intern-3-a",
+          "label": "Новый язык стилей"
+        },
+        {
+          "id": "react-intern-3-b",
+          "label": "Синтаксис для описания разметки внутри JavaScript"
+        },
+        {
+          "id": "react-intern-3-c",
+          "label": "Формат базы данных для хранения состояния компонентов"
+        }
+      ],
+      "correctOptionId": "react-intern-3-b",
+      "explanation": "JSX компилируется в вызовы функций.",
+      "source": "https://react.dev/learn/writing-markup-with-jsx"
+    },
+    {
+      "id": "react-intern-4",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Как вывести список элементов?",
+      "options": [
+        {
+          "id": "react-intern-4-a",
+          "label": "Цикл for внутри JSX с выводом элементов списка"
+        },
+        {
+          "id": "react-intern-4-b",
+          "label": "items.map(item => <li key={item.id}>{item.name}</li>)"
+        },
+        {
+          "id": "react-intern-4-c",
+          "label": "items.print()"
+        }
+      ],
+      "correctOptionId": "react-intern-4-b",
+      "explanation": "key помогает React отслеживать элементы.",
+      "source": "https://react.dev/learn/rendering-lists"
+    },
+    {
+      "id": "react-intern-5",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Как обработать нажатие кнопки?",
+      "options": [
+        {
+          "id": "react-intern-5-a",
+          "label": "<button click=\"handleClick()\">"
+        },
+        {
+          "id": "react-intern-5-b",
+          "label": "<button onClick={handleClick}>"
+        },
+        {
+          "id": "react-intern-5-c",
+          "label": "<button onclick=handleClick>"
+        }
+      ],
+      "correctOptionId": "react-intern-5-b",
+      "explanation": "Передаётся функция, а не результат её вызова.",
+      "source": "https://react.dev/learn/responding-to-events"
+    },
+    {
+      "id": "react-intern-6",
+      "grade": "intern",
+      "skillId": "react",
+      "prompt": "Что делает useState?",
+      "options": [
+        {
+          "id": "react-intern-6-a",
+          "label": "Добавляет компоненту состояние и функцию его изменения"
+        },
+        {
+          "id": "react-intern-6-b",
+          "label": "Загружает данные с сервера и сохраняет их в кэш браузера"
+        },
+        {
+          "id": "react-intern-6-c",
+          "label": "Создаёт маршрут"
+        }
+      ],
+      "correctOptionId": "react-intern-6-a",
+      "explanation": "Изменение состояния вызывает повторный рендер.",
+      "source": "https://react.dev/reference/react/useState"
+    },
+    {
+      "id": "react-senior-1",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Что делают переходы useTransition?",
+      "options": [
+        {
+          "id": "react-senior-1-a",
+          "label": "Помечают обновление как несрочное, сохраняя отзывчивость интерфейса"
+        },
+        {
+          "id": "react-senior-1-b",
+          "label": "Анимируют элементы интерфейса при переходах между маршрутами"
+        },
+        {
+          "id": "react-senior-1-c",
+          "label": "Загружают маршрут"
+        }
+      ],
+      "correctOptionId": "react-senior-1-a",
+      "explanation": "Срочные обновления ввода выполняются раньше.",
+      "source": "https://react.dev/reference/react/useTransition"
+    },
+    {
+      "id": "react-senior-2",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Что такое Suspense?",
+      "options": [
+        {
+          "id": "react-senior-2-a",
+          "label": "Границы, показывающие запасной интерфейс, пока дочерние компоненты ждут данные или код"
+        },
+        {
+          "id": "react-senior-2-b",
+          "label": "Обработчик ошибок сети, который повторяет запросы компонентов до успешного ответа сервера"
+        },
+        {
+          "id": "react-senior-2-c",
+          "label": "Таймер"
+        }
+      ],
+      "correctOptionId": "react-senior-2-a",
+      "explanation": "Используется с ленивой загрузкой и библиотеками данных.",
+      "source": "https://react.dev/reference/react/Suspense"
+    },
+    {
+      "id": "react-senior-3",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Как найти причину лишних рендеров?",
+      "options": [
+        {
+          "id": "react-senior-3-a",
+          "label": "Добавить useMemo везде"
+        },
+        {
+          "id": "react-senior-3-b",
+          "label": "Удалить состояние"
+        },
+        {
+          "id": "react-senior-3-c",
+          "label": "React Profiler в DevTools"
+        }
+      ],
+      "correctOptionId": "react-senior-3-c",
+      "explanation": "Профилировщик показывает, что и почему перерисовывалось.",
+      "source": "https://react.dev/reference/react/Profiler"
+    },
+    {
+      "id": "react-senior-4",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Что делают Error Boundaries?",
+      "options": [
+        {
+          "id": "react-senior-4-a",
+          "label": "Перехватывают ошибки сети"
+        },
+        {
+          "id": "react-senior-4-b",
+          "label": "Обрабатывают ошибки в обработчиках событий"
+        },
+        {
+          "id": "react-senior-4-c",
+          "label": "Перехватывают ошибки рендера потомков и показывают запасной интерфейс"
+        }
+      ],
+      "correctOptionId": "react-senior-4-c",
+      "explanation": "Ошибки в обработчиках событий нужно ловить самостоятельно.",
+      "source": "https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary"
+    },
+    {
+      "id": "react-senior-5",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Зачем React Compiler?",
+      "options": [
+        {
+          "id": "react-senior-5-a",
+          "label": "Компилирует React в нативный код"
+        },
+        {
+          "id": "react-senior-5-b",
+          "label": "Заменяет TypeScript"
+        },
+        {
+          "id": "react-senior-5-c",
+          "label": "Автоматически мемоизирует компоненты и значения"
+        }
+      ],
+      "correctOptionId": "react-senior-5-c",
+      "explanation": "Уменьшает ручное использование useMemo и useCallback.",
+      "source": "https://react.dev/learn/react-compiler"
+    },
+    {
+      "id": "react-senior-6",
+      "grade": "senior",
+      "skillId": "react",
+      "prompt": "Как хранить серверное состояние в React-приложении?",
+      "options": [
+        {
+          "id": "react-senior-6-a",
+          "label": "В специализированной библиотеке с кэшем и повторными запросами, например TanStack Query"
+        },
+        {
+          "id": "react-senior-6-b",
+          "label": "В useState каждого компонента и в глобальной переменной для доступа из других компонентов"
+        },
+        {
+          "id": "react-senior-6-c",
+          "label": "В глобальной переменной"
+        }
+      ],
+      "correctOptionId": "react-senior-6-a",
+      "explanation": "Серверное состояние требует кэширования и инвалидации.",
+      "source": "https://tanstack.com/query/latest/docs/framework/react/overview"
+    },
+    {
+      "id": "react-lead-1",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как организовать архитектуру большого React-приложения?",
+      "options": [
+        {
+          "id": "react-lead-1-a",
+          "label": "Все компоненты в одной папке"
+        },
+        {
+          "id": "react-lead-1-b",
+          "label": "Слои и срезы по фичам с правилами импорта, например Feature-Sliced Design"
+        },
+        {
+          "id": "react-lead-1-c",
+          "label": "Структура по типам файлов без правил"
+        }
+      ],
+      "correctOptionId": "react-lead-1-b",
+      "explanation": "Явные границы упрощают развитие.",
+      "source": "https://feature-sliced.design/"
+    },
+    {
+      "id": "react-lead-2",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как обеспечить доступность интерфейса на уровне команды?",
+      "options": [
+        {
+          "id": "react-lead-2-a",
+          "label": "Проверять доступность перед релизом и не учитывать её при разработке"
+        },
+        {
+          "id": "react-lead-2-b",
+          "label": "Не учитывать"
+        },
+        {
+          "id": "react-lead-2-c",
+          "label": "Доступные компоненты в дизайн-системе, автоматические проверки и ручные тесты"
+        }
+      ],
+      "correctOptionId": "react-lead-2-c",
+      "explanation": "Доступность закладывается в компоненты.",
+      "source": "https://www.w3.org/WAI/WCAG22/quickref/"
+    },
+    {
+      "id": "react-lead-3",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как контролировать производительность фронтенда?",
+      "options": [
+        {
+          "id": "react-lead-3-a",
+          "label": "Проверять производительность на мощном ноутбуке разработчика и не измерять у пользователей"
+        },
+        {
+          "id": "react-lead-3-b",
+          "label": "Не измерять"
+        },
+        {
+          "id": "react-lead-3-c",
+          "label": "Бюджеты размера бандла и метрики Web Vitals в CI и мониторинге"
+        }
+      ],
+      "correctOptionId": "react-lead-3-c",
+      "explanation": "Реальные пользователи используют разные устройства.",
+      "source": "https://web.dev/articles/vitals"
+    },
+    {
+      "id": "react-lead-4",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как тестировать React-приложение?",
+      "options": [
+        {
+          "id": "react-lead-4-a",
+          "label": "Компонентные тесты Testing Library и сквозные тесты ключевых сценариев"
+        },
+        {
+          "id": "react-lead-4-b",
+          "label": "Только снапшоты"
+        },
+        {
+          "id": "react-lead-4-c",
+          "label": "Только ручное тестирование и снапшоты компонентов без проверок поведения"
+        }
+      ],
+      "correctOptionId": "react-lead-4-a",
+      "explanation": "Тестируйте поведение, видимое пользователю.",
+      "source": "https://testing-library.com/docs/react-testing-library/intro/"
+    },
+    {
+      "id": "react-lead-5",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как выбирать библиотеку управления состоянием?",
+      "options": [
+        {
+          "id": "react-lead-5-a",
+          "label": "Самую популярную библиотеку для всех видов состояния, например Redux везде"
+        },
+        {
+          "id": "react-lead-5-b",
+          "label": "Всегда Redux"
+        },
+        {
+          "id": "react-lead-5-c",
+          "label": "По видам состояния: серверное, URL, форма и локальное; не тащить одну на всё"
+        }
+      ],
+      "correctOptionId": "react-lead-5-c",
+      "explanation": "Разные виды состояния требуют разных инструментов.",
+      "source": "https://tanstack.com/router/latest/docs/framework/react/guide/search-params"
+    },
+    {
+      "id": "react-lead-6",
+      "grade": "lead",
+      "skillId": "react",
+      "prompt": "Как обновлять мажорные версии React?",
+      "options": [
+        {
+          "id": "react-lead-6-a",
+          "label": "Читать руководство по миграции, исправлять предупреждения заранее и тестировать"
+        },
+        {
+          "id": "react-lead-6-b",
+          "label": "Обновлять сразу в продакшене, а предупреждения исправлять по мере появления ошибок у пользователей"
+        },
+        {
+          "id": "react-lead-6-c",
+          "label": "Никогда"
+        }
+      ],
+      "correctOptionId": "react-lead-6-a",
+      "explanation": "Предупреждения о будущих изменениях появляются заранее.",
+      "source": "https://react.dev/blog/2024/04/25/react-19-upgrade-guide"
+    }
+  ]
+}

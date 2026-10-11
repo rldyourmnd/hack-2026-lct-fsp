@@ -1,0 +1,509 @@
+.section {
+  display: grid;
+  gap: var(--fsp-space-4);
+  margin-bottom: var(--fsp-space-6);
+}
+
+.launcher {
+  background:
+    radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--fsp-color-accent) 18%, transparent), transparent 34%),
+    linear-gradient(135deg, var(--fsp-color-surface), var(--fsp-color-surface-subtle));
+}
+
+.launcher > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fsp-space-6);
+}
+
+.launcherCopy {
+  display: grid;
+  gap: var(--fsp-space-3);
+  max-width: 48rem;
+}
+
+.launcherCopy h2,
+.launcherCopy p,
+.liveHeader h1,
+.questionBlock p,
+.evidence p,
+.evidence blockquote {
+  margin: 0;
+}
+
+.evidenceSignal {
+  display: block;
+  margin-top: var(--fsp-space-1);
+  color: var(--fsp-color-primary);
+  font-size: var(--fsp-font-size-caption);
+  font-weight: 700;
+}
+
+.launcherCopy h2 {
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.launcherCopy p {
+  color: var(--fsp-color-text-muted);
+  line-height: 1.55;
+}
+
+.eyebrow,
+.features,
+.features span,
+.graphLegend,
+.graphLegend span,
+.liveBadge,
+.voicePanel,
+.modeSwitch {
+  display: flex;
+  align-items: center;
+}
+
+.eyebrow {
+  gap: var(--fsp-space-2);
+  color: var(--fsp-color-primary);
+  font-weight: 700;
+  font-size: var(--fsp-font-size-small);
+}
+
+.features {
+  flex-wrap: wrap;
+  gap: var(--fsp-space-3);
+}
+
+.features span {
+  gap: var(--fsp-space-1);
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: var(--fsp-color-surface);
+  font-size: var(--fsp-font-size-small);
+}
+
+.interviewHistory {
+  display: grid;
+  gap: var(--fsp-space-2);
+}
+
+.interviewHistory button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--fsp-space-3) var(--fsp-space-4);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-control);
+  background: var(--fsp-color-surface);
+  color: var(--fsp-color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.interviewPage {
+  display: grid;
+  gap: var(--fsp-space-5);
+  min-height: calc(100vh - 10rem);
+}
+
+.liveHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--fsp-space-4);
+}
+
+.liveHeader > div:first-child {
+  display: grid;
+  gap: var(--fsp-space-2);
+}
+
+.liveBadge {
+  width: fit-content;
+  gap: var(--fsp-space-2);
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: var(--fsp-color-accent-subtle);
+  color: var(--fsp-color-primary);
+  font-size: var(--fsp-font-size-caption);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.liveBadge::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--fsp-color-primary);
+  content: "";
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.progress {
+  color: var(--fsp-color-text-muted);
+  font-weight: 700;
+}
+
+.liveGrid {
+  display: grid;
+  grid-template-columns: minmax(26rem, 1.35fr) minmax(22rem, 0.85fr);
+  gap: var(--fsp-space-5);
+  align-items: stretch;
+}
+
+.graphColumn {
+  display: grid;
+  gap: var(--fsp-space-3);
+  min-width: 0;
+}
+
+.graphWrap {
+  position: relative;
+  min-width: 0;
+  min-height: 46rem;
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-card);
+  background:
+    linear-gradient(color-mix(in srgb, var(--fsp-color-border) 40%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--fsp-color-border) 40%, transparent) 1px, transparent 1px),
+    var(--fsp-color-surface-subtle);
+  background-size: 24px 24px;
+  overflow: hidden;
+}
+
+.graphList {
+  padding: var(--fsp-space-3) var(--fsp-space-4);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-control);
+  background: var(--fsp-color-surface);
+}
+
+.graphList ul {
+  display: grid;
+  gap: var(--fsp-space-2);
+  margin-bottom: 0;
+}
+
+.graphList li {
+  display: grid;
+  gap: var(--fsp-space-1);
+}
+
+.graphList span {
+  color: var(--fsp-color-text-muted);
+  font-size: var(--fsp-font-size-small);
+}
+
+.graphLegend {
+  position: absolute;
+  top: var(--fsp-space-3);
+  left: var(--fsp-space-3);
+  z-index: 5;
+  flex-wrap: wrap;
+  gap: var(--fsp-space-3);
+  padding: var(--fsp-space-2) var(--fsp-space-3);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-control);
+  background: color-mix(in srgb, var(--fsp-color-surface) 92%, transparent);
+  color: var(--fsp-color-text-muted);
+  font-size: var(--fsp-font-size-caption);
+  backdrop-filter: blur(10px);
+}
+
+.graphLegend span {
+  gap: var(--fsp-space-1);
+}
+
+.graphLegend i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+}
+
+.techDot {
+  background: var(--fsp-color-primary);
+}
+.softDot {
+  background: var(--fsp-color-accent);
+}
+
+.node {
+  display: grid;
+  align-content: center;
+  gap: var(--fsp-space-2);
+  width: 190px;
+  min-height: 112px;
+  padding: var(--fsp-space-3);
+  border: 1.5px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-card);
+  background: var(--fsp-color-surface);
+  color: var(--fsp-color-text);
+  box-shadow: var(--fsp-shadow-card);
+}
+
+.node strong {
+  line-height: 1.3;
+}
+
+.behavioral {
+  border-color: color-mix(in srgb, var(--fsp-color-accent) 55%, var(--fsp-color-border));
+  background: color-mix(in srgb, var(--fsp-color-accent-subtle) 35%, var(--fsp-color-surface));
+}
+
+.current {
+  border: 2px solid var(--fsp-color-primary);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--fsp-color-primary) 14%, transparent),
+    var(--fsp-shadow-card);
+}
+
+.nodeKind {
+  color: var(--fsp-color-text-muted);
+  font-size: var(--fsp-font-size-caption);
+}
+
+.handle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.conversation {
+  display: grid;
+  align-content: start;
+  gap: var(--fsp-space-4);
+  padding: var(--fsp-space-5);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-card);
+  background: var(--fsp-color-surface);
+  box-shadow: var(--fsp-shadow-card);
+}
+
+.avatarStage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--fsp-space-2);
+  min-height: 15rem;
+  padding-top: var(--fsp-space-4);
+  overflow: hidden;
+}
+
+.avatarHalo {
+  position: absolute;
+  top: 0;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--fsp-color-primary) 24%, transparent), transparent 68%);
+  transition: transform 240ms ease;
+}
+
+.avatarBody {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  align-content: end;
+  width: 11rem;
+  height: 11rem;
+}
+
+.avatarHead {
+  position: relative;
+  z-index: 2;
+  width: 5.8rem;
+  height: 6.8rem;
+  border: 3px solid color-mix(in srgb, var(--fsp-color-primary) 65%, var(--fsp-color-text));
+  border-radius: 46% 46% 42% 42%;
+  background: linear-gradient(145deg, var(--fsp-color-warning-subtle), var(--fsp-color-accent-subtle));
+  box-shadow: inset 0 0.7rem 0 var(--fsp-color-text);
+}
+
+.eyeLeft,
+.eyeRight {
+  position: absolute;
+  top: 3rem;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: var(--fsp-color-text);
+}
+
+.eyeLeft {
+  left: 1.45rem;
+}
+.eyeRight {
+  right: 1.45rem;
+}
+
+.mouth {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  width: 1.25rem;
+  height: 0.22rem;
+  border-radius: 1rem;
+  background: var(--fsp-color-danger);
+  transform: translateX(-50%);
+}
+
+.avatarTorso {
+  width: 9.5rem;
+  height: 5.8rem;
+  margin-top: -0.7rem;
+  border-radius: 4rem 4rem 1rem 1rem;
+  background: linear-gradient(145deg, var(--fsp-color-primary), var(--fsp-color-sidebar));
+}
+
+.avatarState {
+  position: relative;
+  z-index: 2;
+  color: var(--fsp-color-text-muted);
+  font-size: var(--fsp-font-size-small);
+  font-weight: 700;
+}
+
+.speaking .mouth {
+  animation: talk 380ms ease-in-out infinite;
+}
+.speaking .avatarHalo,
+.listening .avatarHalo {
+  animation: breathe 1.6s ease-in-out infinite;
+}
+.listening .avatarHalo {
+  background: radial-gradient(circle, color-mix(in srgb, var(--fsp-color-accent) 30%, transparent), transparent 68%);
+}
+.thinking .avatarBody {
+  animation: think 1.8s ease-in-out infinite;
+}
+
+.questionBlock {
+  display: grid;
+  gap: var(--fsp-space-3);
+  padding: var(--fsp-space-4);
+  border-radius: var(--fsp-radius-card);
+  background: var(--fsp-color-surface-subtle);
+}
+
+.questionBlock > span {
+  color: var(--fsp-color-primary);
+  font-size: var(--fsp-font-size-caption);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.questionBlock p {
+  font-size: 1.08rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.questionBlock button {
+  justify-self: start;
+}
+
+.modeSwitch {
+  flex-wrap: wrap;
+  gap: var(--fsp-space-2);
+}
+
+.voicePanel {
+  justify-content: space-between;
+  gap: var(--fsp-space-3);
+  padding: var(--fsp-space-3);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-control);
+  color: var(--fsp-color-text-muted);
+  font-size: var(--fsp-font-size-small);
+}
+
+.voiceNotice {
+  color: var(--fsp-color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.evidencePanel {
+  padding: var(--fsp-space-4);
+  border: 1px solid var(--fsp-color-border);
+  border-radius: var(--fsp-radius-card);
+  background: var(--fsp-color-surface);
+}
+
+.evidence {
+  display: grid;
+  gap: var(--fsp-space-4);
+  padding-left: var(--fsp-space-5);
+}
+
+.evidence blockquote {
+  margin-top: var(--fsp-space-2);
+  padding-left: var(--fsp-space-3);
+  border-left: 3px solid var(--fsp-color-border-strong);
+  color: var(--fsp-color-text-muted);
+}
+
+@keyframes talk {
+  50% {
+    height: 0.7rem;
+  }
+}
+
+@keyframes breathe {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes think {
+  50% {
+    transform: translateY(-0.25rem);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 1050px) {
+  .liveGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .graphWrap {
+    min-height: 34rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .launcher > div,
+  .liveHeader,
+  .voicePanel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .liveGrid {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .graphWrap {
+    min-height: 28rem;
+  }
+  .conversation {
+    padding: var(--fsp-space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaking .mouth,
+  .speaking .avatarHalo,
+  .listening .avatarHalo,
+  .thinking .avatarBody,
+  .liveBadge::before {
+    animation: none;
+  }
+}

@@ -142,6 +142,7 @@ pub fn router(config: HttpConfig, service: Arc<PlatformService>) -> Router {
             get(get_candidate_disclosure),
         )
         .route("/api/v1/applications", get(list_applications))
+        .route("/api/v1/analytics/hiring-flow", get(hiring_flow_analytics))
         .route(
             "/api/v1/applications/{application_id}",
             get(get_application),
@@ -177,7 +178,10 @@ pub fn router(config: HttpConfig, service: Arc<PlatformService>) -> Router {
             get(get_candidate_gap_plan),
         )
         .route("/api/v1/me/profile/export", get(export_profile))
+        .route("/api/v1/me/profile/estimate", post(refresh_estimate))
         .route("/api/v1/me/assessments", get(get_my_assessments))
+        .route("/api/v1/me/interviews", get(get_my_interviews))
+        .route("/api/v1/me/interviews/{interview_id}", get(get_interview))
         .route(
             "/api/v1/me/assessments/{assessment_id}",
             get(get_assessment),
@@ -223,6 +227,15 @@ pub fn router(config: HttpConfig, service: Arc<PlatformService>) -> Router {
             post(connect_source),
         )
         .route("/api/v1/me/assessments", post(start_assessment))
+        .route("/api/v1/me/interviews", post(start_interview))
+        .route(
+            "/api/v1/me/interviews/{interview_id}/answers",
+            post(answer_interview),
+        )
+        .route(
+            "/api/v1/me/interviews/{interview_id}/speech",
+            post(synthesize_interview_speech),
+        )
         .route(
             "/api/v1/me/assessments/{assessment_id}/answer",
             put(save_assessment_answer),
@@ -333,6 +346,35 @@ pub fn idempotent_response<T: Serialize>(
 }
 
 async fn meta(State(state): State<AppState>) -> Json<Value> {
+    let catalog = fsp_domain::catalog::catalog();
+    let scopes = fsp_domain::knowledge_scopes()
+        .into_iter()
+        .map(|(specialization, grades)| {
+            json!({ "specialization": specialization, "grades": grades })
+        })
+        .collect::<Vec<_>>();
+    let skills = catalog
+        .skills
+        .iter()
+        .map(|item| json!({ "id": item.id, "label": item.label, "category": item.category }))
+        .collect::<Vec<_>>();
+    let specializations = catalog
+        .specializations
+        .iter()
+        .map(|item| {
+            json!({ "id": item.id, "label": item.label, "short": item.short, "group": item.group })
+        })
+        .collect::<Vec<_>>();
+    let grades = catalog
+        .grades
+        .iter()
+        .map(|item| json!({ "id": item.id, "label": item.label, "description": item.description }))
+        .collect::<Vec<_>>();
+    let categories = catalog
+        .skill_categories
+        .iter()
+        .map(|item| json!({ "id": item.id, "label": item.label }))
+        .collect::<Vec<_>>();
     Json(json!({
         "contractVersion": "0.1.0",
         "mode": "live",
@@ -343,24 +385,27 @@ async fn meta(State(state): State<AppState>) -> Json<Value> {
             "fspFixture": true, "matching": true, "directInvitations": true,
             "vacancyPublication": true, "selfApplication": true, "chat": false,
             "recurringTasks": true, "realCodeExecution": false, "realLlm": state.service.llm_configured(),
-            "githubOAuth": state.service.github_configured()
+            "githubOAuth": state.service.github_configured(),
+            "githubInsights": state.service.github_insights_configured(),
+            "graphInterviews": state.service.interviews_configured(),
+            "neuralTts": state.service.speech_configured(),
+            "hiringAnalytics": true
         },
         "assessmentPolicy": {
             "successfulGradeChangeCooldownDays": state.service.grade_cooldown_days(), "failedAttemptCooldownDays": 0,
             "serviceFailureCooldownDays": 0, "sameGradeRetryCooldownDays": 0,
             "aiAllowed": true, "externalAiAllowed": true,
-            "supportedScopes": [
-                {"specialization":"backend","grades":["junior","middle","senior"]}
-            ]
+            "supportedScopes": scopes
         },
         "competitions": [
             {"id":"competition-demo-api","name":"Демо: проектирование надёжного API","synthetic":true,"skillIds":["rust","postgresql"],"discipline":"Продуктовое программирование"},
             {"id":"competition-demo-systems","name":"Демо: распределённые системы","synthetic":true,"skillIds":["docker","redis"],"discipline":"Продуктовое программирование"}
         ],
-        "skills": [
-            {"id":"rust","label":"Rust"},{"id":"postgresql","label":"PostgreSQL"},
-            {"id":"docker","label":"Docker"},{"id":"redis","label":"Redis"},{"id":"react","label":"React"}
-        ]
+        "catalogVersion": catalog.version,
+        "grades": grades,
+        "specializations": specializations,
+        "skillCategories": categories,
+        "skills": skills
     }))
 }
 
@@ -435,7 +480,38 @@ async fn get_profile(
     let session = authenticated(&state, &headers).await?;
     state
         .service
-        .profile(&session)
+        .my_profile(&session)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct EstimateQuery {
+    answers: Option<EstimateAnswersMode>,
+}
+
+/// `keep` answers only the fields the candidate has not edited; `replace` rebuilds them all.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum EstimateAnswersMode {
+    Keep,
+    Replace,
+}
+
+async fn refresh_estimate(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractQuery(query): ContractQuery<EstimateQuery>,
+) -> Result<Json<fsp_application::ProfileView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    state
+        .service
+        .refresh_estimate(
+            &session,
+            query.answers == Some(EstimateAnswersMode::Replace),
+        )
         .await
         .map(Json)
         .map_err(api_error)
@@ -670,6 +746,7 @@ struct CandidateQuery {
     mode: Option<String>,
     specialization: Option<Specialization>,
     grade: Option<Grade>,
+    category_source: Option<fsp_domain::CategorySource>,
     skill: Option<String>,
     fsp: Option<String>,
     page: Option<usize>,
@@ -715,6 +792,7 @@ async fn search_candidates(
                 recommended: query.mode.as_deref() == Some("recommended"),
                 specialization: query.specialization,
                 grade: query.grade,
+                category_source: query.category_source,
                 skill: query.skill,
                 fsp_verified: query.fsp.as_deref() == Some("verified"),
                 page,
@@ -1005,6 +1083,20 @@ async fn list_applications(
         .map_err(api_error)
 }
 
+async fn hiring_flow_analytics(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+) -> Result<Json<fsp_application::HiringFlowAnalyticsView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "employer")?;
+    state
+        .service
+        .hiring_flow_analytics(&session)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
 async fn get_application(
     State(state): State<AppState>,
     headers: HeaderMap,
@@ -1206,6 +1298,82 @@ async fn get_my_assessments(
     state
         .service
         .my_assessments(&session)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
+async fn get_my_interviews(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+) -> Result<Json<fsp_application::InterviewsView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .my_interviews(&session)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
+async fn start_interview(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractJson(input): ContractJson<fsp_application::InterviewStartInput>,
+) -> Result<(StatusCode, Json<fsp_application::InterviewView>), ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .start_interview(&session, input)
+        .await
+        .map(|interview| (StatusCode::CREATED, Json(interview)))
+        .map_err(api_error)
+}
+
+async fn get_interview(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractPath(interview_id): ContractPath<String>,
+) -> Result<Json<fsp_application::InterviewView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .get_interview(&session, &interview_id)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
+async fn answer_interview(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractPath(interview_id): ContractPath<String>,
+    ContractJson(input): ContractJson<fsp_application::InterviewAnswerInput>,
+) -> Result<Json<fsp_application::InterviewView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .answer_interview(&session, &interview_id, input)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
+async fn synthesize_interview_speech(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractPath(interview_id): ContractPath<String>,
+    ContractJson(input): ContractJson<fsp_application::InterviewSpeechInput>,
+) -> Result<Json<fsp_application::SpeechAudioView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .synthesize_interview_question(&session, &interview_id, input)
         .await
         .map(Json)
         .map_err(api_error)
@@ -2254,6 +2422,10 @@ mod tests {
         }
 
         async fn sources(&self, _: &str) -> Result<Vec<SourceRecord>, RepositoryError> {
+            Ok(Vec::new())
+        }
+
+        async fn github_sources(&self, _: &str) -> Result<Vec<SourceRecord>, RepositoryError> {
             Ok(Vec::new())
         }
 

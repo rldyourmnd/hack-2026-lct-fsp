@@ -12,6 +12,7 @@ export {
   TextField,
   ToggleGroup,
   TokenInput,
+  TokenPicker,
 } from './field';
 export { Icon, type IconName } from './icon';
 export { ConfirmDialog, Dialog, Pagination, panelId, Segmented, type TabItem, Tabs, tabId } from './overlay';

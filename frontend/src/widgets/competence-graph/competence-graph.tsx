@@ -19,7 +19,13 @@ type GraphNode = Graph['nodes'][number];
 type NodeData = { node: GraphNode; selected: boolean; dimmed: boolean; onSelect: (id: string) => void };
 type FlowNode = Node<NodeData, 'competence'>;
 
-const kindLabel: Record<GraphNode['kind'], string> = { role: 'Роль', skill: 'Навык', evidence: 'Свидетельство' };
+const kindLabel: Record<GraphNode['kind'], string> = {
+  role: 'Категория',
+  concept: 'Понятие',
+  skill: 'Технология',
+  source: 'Источник',
+  evidence: 'Свидетельство',
+};
 
 function CompetenceNode({ data }: NodeProps<FlowNode>) {
   const { node, selected, dimmed, onSelect } = data;
@@ -31,11 +37,15 @@ function CompetenceNode({ data }: NodeProps<FlowNode>) {
         type="button"
         className={cx(styles.node, styles[node.kind], dimmed && styles.dimmed)}
         aria-pressed={selected}
-        aria-label={`${kindLabel[node.kind]}: ${node.label}${status ? `, ${status.label}` : ''}`}
+        aria-label={`${kindLabel[node.kind]}: ${node.label}${node.detail ? `, ${node.detail}` : ''}${status ? `, ${status.label}` : ''}`}
         onClick={() => onSelect(node.id)}
       >
+        {(node.kind === 'source' || node.kind === 'concept') && (
+          <span className={cx(styles.meta, 'muted')}>{kindLabel[node.kind]}</span>
+        )}
         <span className={styles.label}>{node.label}</span>
-        {status && <span className={styles.meta}>{status.label}</span>}
+        {node.detail && <span className={styles.meta}>{node.detail}</span>}
+        {status && node.kind === 'skill' && <span className={cx(styles.meta, 'muted')}>{status.label}</span>}
         {node.kind === 'evidence' && <span className={cx(styles.meta, 'muted')}>Свидетельство</span>}
       </button>
       <Handle type="source" position={Position.Bottom} className={styles.handle} isConnectable={false} />
@@ -90,8 +100,8 @@ export default function CompetenceGraph({ graph, selectedId, highlight, onSelect
     }));
     const flowEdges: Edge[] = graph.edges.map((edge) => ({
       id: edge.id,
-      source: edge.relation === 'supports' ? edge.to : edge.from,
-      target: edge.relation === 'supports' ? edge.from : edge.to,
+      source: edge.from,
+      target: edge.to,
       type: 'smoothstep',
       selectable: false,
       focusable: false,

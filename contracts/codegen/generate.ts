@@ -361,8 +361,53 @@ const manifest = `${JSON.stringify(
   2,
 )}\n`;
 
+// The shared catalog as constants: ordered ids for route schemas and selects, labels for display.
+const catalogUrl = new URL('../../backend/crates/domain/data/catalog.json', import.meta.url);
+const catalogSource = JSON.parse(await readFile(catalogUrl, 'utf8')) as {
+  version: string;
+  grades: { id: string; label: string; description: string }[];
+  specializations: { id: string; label: string; short: string; role: string; group: string; testTopics: string[] }[];
+  specializationGroups: { id: string; label: string }[];
+  skillCategories: { id: string; label: string }[];
+  skills: { id: string; label: string; category: string }[];
+};
+const constant = (name: string, value: unknown) =>
+  `export const ${name} = ${JSON.stringify(value, null, 2)} as const;\n`;
+const catalogModule = [
+  '// Generated from backend/crates/domain/data/catalog.json by contracts/codegen. Do not edit.\n',
+  constant('CATALOG_VERSION', catalogSource.version),
+  constant('GRADES', catalogSource.grades),
+  constant(
+    'SPECIALIZATIONS',
+    catalogSource.specializations.map(({ id, label, short, role, group, testTopics }) => ({
+      id,
+      label,
+      short,
+      role,
+      group,
+      testTopics,
+    })),
+  ),
+  constant('SPECIALIZATION_GROUPS', catalogSource.specializationGroups),
+  constant('SKILL_CATEGORIES', catalogSource.skillCategories),
+  constant('SKILLS', catalogSource.skills),
+  constant(
+    'GRADE_IDS',
+    catalogSource.grades.map((item) => item.id),
+  ),
+  constant(
+    'SPECIALIZATION_IDS',
+    catalogSource.specializations.map((item) => item.id),
+  ),
+  constant(
+    'SKILL_IDS',
+    catalogSource.skills.map((item) => item.id),
+  ),
+].join('\n');
+
 const outputs: Array<[URL, string]> = [
   [new URL('schema.d.ts', typesUrl), generated],
+  [new URL('catalog.ts', typesUrl), catalogModule],
   [new URL('manifest.json', typesUrl), manifest],
   [new URL('schema.d.ts', mockTypesUrl), generated],
   [indexUrl, operationIndex()],

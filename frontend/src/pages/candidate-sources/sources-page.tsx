@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import type { GitHubSource } from '@/entities/github-insights';
 import { skillLabel, useMeta } from '@/entities/meta';
 import { profileQuery } from '@/entities/profile';
 import { useScope } from '@/entities/session';
@@ -26,6 +27,7 @@ import {
   TagList,
   type Tone,
 } from '@/shared/ui';
+import { AnalysisProgress, type GitHubReportTab, GitHubReportView } from '@/widgets/github-insights';
 import styles from './sources-page.module.css';
 
 const PAGE_SIZE = 6;
@@ -101,9 +103,75 @@ function RepositoryTable({ repositories }: { repositories: Repository[] }) {
 
 type Processing = ReturnType<typeof useSourceProcessing>;
 
+function OwnershipBlock({
+  github,
+  processing,
+  consent,
+}: {
+  github: GitHubSource;
+  processing: Processing;
+  consent: boolean;
+}) {
+  const [copied, setCopied] = useState(false);
+  if (github.ownership.verified) {
+    return (
+      <div className="row">
+        <StatusChip tone="success">
+          Владение подтверждено
+          {github.ownership.verifiedAt ? ` ${formatDate(github.ownership.verifiedAt)}` : ''}
+        </StatusChip>
+      </div>
+    );
+  }
+  return (
+    <Callout tone="warning" title="Владение аккаунтом не подтверждено">
+      <div className="stack" style={{ gap: '0.5rem' }}>
+        <span>Работодатель увидит отметку «не подтверждено». Подтверждение занимает минуту:</span>
+        <ol className={styles.steps}>
+          <li>
+            Скопируйте код <code>{github.ownership.code}</code>.
+          </li>
+          <li>Вставьте его в поле Bio профиля GitHub и сохраните профиль.</li>
+          <li>Нажмите «Проверить код». После проверки код из Bio можно удалить.</li>
+        </ol>
+        <div className="row">
+          <Button
+            size="sm"
+            icon={copied ? 'check' : 'file'}
+            onClick={() =>
+              void navigator.clipboard
+                .writeText(github.ownership.code)
+                .then(() => setCopied(true))
+                .catch(() => setCopied(false))
+            }
+          >
+            {copied ? 'Код скопирован' : 'Скопировать код'}
+          </Button>
+          <a className="small" href="https://github.com/settings/profile" target="_blank" rel="noreferrer noopener">
+            Открыть настройки профиля GitHub
+          </a>
+          <Button
+            size="sm"
+            variant="primary"
+            icon="check"
+            onClick={() => processing.sync.mutate()}
+            pending={processing.sync.isPending}
+            disabled={processing.processing || !consent}
+          >
+            Проверить код
+          </Button>
+        </div>
+        {processing.processing && <span className="small muted">Проверить код можно после завершения анализа.</span>}
+      </div>
+    </Callout>
+  );
+}
+
 function GithubCard({ source, consent, processing }: { source: Source; consent: boolean; processing: Processing }) {
-  const meta = useMeta();
   const connected = source.status === 'connected';
+  const [replacing, setReplacing] = useState(false);
+  const github = source.github;
+  const showForm = !connected || replacing;
   return (
     <Card>
       <div className={styles.github}>
@@ -121,21 +189,33 @@ function GithubCard({ source, consent, processing }: { source: Source; consent: 
             )}
           </div>
           <p className="muted">
-            Публичные данные{source.accountLabel ? ` · аккаунт «${source.accountLabel}»` : ''}. Подключение запускает
-            анализ автоматически — выбирать репозитории вручную не нужно.
+            {connected && source.accountLabel ? (
+              <>
+                Аккаунт{' '}
+                {github?.report && !isDemoReference(github.report.profileUrl) ? (
+                  <a href={github.report.profileUrl} target="_blank" rel="noreferrer noopener">
+                    {source.accountLabel}
+                  </a>
+                ) : (
+                  `«${source.accountLabel}»`
+                )}
+                . Анализируются только публичные данные: репозитории, коммиты, pull request’ы, ревью и организации.
+              </>
+            ) : (
+              'Укажите ник или ссылку на профиль. Анализируются только публичные данные: репозитории, коммиты, pull request’ы, ревью и организации, на нашем сервере и без токена. Анализ идёт в фоне несколько минут; приватные репозитории не анализируются.'
+            )}
           </p>
-          {!connected && (
-            <div style={{ maxWidth: '28rem' }}>
+          {connected && github && <OwnershipBlock github={github} processing={processing} consent={consent} />}
+          {showForm && (
+            <div style={{ maxWidth: '32rem' }}>
               {consent ? (
                 <ConnectSourceForm
                   provider="github"
-                  label="Имя аккаунта GitHub"
-                  submitLabel="Подключить GitHub"
-                  hint={
-                    meta.mode === 'mock'
-                      ? 'Демонстрационный аккаунт'
-                      : 'Для анализа требуется авторизация соответствующего аккаунта GitHub.'
-                  }
+                  label="Ник или ссылка на профиль GitHub"
+                  placeholder="octocat или https://github.com/octocat"
+                  submitLabel={connected ? 'Подключить другой аккаунт' : 'Подключить GitHub'}
+                  hint="Например: octocat, @octocat или https://github.com/octocat. Ссылки на репозитории не подходят."
+                  onConnected={() => setReplacing(false)}
                 />
               ) : (
                 <Callout tone="neutral">Подключение доступно после согласия на обработку данных.</Callout>
@@ -144,28 +224,19 @@ function GithubCard({ source, consent, processing }: { source: Source; consent: 
           )}
           {connected && (
             <>
-              <dl className={styles.stats} aria-label="Покрытие репозиториев">
-                <div className={`${styles.stat} ${styles.total}`}>
-                  <dt>найдено всего</dt>
-                  <dd>{source.counts.found}</dd>
-                </div>
-                <div className={styles.stat}>
-                  <dt>из них обработано</dt>
-                  <dd>{source.counts.processed}</dd>
-                </div>
-                <div className={styles.stat}>
-                  <dt>в очереди</dt>
-                  <dd>{source.counts.queued}</dd>
-                </div>
-                <div className={styles.stat}>
-                  <dt>недоступно</dt>
-                  <dd>{source.counts.unavailable}</dd>
-                </div>
-              </dl>
               {processing.processing ? (
-                <InlineStatus>Анализ продолжается автоматически. Уже найденные данные доступны.</InlineStatus>
+                github?.analysis ? (
+                  <AnalysisProgress analysis={github.analysis} />
+                ) : (
+                  <InlineStatus>Анализ GitHub продолжается. Уже найденные данные доступны.</InlineStatus>
+                )
               ) : (
-                source.lastSyncedAt && <p className="small muted">Обновлено {formatDateTime(source.lastSyncedAt)}</p>
+                source.lastSyncedAt && (
+                  <p className="small muted">
+                    Проверено {formatDateTime(source.lastSyncedAt)}. Повторный анализ GitHub — не чаще раза в шесть
+                    часов, код владения проверяется сразу.
+                  </p>
+                )
               )}
               {processing.lastFailure && (
                 <Callout
@@ -185,6 +256,18 @@ function GithubCard({ source, consent, processing }: { source: Source; consent: 
                   }
                 >
                   {processing.lastFailure.message}. Ранее найденные данные сохранены.
+                </Callout>
+              )}
+              {!replacing && consent && (
+                <div>
+                  <Button size="sm" variant="quiet" icon="edit" onClick={() => setReplacing(true)}>
+                    Подключить другой аккаунт
+                  </Button>
+                </div>
+              )}
+              {!github?.report && !processing.processing && (
+                <Callout tone="info">
+                  Отчёт ещё не построен: нажмите «Обновить», чтобы проанализировать аккаунт.
                 </Callout>
               )}
             </>
@@ -225,7 +308,7 @@ function FspCard({ source, consent }: { source: Source; consent: boolean }) {
             provider="fsp"
             label="ФСП ID"
             submitLabel="Подключить"
-            hint="Вымышленные ID: FSP-DEMO-024 — результат команды; FSP-DEMO-031 — команда и личный зачёт; FSP-DEMO-PENDING — ждёт протокола; FSP-DEMO-EMPTY — пустая история."
+            hint="Вымышленные ID: FSP-DEMO-024 — результат команды; FSP-DEMO-031 — история побед в командном и личном зачёте; FSP-DEMO-PENDING — ждёт протокола; FSP-DEMO-EMPTY — пустая история."
             onConnected={() => setEditing(false)}
           />
         )}
@@ -315,42 +398,55 @@ function FspCard({ source, consent }: { source: Source; consent: boolean }) {
   );
 }
 
-function ObservationCard({ github }: { github: Source | undefined }) {
+function ObservationCard() {
   return (
     <Card title="Что учитываем">
       <ul className={styles.facts}>
         <li>
-          <Icon name="branch" />
+          <Icon name="lock" />
           <span>
-            Вклад, связанный с подключённым аккаунтом. Технология в репозитории сама по себе не доказывает личный навык.
+            Только публичные данные, без токена: поиск GitHub, публичные профили и копии публичных репозиториев на нашем
+            сервере. Приватные репозитории не анализируются.
           </span>
         </li>
         <li>
-          <Icon name="calendar" />
-          <span>Активные дни: {github?.activeDays ?? 'нет данных'}</span>
+          <Icon name="branch" />
+          <span>
+            Языки и технологии — по вашим собственным изменениям и манифестам проектов, где вы работаете. По ним и по
+            результатам ФСП система заполняет анкету и оценивает специализацию и грейд; тест знаний эту оценку
+            подтверждает.
+          </span>
         </li>
         <li>
           <Icon name="clock" />
+          <span>Время в активный день оценивается по отметкам коммитов — это не учёт рабочего времени.</span>
+        </li>
+        <li>
+          <Icon name="users" />
           <span>
-            Период наблюдений:{' '}
-            {github?.observationPeriod
-              ? `${formatDate(github.observationPeriod.from)} — ${formatDate(github.observationPeriod.to)}`
-              : 'нет данных'}
+            Ваши организации и проекты, которые вы ведёте, засчитываются как собственная работа. Совместная работа — это
+            изменения, принятые или проверенные другими людьми вне ваших организаций.
           </span>
         </li>
         <li>
-          <Icon name="info" />
-          <span>Часы работы по GitHub не измеряются и не используются в оценке.</span>
+          <Icon name="eye" />
+          <span>Работодатель видит обезличенный сигнал: без ника, ссылок, названий и точных чисел.</span>
         </li>
       </ul>
     </Card>
   );
 }
 
-export function CandidateSourcesPage() {
+type Props = { tab: GitHubReportTab; onTabChange: (tab: GitHubReportTab) => void };
+
+export function CandidateSourcesPage({ tab, onTabChange }: Props) {
   useDocumentTitle('Источники профиля');
   const scope = useScope();
-  const { data: sources } = useSuspenseQuery(mySourcesQuery(scope));
+  // The stage and progress of a running GitHub analysis refresh with the source list.
+  const { data: sources } = useSuspenseQuery({
+    ...mySourcesQuery(scope),
+    refetchInterval: (query) => (query.state.data?.items.some((item) => item.github?.analysis) ? 3_000 : false),
+  });
   const { data: profile } = useSuspenseQuery(profileQuery(scope));
   const github = sources.items.find((item) => item.provider === 'github');
   const fsp = sources.items.find((item) => item.provider === 'fsp');
@@ -390,21 +486,26 @@ export function CandidateSourcesPage() {
       <div className="stack-lg" style={{ marginTop: '1.5rem' }}>
         {github && <GithubCard source={github} consent={consent} processing={sync} />}
       </div>
-      <div className={styles.grid}>
-        <div className="stack-lg">
-          {github?.status === 'connected' && github.repositories.length > 0 && (
+      {github?.github?.report ? (
+        <div style={{ marginTop: '1.5rem' }}>
+          <GitHubReportView
+            report={github.github.report}
+            preview={github.github.employerPreview}
+            tab={tab}
+            onTabChange={onTabChange}
+          />
+        </div>
+      ) : (
+        github?.status === 'connected' &&
+        github.repositories.length > 0 && (
+          <div style={{ marginTop: '1.5rem' }}>
             <RepositoryTable repositories={github.repositories} />
-          )}
-          {github?.status === 'connected' && github.repositories.length === 0 && (
-            <Card title="Репозитории">
-              <p className="muted">Публичных репозиториев не найдено. Профиль остаётся рабочим без них.</p>
-            </Card>
-          )}
-        </div>
-        <div className="stack-lg">
-          {fsp && <FspCard key={fsp.accountLabel} source={fsp} consent={consent} />}
-          <ObservationCard github={github} />
-        </div>
+          </div>
+        )
+      )}
+      <div className={styles.grid}>
+        {fsp && <FspCard key={fsp.accountLabel} source={fsp} consent={consent} />}
+        <ObservationCard />
       </div>
     </>
   );

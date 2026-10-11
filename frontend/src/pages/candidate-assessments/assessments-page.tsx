@@ -4,9 +4,24 @@ import { type Assessment, AssessmentStatusChip, assessmentsQuery, isEditable } f
 import { useMeta } from '@/entities/meta';
 import { profileQuery } from '@/entities/profile';
 import { useScope } from '@/entities/session';
-import { formatDate, gradeLabel, pluralRu, specializationLabel, useDocumentTitle } from '@/shared/lib';
+import { SPECIALIZATIONS } from '@/shared/api';
+import {
+  formatDate,
+  gradeLabel,
+  pluralRu,
+  skillLabelOf,
+  specializationLabel,
+  specializationName,
+  useDocumentTitle,
+} from '@/shared/lib';
 import { Card, EmptyState, ErrorState, Icon, LoadingState, PageHeader, TableWrap } from '@/shared/ui';
 import { AssessmentNextStep } from '@/widgets/assessment-next-step';
+import { GraphInterview } from '@/widgets/graph-interview';
+
+/** The two catalog topics each specialization's knowledge test covers. */
+const assessmentTopics = Object.fromEntries(
+  SPECIALIZATIONS.map((item) => [item.id, item.testTopics.map(skillLabelOf).join(' и ')]),
+) as Record<keyof typeof specializationLabel, string>;
 
 function categoryEffect(assessment: Assessment) {
   const result = assessment.result;
@@ -91,21 +106,26 @@ export function CandidateAssessmentsPage() {
   const meta = useMeta();
   const { data: profile } = useSuspenseQuery(profileQuery(scope));
   const policy = meta.assessmentPolicy;
+  const everyScope =
+    policy.supportedScopes.length === SPECIALIZATIONS.length &&
+    policy.supportedScopes.every((item) => item.grades.length === Object.keys(gradeLabel).length);
   const scopes = policy.supportedScopes
-    .map(
-      (item) =>
-        `${specializationLabel[item.specialization]}: ${item.grades.map((grade) => gradeLabel[grade]).join(', ')}`,
-    )
+    .map((item) => {
+      const grades = item.grades.map((grade) => gradeLabel[grade]).join(', ');
+      return `${specializationLabel[item.specialization]} (${assessmentTopics[item.specialization]}): ${grades}`;
+    })
     .join('; ');
   return (
     <>
-      <PageHeader title="Проверки" subtitle="Тест знаний по Rust и PostgreSQL · без написания кода" />
+      <PageHeader title="Проверки" subtitle="Тест знаний и адаптивное собеседование по графу компетенций" />
+      <GraphInterview available={meta.capabilities.graphInterviews} />
       <div className="split">
         <Card title="Как устроена проверка">
           <div className="stack">
             <ol className="stack" style={{ margin: 0, paddingLeft: '1.25rem' }}>
               <li>
-                <strong>Вопросы.</strong> 10 вопросов: по 5 на Rust и PostgreSQL. В каждом один верный ответ.
+                <strong>Вопросы.</strong> 10 вопросов: по 5 на каждую из двух тем направления. В каждом один верный
+                ответ.
               </li>
               <li>
                 <strong>Черновик.</strong> Выбранные ответы автоматически сохраняются на сервере.
@@ -130,11 +150,25 @@ export function CandidateAssessmentsPage() {
                 ожидания не требует.
               </li>
               <li>Проверка ниже уже подтверждённого грейда не проводится.</li>
-              <li>Доступные направления: {scopes}.</li>
+              <li>
+                {everyScope
+                  ? `Тест есть для всех ${SPECIALIZATIONS.length} направлений и всех грейдов — от стажёра до лида.`
+                  : `Доступные направления: ${scopes}.`}
+              </li>
             </ul>
+            <details>
+              <summary className="small">Темы тестов по направлениям</summary>
+              <ul className="small" style={{ margin: '0.5rem 0 0', paddingLeft: '1.25rem' }}>
+                {policy.supportedScopes.map((item) => (
+                  <li key={item.specialization}>
+                    {specializationName[item.specialization]}: {assessmentTopics[item.specialization]}
+                  </li>
+                ))}
+              </ul>
+            </details>
             <p className="small muted">
               Уровень по этому тесту отражает знания выбранных тем, а не проверенный опыт разработки. Банк вопросов
-              версии knowledge-v1 открыт для изучения; ИИ и справочники разрешены.
+              открыт для изучения; ИИ и справочники разрешены.
             </p>
           </div>
         </Card>

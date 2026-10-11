@@ -12,11 +12,14 @@ persists accounts, sessions, profiles, sources, processing jobs and the matching
 | `crates/application` | `fsp-application` | Use cases and outbound ports for persistence, verification, GitHub, FSP and LLM analysis |
 | `crates/http` | `fsp-http` | Inbound adapter on axum: routing, origin check, `X-Request-Id`, the error envelope `{ code, message, requestId, details }`, `GET /health`, `404 not_found` for unknown routes |
 | `crates/storage-postgres` | `fsp-storage-postgres` | PostgreSQL adapter on `sqlx`/`PgPool`: embedded migrations and the synthetic demo seed |
-| `crates/integration-github` | `fsp-integration-github` | GitHub OAuth and bounded repository analysis |
+| `crates/integration-github` | `fsp-integration-github` | Client of the GitHub insights service and GitHub OAuth identity (an optional ownership proof) |
+| `crates/github-insights` | `fsp-github-insights` (binary `fsp-github-insights`) | Separate loopback service: analyzes public GitHub work in the background without a token (search, REST, blobless clones) and computes the documented portrait and heuristics ([GitHub insights](../docs/github-insights.md)) |
 | `crates/integration-fsp-synthetic` | `fsp-integration-fsp-synthetic` | Bounded HTTP adapter and separate fictional FSP simulator |
-| `crates/integration-bifrost` | `fsp-integration-bifrost` | Optional Bifrost adapter for graph extraction and repository-to-competition matching |
+| `crates/integration-bifrost` | `fsp-integration-bifrost` | Optional Bifrost adapter: résumé fields, assessment help, the estimate review (deep reasoning) and repository-to-competition matching |
 | `crates/integration-email` | `fsp-integration-email` | Resend delivery with random codes and bounded HTTP; fixed-code delivery for local demo mode |
 | `crates/integration-pdf` | `fsp-integration-pdf` | Bounded digital-text extraction through isolated Poppler processes |
+| `crates/integration-interview` | `fsp-integration-interview` | Authenticated internal interview gateway with a 50-second HTTP deadline |
+| `crates/interview-service` | `fsp-interview-service` | PostgreSQL graph-guided interview service; prerequisite traversal, optional Bifrost and offline rubric |
 | `crates/server` | `fsp-server` (binary `fsp-career-api`) | Composition root: configuration, wiring, graceful shutdown on SIGINT/SIGTERM |
 
 **Dependency rule:** `domain` ← `application` ← adapters (`http`, storage, integrations) ← `server`. The domain
@@ -54,16 +57,21 @@ next run without forcibly disconnecting an active test.
 | `FSP_ALLOWED_ORIGINS` | `http://127.0.0.1:5173,http://localhost:5173` | Comma-separated browser origins accepted on requests with `Origin`; others get `403 origin_not_allowed` |
 | `DATABASE_URL` | `postgres://fsp:fsp@127.0.0.1:5434/fsp` | PostgreSQL connection; migrations and the demo seed run on startup |
 | `FSP_SIMULATOR_URL` | `http://127.0.0.1:4020` | Private fictional participant-results provider; start with `just fsp-simulator` |
-| `FSP_AUTH_MODE` | `demo` | `demo` uses a fixed local code; `resend` sends real random codes. Unknown values abort startup |
+| `FSP_GITHUB_INSIGHTS_URL` | unset | Enables GitHub connection through the insights service (`just github-insights`, port 4030); the service needs `git` and no token |
+| `FSP_AUTH_MODE` | `demo` | `demo` uses a fixed local code; `resend` sends real random codes except for the three disclosed seeded demo addresses. Unknown values abort startup |
 | `RESEND_API_KEY` | unset | Required in `resend` mode; use a sending-only key restricted to the sending domain |
 | `FSP_EMAIL_FROM` | unset | Required bare sender address, e.g. `login@auth.nddev.link` |
 | `FSP_AUTH_KEY` | unset | Required in `resend` mode: 32 random bytes as 64 hex characters; HMAC protects codes and sessions |
-| `FSP_DEMO_EMAIL_CODE` | `123456` | Verification code used only in demo mode |
+| `FSP_DEMO_EMAIL_CODE` | `123456` | Verification code for demo mode and the three exact seeded addresses in Resend mode |
 | `FSP_SECURE_COOKIE` | unset | `1` adds `Secure` to the session cookie (set it behind HTTPS) |
 | `FSP_PUBLIC_WEB_URL` | `http://127.0.0.1:5173` | Browser URL used after OAuth callbacks |
 | `FSP_STATIC_DIR` | unset | Serve a built SPA from this directory and use its `index.html` as the non-API fallback |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | unset | Enable GitHub OAuth when both are non-empty; `GITHUB_CALLBACK_URL` defaults to `http://127.0.0.1:8080/api/v1/integrations/github/callback` |
 | `BIFROST_CHAT_URL` | unset | Enables Bifrost analysis when non-empty; `BIFROST_API_KEY` is optional and `BIFROST_MODEL` defaults to `openai/gpt-5-mini` |
+| `FSP_INTERVIEW_URL`, `INTERVIEW_API_TOKEN` | unset | Enable the authenticated internal interview adapter; see [interview configuration](../docs/interview-service.md) |
+| `FSP_TTS_PROVIDER` | `browser` | `xai` or `yandex` enables server-side neural speech for the current interview question; unset/`browser` preserves browser speech synthesis |
+| `XAI_API_KEY`, `XAI_TTS_VOICE` | unset, `eve` | Required key and optional voice when `FSP_TTS_PROVIDER=xai` |
+| `YANDEX_SPEECHKIT_API_KEY` | unset | Required service-account API key with the SpeechKit TTS scope when `FSP_TTS_PROVIDER=yandex`; voice defaults to `marina` |
 | `FSP_PDF_IMPORT` | unset | `1` enables and probes the isolated PDF adapter; usable import also requires Bifrost |
 | `FSP_GRADE_CHANGE_COOLDOWN_DAYS` | `90` | Successful grade-change cooldown, 0–365; invalid values use the default |
 
@@ -79,18 +87,21 @@ for canonical PRs, and gates integration/deployment with `fsp/backend`.
 | [`../contracts/API_INTEGRATION.md`](../contracts/API_INTEGRATION.md) | Session cookie, origin checks, validation, error envelope, idempotency, jobs, pagination, PDF, time, metadata, the cutover checklist |
 | [`../mock-server`](../mock-server/README.md) | The rules as running code (`src/domain.ts`) and as HTTP tests (`test/mock-api.test.ts`), ported to `crates/server/tests/contract.rs` |
 
-Rust implements the 74 application operations plus `/health`; `/__mock__` controls are absent. Sessions,
-roles, tenant scoping and PostgreSQL persistence are real. Email ownership is verified by Resend in `resend` mode; local `demo` mode retains a fixed code;
+Rust implements the 79 application operations plus `/health`; `/__mock__` controls are absent. Sessions,
+roles, tenant scoping and PostgreSQL persistence are real. Non-demo email ownership is verified by Resend; the three disclosed seed addresses and local `demo` mode retain a fixed code;
 FSP uses a separate fictional HTTP provider. Knowledge tests are scored deterministically; no code executes. PDF text extraction uses a bounded, isolated
 Poppler process and Bifrost proposes fields with validated page excerpts. The assessment assistant calls Bifrost
-with the current saved answer and question; these replies never establish a grade. GitHub OAuth is real when configured and checks `/user` before accepting repository evidence. Bifrost graph extraction is real
-when configured; repository-to-competition matching is an adapter port without a product call path.
+with the current saved answer and question; these replies never establish a grade. GitHub analysis runs in the insights service over public data only; ownership is proven by a per-candidate bio code or, when OAuth is configured, by a token whose `/user` login matches. The competence graph is
+deterministic; repository-to-competition matching is an adapter port without a product call path.
 `GET /api/v1/meta` reports configuration, not proof of a provider's availability or assessment validity.
 
-Request budgets are nested: GitHub analysis and Bifrost completion each have a 45-second ceiling;
+Request budgets are nested: a call to the GitHub insights service takes at most 10 seconds (the analysis itself runs in the background) and a Bifrost completion inside a request has a 45-second ceiling (the background estimate review reasons with
+`BIFROST_REASONING_EFFORT`, default `high`, for up to 330 seconds under Bifrost's 360-second provider timeout, one
+review per candidate at a time);
+interview evaluation and next-question generation share 45 seconds before persistence, inside a 50-second gateway deadline;
 the HTTP handler has 55 seconds, inside both nginx proxies' 60-second read deadline. This leaves room
 for storage and the contract error envelope. A provider timeout remains a visible integration failure;
-graph requests do not fall back to synthetic data. HTTP timeout regressions use Tokio virtual time.
+no request falls back to synthetic data. HTTP timeout regressions use Tokio virtual time.
 
 Five idempotent commands live in `application/src/service/commands.rs`. The key, domain effects and serialized
 response share one transaction; failed work rolls back. Same-key callers serialize in PostgreSQL and replay the
@@ -100,13 +111,16 @@ revision guards, assessment/source writes lock the candidate, and disclosure rec
 candidate/company. Shortlist mutations serialize before reading their aggregate.
 
 `sources.rs` performs bounded integration I/O before a short transaction, then atomically saves source evidence
-and its job. It checks consent and source freshness again before applying sync results. Jobs finish inline in
-Rust, persist in PostgreSQL, and remain scoped to their candidate. There is no background worker or durable
-running-job marker. GitHub evidence never creates or upgrades a verified grade.
+and its job. It checks consent and source freshness again before applying sync results. FSP jobs finish inline. A
+GitHub analysis runs in the insights service, so its job stays `running` with the source's `activeJobId`; each
+poll asks the service and applies a finished report in one transaction, restarts an analysis the service forgot and
+fails the job after 90 minutes. Jobs persist in PostgreSQL and remain scoped to their candidate; the API has no
+durable worker queue. Estimate reviews run in process-local, coalesced background tasks and can be requested again
+after failure or restart. GitHub evidence never creates or upgrades a verified grade.
 
-`graphs.rs` validates bounded node/edge sets, unique IDs, endpoints, known skills and evidence references. Labels,
-IDs and skill states come from application facts. Employer projections remove evidence nodes and private free
-text. Model-proposed relations are not independently validated proof of a prerequisite.
+`graphs.rs` constructs deterministic category → concept → technology graphs from the catalog and stored evidence.
+Labels, levels and source summaries come from application facts; employer projections remove private evidence.
+Graph structure is not an independent qualification assessment and does not require a model call.
 
 Search ranking is deterministic but still operates on full candidate lists; list projections can repeat reads.
 Single-profile hot paths use indexed lookups. This is appropriate to the present demo, not a measured capacity
@@ -175,7 +189,8 @@ idempotency. Codes are six uniform CSPRNG digits, expire in 15 minutes and are
 single-use. PostgreSQL serializes real-mail issuance per email (one/minute,
 five/15 minutes) including failed provider calls. The cumulative five-wrong-code
 budget remains in force across requests. Local fixed-code deliveries do not send
-mail and do not spend the sending quota.
+mail and do not spend the sending quota. In Resend mode this exception is restricted to
+`alexey@example.com`, `hr@sever-tech.example` and `hr@second-company.example`; their disclosed code is not mailbox ownership proof.
 
 Challenge-bound HMAC-SHA256 prevents a database dump from revealing six-digit
 codes. Session digests have a separate namespace. Enabling or rotating

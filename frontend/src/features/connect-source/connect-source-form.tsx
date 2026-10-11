@@ -2,7 +2,9 @@ import { useForm } from '@tanstack/react-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useId } from 'react';
 import { useMeta } from '@/entities/meta';
+import { profileKey } from '@/entities/profile';
 import { useScope } from '@/entities/session';
+import { graphKey, skillsKey } from '@/entities/skill';
 import { authorizeGitHub, connectSource, type Source, sourcesKey } from '@/entities/source';
 import { describeError } from '@/shared/api';
 import { Button, Callout, TextField } from '@/shared/ui';
@@ -23,8 +25,13 @@ export function ConnectSourceForm({ provider, label, submitLabel, hint, placehol
   const queryClient = useQueryClient();
   const connect = useMutation({
     mutationFn: (account: string) => connectSource(provider, account),
+    // A source that completes at once also updates the evidence, the estimate and the profile.
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: sourcesKey(scope) });
+      await Promise.all(
+        [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope)].map((queryKey) =>
+          queryClient.invalidateQueries({ queryKey }),
+        ),
+      );
       onConnected?.();
     },
   });
@@ -37,8 +44,11 @@ export function ConnectSourceForm({ provider, label, submitLabel, hint, placehol
     onSubmit: ({ value }) => connect.mutateAsync(value.account.trim()).catch(() => {}),
   });
   const available =
-    provider !== 'github' || meta.capabilities.githubOAuth || (meta.mode === 'mock' && meta.capabilities.githubFixture);
-  if (!available) return <Callout tone="neutral">Подключение GitHub запланировано позже.</Callout>;
+    provider !== 'github' ||
+    meta.capabilities.githubInsights ||
+    meta.capabilities.githubOAuth ||
+    (meta.mode === 'mock' && meta.capabilities.githubFixture);
+  if (!available) return <Callout tone="neutral">Анализ GitHub сейчас не настроен на сервере.</Callout>;
   return (
     <form
       className="stack"
@@ -70,7 +80,7 @@ export function ConnectSourceForm({ provider, label, submitLabel, hint, placehol
           {describeError(connect.error ?? authorization.error).message}
         </Callout>
       )}
-      {provider === 'github' && meta.mode === 'mock' && !meta.capabilities.githubOAuth && (
+      {provider === 'github' && meta.mode === 'mock' && !meta.capabilities.githubInsights && (
         <Callout tone="info">
           Демонстрационное подключение: данные вымышленные, владение аккаунтом не проверяется.
         </Callout>
@@ -83,7 +93,7 @@ export function ConnectSourceForm({ provider, label, submitLabel, hint, placehol
           pendingLabel="Переходим в GitHub…"
           onClick={() => authorization.mutate()}
         >
-          Авторизовать GitHub
+          Подтвердить владение через GitHub
         </Button>
       )}
       <Button

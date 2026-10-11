@@ -6,7 +6,7 @@ pub use commands::Commands;
 
 use std::sync::Arc;
 
-use chrono::{Duration, Utc};
+use chrono::{Datelike, Duration, Utc};
 use fsp_domain::{
     Account, CandidateIndexRecord, CandidateProfile, Company, Consents, EvidenceStatus, Grade,
     HiringNeedRecord, InteractionStatus, Requirement, Role, Specialization, rank_candidates, score,
@@ -21,17 +21,20 @@ use crate::{
     AssessmentView, AssessmentsView, AssistantInput, AssistantReplyView, CandidateMatchView,
     CandidatePageView, CandidateSearch, CategoryView, CompanyCardView, CompanyPatch, CompanyView,
     ConsumeChallenge, DisclosureFieldsView, DisclosureView, EmailChallengeInput,
-    EmailChallengeView, EmailVerifyInput, EvidencePolicyView, EvidenceView, FreshnessView,
-    FspGateway, GapItemView, GapPlanView, GitHubGateway, GradeEligibilityView, GraphEdgeView,
-    GraphNodeView, GraphView, IdempotencyClaim, ImportConfirmInput, IntegrationError,
-    InvitationInput, InvitationNeedView, InvitationView, InvitationsView, JobResultView, JobView,
-    LlmGateway, MatchRequirementView, MyTasksView, NeedInput, NeedPatch, NeedView, NeedsView,
-    OfferedCompanyView, OfferedTaskView, OnboardingView, PendingChallenge, PlatformRepository,
-    ProfilePatch, ProfileView, RepositoryError, RequirementInput, RequirementView, SalaryView,
-    SelfSkillView, SessionView, ShortlistInput, ShortlistMemberView, ShortlistSummaryView,
-    ShortlistView, ShortlistsView, SkillView, SkillsView, SourceConnectInput, SourceView,
-    SourcesView, TaskInput, TaskPeriodView, TaskResponseInput, TaskResponseView, TaskResponsesView,
-    TaskReviewInput, TaskReviewOutcome, TaskView, TasksView, VacancyPageView,
+    EmailChallengeView, EmailVerifyInput, EmployerEstimateFactorView, EmployerEstimateView,
+    EvidencePolicyView, EvidenceView, FreshnessView, FspGateway, GapItemView, GapPlanView,
+    GitHubGateway, GradeEligibilityView, GraphEdgeView, GraphNodeView, GraphView,
+    HiringAssistantView, HiringFlowAnalyticsView, IdempotencyClaim, ImportConfirmInput,
+    IntegrationError, InterviewAnswerInput, InterviewGateway, InterviewSpeechInput,
+    InterviewStartInput, InterviewView, InterviewsView, InvitationInput, InvitationNeedView,
+    InvitationView, InvitationsView, JobResultView, JobView, LlmGateway, MatchRequirementView,
+    MyTasksView, NeedInput, NeedPatch, NeedView, NeedsView, OfferedCompanyView, OfferedTaskView,
+    OnboardingView, PendingChallenge, PlatformRepository, ProfilePatch, ProfileView,
+    RepositoryError, RequirementInput, RequirementView, SalaryView, SelfSkillView, SessionView,
+    ShortlistInput, ShortlistMemberView, ShortlistSummaryView, ShortlistView, ShortlistsView,
+    SkillView, SkillsView, SourceConnectInput, SourceView, SourcesView, SpeechAudioView,
+    SpeechSynthesisGateway, TaskInput, TaskPeriodView, TaskResponseInput, TaskResponseView,
+    TaskResponsesView, TaskReviewInput, TaskReviewOutcome, TaskView, TasksView, VacancyPageView,
     VacancyRequirementView, VacancySearch, VacancyView, VerificationDelivery, job_view,
     match_status, source_view,
 };
@@ -81,11 +84,16 @@ pub struct PlatformService {
     repository: Arc<dyn PlatformRepository>,
     delivery: Arc<dyn VerificationDelivery>,
     github: Option<Arc<dyn GitHubGateway>>,
+    github_insights: Option<Arc<dyn crate::GitHubInsightsGateway>>,
     pdf: Option<Arc<dyn crate::PdfGateway>>,
     llm: Option<Arc<dyn LlmGateway>>,
     fsp: Option<Arc<dyn FspGateway>>,
+    interviews: Option<Arc<dyn InterviewGateway>>,
+    speech: Option<Arc<dyn SpeechSynthesisGateway>>,
     grade_cooldown_days: u16,
     auth_key: Option<Vec<u8>>,
+    /// Candidates with a profile review running, and whether a newer estimate awaits one.
+    reviews: Arc<std::sync::Mutex<std::collections::HashMap<String, bool>>>,
 }
 
 impl PlatformService {
@@ -97,11 +105,15 @@ impl PlatformService {
             repository,
             delivery,
             github: None,
+            github_insights: None,
             llm: None,
             pdf: None,
             fsp: None,
+            interviews: None,
+            speech: None,
             grade_cooldown_days: 90,
             auth_key: None,
+            reviews: Arc::default(),
         }
     }
 
@@ -144,6 +156,12 @@ impl PlatformService {
     }
 
     #[must_use]
+    pub fn with_github_insights(mut self, insights: Arc<dyn crate::GitHubInsightsGateway>) -> Self {
+        self.github_insights = Some(insights);
+        self
+    }
+
+    #[must_use]
     pub fn with_llm(mut self, llm: Arc<dyn LlmGateway>) -> Self {
         self.llm = Some(llm);
         self
@@ -159,6 +177,123 @@ impl PlatformService {
     pub fn with_pdf(mut self, pdf: Arc<dyn crate::PdfGateway>) -> Self {
         self.pdf = Some(pdf);
         self
+    }
+
+    #[must_use]
+    pub fn with_interviews(mut self, interviews: Arc<dyn InterviewGateway>) -> Self {
+        self.interviews = Some(interviews);
+        self
+    }
+
+    #[must_use]
+    pub fn with_speech(mut self, speech: Arc<dyn SpeechSynthesisGateway>) -> Self {
+        self.speech = Some(speech);
+        self
+    }
+
+    #[must_use]
+    pub fn speech_configured(&self) -> bool {
+        self.speech.is_some()
+    }
+
+    #[must_use]
+    pub fn interviews_configured(&self) -> bool {
+        self.interviews.is_some()
+    }
+
+    pub async fn my_interviews(
+        &self,
+        session: &SessionView,
+    ) -> Result<InterviewsView, ApplicationError> {
+        let candidate_id = candidate_id(session)?;
+        self.interviews
+            .as_ref()
+            .ok_or_else(interviews_unavailable)?
+            .list(candidate_id)
+            .await
+            .map_err(integration_error)
+    }
+
+    pub async fn start_interview(
+        &self,
+        session: &SessionView,
+        input: InterviewStartInput,
+    ) -> Result<InterviewView, ApplicationError> {
+        let candidate_id = candidate_id(session)?;
+        self.require_processing_consent(candidate_id).await?;
+        self.interviews
+            .as_ref()
+            .ok_or_else(interviews_unavailable)?
+            .start(candidate_id, &input)
+            .await
+            .map_err(integration_error)
+    }
+
+    pub async fn get_interview(
+        &self,
+        session: &SessionView,
+        interview_id: &str,
+    ) -> Result<InterviewView, ApplicationError> {
+        let candidate_id = candidate_id(session)?;
+        let interview = self
+            .interviews
+            .as_ref()
+            .ok_or_else(interviews_unavailable)?
+            .get(interview_id)
+            .await
+            .map_err(integration_error)?;
+        if interview.candidate_id != candidate_id {
+            return Err(ApplicationError::new(
+                404,
+                "interview_not_found",
+                "Собеседование не найдено",
+            ));
+        }
+        Ok(interview)
+    }
+
+    pub async fn answer_interview(
+        &self,
+        session: &SessionView,
+        interview_id: &str,
+        input: InterviewAnswerInput,
+    ) -> Result<InterviewView, ApplicationError> {
+        let interview = self.get_interview(session, interview_id).await?;
+        self.require_processing_consent(&interview.candidate_id)
+            .await?;
+        self.interviews
+            .as_ref()
+            .ok_or_else(interviews_unavailable)?
+            .answer(interview_id, &input)
+            .await
+            .map_err(integration_error)
+    }
+
+    pub async fn synthesize_interview_question(
+        &self,
+        session: &SessionView,
+        interview_id: &str,
+        input: InterviewSpeechInput,
+    ) -> Result<SpeechAudioView, ApplicationError> {
+        let interview = self.get_interview(session, interview_id).await?;
+        let question = interview.current_question.ok_or_else(|| {
+            ApplicationError::new(409, "interview_completed", "Собеседование уже завершено")
+        })?;
+        if question.id != input.question_id {
+            return Err(ApplicationError::new(
+                409,
+                "interview_question_changed",
+                "Вопрос собеседования уже изменился",
+            ));
+        }
+        self.speech
+            .as_ref()
+            .ok_or_else(|| {
+                ApplicationError::new(503, "speech_unavailable", "Озвучивание временно недоступно")
+            })?
+            .synthesize(&question.delivery.speech_text)
+            .await
+            .map_err(integration_error)
     }
 
     #[must_use]
@@ -189,6 +324,17 @@ impl PlatformService {
     #[must_use]
     pub fn github_configured(&self) -> bool {
         self.github.is_some()
+    }
+
+    #[must_use]
+    pub fn github_insights_configured(&self) -> bool {
+        self.github_insights.is_some()
+    }
+
+    /// A stable per-candidate code: placing it in the GitHub bio proves account ownership.
+    pub(crate) fn github_ownership_code(&self, candidate_id: &str) -> String {
+        let hash = self.credential_hash("github-ownership", "v1", candidate_id);
+        format!("fsp-{}", &hash[..10])
     }
 
     #[must_use]
@@ -226,7 +372,8 @@ impl PlatformService {
                 "Этот адрес зарегистрирован с другой ролью",
             ));
         }
-        let code = self.delivery.code_for().map_err(|error| {
+        let delivery = self.delivery.contract_name_for_email(&email);
+        let code = self.delivery.code_for_email(&email).map_err(|error| {
             ApplicationError::new(502, "verification_delivery_failed", error.message)
         })?;
         let challenge_id = format!("challenge-{}", Uuid::new_v4().simple());
@@ -245,7 +392,7 @@ impl PlatformService {
         // the cumulative five-attempt lockout across reissued codes.
         let issued = self
             .repository
-            .issue_challenge(&challenge, self.delivery.contract_name() == "email")
+            .issue_challenge(&challenge, delivery == "email")
             .await
             .map_err(ApplicationError::storage)?;
         match issued {
@@ -274,7 +421,7 @@ impl PlatformService {
         Ok(EmailChallengeView {
             challenge_id: challenge.id,
             expires_at: challenge.expires_at,
-            delivery: self.delivery.contract_name(),
+            delivery,
         })
     }
 
@@ -428,14 +575,31 @@ impl PlatformService {
         // Optimistic concurrency: re-read and reapply once if a concurrent
         // writer bumped the revision between our read and guarded write.
         let mut attempts = 0;
-        let profile = loop {
+        let (profile, reestimated) = loop {
             let mut profile = self
                 .repository
                 .candidate(id)
                 .await
                 .map_err(ApplicationError::storage)?
                 .ok_or_else(|| ApplicationError::new(404, "not_found", "Профиль не найден"))?;
+            let stated = (
+                profile.stated_experience_months(current_year()),
+                profile.stated_team_role().map(str::to_owned),
+            );
             apply_profile_patch(&mut profile, patch.clone())?;
+            // The estimate's tenure and lead rules depend on the stated experience and role.
+            let mut reestimated = false;
+            if profile.estimate.is_some()
+                && profile.consents.processing
+                && (
+                    profile.stated_experience_months(current_year()),
+                    profile.stated_team_role().map(str::to_owned),
+                ) != stated
+                && let Some(estimate) = self.answer_estimate(&profile).await?
+            {
+                profile.apply_estimate(estimate);
+                reestimated = true;
+            }
             let base_revision = profile.revision;
             profile.revision += 1;
             profile.updated_at = now();
@@ -444,13 +608,16 @@ impl PlatformService {
                 .save_candidate_guarded(&profile, base_revision)
                 .await
             {
-                Ok(()) => break profile,
+                Ok(()) => break (profile, reestimated),
                 Err(RepositoryError::NotFound) if attempts == 0 => {
                     attempts += 1;
                 }
                 Err(error) => return Err(ApplicationError::storage(error)),
             }
         };
+        if reestimated {
+            self.spawn_estimate_review(&profile.id);
+        }
         let signals = self
             .freshness_signals(&profile.id, profile.grade_confirmed_at.as_deref())
             .await?;
@@ -792,6 +959,7 @@ impl PlatformService {
             label: record.title,
             skill_id: None,
             status: None,
+            detail: None,
         }];
         let mut edges = Vec::new();
         for requirement in &record.need.requirements {
@@ -802,6 +970,7 @@ impl PlatformService {
                 label: skill_label(&requirement.skill_id).into(),
                 skill_id: Some(requirement.skill_id.clone()),
                 status: None,
+                detail: None,
             });
             edges.push(GraphEdgeView {
                 id: format!("requires-{}", requirement.skill_id),
@@ -826,14 +995,12 @@ impl PlatformService {
         need_id: &str,
     ) -> Result<ApplicationEligibilityView, ApplicationError> {
         let profile = &record.profile;
-        let assessment_passed =
-            profile.verified_grade.is_some() && profile.verified_specialization.is_some();
         let reason = if !record.email_verified {
             Some("email")
         } else if !profile.questionnaire_complete() {
             Some("questionnaire")
-        } else if !assessment_passed {
-            Some("assessment")
+        } else if profile.category().is_none() {
+            Some("category")
         } else if !profile.consents.processing {
             Some("processing_consent")
         } else if self
@@ -884,9 +1051,8 @@ impl PlatformService {
             .ok_or_else(|| {
                 ApplicationError::new(500, "internal_error", "Сервис временно недоступен")
             })?;
-        let assessment_passed = candidate.profile.verified_grade.is_some()
-            && candidate.profile.verified_specialization.is_some();
-        let qualified = assessment_passed && candidate.profile.consents.processing;
+        let qualified =
+            candidate.profile.category().is_some() && candidate.profile.consents.processing;
         let company_card = CompanyCardView {
             id: company.id,
             display_name: company.display_name,
@@ -1887,6 +2053,52 @@ impl PlatformService {
         Ok(ApplicationsView { items })
     }
 
+    pub async fn hiring_flow_analytics(
+        &self,
+        session: &SessionView,
+    ) -> Result<HiringFlowAnalyticsView, ApplicationError> {
+        let applications = self.company_applications(session, None).await?;
+        let facts = crate::analytics::hiring_flow(&applications.items);
+        let primary = &facts.bottlenecks[0];
+        let mut assistant = HiringAssistantView {
+            mode: "metrics",
+            summary: format!("{}: {}", primary.title, primary.evidence),
+            actions: vec![primary.recommendation.clone()],
+        };
+        if let Some(llm) = &self.llm {
+            match llm.analyze_hiring_flow(&facts).await {
+                Ok(narrative)
+                    if !narrative.summary.trim().is_empty()
+                        && narrative.summary.chars().count() <= 600
+                        && !narrative.actions.is_empty()
+                        && narrative.actions.len() <= 3
+                        && narrative.actions.iter().all(|action| {
+                            !action.trim().is_empty() && action.chars().count() <= 180
+                        }) =>
+                {
+                    assistant = HiringAssistantView {
+                        mode: "bifrost",
+                        summary: narrative.summary,
+                        actions: narrative.actions,
+                    };
+                }
+                Ok(_) => tracing::warn!("hiring-flow analyst returned an invalid empty narrative"),
+                Err(error) => tracing::warn!(code = error.code, "hiring-flow analyst unavailable"),
+            }
+        }
+        Ok(HiringFlowAnalyticsView {
+            generated_at: now(),
+            total: facts.total,
+            stages: facts.stages,
+            median_time_to_view_hours: facts.median_time_to_view_hours,
+            median_time_to_decision_hours: facts.median_time_to_decision_hours,
+            acceptance_rate_percent: facts.acceptance_rate_percent,
+            vacancies: facts.vacancies,
+            bottlenecks: facts.bottlenecks,
+            assistant,
+        })
+    }
+
     pub async fn get_application(
         &self,
         session: &SessionView,
@@ -2025,15 +2237,13 @@ impl PlatformService {
                 reason: None,
             });
         }
-        if candidate.profile.verified_grade.is_none()
-            || candidate.profile.verified_specialization.is_none()
-        {
+        let Some(category) = candidate.profile.category() else {
             return Ok(TaskOffer {
                 current: None,
                 current_response: None,
-                reason: Some("assessment"),
+                reason: Some("category"),
             });
-        }
+        };
         if !candidate.profile.consents.processing {
             return Ok(TaskOffer {
                 current: None,
@@ -2051,7 +2261,7 @@ impl PlatformService {
             .iter()
             .map(|item| item.task.id.as_str())
             .collect::<std::collections::BTreeSet<_>>();
-        let verified = candidate.profile.verified_grade.unwrap_or(Grade::Junior);
+        let verified = category.grade;
         let mut pool = self
             .repository
             .active_tasks()
@@ -2162,7 +2372,7 @@ impl PlatformService {
         if !(1..=160).contains(&input.title.chars().count())
             || !(1..=4000).contains(&input.prompt.chars().count())
             || !(5..=120).contains(&input.estimate_minutes)
-            || !CATALOG_SKILLS.contains(&input.skill_id.as_str())
+            || !fsp_domain::catalog::is_skill(&input.skill_id)
         {
             return Err(validation("Запрос не соответствует контракту"));
         }
@@ -2526,10 +2736,15 @@ impl PlatformService {
             .await
             .map_err(ApplicationError::storage)?
             .ok_or_else(|| ApplicationError::new(404, "not_found", "Кандидат не найден"))?;
-        let score = fsp_domain::score_knowledge(record.grade, &record.task, &record.answer)
-            .ok_or_else(|| {
-                ApplicationError::new(422, "answer_incomplete", "Ответьте на все вопросы теста")
-            })?;
+        let score = fsp_domain::score_knowledge(
+            record.specialization,
+            record.grade,
+            &record.task,
+            &record.answer,
+        )
+        .ok_or_else(|| {
+            ApplicationError::new(422, "answer_incomplete", "Ответьте на все вопросы теста")
+        })?;
         let previous_grade = candidate.profile.verified_grade;
         let grade_changed = score.passed
             && (candidate.profile.verified_grade != Some(record.grade)
@@ -2549,11 +2764,14 @@ impl PlatformService {
                 candidate.last_signal_at = candidate.profile.grade_confirmed_at.clone();
             }
             candidate.last_signal_at = Some(now());
-            for skill_id in ["rust", "postgresql"] {
+            // A passed test confirms the two topics it covers.
+            let confirmed_skills =
+                &fsp_domain::catalog::specialization(record.specialization).test_topics;
+            for skill_id in confirmed_skills {
                 let skill = candidate
                     .skills
                     .iter_mut()
-                    .find(|item| item.skill_id == skill_id);
+                    .find(|item| &item.skill_id == skill_id);
                 match skill {
                     Some(item) => {
                         item.status = EvidenceStatus::Confirmed;
@@ -2566,7 +2784,7 @@ impl PlatformService {
                         }
                     }
                     None => candidate.skills.push(fsp_domain::SkillEvidence {
-                        skill_id: skill_id.into(),
+                        skill_id: skill_id.clone(),
                         status: EvidenceStatus::Confirmed,
                         evidence_grade: Some(record.grade),
                         sources: vec![fsp_domain::EvidenceSource::Assessment],
@@ -2858,37 +3076,36 @@ impl PlatformService {
             }
             None => None,
         };
-        let mut records =
-            self.repository
-                .candidates()
-                .await
-                .map_err(ApplicationError::storage)?
-                .into_iter()
-                .filter(|item| item.profile.visible_to_employers(item.email_verified))
-                .filter(|item| {
-                    item.profile.verified_specialization.is_some_and(|value| {
-                        search.specialization.is_none_or(|filter| filter == value)
-                    }) && item
-                        .profile
-                        .verified_grade
-                        .is_some_and(|value| search.grade.is_none_or(|filter| filter == value))
-                        && search.skill.as_ref().is_none_or(|filter| {
-                            item.skills.iter().any(|skill| {
-                                skill.skill_id == *filter
-                                    && skill.status != EvidenceStatus::Insufficient
-                            })
-                        })
-                        && (!search.fsp_verified || item.fsp_verified)
-                })
-                .collect::<Vec<_>>();
+        let mut records = self
+            .repository
+            .candidates()
+            .await
+            .map_err(ApplicationError::storage)?
+            .into_iter()
+            .filter(|item| item.profile.visible_to_employers(item.email_verified))
+            .filter(|item| {
+                item.profile.category().is_some_and(|category| {
+                    search
+                        .specialization
+                        .is_none_or(|filter| filter == category.specialization)
+                        && search.grade.is_none_or(|filter| filter == category.grade)
+                        && search
+                            .category_source
+                            .is_none_or(|filter| filter == category.source)
+                }) && search.skill.as_ref().is_none_or(|filter| {
+                    item.skills.iter().any(|skill| {
+                        skill.skill_id == *filter && skill.status != EvidenceStatus::Insufficient
+                    })
+                }) && (!search.fsp_verified || item.fsp_verified)
+            })
+            .collect::<Vec<_>>();
         if search.recommended {
             let selected = need.as_ref().expect("recommended search has a need");
             records.retain(|item| {
-                item.profile.verified_specialization == Some(selected.need.specialization)
-                    && item
-                        .profile
-                        .verified_grade
-                        .is_some_and(|grade| grade >= selected.need.grade)
+                item.profile.category().is_some_and(|category| {
+                    category.specialization == selected.need.specialization
+                        && category.grade >= selected.need.grade
+                })
             });
         }
         if let Some(selected) = &need {
@@ -2903,18 +3120,16 @@ impl PlatformService {
                 .collect::<std::collections::HashMap<_, _>>();
             records.sort_by_key(|item| order.get(&item.profile.id).copied().unwrap_or(usize::MAX));
         } else {
-            records.sort_by(|left, right| {
-                left.profile
-                    .verified_specialization
-                    .cmp(&right.profile.verified_specialization)
-                    .then_with(|| {
-                        right
-                            .profile
-                            .verified_grade
-                            .cmp(&left.profile.verified_grade)
-                    })
-                    .then_with(|| right.fsp_verified.cmp(&left.fsp_verified))
-                    .then_with(|| left.profile.id.cmp(&right.profile.id))
+            // Visible candidates all have a category; test-confirmed ones lead within a grade.
+            records.sort_by_cached_key(|item| {
+                let category = item.profile.category();
+                (
+                    category.as_ref().map(|category| category.specialization),
+                    std::cmp::Reverse(category.as_ref().map(|category| category.grade)),
+                    std::cmp::Reverse(category.as_ref().map_or(0, fsp_domain::Category::strength)),
+                    !item.fsp_verified,
+                    item.profile.id.clone(),
+                )
             });
         }
         let total = records.len();
@@ -2927,7 +3142,13 @@ impl PlatformService {
                     candidate.profile.grade_confirmed_at.as_deref(),
                 )
                 .await?;
-            items.push(anonymous_candidate(candidate, need.as_ref(), &signals));
+            let github = self.github_signal(&candidate.profile.id).await?;
+            items.push(anonymous_candidate(
+                candidate,
+                need.as_ref(),
+                &signals,
+                github,
+            ));
         }
         Ok(CandidatePageView {
             items,
@@ -2966,7 +3187,13 @@ impl PlatformService {
                 candidate.profile.grade_confirmed_at.as_deref(),
             )
             .await?;
-        Ok(anonymous_candidate(candidate, need.as_ref(), &signals))
+        let github = self.github_signal(&candidate.profile.id).await?;
+        Ok(anonymous_candidate(
+            candidate,
+            need.as_ref(),
+            &signals,
+            github,
+        ))
     }
 
     pub async fn github_authorization_url(
@@ -3048,10 +3275,14 @@ impl PlatformService {
             }
         }
         records.sort_by_key(|record| source_provider(record.provider));
-        Ok(SourcesView {
-            simulation: records.iter().any(|record| record.synthetic),
-            items: records.into_iter().map(source_view).collect(),
-        })
+        let simulation = records.iter().any(|record| record.synthetic);
+        let code = self.github_ownership_code(candidate_id);
+        let mut items = Vec::with_capacity(records.len());
+        for record in records {
+            let progress = self.github_progress(&record).await;
+            items.push(source_view(record, &code, progress));
+        }
+        Ok(SourcesView { simulation, items })
     }
 
     pub async fn skills(&self, session: &SessionView) -> Result<SkillsView, ApplicationError> {
@@ -3137,6 +3368,27 @@ impl PlatformService {
 
     /// The mock's `freshness()` inputs: the verified-grade signal plus every
     /// counted task response (not marked `needs_work`), assessment first.
+    /// The anonymous GitHub projection of a candidate's latest report, if any.
+    async fn github_signal(
+        &self,
+        candidate_id: &str,
+    ) -> Result<Option<fsp_domain::GitHubSignal>, ApplicationError> {
+        Ok(self
+            .repository
+            .sources(candidate_id)
+            .await
+            .map_err(ApplicationError::storage)?
+            .into_iter()
+            .filter(|source| source.provider == fsp_domain::SourceProvider::Github)
+            .find_map(|source| {
+                let analysis = source.analysis?;
+                let verified = analysis.ownership.is_some();
+                analysis
+                    .report
+                    .map(|report| report.employer_signal(verified))
+            }))
+    }
+
     async fn freshness_signals(
         &self,
         candidate_id: &str,
@@ -3206,6 +3458,13 @@ impl PlatformService {
             .await
             .map_err(ApplicationError::storage)?
             .ok_or_else(|| ApplicationError::new(404, "not_found", "Задача не найдена"))?;
+        // Only a GitHub analysis outlives the request that started it; polling advances it.
+        if record.kind == "source_sync"
+            && record.status == "running"
+            && let Some(candidate_id) = session.candidate_id.as_deref()
+        {
+            return self.advance_github_job(candidate_id, record).await;
+        }
         let source = if let Some(source_id) = record.result_source_id.as_ref() {
             self.repository
                 .sources(owner_id)
@@ -3213,11 +3472,21 @@ impl PlatformService {
                 .map_err(ApplicationError::storage)?
                 .into_iter()
                 .find(|source| &source.id == source_id)
-                .map(source_view)
+                .map(|source| source_view(source, &self.github_ownership_code(owner_id), None))
         } else {
             None
         };
         Ok(job_view(record, source))
+    }
+
+    fn github_insights(&self) -> Result<&Arc<dyn crate::GitHubInsightsGateway>, ApplicationError> {
+        self.github_insights.as_ref().ok_or_else(|| {
+            ApplicationError::new(
+                503,
+                "github_not_configured",
+                "Подключение GitHub временно недоступно",
+            )
+        })
     }
 
     fn github(&self) -> Result<&Arc<dyn GitHubGateway>, ApplicationError> {
@@ -3253,12 +3522,13 @@ impl PlatformService {
                 id: candidate_id.clone(),
                 alias: format!("Кандидат №{}", suffix[..3].to_uppercase()),
                 email: email.clone(),
-                name: "Новый кандидат".into(),
+                name: fsp_domain::DEFAULT_CANDIDATE_NAME.into(),
                 specialization: Specialization::Backend,
                 selected_grade: Grade::Junior,
                 stack: Vec::new(),
                 team_role: String::new(),
                 experience_months: None,
+                experience_since: None,
                 experience: String::new(),
                 soft_skills: Vec::new(),
                 consents: Consents {
@@ -3268,6 +3538,8 @@ impl PlatformService {
                 verified_grade: None,
                 verified_specialization: None,
                 grade_confirmed_at: None,
+                estimate: None,
+                auto_fields: Vec::new(),
                 revision: 1,
                 updated_at: now(),
             })
@@ -3335,7 +3607,25 @@ fn candidate_id(session: &SessionView) -> Result<&str, ApplicationError> {
 }
 
 fn integration_error(error: IntegrationError) -> ApplicationError {
-    ApplicationError::new(502, error.code, error.message)
+    let status = match error.code {
+        "github_login_invalid" | "github_account_not_found" => 422,
+        "github_rate_limited" | "github_not_configured" => 503,
+        "interview_not_found" => 404,
+        "interview_conflict" => 409,
+        "interview_input_invalid" | "speech_input_invalid" => 422,
+        "interview_model_unavailable" | "interview_service_unavailable" => 503,
+        "speech_unavailable" | "speech_not_configured" => 503,
+        _ => 502,
+    };
+    ApplicationError::new(status, error.code, error.message)
+}
+
+fn interviews_unavailable() -> ApplicationError {
+    ApplicationError::new(
+        503,
+        "interview_service_unavailable",
+        "Сервис собеседований временно недоступен",
+    )
 }
 
 fn source_provider(provider: fsp_domain::SourceProvider) -> &'static str {
@@ -3451,15 +3741,41 @@ fn anonymous_candidate(
     record: CandidateIndexRecord,
     need: Option<&HiringNeedRecord>,
     signals: &[(String, &'static str)],
+    github: Option<fsp_domain::GitHubSignal>,
 ) -> AnonymousCandidateView {
     let rankable = record.rankable().expect("visible candidate is rankable");
+    let category = record
+        .profile
+        .category()
+        .expect("visible candidate has a category");
     let candidate_match = need.map(|selected| match_view(&rankable, selected));
+    let estimate = (category.source == fsp_domain::CategorySource::Estimate)
+        .then_some(record.profile.estimate.as_ref())
+        .flatten()
+        .map(|estimate| EmployerEstimateView {
+            score: estimate.score,
+            computed_at: estimate.computed_at.clone(),
+            factors: estimate
+                .factors
+                .iter()
+                .map(|factor| EmployerEstimateFactorView {
+                    id: factor.id.clone(),
+                    label: factor.label.clone(),
+                    points: factor.points,
+                    max: factor.max,
+                })
+                .collect(),
+        });
     AnonymousCandidateView {
         id: record.profile.id,
         alias: record.profile.alias,
         specialization: rankable.specialization,
-        verified_grade: rankable.verified_grade,
-        grade_confirmed_at: record.profile.grade_confirmed_at.unwrap_or_default(),
+        grade: rankable.grade,
+        category_source: category.source,
+        category_confidence: category.confidence,
+        verified_grade: record.profile.verified_grade,
+        grade_confirmed_at: record.profile.grade_confirmed_at,
+        estimate,
         work_modes: record.work_modes,
         available_for_offers: record.available_for_offers,
         skills: record
@@ -3481,6 +3797,7 @@ fn anonymous_candidate(
         fsp_verified: record.fsp_verified,
         freshness: freshness_view(signals),
         r#match: candidate_match,
+        github,
         simulation: true,
     }
 }
@@ -3512,7 +3829,7 @@ fn match_view(
                 result.required_met, result.required_total
             )
         } else {
-            "Подтверждённая специализация или грейд пока не соответствуют потребности.".into()
+            "Специализация или грейд категории пока не соответствуют потребности.".into()
         },
         algorithm_version: result.algorithm_version,
     }
@@ -3567,14 +3884,7 @@ fn match_requirement(
 }
 
 fn skill_label(skill_id: &str) -> &str {
-    match skill_id {
-        "rust" => "Rust",
-        "postgresql" => "PostgreSQL",
-        "docker" => "Docker",
-        "redis" => "Redis",
-        "react" => "React",
-        _ => skill_id,
-    }
+    fsp_domain::catalog::skill_label(skill_id)
 }
 
 fn skill_summary(status: EvidenceStatus) -> &'static str {
@@ -3744,7 +4054,7 @@ fn gap_plan(candidate: &CandidateIndexRecord, need: &HiringNeedRecord) -> GapPla
                 },
                 accepted_competition_ids,
                 assessment_available: policy.accept_assessments
-                    && need.need.specialization == Specialization::Backend,
+                    && fsp_domain::knowledge_available(need.need.specialization, need.need.grade),
             })
         })
         .collect();
@@ -3784,6 +4094,7 @@ fn profile_view(
     let questionnaire_complete = profile.questionnaire_complete();
     let assessment_passed =
         profile.verified_grade.is_some() && profile.verified_specialization.is_some();
+    let category = profile.category();
     let visible = profile.visible_to_employers(email_verified);
     let mut blockers = Vec::new();
     if !email_verified {
@@ -3792,8 +4103,8 @@ fn profile_view(
     if !questionnaire_complete {
         blockers.push("questionnaire");
     }
-    if !assessment_passed {
-        blockers.push("assessment");
+    if category.is_none() {
+        blockers.push("category");
     }
     if !profile.consents.processing {
         blockers.push("processing_consent");
@@ -3804,8 +4115,7 @@ fn profile_view(
     let processing_consent = profile.consents.processing;
     // Mirrors the mock's eligibility(): onboarding gates starting any check; a
     // successful verification freezes upgrades for the cooldown window; the
-    // selected scope additionally rejects non-backend specializations and
-    // downgrades.
+    // The selected scope additionally rejects unavailable assessment banks and downgrades.
     let onboarding_incomplete = !(email_verified && questionnaire_complete && processing_consent);
     let next_eligible_at = profile
         .grade_confirmed_at
@@ -3832,7 +4142,7 @@ fn profile_view(
         } else {
             "active_assessment"
         })
-    } else if profile.specialization != Specialization::Backend {
+    } else if !fsp_domain::knowledge_available(profile.specialization, profile.selected_grade) {
         Some("unsupported_scope")
     } else if profile.verified_specialization == Some(profile.specialization)
         && profile
@@ -3856,7 +4166,12 @@ fn profile_view(
         selected_grade: profile.selected_grade,
         stack: profile.stack,
         team_role: profile.team_role,
-        experience_months: profile.experience_months,
+        // A start year counts up to the current year whenever the profile is read.
+        experience_months: profile
+            .experience_since
+            .map(|since| fsp_domain::experience_since_months(since, current_year()))
+            .or(profile.experience_months),
+        experience_since: profile.experience_since,
         experience: profile.experience,
         soft_skills: profile.soft_skills,
         consents: profile.consents,
@@ -3864,10 +4179,14 @@ fn profile_view(
         verified_specialization: profile.verified_specialization,
         grade_confirmed_at: profile.grade_confirmed_at.clone(),
         category: CategoryView {
-            specialization: profile.verified_specialization,
-            grade: profile.verified_grade,
+            specialization: category.map(|item| item.specialization),
+            grade: category.map(|item| item.grade),
             eligible: visible,
+            source: category.map(|item| item.source),
+            confidence: category.and_then(|item| item.confidence),
         },
+        estimate: profile.estimate,
+        auto_fields: profile.auto_fields,
         freshness: freshness_view(signals),
         onboarding: OnboardingView {
             email_verified,
@@ -3875,7 +4194,7 @@ fn profile_view(
             assessment_passed,
             ready_for_publication: email_verified
                 && questionnaire_complete
-                && assessment_passed
+                && category.is_some()
                 && processing_consent,
             visible_to_employers: visible,
             blockers,
@@ -3903,6 +4222,11 @@ fn now() -> String {
     Utc::now().to_rfc3339()
 }
 
+/// The current calendar year: experience stated as a start year counts up to it.
+fn current_year() -> i32 {
+    Utc::now().year()
+}
+
 fn unique(values: Vec<String>) -> Vec<String> {
     let mut result = Vec::new();
     for value in values {
@@ -3914,34 +4238,68 @@ fn unique(values: Vec<String>) -> Vec<String> {
 }
 
 /// Applies a validated `ProfilePatch`, like the mock's `patchProfile`. The
-/// publication consent cannot outlive the processing consent.
+/// publication consent cannot outlive the processing consent. An answer the
+/// candidate changes is theirs from then on: estimates no longer overwrite it.
 fn apply_profile_patch(
     profile: &mut CandidateProfile,
     patch: ProfilePatch,
 ) -> Result<(), ApplicationError> {
     if let Some(name) = patch.name {
-        profile.name = name.trim().to_owned();
+        let name = name.trim().to_owned();
+        claim_field(profile, "name", profile.name != name);
+        profile.name = name;
     }
     if let Some(value) = patch.specialization {
+        claim_field(profile, "specialization", profile.specialization != value);
         profile.specialization = value;
     }
     if let Some(value) = patch.selected_grade {
+        claim_field(profile, "selectedGrade", profile.selected_grade != value);
         profile.selected_grade = value;
     }
     if let Some(value) = patch.stack {
-        profile.stack = unique(value);
+        let value = unique(value);
+        claim_field(profile, "stack", profile.stack != value);
+        profile.stack = value;
     }
     if let Some(value) = patch.team_role {
-        profile.team_role = value.trim().to_owned();
+        let value = value.trim().to_owned();
+        claim_field(profile, "teamRole", profile.team_role != value);
+        profile.team_role = value;
     }
-    if let Some(value) = patch.experience_months {
-        profile.experience_months = value;
+    // A start year is the candidate's statement and the months follow from it; without a year,
+    // explicit months (typed or from a résumé) count; clearing the year clears the experience.
+    match (patch.experience_since, patch.experience_months) {
+        (Some(Some(year)), _) => {
+            claim_field(profile, "experienceMonths", true);
+            profile.experience_since = Some(year);
+            profile.experience_months =
+                Some(fsp_domain::experience_since_months(year, current_year()));
+        }
+        (_, Some(value)) => {
+            claim_field(
+                profile,
+                "experienceMonths",
+                profile.experience_months != value || profile.experience_since.is_some(),
+            );
+            profile.experience_since = None;
+            profile.experience_months = value;
+        }
+        (Some(None), None) => {
+            claim_field(profile, "experienceMonths", true);
+            profile.experience_since = None;
+            profile.experience_months = None;
+        }
+        (None, None) => {}
     }
     if let Some(value) = patch.experience {
+        claim_field(profile, "experience", profile.experience != value);
         profile.experience = value;
     }
     if let Some(value) = patch.soft_skills {
-        profile.soft_skills = unique(value);
+        let value = unique(value);
+        claim_field(profile, "softSkills", profile.soft_skills != value);
+        profile.soft_skills = value;
     }
     if let Some(value) = patch.consents {
         profile.consents = value;
@@ -3956,6 +4314,12 @@ fn apply_profile_patch(
     Ok(())
 }
 
+fn claim_field(profile: &mut CandidateProfile, field: &str, changed: bool) {
+    if changed {
+        profile.auto_fields.retain(|item| item != field);
+    }
+}
+
 fn validate_profile_patch(patch: &ProfilePatch) -> Result<(), ApplicationError> {
     let has_property = patch.name.is_some()
         || patch.industry.is_some()
@@ -3964,6 +4328,7 @@ fn validate_profile_patch(patch: &ProfilePatch) -> Result<(), ApplicationError> 
         || patch.stack.is_some()
         || patch.team_role.is_some()
         || patch.experience_months.is_some()
+        || patch.experience_since.is_some()
         || patch.experience.is_some()
         || patch.soft_skills.is_some()
         || patch.consents.is_some();
@@ -3986,6 +4351,11 @@ fn validate_profile_patch(patch: &ProfilePatch) -> Result<(), ApplicationError> 
     {
         return Err(validation("Опыт не может превышать 1200 месяцев"));
     }
+    if patch.experience_since.is_some_and(|value| {
+        value.is_some_and(|year| !(1950..=current_year()).contains(&i32::from(year)))
+    }) {
+        return Err(validation("Год начала в IT — от 1950 до текущего года"));
+    }
     if patch
         .team_role
         .as_ref()
@@ -3997,16 +4367,14 @@ fn validate_profile_patch(patch: &ProfilePatch) -> Result<(), ApplicationError> 
     {
         return Err(validation("Текстовое поле превышает допустимую длину"));
     }
-    if let Some(stack) = &patch.stack {
-        let supported = ["rust", "postgresql", "docker", "redis", "react"];
-        if stack.len() > 5
+    if let Some(stack) = &patch.stack
+        && (stack.len() > MAX_STACK
             || stack
                 .iter()
-                .any(|value| !supported.contains(&value.as_str()))
-            || unique_count(stack) != stack.len()
-        {
-            return Err(validation("Проверьте технологии в стеке"));
-        }
+                .any(|value| !fsp_domain::catalog::is_skill(value))
+            || unique_count(stack) != stack.len())
+    {
+        return Err(validation("Проверьте технологии в стеке"));
     }
     if patch.soft_skills.as_ref().is_some_and(|values| {
         values.len() > 12
@@ -4100,8 +4468,8 @@ fn validation(message: &'static str) -> ApplicationError {
     ApplicationError::new(400, "validation_error", message)
 }
 
-/// Schema-level ids the contract enumerates.
-const CATALOG_SKILLS: &[&str] = &["rust", "postgresql", "docker", "redis", "react"];
+/// Technologies a profile lists; evidence fills them automatically, so a broad stack fits.
+const MAX_STACK: usize = 12;
 const WORK_MODES: &[&str] = &["remote", "hybrid", "office"];
 /// Competition ids the meta catalog advertises.
 const COMPETITION_IDS: &[&str] = &["competition-demo-api", "competition-demo-systems"];
@@ -4129,7 +4497,7 @@ fn validate_requirements_schema(
     requirements: &[fsp_domain::Requirement],
 ) -> Result<(), ApplicationError> {
     let invalid = requirements.iter().any(|item| {
-        !CATALOG_SKILLS.contains(&item.skill_id.as_str())
+        !fsp_domain::catalog::is_skill(&item.skill_id)
             || !matches!(
                 item.evidence_policy.competition_selection.as_str(),
                 "system" | "selected"

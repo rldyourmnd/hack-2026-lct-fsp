@@ -57,13 +57,13 @@ test('UI-17 UI-19 filters live in the URL and the shortlist survives filtering a
   await expect(page.getByLabel('Стек')).toHaveValue('');
   await page.goto('/employer/candidates?page=-4&grade=wizard&fsp=maybe');
   await expect(page.getByRole('heading', { name: 'Найденные кандидаты' })).toBeVisible();
-  await expect(page.getByLabel('Подтверждённый грейд')).toHaveValue('');
+  await expect(page.getByLabel('Грейд', { exact: true })).toHaveValue('');
 });
 
 test('UI-18 required coverage, verification gaps and the verified grade stay distinct', async ({ page }) => {
   await page.goto('/employer/candidates?needId=need-001&mode=recommended');
   const row018 = page.getByRole('row', { name: /Кандидат №018/ });
-  await expect(row018.getByText('Грейд подтверждён')).toBeVisible();
+  await expect(row018.getByText('Подтверждено тестом')).toBeVisible();
   await expect(row018.getByText(/PostgreSQL: Пока нет достаточных свидетельств/)).toBeVisible();
   const row024 = page.getByRole('row', { name: /Кандидат №024/ });
   await expect(row024.getByText('2 из 2 обязательных')).toBeVisible();
@@ -135,7 +135,7 @@ test('graphs load on demand and a failed employer graph exposes retry instead of
   expect(requests).toBe(1);
   await page.unroute(graphPath);
   await page.getByRole('button', { name: 'Повторить', exact: true }).click();
-  await expect(page.getByRole('button', { name: /Навык: Rust/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Технология: Rust/ })).toBeVisible();
   await expect(page.getByText('Сервис временно недоступен')).toHaveCount(0);
   await page.getByRole('button', { name: 'Список', exact: true }).click();
   await expect(page.getByText('Rust', { exact: true }).first()).toBeVisible();

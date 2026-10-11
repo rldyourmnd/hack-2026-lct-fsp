@@ -26,6 +26,7 @@ const source: Source = {
   verifiedParticipation: false,
   competitionIds: [],
   notice: '',
+  github: null,
 };
 
 function Probe() {

@@ -206,7 +206,7 @@ pub struct TestDatabase {
 }
 
 const ACCOUNT_COLUMNS: &str = "id,email,role,candidate_id,company_id,email_verified";
-const CANDIDATE_COLUMNS: &str = "id,alias,email,name,specialization,selected_grade,stack_json,team_role,experience_months,experience,soft_skills_json,processing_consent,publication_consent,verified_grade,verified_specialization,grade_confirmed_at,revision,updated_at";
+const CANDIDATE_COLUMNS: &str = "id,alias,email,name,specialization,selected_grade,stack_json,team_role,experience_months,experience,soft_skills_json,processing_consent,publication_consent,verified_grade,verified_specialization,grade_confirmed_at,revision,updated_at,estimate_json,auto_fields_json,experience_since";
 const NEED_COLUMNS: &str = "id,company_id,title,specialization,grade,work_mode,salary_from,salary_to,description,requirements_json,published,published_at,created_at,updated_at,revision";
 const SOURCE_COLUMNS: &str = "id,candidate_id,provider,synthetic,active_job_id,account_label,last_synced_at,analysis_json,verified_participation,competition_ids_json,fsp_results_json";
 const JOB_COLUMNS: &str = "id,owner_id,kind,status,created_at,updated_at,candidate_id,assessment_id,input_revision,result_json,confirmed,result_source_id,error_code,error_message";
@@ -221,7 +221,7 @@ const DISCLOSURE_COLUMNS: &str =
     "candidate_id,company_id,invitation_id,application_id,granted_at,name,email,source_links_json";
 const CANDIDATE_INDEX_SELECT: &str = "SELECT c.id,c.alias,c.email,c.name,c.specialization,c.selected_grade,c.stack_json,\
      c.team_role,c.experience_months,c.experience,c.soft_skills_json,c.processing_consent,\
-     c.publication_consent,c.verified_grade,c.verified_specialization,c.grade_confirmed_at,\
+     c.publication_consent,c.verified_grade,c.verified_specialization,c.grade_confirmed_at,c.estimate_json,c.auto_fields_json,c.experience_since,\
      c.revision,c.updated_at,\
      i.work_modes_json,i.available_for_offers,i.skills_json,i.source_kinds_json,\
      i.fsp_verified,i.last_signal_at,\
@@ -776,6 +776,11 @@ impl PlatformRepository for PostgresRepository {
         ops::sources(conn.get()?, candidate_id).await
     }
 
+    async fn github_sources(&self, login: &str) -> Result<Vec<SourceRecord>, RepositoryError> {
+        let mut conn = self.conn().await?;
+        ops::github_sources(conn.get()?, login).await
+    }
+
     async fn save_source(&self, source: &SourceRecord) -> Result<(), RepositoryError> {
         let mut conn = self.conn().await?;
         ops::save_source(conn.get()?, source).await
@@ -1242,6 +1247,10 @@ impl PlatformRepository for TxRepository {
         self.repo.sources(candidate_id).await
     }
 
+    async fn github_sources(&self, login: &str) -> Result<Vec<SourceRecord>, RepositoryError> {
+        self.repo.github_sources(login).await
+    }
+
     async fn save_source(&self, source: &SourceRecord) -> Result<(), RepositoryError> {
         self.repo.save_source(source).await
     }
@@ -1425,7 +1434,7 @@ mod ops {
         expected_revision: u64,
     ) -> Result<(), RepositoryError> {
         let changed = sqlx::query(
-        "UPDATE candidates SET alias=$1,email=$2,name=$3,specialization=$4,selected_grade=$5,stack_json=$6,team_role=$7,experience_months=$8,experience=$9,soft_skills_json=$10,processing_consent=$11,publication_consent=$12,verified_grade=$13,verified_specialization=$14,grade_confirmed_at=$15,revision=$16,updated_at=$17 WHERE id=$18 AND revision=$19",
+        "UPDATE candidates SET alias=$1,email=$2,name=$3,specialization=$4,selected_grade=$5,stack_json=$6,team_role=$7,experience_months=$8,experience=$9,soft_skills_json=$10,processing_consent=$11,publication_consent=$12,verified_grade=$13,verified_specialization=$14,grade_confirmed_at=$15,revision=$16,updated_at=$17,estimate_json=$20,auto_fields_json=$21,experience_since=$22 WHERE id=$18 AND revision=$19",
     )
     .bind(&value.alias)
     .bind(&value.email)
@@ -1446,6 +1455,9 @@ mod ops {
     .bind(ts(&value.updated_at)?)
     .bind(&value.id)
     .bind(expected_revision as i64)
+    .bind(estimate_json(value)?)
+    .bind(serde_json::to_string(&value.auto_fields).map_err(json_storage)?)
+    .bind(value.experience_since.map(i32::from))
     .execute(&mut *conn)
     .await
     .map_err(storage)?
@@ -1979,7 +1991,7 @@ mod ops {
         let rows = sqlx::query(
             "SELECT c.id,c.alias,c.email,c.name,c.specialization,c.selected_grade,c.stack_json,\
              c.team_role,c.experience_months,c.experience,c.soft_skills_json,c.processing_consent,\
-             c.publication_consent,c.verified_grade,c.verified_specialization,c.grade_confirmed_at,\
+             c.publication_consent,c.verified_grade,c.verified_specialization,c.grade_confirmed_at,c.estimate_json,c.auto_fields_json,c.experience_since,\
              c.revision,c.updated_at,\
              i.work_modes_json,i.available_for_offers,i.skills_json,i.source_kinds_json,\
              i.fsp_verified,i.last_signal_at,\
@@ -2663,6 +2675,22 @@ mod ops {
         .collect()
     }
 
+    pub(super) async fn github_sources(
+        conn: &mut PgConnection,
+        login: &str,
+    ) -> Result<Vec<SourceRecord>, RepositoryError> {
+        sqlx::query(&format!(
+            "SELECT {SOURCE_COLUMNS} FROM sources WHERE provider='github' AND lower(account_label)=lower($1) ORDER BY id"
+        ))
+        .bind(login)
+        .fetch_all(&mut *conn)
+        .await
+        .map_err(storage)?
+        .iter()
+        .map(source_record)
+        .collect()
+    }
+
     pub(super) async fn save_source(
         conn: &mut PgConnection,
         source: &SourceRecord,
@@ -2761,8 +2789,8 @@ pub(crate) async fn insert_candidate(
     value: &CandidateProfile,
 ) -> Result<(), RepositoryError> {
     sqlx::query(
-        "INSERT INTO candidates(id,alias,email,name,specialization,selected_grade,stack_json,team_role,experience_months,experience,soft_skills_json,processing_consent,publication_consent,verified_grade,verified_specialization,grade_confirmed_at,revision,updated_at) \
-         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)",
+        "INSERT INTO candidates(id,alias,email,name,specialization,selected_grade,stack_json,team_role,experience_months,experience,soft_skills_json,processing_consent,publication_consent,verified_grade,verified_specialization,grade_confirmed_at,revision,updated_at,estimate_json,auto_fields_json,experience_since) \
+         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)",
     )
     .bind(&value.id)
     .bind(&value.alias)
@@ -2782,6 +2810,9 @@ pub(crate) async fn insert_candidate(
     .bind(ts_opt(&value.grade_confirmed_at)?)
     .bind(value.revision as i64)
     .bind(ts(&value.updated_at)?)
+    .bind(estimate_json(value)?)
+    .bind(serde_json::to_string(&value.auto_fields).map_err(json_storage)?)
+    .bind(value.experience_since.map(i32::from))
     .execute(&mut *conn)
     .await
     .map_err(conflict)?;
@@ -2793,7 +2824,7 @@ pub(crate) async fn update_candidate(
     value: &CandidateProfile,
 ) -> Result<(), RepositoryError> {
     let changed = sqlx::query(
-        "UPDATE candidates SET alias=$1,email=$2,name=$3,specialization=$4,selected_grade=$5,stack_json=$6,team_role=$7,experience_months=$8,experience=$9,soft_skills_json=$10,processing_consent=$11,publication_consent=$12,verified_grade=$13,verified_specialization=$14,grade_confirmed_at=$15,revision=$16,updated_at=$17 WHERE id=$18",
+        "UPDATE candidates SET alias=$1,email=$2,name=$3,specialization=$4,selected_grade=$5,stack_json=$6,team_role=$7,experience_months=$8,experience=$9,soft_skills_json=$10,processing_consent=$11,publication_consent=$12,verified_grade=$13,verified_specialization=$14,grade_confirmed_at=$15,revision=$16,updated_at=$17,estimate_json=$19,auto_fields_json=$20,experience_since=$21 WHERE id=$18",
     )
     .bind(&value.alias)
     .bind(&value.email)
@@ -2813,6 +2844,9 @@ pub(crate) async fn update_candidate(
     .bind(value.revision as i64)
     .bind(ts(&value.updated_at)?)
     .bind(&value.id)
+    .bind(estimate_json(value)?)
+    .bind(serde_json::to_string(&value.auto_fields).map_err(json_storage)?)
+    .bind(value.experience_since.map(i32::from))
     .execute(&mut *conn)
     .await
     .map_err(storage)?
@@ -2874,8 +2908,26 @@ fn candidate_index(row: &PgRow) -> Result<CandidateIndexRecord, RepositoryError>
     })
 }
 
+fn estimate_json(value: &CandidateProfile) -> Result<Option<String>, RepositoryError> {
+    value
+        .estimate
+        .as_ref()
+        .map(|estimate| serde_json::to_string(estimate).map_err(json_storage))
+        .transpose()
+}
+
 fn candidate_prefixed(row: &PgRow) -> Result<CandidateProfile, RepositoryError> {
     Ok(CandidateProfile {
+        estimate: row
+            .try_get::<Option<String>, _>("estimate_json")
+            .map_err(storage)?
+            .as_deref()
+            .map(parse_json)
+            .transpose()?,
+        auto_fields: parse_json(
+            &row.try_get::<String, _>("auto_fields_json")
+                .map_err(storage)?,
+        )?,
         id: row.try_get("id").map_err(storage)?,
         alias: row.try_get("alias").map_err(storage)?,
         email: row.try_get("email").map_err(storage)?,
@@ -2894,6 +2946,10 @@ fn candidate_prefixed(row: &PgRow) -> Result<CandidateProfile, RepositoryError> 
             .try_get::<Option<i32>, _>("experience_months")
             .map_err(storage)?
             .map(|v| v as u32),
+        experience_since: row
+            .try_get::<Option<i32>, _>("experience_since")
+            .map_err(storage)?
+            .and_then(|v| u16::try_from(v).ok()),
         experience: row.try_get("experience").map_err(storage)?,
         soft_skills: parse_json(
             &row.try_get::<String, _>("soft_skills_json")
@@ -3157,36 +3213,20 @@ fn parse_role(value: &str) -> Result<Role, RepositoryError> {
     }
 }
 fn grade(value: Grade) -> &'static str {
-    match value {
-        Grade::Junior => "junior",
-        Grade::Middle => "middle",
-        Grade::Senior => "senior",
-    }
+    value.as_str()
 }
 fn parse_grade(value: &str) -> Result<Grade, RepositoryError> {
-    match value {
-        "junior" => Ok(Grade::Junior),
-        "middle" => Ok(Grade::Middle),
-        "senior" => Ok(Grade::Senior),
-        _ => Err(RepositoryError::Storage(format!("unknown grade: {value}"))),
-    }
+    value
+        .parse()
+        .map_err(|_| RepositoryError::Storage(format!("unknown grade: {value}")))
 }
 fn specialization(value: Specialization) -> &'static str {
-    match value {
-        Specialization::Backend => "backend",
-        Specialization::Frontend => "frontend",
-        Specialization::Fullstack => "fullstack",
-    }
+    value.as_str()
 }
 fn parse_specialization(value: &str) -> Result<Specialization, RepositoryError> {
-    match value {
-        "backend" => Ok(Specialization::Backend),
-        "frontend" => Ok(Specialization::Frontend),
-        "fullstack" => Ok(Specialization::Fullstack),
-        _ => Err(RepositoryError::Storage(format!(
-            "unknown specialization: {value}"
-        ))),
-    }
+    value
+        .parse()
+        .map_err(|_| RepositoryError::Storage(format!("unknown specialization: {value}")))
 }
 fn source_provider(value: fsp_domain::SourceProvider) -> &'static str {
     match value {

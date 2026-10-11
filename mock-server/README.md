@@ -54,7 +54,7 @@ React). «Север Тех» has the shortlist «Бэкенд · Мидл» wit
 so their profiles are fresh, while the others' grade confirmations are older than 90 days. No invitations or
 applications are seeded.
 
-Any new e-mail registers a new account of the chosen role. The FSP IDs `FSP-DEMO-024` and `FSP-DEMO-031` connect
+Any new e-mail registers a new account of the chosen role. The FSP IDs `FSP-DEMO-024` and `FSP-DEMO-031` (a longer fictional history) connect
 with verified participation; any other ID connects without history.
 
 ## Scenarios

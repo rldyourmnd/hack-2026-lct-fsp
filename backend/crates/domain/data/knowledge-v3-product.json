@@ -1,0 +1,4835 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "requirements-intern-1",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Чем функциональное требование отличается от нефункционального?",
+      "options": [
+        {
+          "id": "requirements-intern-1-a",
+          "label": "Функциональное описывает, что система делает, нефункциональное — каким качеством она обладает"
+        },
+        {
+          "id": "requirements-intern-1-b",
+          "label": "Нефункциональные требования описывают внутреннюю реализацию и поэтому их не нужно согласовывать с заказчиком"
+        },
+        {
+          "id": "requirements-intern-1-c",
+          "label": "Функциональные требования касаются только интерфейса"
+        }
+      ],
+      "correctOptionId": "requirements-intern-1-a",
+      "explanation": "Пример нефункционального: «страница открывается быстрее 2 секунд».",
+      "source": "https://en.wikipedia.org/wiki/Non-functional_requirement"
+    },
+    {
+      "id": "requirements-intern-2",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Кто такой стейкхолдер?",
+      "options": [
+        {
+          "id": "requirements-intern-2-a",
+          "label": "Человек или группа, на которых влияет проект или кто влияет на него"
+        },
+        {
+          "id": "requirements-intern-2-b",
+          "label": "Только заказчик, подписавший договор, и никто больше из участников проекта"
+        },
+        {
+          "id": "requirements-intern-2-c",
+          "label": "Только разработчик"
+        }
+      ],
+      "correctOptionId": "requirements-intern-2-a",
+      "explanation": "Учёт всех стейкхолдеров снижает риск упущенных требований.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "requirements-intern-3",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Что такое пользовательская история?",
+      "options": [
+        {
+          "id": "requirements-intern-3-a",
+          "label": "Подробное техническое задание с описанием экранов, таблиц и алгоритмов"
+        },
+        {
+          "id": "requirements-intern-3-b",
+          "label": "Отчёт об ошибке"
+        },
+        {
+          "id": "requirements-intern-3-c",
+          "label": "Короткое описание потребности: кто, что хочет сделать и зачем"
+        }
+      ],
+      "correctOptionId": "requirements-intern-3-c",
+      "explanation": "Формат: «Как <роль>, я хочу <действие>, чтобы <ценность>».",
+      "source": "https://www.atlassian.com/agile/project-management/user-stories"
+    },
+    {
+      "id": "requirements-intern-4",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Какое требование сформулировано проверяемо?",
+      "options": [
+        {
+          "id": "requirements-intern-4-a",
+          "label": "Система должна быть удобной"
+        },
+        {
+          "id": "requirements-intern-4-b",
+          "label": "Пользователь получает код подтверждения не позднее чем через минуту"
+        },
+        {
+          "id": "requirements-intern-4-c",
+          "label": "Интерфейс должен быть современным, красивым и понятным каждому пользователю"
+        }
+      ],
+      "correctOptionId": "requirements-intern-4-b",
+      "explanation": "Проверяемое требование содержит измеримый критерий.",
+      "source": "https://www.iso.org/standard/72089.html"
+    },
+    {
+      "id": "requirements-intern-5",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Какой метод выявления требований подходит для понимания реальной работы пользователей?",
+      "options": [
+        {
+          "id": "requirements-intern-5-a",
+          "label": "Чтение маркетинговых брошюр"
+        },
+        {
+          "id": "requirements-intern-5-b",
+          "label": "Догадки команды"
+        },
+        {
+          "id": "requirements-intern-5-c",
+          "label": "Наблюдение за пользователями на рабочем месте"
+        }
+      ],
+      "correctOptionId": "requirements-intern-5-c",
+      "explanation": "Наблюдение показывает то, что люди не упоминают в интервью.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "requirements-intern-6",
+      "grade": "intern",
+      "skillId": "requirements",
+      "prompt": "Что такое глоссарий проекта?",
+      "options": [
+        {
+          "id": "requirements-intern-6-a",
+          "label": "Список сотрудников проекта с их ролями, контактами и зонами ответственности"
+        },
+        {
+          "id": "requirements-intern-6-b",
+          "label": "Словарь терминов предметной области с единым значением"
+        },
+        {
+          "id": "requirements-intern-6-c",
+          "label": "План релизов"
+        }
+      ],
+      "correctOptionId": "requirements-intern-6-b",
+      "explanation": "Единые термины уменьшают недопонимание между командами.",
+      "source": "https://martinfowler.com/bliki/UbiquitousLanguage.html"
+    },
+    {
+      "id": "requirements-junior-1",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Что такое критерии приёмки пользовательской истории?",
+      "options": [
+        {
+          "id": "requirements-junior-1-a",
+          "label": "Оценка истории в story points, согласованная командой на планировании"
+        },
+        {
+          "id": "requirements-junior-1-b",
+          "label": "Имя исполнителя"
+        },
+        {
+          "id": "requirements-junior-1-c",
+          "label": "Условия, при выполнении которых история считается сделанной"
+        }
+      ],
+      "correctOptionId": "requirements-junior-1-c",
+      "explanation": "Критерии часто пишут в формате «Дано — Когда — Тогда».",
+      "source": "https://www.atlassian.com/work-management/project-management/acceptance-criteria"
+    },
+    {
+      "id": "requirements-junior-2",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Что включает сценарий использования (use case)?",
+      "options": [
+        {
+          "id": "requirements-junior-2-a",
+          "label": "Актора, цель, основной и альтернативные потоки, предусловия и результат"
+        },
+        {
+          "id": "requirements-junior-2-b",
+          "label": "Только экранную форму с полями, кнопками и макетом интерфейса для каждого шага"
+        },
+        {
+          "id": "requirements-junior-2-c",
+          "label": "Только SQL-запрос"
+        }
+      ],
+      "correctOptionId": "requirements-junior-2-a",
+      "explanation": "Альтернативные потоки описывают ошибки и исключения.",
+      "source": "https://www.usability.gov/how-to-and-tools/methods/use-cases.html"
+    },
+    {
+      "id": "requirements-junior-3",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Что такое прослеживаемость требований?",
+      "options": [
+        {
+          "id": "requirements-junior-3-a",
+          "label": "Скорость выполнения требования командой разработки от начала до релиза"
+        },
+        {
+          "id": "requirements-junior-3-b",
+          "label": "Связь требования с источником, решениями и тестами"
+        },
+        {
+          "id": "requirements-junior-3-c",
+          "label": "Список изменённых файлов"
+        }
+      ],
+      "correctOptionId": "requirements-junior-3-b",
+      "explanation": "Она помогает оценивать влияние изменений.",
+      "source": "https://www.iso.org/standard/72089.html"
+    },
+    {
+      "id": "requirements-junior-4",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Какой критерий INVEST характеризует хорошую историю?",
+      "options": [
+        {
+          "id": "requirements-junior-4-a",
+          "label": "Обязательная длина больше страницы"
+        },
+        {
+          "id": "requirements-junior-4-b",
+          "label": "Тестируемость (Testable)"
+        },
+        {
+          "id": "requirements-junior-4-c",
+          "label": "Зависимость от других историй"
+        }
+      ],
+      "correctOptionId": "requirements-junior-4-b",
+      "explanation": "INVEST: независимая, обсуждаемая, ценная, оцениваемая, небольшая, тестируемая.",
+      "source": "https://www.agilealliance.org/glossary/invest/"
+    },
+    {
+      "id": "requirements-junior-5",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Как приоритизировать требования методом MoSCoW?",
+      "options": [
+        {
+          "id": "requirements-junior-5-a",
+          "label": "Разделить на Must, Should, Could и Won't"
+        },
+        {
+          "id": "requirements-junior-5-b",
+          "label": "По алфавиту"
+        },
+        {
+          "id": "requirements-junior-5-c",
+          "label": "По сложности реализации от простого"
+        }
+      ],
+      "correctOptionId": "requirements-junior-5-a",
+      "explanation": "MoSCoW помогает согласовать объём релиза.",
+      "source": "https://en.wikipedia.org/wiki/MoSCoW_method"
+    },
+    {
+      "id": "requirements-junior-6",
+      "grade": "junior",
+      "skillId": "requirements",
+      "prompt": "Заказчик просит «кнопку экспорта в Excel». Что сделать аналитику?",
+      "options": [
+        {
+          "id": "requirements-junior-6-a",
+          "label": "Сразу передать в разработку как есть, чтобы не задерживать заказчика вопросами"
+        },
+        {
+          "id": "requirements-junior-6-b",
+          "label": "Выяснить, какую задачу пользователь решает с выгрузкой"
+        },
+        {
+          "id": "requirements-junior-6-c",
+          "label": "Отказать без обсуждения"
+        }
+      ],
+      "correctOptionId": "requirements-junior-6-b",
+      "explanation": "Понимание цели позволяет предложить лучшее решение.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "requirements-middle-1",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Как описать требования к интеграции двух систем?",
+      "options": [
+        {
+          "id": "requirements-middle-1-a",
+          "label": "Одной фразой «системы должны обмениваться данными», остальное решат разработчики"
+        },
+        {
+          "id": "requirements-middle-1-b",
+          "label": "Контракт: операции, форматы, ошибки, ограничения и нефункциональные требования"
+        },
+        {
+          "id": "requirements-middle-1-c",
+          "label": "Только схемой базы данных"
+        }
+      ],
+      "correctOptionId": "requirements-middle-1-b",
+      "explanation": "Контракт позволяет командам работать параллельно.",
+      "source": "https://swagger.io/specification/"
+    },
+    {
+      "id": "requirements-middle-2",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Чем полезна спецификация на примерах (BDD)?",
+      "options": [
+        {
+          "id": "requirements-middle-2-a",
+          "label": "Заменяет все требования"
+        },
+        {
+          "id": "requirements-middle-2-b",
+          "label": "Конкретные примеры поведения согласуют понимание и становятся автотестами"
+        },
+        {
+          "id": "requirements-middle-2-c",
+          "label": "Используется только для интерфейса и заменяет собой все остальные виды требований"
+        }
+      ],
+      "correctOptionId": "requirements-middle-2-b",
+      "explanation": "Примеры в формате Gherkin понятны бизнесу и разработке.",
+      "source": "https://cucumber.io/docs/bdd/"
+    },
+    {
+      "id": "requirements-middle-3",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Как управлять изменениями требований в ходе проекта?",
+      "options": [
+        {
+          "id": "requirements-middle-3-a",
+          "label": "Принимать все изменения без анализа, потому что заказчик всегда прав в своих пожеланиях"
+        },
+        {
+          "id": "requirements-middle-3-b",
+          "label": "Оценивать влияние, согласовывать с заинтересованными сторонами и версионировать"
+        },
+        {
+          "id": "requirements-middle-3-c",
+          "label": "Запрещать любые изменения"
+        }
+      ],
+      "correctOptionId": "requirements-middle-3-b",
+      "explanation": "Управление изменениями сохраняет баланс сроков, объёма и качества.",
+      "source": "https://en.wikipedia.org/wiki/Requirements_management"
+    },
+    {
+      "id": "requirements-middle-4",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Какие нефункциональные требования важно уточнить для веб-сервиса?",
+      "options": [
+        {
+          "id": "requirements-middle-4-a",
+          "label": "Только цвет кнопок"
+        },
+        {
+          "id": "requirements-middle-4-b",
+          "label": "Только язык программирования"
+        },
+        {
+          "id": "requirements-middle-4-c",
+          "label": "Производительность, доступность, безопасность, масштабируемость"
+        }
+      ],
+      "correctOptionId": "requirements-middle-4-c",
+      "explanation": "ISO/IEC 25010 описывает характеристики качества.",
+      "source": "https://www.iso.org/standard/78176.html"
+    },
+    {
+      "id": "requirements-middle-5",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Как выявить противоречивые требования от разных отделов?",
+      "options": [
+        {
+          "id": "requirements-middle-5-a",
+          "label": "Сопоставить их в матрице, организовать совместное обсуждение и зафиксировать решение"
+        },
+        {
+          "id": "requirements-middle-5-b",
+          "label": "Выбрать требования того отдела, который первым прислал их, и сообщить остальным решение"
+        },
+        {
+          "id": "requirements-middle-5-c",
+          "label": "Реализовать оба варианта"
+        }
+      ],
+      "correctOptionId": "requirements-middle-5-a",
+      "explanation": "Противоречия решаются согласованием, а не разработчиками.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "requirements-middle-6",
+      "grade": "middle",
+      "skillId": "requirements",
+      "prompt": "Что такое MVP с точки зрения требований?",
+      "options": [
+        {
+          "id": "requirements-middle-6-a",
+          "label": "Минимальный набор функций, позволяющий проверить ценность гипотезы"
+        },
+        {
+          "id": "requirements-middle-6-b",
+          "label": "Полная версия продукта со всеми функциями, выпущенная одним большим релизом"
+        },
+        {
+          "id": "requirements-middle-6-c",
+          "label": "Прототип без функций"
+        }
+      ],
+      "correctOptionId": "requirements-middle-6-a",
+      "explanation": "MVP помогает получить обратную связь до больших вложений.",
+      "source": "https://www.agilealliance.org/glossary/mvp/"
+    },
+    {
+      "id": "requirements-senior-1",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Как разделить крупную эпопею на истории?",
+      "options": [
+        {
+          "id": "requirements-senior-1-a",
+          "label": "По техническим слоям: отдельные истории на базу данных, сервер и интерфейс для каждой функции"
+        },
+        {
+          "id": "requirements-senior-1-b",
+          "label": "На равные по числу строк части"
+        },
+        {
+          "id": "requirements-senior-1-c",
+          "label": "По сценариям, шагам процесса или вариантам данных, сохраняя ценность каждой истории"
+        }
+      ],
+      "correctOptionId": "requirements-senior-1-c",
+      "explanation": "Вертикальные срезы дают ценность в каждом релизе.",
+      "source": "https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/"
+    },
+    {
+      "id": "requirements-senior-2",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Как оценить качество набора требований?",
+      "options": [
+        {
+          "id": "requirements-senior-2-a",
+          "label": "По числу страниц документа, количеству авторов и наличию подписей всех руководителей"
+        },
+        {
+          "id": "requirements-senior-2-b",
+          "label": "По числу авторов"
+        },
+        {
+          "id": "requirements-senior-2-c",
+          "label": "Полнота, непротиворечивость, проверяемость, однозначность и прослеживаемость"
+        }
+      ],
+      "correctOptionId": "requirements-senior-2-c",
+      "explanation": "Эти характеристики перечислены в ISO/IEC/IEEE 29148.",
+      "source": "https://www.iso.org/standard/72089.html"
+    },
+    {
+      "id": "requirements-senior-3",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Что такое Event Storming?",
+      "options": [
+        {
+          "id": "requirements-senior-3-a",
+          "label": "Нагрузочное тестирование системы потоком событий от пользователей"
+        },
+        {
+          "id": "requirements-senior-3-b",
+          "label": "Совместное моделирование предметной области через доменные события"
+        },
+        {
+          "id": "requirements-senior-3-c",
+          "label": "Рассылка писем клиентам"
+        }
+      ],
+      "correctOptionId": "requirements-senior-3-b",
+      "explanation": "Метод помогает быстро выявить процессы и границы контекстов.",
+      "source": "https://www.eventstorming.com/"
+    },
+    {
+      "id": "requirements-senior-4",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Как документировать решения по архитектуре и требованиям?",
+      "options": [
+        {
+          "id": "requirements-senior-4-a",
+          "label": "Только устно на встречах, чтобы решения можно было быстро поменять"
+        },
+        {
+          "id": "requirements-senior-4-b",
+          "label": "Записи архитектурных решений (ADR) с контекстом и последствиями"
+        },
+        {
+          "id": "requirements-senior-4-c",
+          "label": "В личных сообщениях"
+        }
+      ],
+      "correctOptionId": "requirements-senior-4-b",
+      "explanation": "ADR сохраняют причины решений для будущих участников.",
+      "source": "https://adr.github.io/"
+    },
+    {
+      "id": "requirements-senior-5",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Как работать с требованиями, когда заказчик сам не знает, чего хочет?",
+      "options": [
+        {
+          "id": "requirements-senior-5-a",
+          "label": "Прототипировать, проверять гипотезы и уточнять итеративно"
+        },
+        {
+          "id": "requirements-senior-5-b",
+          "label": "Ждать полного технического задания"
+        },
+        {
+          "id": "requirements-senior-5-c",
+          "label": "Сделать как у конкурентов без проверки"
+        }
+      ],
+      "correctOptionId": "requirements-senior-5-a",
+      "explanation": "Итерации с обратной связью снижают неопределённость.",
+      "source": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+    },
+    {
+      "id": "requirements-senior-6",
+      "grade": "senior",
+      "skillId": "requirements",
+      "prompt": "Как учитывать требования законодательства в продукте?",
+      "options": [
+        {
+          "id": "requirements-senior-6-a",
+          "label": "Учитывать только по жалобам"
+        },
+        {
+          "id": "requirements-senior-6-b",
+          "label": "Оставить их на юристов после релиза и исправлять по результатам проверок"
+        },
+        {
+          "id": "requirements-senior-6-c",
+          "label": "Выделить их в отдельный класс обязательных требований с источником и проверкой"
+        }
+      ],
+      "correctOptionId": "requirements-senior-6-c",
+      "explanation": "Например, обработка персональных данных требует согласий и защиты по 152-ФЗ.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "requirements-lead-1",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Как организовать работу аналитиков в нескольких продуктовых командах?",
+      "options": [
+        {
+          "id": "requirements-lead-1-a",
+          "label": "Каждый аналитик работает по своим правилам"
+        },
+        {
+          "id": "requirements-lead-1-b",
+          "label": "Один аналитик на все команды"
+        },
+        {
+          "id": "requirements-lead-1-c",
+          "label": "Общие стандарты артефактов, сообщество практик и единые инструменты"
+        }
+      ],
+      "correctOptionId": "requirements-lead-1-c",
+      "explanation": "Стандарты облегчают передачу знаний и ревью.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "requirements-lead-2",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Как измерять эффективность аналитики требований?",
+      "options": [
+        {
+          "id": "requirements-lead-2-a",
+          "label": "Количество страниц документации и число встреч с заказчиком за квартал работы"
+        },
+        {
+          "id": "requirements-lead-2-b",
+          "label": "Число встреч"
+        },
+        {
+          "id": "requirements-lead-2-c",
+          "label": "Доля доработок из-за неясных требований, время до готовности и удовлетворённость команды"
+        }
+      ],
+      "correctOptionId": "requirements-lead-2-c",
+      "explanation": "Метрики должны отражать влияние на поставку ценности.",
+      "source": "https://dora.dev/guides/dora-metrics-four-keys/"
+    },
+    {
+      "id": "requirements-lead-3",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Как согласовать требования при конфликте интересов руководителей?",
+      "options": [
+        {
+          "id": "requirements-lead-3-a",
+          "label": "Решить самостоятельно в пользу более громкого руководителя, чтобы снять конфликт"
+        },
+        {
+          "id": "requirements-lead-3-b",
+          "label": "Отложить проект"
+        },
+        {
+          "id": "requirements-lead-3-c",
+          "label": "Связать требования с целями бизнеса и вынести решение владельцу приоритетов"
+        }
+      ],
+      "correctOptionId": "requirements-lead-3-c",
+      "explanation": "Прозрачные критерии приоритета снижают политические споры.",
+      "source": "https://en.wikipedia.org/wiki/Prioritization"
+    },
+    {
+      "id": "requirements-lead-4",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Когда документация требований избыточна?",
+      "options": [
+        {
+          "id": "requirements-lead-4-a",
+          "label": "Никогда: чем больше документации, тем лучше команда понимает задачу"
+        },
+        {
+          "id": "requirements-lead-4-b",
+          "label": "Всегда, документация не нужна"
+        },
+        {
+          "id": "requirements-lead-4-c",
+          "label": "Когда её не читают и она не помогает разработке и проверке"
+        }
+      ],
+      "correctOptionId": "requirements-lead-4-c",
+      "explanation": "Объём документации должен соответствовать рискам и аудитории.",
+      "source": "https://agilemanifesto.org/"
+    },
+    {
+      "id": "requirements-lead-5",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Как вводить новых аналитиков в сложную предметную область?",
+      "options": [
+        {
+          "id": "requirements-lead-5-a",
+          "label": "Дать доступ к коду и не объяснять"
+        },
+        {
+          "id": "requirements-lead-5-b",
+          "label": "Отправить читать все документы проекта за пять лет и проверить знания тестом"
+        },
+        {
+          "id": "requirements-lead-5-c",
+          "label": "Глоссарий, карты процессов, наставник и участие в реальных обсуждениях"
+        }
+      ],
+      "correctOptionId": "requirements-lead-5-c",
+      "explanation": "Структурированный онбординг ускоряет самостоятельную работу.",
+      "source": "https://martinfowler.com/bliki/UbiquitousLanguage.html"
+    },
+    {
+      "id": "requirements-lead-6",
+      "grade": "lead",
+      "skillId": "requirements",
+      "prompt": "Как проверить, что реализованная функция принесла ценность?",
+      "options": [
+        {
+          "id": "requirements-lead-6-a",
+          "label": "Заранее определить метрику успеха и проверить её после выпуска"
+        },
+        {
+          "id": "requirements-lead-6-b",
+          "label": "Считать функцию полезной по факту выпуска"
+        },
+        {
+          "id": "requirements-lead-6-c",
+          "label": "Спросить только разработчиков"
+        }
+      ],
+      "correctOptionId": "requirements-lead-6-a",
+      "explanation": "Метрика успеха превращает требование в проверяемую гипотезу.",
+      "source": "https://en.wikipedia.org/wiki/Performance_indicator"
+    },
+    {
+      "id": "uml_bpmn-intern-1",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что показывает диаграмма вариантов использования UML?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-1-a",
+          "label": "Классы и их поля"
+        },
+        {
+          "id": "uml_bpmn-intern-1-b",
+          "label": "Акторов и функции системы, которыми они пользуются"
+        },
+        {
+          "id": "uml_bpmn-intern-1-c",
+          "label": "Порядок вызовов методов между объектами системы во времени"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-1-b",
+      "explanation": "Use case диаграмма даёт обзор назначения системы.",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-intern-2",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что изображает BPMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-2-a",
+          "label": "Структуру базы данных: таблицы, связи и ключи"
+        },
+        {
+          "id": "uml_bpmn-intern-2-b",
+          "label": "Интерфейс приложения"
+        },
+        {
+          "id": "uml_bpmn-intern-2-c",
+          "label": "Бизнес-процессы: события, задачи, шлюзы и потоки"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-2-c",
+      "explanation": "BPMN — стандартная нотация моделирования процессов.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-intern-3",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что означает ромб (шлюз) в BPMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-3-a",
+          "label": "Ветвление или слияние потока по условию"
+        },
+        {
+          "id": "uml_bpmn-intern-3-b",
+          "label": "Начало или окончание процесса по событию"
+        },
+        {
+          "id": "uml_bpmn-intern-3-c",
+          "label": "Документ"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-3-a",
+      "explanation": "Исключающий шлюз выбирает один путь из нескольких.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-intern-4",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что показывает диаграмма последовательности UML?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-4-a",
+          "label": "Обмен сообщениями между участниками во времени"
+        },
+        {
+          "id": "uml_bpmn-intern-4-b",
+          "label": "Иерархию классов"
+        },
+        {
+          "id": "uml_bpmn-intern-4-c",
+          "label": "Размещение серверов и программных компонентов по узлам"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-4-a",
+      "explanation": "Время на диаграмме идёт сверху вниз.",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-intern-5",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое ER-диаграмма?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-5-a",
+          "label": "Схема сущностей, их атрибутов и связей"
+        },
+        {
+          "id": "uml_bpmn-intern-5-b",
+          "label": "Схема сетевых подключений"
+        },
+        {
+          "id": "uml_bpmn-intern-5-c",
+          "label": "График выполнения проекта"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-5-a",
+      "explanation": "ER-модель описывает структуру данных.",
+      "source": "https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model"
+    },
+    {
+      "id": "uml_bpmn-intern-6",
+      "grade": "intern",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое дорожка (lane) в BPMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-intern-6-a",
+          "label": "Связь между задачами, показывающая порядок их выполнения"
+        },
+        {
+          "id": "uml_bpmn-intern-6-b",
+          "label": "Область, показывающая, кто выполняет задачи процесса"
+        },
+        {
+          "id": "uml_bpmn-intern-6-c",
+          "label": "Тип события"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-intern-6-b",
+      "explanation": "Дорожки распределяют ответственность между ролями.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-junior-1",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Что означает связь «один ко многим» в модели данных?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-1-a",
+          "label": "Каждой записи одной сущности соответствует ровно одна запись другой сущности"
+        },
+        {
+          "id": "uml_bpmn-junior-1-b",
+          "label": "Записи не связаны"
+        },
+        {
+          "id": "uml_bpmn-junior-1-c",
+          "label": "Одной записи первой сущности соответствует много записей второй"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-1-c",
+      "explanation": "Например, у покупателя много заказов.",
+      "source": "https://en.wikipedia.org/wiki/One-to-many_(data_model)"
+    },
+    {
+      "id": "uml_bpmn-junior-2",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Чем агрегация отличается от композиции в UML?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-2-a",
+          "label": "Это синонимы"
+        },
+        {
+          "id": "uml_bpmn-junior-2-b",
+          "label": "При композиции часть не существует без целого, при агрегации может"
+        },
+        {
+          "id": "uml_bpmn-junior-2-c",
+          "label": "Агрегация используется только для интерфейсов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-2-b",
+      "explanation": "Пример композиции: строки заказа принадлежат заказу.",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-junior-3",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Что показывает диаграмма состояний?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-3-a",
+          "label": "Последовательность экранов дизайна, по которым проходит пользователь"
+        },
+        {
+          "id": "uml_bpmn-junior-3-b",
+          "label": "Структуру классов"
+        },
+        {
+          "id": "uml_bpmn-junior-3-c",
+          "label": "Состояния объекта и переходы между ними по событиям"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-3-c",
+      "explanation": "Пример: статусы заказа от «создан» до «доставлен».",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-junior-4",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Чем параллельный шлюз отличается от исключающего в BPMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-4-a",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "uml_bpmn-junior-4-b",
+          "label": "Параллельный шлюз используется только для событий"
+        },
+        {
+          "id": "uml_bpmn-junior-4-c",
+          "label": "Параллельный запускает все ветви одновременно, исключающий — одну"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-4-c",
+      "explanation": "Слияние параллельных ветвей ждёт завершения каждой.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-junior-5",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое диаграмма деятельности UML?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-5-a",
+          "label": "Список классов системы с их атрибутами и методами"
+        },
+        {
+          "id": "uml_bpmn-junior-5-b",
+          "label": "Поток действий с ветвлениями и параллельностью"
+        },
+        {
+          "id": "uml_bpmn-junior-5-c",
+          "label": "Схема серверов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-5-b",
+      "explanation": "Она близка к блок-схеме процесса.",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-junior-6",
+      "grade": "junior",
+      "skillId": "uml_bpmn",
+      "prompt": "Для чего нужна контекстная диаграмма системы?",
+      "options": [
+        {
+          "id": "uml_bpmn-junior-6-a",
+          "label": "Показать внутренние классы системы и связи между ними на уровне кода программы"
+        },
+        {
+          "id": "uml_bpmn-junior-6-b",
+          "label": "Показать систему и внешние сущности, с которыми она обменивается данными"
+        },
+        {
+          "id": "uml_bpmn-junior-6-c",
+          "label": "Показать график релизов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-junior-6-b",
+      "explanation": "Она задаёт границы системы.",
+      "source": "https://c4model.com/diagrams/system-context"
+    },
+    {
+      "id": "uml_bpmn-middle-1",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое модель C4?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-1-a",
+          "label": "Нотация бизнес-процессов с четырьмя типами шлюзов: контекстным, кодовым и другими"
+        },
+        {
+          "id": "uml_bpmn-middle-1-b",
+          "label": "Набор уровней описания архитектуры: контекст, контейнеры, компоненты, код"
+        },
+        {
+          "id": "uml_bpmn-middle-1-c",
+          "label": "Язык программирования"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-1-b",
+      "explanation": "C4 даёт согласованные диаграммы разной детализации.",
+      "source": "https://c4model.com/"
+    },
+    {
+      "id": "uml_bpmn-middle-2",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Как в BPMN отразить ожидание ответа клиента не дольше трёх дней?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-2-a",
+          "label": "Текстовой аннотацией без события"
+        },
+        {
+          "id": "uml_bpmn-middle-2-b",
+          "label": "Отдельным процессом без связей"
+        },
+        {
+          "id": "uml_bpmn-middle-2-c",
+          "label": "Граничным событием таймера на задаче ожидания"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-2-c",
+      "explanation": "Граничный таймер прерывает или ответвляет поток по истечении срока.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-middle-3",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Чем модель AS-IS отличается от TO-BE?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-3-a",
+          "label": "AS-IS описывает текущий процесс, TO-BE — целевой"
+        },
+        {
+          "id": "uml_bpmn-middle-3-b",
+          "label": "AS-IS — для IT, TO-BE — для бизнеса"
+        },
+        {
+          "id": "uml_bpmn-middle-3-c",
+          "label": "Это одно и то же"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-3-a",
+      "explanation": "Сравнение моделей выявляет изменения и их влияние.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "uml_bpmn-middle-4",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Что показывает диаграмма развёртывания UML?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-4-a",
+          "label": "Размещение компонентов на узлах и связи между узлами"
+        },
+        {
+          "id": "uml_bpmn-middle-4-b",
+          "label": "Порядок разработки компонентов и сроки их выпуска по релизам"
+        },
+        {
+          "id": "uml_bpmn-middle-4-c",
+          "label": "Состояния объектов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-4-a",
+      "explanation": "Она полезна для описания инфраструктуры.",
+      "source": "https://www.omg.org/spec/UML/"
+    },
+    {
+      "id": "uml_bpmn-middle-5",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Как моделировать обмен сообщениями между организациями в BPMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-5-a",
+          "label": "Отдельными пулами и потоками сообщений между ними"
+        },
+        {
+          "id": "uml_bpmn-middle-5-b",
+          "label": "Одной дорожкой для всех"
+        },
+        {
+          "id": "uml_bpmn-middle-5-c",
+          "label": "Последовательным потоком через границы пулов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-5-a",
+      "explanation": "Последовательный поток не пересекает границы пулов.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-middle-6",
+      "grade": "middle",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое нормализация модели данных?",
+      "options": [
+        {
+          "id": "uml_bpmn-middle-6-a",
+          "label": "Ускорение запросов за счёт дублирования данных в таблицах и создания индексов"
+        },
+        {
+          "id": "uml_bpmn-middle-6-b",
+          "label": "Устранение избыточности и аномалий обновления за счёт декомпозиции таблиц"
+        },
+        {
+          "id": "uml_bpmn-middle-6-c",
+          "label": "Шифрование данных"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-middle-6-b",
+      "explanation": "Третья нормальная форма — частая цель для транзакционных систем.",
+      "source": "https://en.wikipedia.org/wiki/Database_normalization"
+    },
+    {
+      "id": "uml_bpmn-senior-1",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Как выбрать уровень детализации диаграмм?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-1-a",
+          "label": "По аудитории и цели: обзор для бизнеса, детали для разработки"
+        },
+        {
+          "id": "uml_bpmn-senior-1-b",
+          "label": "Всегда максимально подробно, чтобы одна диаграмма подходила всем читателям"
+        },
+        {
+          "id": "uml_bpmn-senior-1-c",
+          "label": "Всегда одна общая диаграмма"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-1-a",
+      "explanation": "Перегруженная диаграмма никому не помогает.",
+      "source": "https://c4model.com/"
+    },
+    {
+      "id": "uml_bpmn-senior-2",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое DMN?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-2-a",
+          "label": "Тип базы данных"
+        },
+        {
+          "id": "uml_bpmn-senior-2-b",
+          "label": "Протокол обмена сообщениями между BPM-движками разных производителей"
+        },
+        {
+          "id": "uml_bpmn-senior-2-c",
+          "label": "Нотация моделирования бизнес-правил и решений, например таблиц решений"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-2-c",
+      "explanation": "DMN дополняет BPMN, вынося правила из процесса.",
+      "source": "https://www.omg.org/spec/DMN/"
+    },
+    {
+      "id": "uml_bpmn-senior-3",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Как поддерживать модели в актуальном состоянии?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-3-a",
+          "label": "Рисовать один раз при старте проекта и хранить в общей папке без изменений"
+        },
+        {
+          "id": "uml_bpmn-senior-3-b",
+          "label": "Хранить их как код рядом с системой и обновлять в рамках изменений"
+        },
+        {
+          "id": "uml_bpmn-senior-3-c",
+          "label": "Хранить только в презентациях"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-3-b",
+      "explanation": "Диаграммы как код (PlantUML, Structurizr) версионируются.",
+      "source": "https://structurizr.com/"
+    },
+    {
+      "id": "uml_bpmn-senior-4",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Как выявить узкие места процесса по модели?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-4-a",
+          "label": "Анализировать время ожидания, очереди и повторные циклы с данными о выполнении"
+        },
+        {
+          "id": "uml_bpmn-senior-4-b",
+          "label": "Смотреть на число задач и шлюзов на схеме и сокращать самые длинные ветки"
+        },
+        {
+          "id": "uml_bpmn-senior-4-c",
+          "label": "Удалить все шлюзы"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-4-a",
+      "explanation": "Process mining позволяет восстановить фактический процесс по журналам.",
+      "source": "https://www.tf-pm.org/resources/manifesto"
+    },
+    {
+      "id": "uml_bpmn-senior-5",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Что такое ограниченный контекст в DDD и как его отразить на схеме?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-5-a",
+          "label": "Ограничение длины полей"
+        },
+        {
+          "id": "uml_bpmn-senior-5-b",
+          "label": "Граница модели с единым языком; на схеме — отдельный контекст и связи между ними"
+        },
+        {
+          "id": "uml_bpmn-senior-5-c",
+          "label": "Права доступа пользователей к данным; на схеме — роли и списки разрешённых операций"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-5-b",
+      "explanation": "Карта контекстов показывает отношения между моделями.",
+      "source": "https://martinfowler.com/bliki/BoundedContext.html"
+    },
+    {
+      "id": "uml_bpmn-senior-6",
+      "grade": "senior",
+      "skillId": "uml_bpmn",
+      "prompt": "Как моделировать исключения и компенсации в длинном процессе?",
+      "options": [
+        {
+          "id": "uml_bpmn-senior-6-a",
+          "label": "Игнорировать ошибки на схеме и описывать только основной успешный путь процесса"
+        },
+        {
+          "id": "uml_bpmn-senior-6-b",
+          "label": "Событиями ошибок и компенсирующими действиями, например отменой бронирования"
+        },
+        {
+          "id": "uml_bpmn-senior-6-c",
+          "label": "Описать только основной путь"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-senior-6-b",
+      "explanation": "В распределённых процессах откат делают компенсацией.",
+      "source": "https://microservices.io/patterns/data/saga.html"
+    },
+    {
+      "id": "uml_bpmn-lead-1",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Как ввести единые стандарты моделирования в компании?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-1-a",
+          "label": "Согласовать нотации, шаблоны и репозиторий моделей с ревью"
+        },
+        {
+          "id": "uml_bpmn-lead-1-b",
+          "label": "Разрешить каждому рисовать как удобно"
+        },
+        {
+          "id": "uml_bpmn-lead-1-c",
+          "label": "Запретить диаграммы"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-1-a",
+      "explanation": "Единообразие облегчает понимание между командами.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-lead-2",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Когда автоматизировать процесс на BPM-движке?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-2-a",
+          "label": "Всегда, для любой задачи, потому что движок заменяет программирование"
+        },
+        {
+          "id": "uml_bpmn-lead-2-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "uml_bpmn-lead-2-c",
+          "label": "Когда процесс часто меняется, долгий и требует контроля исполнения"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-2-c",
+      "explanation": "BPM-движок полезен, когда стоимость изменений кода высока.",
+      "source": "https://docs.camunda.io/docs/components/concepts/processes/"
+    },
+    {
+      "id": "uml_bpmn-lead-3",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Как использовать архитектурные модели при принятии решений?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-3-a",
+          "label": "Оценивать варианты по модели с учётом качественных атрибутов и рисков"
+        },
+        {
+          "id": "uml_bpmn-lead-3-b",
+          "label": "Выбирать по первой идее"
+        },
+        {
+          "id": "uml_bpmn-lead-3-c",
+          "label": "Модели не влияют на решения: архитектуру выбирают по опыту ведущего разработчика"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-3-a",
+      "explanation": "ATAM — пример метода оценки архитектуры.",
+      "source": "https://insights.sei.cmu.edu/library/atam-method-for-architecture-evaluation/"
+    },
+    {
+      "id": "uml_bpmn-lead-4",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Как связать модели процессов и цели бизнеса?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-4-a",
+          "label": "Через показатели процесса, влияющие на цели, и владельцев процессов"
+        },
+        {
+          "id": "uml_bpmn-lead-4-b",
+          "label": "Никак: процессы и цели бизнеса — разные области и не связаны показателями"
+        },
+        {
+          "id": "uml_bpmn-lead-4-c",
+          "label": "Через количество шагов"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-4-a",
+      "explanation": "Владелец процесса отвечает за его показатели.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "uml_bpmn-lead-5",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Как обучать команды моделированию?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-5-a",
+          "label": "Практика на их реальных процессах с разбором ошибок"
+        },
+        {
+          "id": "uml_bpmn-lead-5-b",
+          "label": "Раздать спецификацию OMG"
+        },
+        {
+          "id": "uml_bpmn-lead-5-c",
+          "label": "Одна лекция по нотации"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-5-a",
+      "explanation": "Применение к своему контексту закрепляет навык.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "uml_bpmn-lead-6",
+      "grade": "lead",
+      "skillId": "uml_bpmn",
+      "prompt": "Как понять, что модели перестали приносить пользу?",
+      "options": [
+        {
+          "id": "uml_bpmn-lead-6-a",
+          "label": "Когда моделей стало больше десяти и их нарисовали разные люди в разных инструментах"
+        },
+        {
+          "id": "uml_bpmn-lead-6-b",
+          "label": "Когда их нарисовал другой человек"
+        },
+        {
+          "id": "uml_bpmn-lead-6-c",
+          "label": "Ими не пользуются при решениях и изменениях, они расходятся с реальностью"
+        }
+      ],
+      "correctOptionId": "uml_bpmn-lead-6-c",
+      "explanation": "Модели существуют ради коммуникации и решений.",
+      "source": "https://c4model.com/"
+    },
+    {
+      "id": "business_processes-intern-1",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Что такое бизнес-процесс?",
+      "options": [
+        {
+          "id": "business_processes-intern-1-a",
+          "label": "Последовательность действий, создающая результат для клиента"
+        },
+        {
+          "id": "business_processes-intern-1-b",
+          "label": "Отдельная должность в компании, отвечающая за порядок работы сотрудников"
+        },
+        {
+          "id": "business_processes-intern-1-c",
+          "label": "Компьютерная программа"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-1-a",
+      "explanation": "У процесса есть вход, выход, участники и владелец.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-intern-2",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Кто такой владелец процесса?",
+      "options": [
+        {
+          "id": "business_processes-intern-2-a",
+          "label": "Любой участник процесса, который выполняет больше всего задач"
+        },
+        {
+          "id": "business_processes-intern-2-b",
+          "label": "Человек, отвечающий за результат и улучшение процесса"
+        },
+        {
+          "id": "business_processes-intern-2-c",
+          "label": "Разработчик системы"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-2-b",
+      "explanation": "Владелец принимает решения об изменениях.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-intern-3",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Что такое KPI процесса?",
+      "options": [
+        {
+          "id": "business_processes-intern-3-a",
+          "label": "Описание шагов процесса с перечнем документов и ответственных исполнителей"
+        },
+        {
+          "id": "business_processes-intern-3-b",
+          "label": "Измеримый показатель результативности, например время обработки заявки"
+        },
+        {
+          "id": "business_processes-intern-3-c",
+          "label": "Список участников"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-3-b",
+      "explanation": "KPI позволяют оценивать улучшения.",
+      "source": "https://en.wikipedia.org/wiki/Performance_indicator"
+    },
+    {
+      "id": "business_processes-intern-4",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Что такое регламент процесса?",
+      "options": [
+        {
+          "id": "business_processes-intern-4-a",
+          "label": "Список зарплат"
+        },
+        {
+          "id": "business_processes-intern-4-b",
+          "label": "План маркетинга с бюджетом и целевыми показателями продаж"
+        },
+        {
+          "id": "business_processes-intern-4-c",
+          "label": "Документ с порядком выполнения, ролями и сроками"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-4-c",
+      "explanation": "Регламент делает процесс воспроизводимым.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-intern-5",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Что такое «узкое место» процесса?",
+      "options": [
+        {
+          "id": "business_processes-intern-5-a",
+          "label": "Этап, ограничивающий пропускную способность всего процесса"
+        },
+        {
+          "id": "business_processes-intern-5-b",
+          "label": "Самый дорогой этап"
+        },
+        {
+          "id": "business_processes-intern-5-c",
+          "label": "Первый этап процесса, с которого начинается обработка каждой заявки"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-5-a",
+      "explanation": "Улучшение других этапов не ускорит процесс без устранения узкого места.",
+      "source": "https://www.tocinstitute.org/theory-of-constraints.html"
+    },
+    {
+      "id": "business_processes-intern-6",
+      "grade": "intern",
+      "skillId": "business_processes",
+      "prompt": "Что делает аналитик при описании текущего процесса?",
+      "options": [
+        {
+          "id": "business_processes-intern-6-a",
+          "label": "Сразу предлагает новую систему"
+        },
+        {
+          "id": "business_processes-intern-6-b",
+          "label": "Собирает факты у участников и по данным, фиксирует шаги и проблемы"
+        },
+        {
+          "id": "business_processes-intern-6-c",
+          "label": "Описывает процесс по своим представлениям"
+        }
+      ],
+      "correctOptionId": "business_processes-intern-6-b",
+      "explanation": "Описание должно отражать реальность, а не идеал.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-junior-1",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Что такое SIPOC?",
+      "options": [
+        {
+          "id": "business_processes-junior-1-a",
+          "label": "Схема процесса: поставщики, входы, процесс, выходы, потребители"
+        },
+        {
+          "id": "business_processes-junior-1-b",
+          "label": "Метод тестирования"
+        },
+        {
+          "id": "business_processes-junior-1-c",
+          "label": "Формат отчёта о прибыли и убытках компании за квартал работы"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-1-a",
+      "explanation": "SIPOC даёт высокоуровневый обзор процесса.",
+      "source": "https://asq.org/quality-resources/sipoc"
+    },
+    {
+      "id": "business_processes-junior-2",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Что такое матрица RACI?",
+      "options": [
+        {
+          "id": "business_processes-junior-2-a",
+          "label": "Распределение ролей: исполняет, отвечает, консультирует, информируется"
+        },
+        {
+          "id": "business_processes-junior-2-b",
+          "label": "Таблица рисков проекта с оценкой вероятности, влияния и владельцев рисков"
+        },
+        {
+          "id": "business_processes-junior-2-c",
+          "label": "План закупок"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-2-a",
+      "explanation": "RACI устраняет неясность ответственности.",
+      "source": "https://en.wikipedia.org/wiki/Responsibility_assignment_matrix"
+    },
+    {
+      "id": "business_processes-junior-3",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Что такое анализ корневых причин методом «5 почему»?",
+      "options": [
+        {
+          "id": "business_processes-junior-3-a",
+          "label": "Последовательные вопросы «почему» до причины, устранение которой решит проблему"
+        },
+        {
+          "id": "business_processes-junior-3-b",
+          "label": "Опрос пяти ключевых сотрудников о причинах проблемы и голосование за главную"
+        },
+        {
+          "id": "business_processes-junior-3-c",
+          "label": "Пять этапов внедрения"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-3-a",
+      "explanation": "Метод помогает не лечить симптомы.",
+      "source": "https://asq.org/quality-resources/five-whys"
+    },
+    {
+      "id": "business_processes-junior-4",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Что такое диаграмма Исикавы?",
+      "options": [
+        {
+          "id": "business_processes-junior-4-a",
+          "label": "Схема «рыбья кость» для поиска причин проблемы по категориям"
+        },
+        {
+          "id": "business_processes-junior-4-b",
+          "label": "График продаж"
+        },
+        {
+          "id": "business_processes-junior-4-c",
+          "label": "Организационная структура компании с отделами, руководителями и подчинением"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-4-a",
+      "explanation": "Категории причин: люди, методы, оборудование, материалы и другие.",
+      "source": "https://asq.org/quality-resources/fishbone"
+    },
+    {
+      "id": "business_processes-junior-5",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Что показывает время цикла процесса?",
+      "options": [
+        {
+          "id": "business_processes-junior-5-a",
+          "label": "Время от начала до завершения обработки одного элемента"
+        },
+        {
+          "id": "business_processes-junior-5-b",
+          "label": "Число сотрудников"
+        },
+        {
+          "id": "business_processes-junior-5-c",
+          "label": "Стоимость лицензий и оборудования, нужных для выполнения процесса"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-5-a",
+      "explanation": "Сокращение времени цикла — частая цель оптимизации.",
+      "source": "https://www.lean.org/lexicon-terms/cycle-time/"
+    },
+    {
+      "id": "business_processes-junior-6",
+      "grade": "junior",
+      "skillId": "business_processes",
+      "prompt": "Зачем считать стоимость процесса?",
+      "options": [
+        {
+          "id": "business_processes-junior-6-a",
+          "label": "Чтобы уменьшить зарплаты сотрудников, участвующих в процессе"
+        },
+        {
+          "id": "business_processes-junior-6-b",
+          "label": "Чтобы оценить эффект изменений и окупаемость автоматизации"
+        },
+        {
+          "id": "business_processes-junior-6-c",
+          "label": "Это не нужно аналитику"
+        }
+      ],
+      "correctOptionId": "business_processes-junior-6-b",
+      "explanation": "Без стоимости трудно сравнивать варианты решений.",
+      "source": "https://en.wikipedia.org/wiki/Activity-based_costing"
+    },
+    {
+      "id": "business_processes-middle-1",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Что такое карта потока создания ценности (VSM)?",
+      "options": [
+        {
+          "id": "business_processes-middle-1-a",
+          "label": "Схема серверов"
+        },
+        {
+          "id": "business_processes-middle-1-b",
+          "label": "План маркетинговой кампании с этапами, каналами и целевыми показателями"
+        },
+        {
+          "id": "business_processes-middle-1-c",
+          "label": "Схема всех шагов с временем работы и ожидания для поиска потерь"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-1-c",
+      "explanation": "VSM выявляет ожидания, которые часто занимают большую часть времени.",
+      "source": "https://www.lean.org/lexicon-terms/value-stream-mapping/"
+    },
+    {
+      "id": "business_processes-middle-2",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Какие потери выделяет бережливое производство?",
+      "options": [
+        {
+          "id": "business_processes-middle-2-a",
+          "label": "Только финансовые потери компании: штрафы, недостачи и списания товаров"
+        },
+        {
+          "id": "business_processes-middle-2-b",
+          "label": "Ожидание, лишние перемещения, переделки, избыточная обработка и другие"
+        },
+        {
+          "id": "business_processes-middle-2-c",
+          "label": "Только потери данных"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-2-b",
+      "explanation": "Устранение потерь повышает ценность для клиента.",
+      "source": "https://www.lean.org/lexicon-terms/muda-mura-muri/"
+    },
+    {
+      "id": "business_processes-middle-3",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Как оценить эффект автоматизации процесса заранее?",
+      "options": [
+        {
+          "id": "business_processes-middle-3-a",
+          "label": "Сравнить текущие время и стоимость с прогнозом после внедрения и учесть затраты на внедрение"
+        },
+        {
+          "id": "business_processes-middle-3-b",
+          "label": "Предположить, что автоматизация всегда окупается в течение года, и не считать затраты"
+        },
+        {
+          "id": "business_processes-middle-3-c",
+          "label": "Оценить по стоимости лицензии"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-3-a",
+      "explanation": "Бизнес-кейс включает выгоды, затраты и риски.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-middle-4",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Что такое gap-анализ?",
+      "options": [
+        {
+          "id": "business_processes-middle-4-a",
+          "label": "Анализ пробелов в базе данных клиентов и заполнение недостающих полей вручную"
+        },
+        {
+          "id": "business_processes-middle-4-b",
+          "label": "Поиск ошибок в коде"
+        },
+        {
+          "id": "business_processes-middle-4-c",
+          "label": "Сравнение текущего и целевого состояния с перечнем необходимых изменений"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-4-c",
+      "explanation": "Результат — список изменений для перехода к цели.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-middle-5",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Как учесть сопротивление изменениям в процессах?",
+      "options": [
+        {
+          "id": "business_processes-middle-5-a",
+          "label": "Вовлекать участников, объяснять причины и обучать"
+        },
+        {
+          "id": "business_processes-middle-5-b",
+          "label": "Вводить изменения приказом без объяснений"
+        },
+        {
+          "id": "business_processes-middle-5-c",
+          "label": "Не сообщать сотрудникам об изменениях"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-5-a",
+      "explanation": "Управление изменениями — часть успеха проекта.",
+      "source": "https://www.prosci.com/methodology/adkar"
+    },
+    {
+      "id": "business_processes-middle-6",
+      "grade": "middle",
+      "skillId": "business_processes",
+      "prompt": "Что такое процессный подход в управлении?",
+      "options": [
+        {
+          "id": "business_processes-middle-6-a",
+          "label": "Управление компанией только через проекты с фиксированными сроками и бюджетами без постоянных функций"
+        },
+        {
+          "id": "business_processes-middle-6-b",
+          "label": "Управление деятельностью как набором взаимосвязанных процессов с целями и владельцами"
+        },
+        {
+          "id": "business_processes-middle-6-c",
+          "label": "Отказ от документации"
+        }
+      ],
+      "correctOptionId": "business_processes-middle-6-b",
+      "explanation": "Процессный подход заложен в ISO 9001.",
+      "source": "https://www.iso.org/standard/62085.html"
+    },
+    {
+      "id": "business_processes-senior-1",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Что такое process mining?",
+      "options": [
+        {
+          "id": "business_processes-senior-1-a",
+          "label": "Добыча данных из интернета"
+        },
+        {
+          "id": "business_processes-senior-1-b",
+          "label": "Восстановление и анализ фактического процесса по журналам событий систем"
+        },
+        {
+          "id": "business_processes-senior-1-c",
+          "label": "Генерация процессов искусственным интеллектом"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-1-b",
+      "explanation": "Позволяет увидеть отклонения от модели.",
+      "source": "https://www.tf-pm.org/resources/manifesto"
+    },
+    {
+      "id": "business_processes-senior-2",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Как проводить реинжиниринг процесса?",
+      "options": [
+        {
+          "id": "business_processes-senior-2-a",
+          "label": "Перенести бумажный процесс в информационную систему без изменений шагов и документов"
+        },
+        {
+          "id": "business_processes-senior-2-b",
+          "label": "Пересмотреть процесс от цели клиента, а не автоматизировать текущие шаги как есть"
+        },
+        {
+          "id": "business_processes-senior-2-c",
+          "label": "Сократить сотрудников"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-2-b",
+      "explanation": "Автоматизация неэффективного процесса ускоряет неэффективность.",
+      "source": "https://hbr.org/1990/07/reengineering-work-dont-automate-obliterate"
+    },
+    {
+      "id": "business_processes-senior-3",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Как определить приоритет улучшений процессов?",
+      "options": [
+        {
+          "id": "business_processes-senior-3-a",
+          "label": "По влиянию на цели, стоимости и сложности внедрения"
+        },
+        {
+          "id": "business_processes-senior-3-b",
+          "label": "По жалобам самого громкого отдела"
+        },
+        {
+          "id": "business_processes-senior-3-c",
+          "label": "По алфавиту"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-3-a",
+      "explanation": "Матрица эффекта и усилий помогает выбрать быстрые победы.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "business_processes-senior-4",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Как контролировать процесс после изменений?",
+      "options": [
+        {
+          "id": "business_processes-senior-4-a",
+          "label": "Считать задачу завершённой после внедрения"
+        },
+        {
+          "id": "business_processes-senior-4-b",
+          "label": "Проверять раз в пять лет"
+        },
+        {
+          "id": "business_processes-senior-4-c",
+          "label": "Мониторить KPI и отклонения, проводить регулярные ревизии"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-4-c",
+      "explanation": "Без контроля процессы возвращаются к прежнему состоянию.",
+      "source": "https://asq.org/quality-resources/pdca-cycle"
+    },
+    {
+      "id": "business_processes-senior-5",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Что такое цикл PDCA?",
+      "options": [
+        {
+          "id": "business_processes-senior-5-a",
+          "label": "Метод оценки сотрудников по результатам квартала и планирования их развития"
+        },
+        {
+          "id": "business_processes-senior-5-b",
+          "label": "Формат договора"
+        },
+        {
+          "id": "business_processes-senior-5-c",
+          "label": "Планируй, делай, проверяй, действуй — цикл непрерывного улучшения"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-5-c",
+      "explanation": "Цикл Деминга лежит в основе систем менеджмента качества.",
+      "source": "https://asq.org/quality-resources/pdca-cycle"
+    },
+    {
+      "id": "business_processes-senior-6",
+      "grade": "senior",
+      "skillId": "business_processes",
+      "prompt": "Как описать процесс, проходящий через несколько систем?",
+      "options": [
+        {
+          "id": "business_processes-senior-6-a",
+          "label": "Отдельно для каждой системы без указания связей между ними и ответственных"
+        },
+        {
+          "id": "business_processes-senior-6-b",
+          "label": "Только для основной системы"
+        },
+        {
+          "id": "business_processes-senior-6-c",
+          "label": "Сквозная модель с указанием систем, интеграций и ответственных на каждом шаге"
+        }
+      ],
+      "correctOptionId": "business_processes-senior-6-c",
+      "explanation": "Сквозной взгляд выявляет разрывы на стыках.",
+      "source": "https://www.omg.org/spec/BPMN/"
+    },
+    {
+      "id": "business_processes-lead-1",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Как построить архитектуру процессов компании?",
+      "options": [
+        {
+          "id": "business_processes-lead-1-a",
+          "label": "Список всех задач сотрудников, отсортированный по отделам и должностям"
+        },
+        {
+          "id": "business_processes-lead-1-b",
+          "label": "Иерархия процессов от верхнего уровня до операций с владельцами и показателями"
+        },
+        {
+          "id": "business_processes-lead-1-c",
+          "label": "Организационная структура"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-1-b",
+      "explanation": "Архитектура процессов связывает стратегию и операционную деятельность.",
+      "source": "https://www.apqc.org/process-frameworks"
+    },
+    {
+      "id": "business_processes-lead-2",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Как связать стратегию компании с улучшением процессов?",
+      "options": [
+        {
+          "id": "business_processes-lead-2-a",
+          "label": "Никак, стратегия и процессы — разные уровни, которые не связаны показателями"
+        },
+        {
+          "id": "business_processes-lead-2-b",
+          "label": "Через бюджет IT"
+        },
+        {
+          "id": "business_processes-lead-2-c",
+          "label": "Через цели и показатели, каскадированные на ключевые процессы"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-2-c",
+      "explanation": "Система сбалансированных показателей — один из способов каскадирования.",
+      "source": "https://balancedscorecard.org/"
+    },
+    {
+      "id": "business_processes-lead-3",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Как оценить зрелость процессного управления?",
+      "options": [
+        {
+          "id": "business_processes-lead-3-a",
+          "label": "По числу утверждённых регламентов и количеству совещаний руководителей за год"
+        },
+        {
+          "id": "business_processes-lead-3-b",
+          "label": "По модели зрелости: документированность, измеримость, управление и улучшение"
+        },
+        {
+          "id": "business_processes-lead-3-c",
+          "label": "По числу совещаний"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-3-b",
+      "explanation": "Модели зрелости показывают следующий шаг развития.",
+      "source": "https://cmmiinstitute.com/cmmi"
+    },
+    {
+      "id": "business_processes-lead-4",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Как вести портфель инициатив по улучшению?",
+      "options": [
+        {
+          "id": "business_processes-lead-4-a",
+          "label": "Запускать все инициативы одновременно"
+        },
+        {
+          "id": "business_processes-lead-4-b",
+          "label": "Единый список с оценкой ценности, ресурсов и зависимостей и регулярным пересмотром"
+        },
+        {
+          "id": "business_processes-lead-4-c",
+          "label": "Каждый отдел ведёт свой список инициатив и запускает их без координации с другими"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-4-b",
+      "explanation": "Управление портфелем предотвращает распыление ресурсов.",
+      "source": "https://en.wikipedia.org/wiki/Project_portfolio_management"
+    },
+    {
+      "id": "business_processes-lead-5",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Как развивать культуру непрерывных улучшений?",
+      "options": [
+        {
+          "id": "business_processes-lead-5-a",
+          "label": "Наказывать за ошибки"
+        },
+        {
+          "id": "business_processes-lead-5-b",
+          "label": "Поощрять предложения сотрудников, быстро их проверять и показывать результаты"
+        },
+        {
+          "id": "business_processes-lead-5-c",
+          "label": "Делать улучшения только силами внешних консультантов и наказывать за ошибки"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-5-b",
+      "explanation": "Кайдзен опирается на участие всех сотрудников.",
+      "source": "https://www.lean.org/lexicon-terms/kaizen/"
+    },
+    {
+      "id": "business_processes-lead-6",
+      "grade": "lead",
+      "skillId": "business_processes",
+      "prompt": "Когда процессу нужен внешний аудит?",
+      "options": [
+        {
+          "id": "business_processes-lead-6-a",
+          "label": "Для независимой оценки соответствия стандартам и выявления скрытых проблем"
+        },
+        {
+          "id": "business_processes-lead-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "business_processes-lead-6-c",
+          "label": "Только при смене руководства, чтобы новый директор понял состояние дел в компании"
+        }
+      ],
+      "correctOptionId": "business_processes-lead-6-a",
+      "explanation": "Сертификационный аудит ISO 9001 проводит внешний орган.",
+      "source": "https://www.iso.org/standard/62085.html"
+    },
+    {
+      "id": "ui_design-intern-1",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Что такое визуальная иерархия?",
+      "options": [
+        {
+          "id": "ui_design-intern-1-a",
+          "label": "Иерархия файлов и папок в проекте дизайнера, отсортированная по экранам продукта и версиям"
+        },
+        {
+          "id": "ui_design-intern-1-b",
+          "label": "Порядок, в котором пользователь замечает элементы, заданный размером, цветом и расположением"
+        },
+        {
+          "id": "ui_design-intern-1-c",
+          "label": "Список экранов"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-1-b",
+      "explanation": "Главное действие должно выделяться сильнее второстепенных.",
+      "source": "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/"
+    },
+    {
+      "id": "ui_design-intern-2",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Зачем нужна сетка в макете?",
+      "options": [
+        {
+          "id": "ui_design-intern-2-a",
+          "label": "Для выравнивания элементов и единых отступов"
+        },
+        {
+          "id": "ui_design-intern-2-b",
+          "label": "Для ускорения загрузки"
+        },
+        {
+          "id": "ui_design-intern-2-c",
+          "label": "Для печати"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-2-a",
+      "explanation": "Сетка делает интерфейс аккуратным и предсказуемым.",
+      "source": "https://m3.material.io/foundations"
+    },
+    {
+      "id": "ui_design-intern-3",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Какой минимальный контраст текста по WCAG для обычного текста уровня AA?",
+      "options": [
+        {
+          "id": "ui_design-intern-3-a",
+          "label": "2:1"
+        },
+        {
+          "id": "ui_design-intern-3-b",
+          "label": "4.5:1"
+        },
+        {
+          "id": "ui_design-intern-3-c",
+          "label": "10:1"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-3-b",
+      "explanation": "Для крупного текста достаточно 3:1.",
+      "source": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+    },
+    {
+      "id": "ui_design-intern-4",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Что такое вайрфрейм?",
+      "options": [
+        {
+          "id": "ui_design-intern-4-a",
+          "label": "Готовый дизайн экрана с цветами, шрифтами и иллюстрациями"
+        },
+        {
+          "id": "ui_design-intern-4-b",
+          "label": "Схематичный макет структуры экрана без детальной стилизации"
+        },
+        {
+          "id": "ui_design-intern-4-c",
+          "label": "Анимация"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-4-b",
+      "explanation": "Вайрфреймы позволяют быстро обсуждать структуру.",
+      "source": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+    },
+    {
+      "id": "ui_design-intern-5",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Почему нельзя передавать информацию только цветом?",
+      "options": [
+        {
+          "id": "ui_design-intern-5-a",
+          "label": "Цвет плохо печатается"
+        },
+        {
+          "id": "ui_design-intern-5-b",
+          "label": "Цветные элементы запрещены стандартами для государственных сайтов"
+        },
+        {
+          "id": "ui_design-intern-5-c",
+          "label": "Пользователи с нарушениями цветового зрения её не различат"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-5-c",
+      "explanation": "Добавляйте текст или иконки к цветовым сигналам.",
+      "source": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html"
+    },
+    {
+      "id": "ui_design-intern-6",
+      "grade": "intern",
+      "skillId": "ui_design",
+      "prompt": "Какой минимальный размер цели касания рекомендуют для мобильных интерфейсов?",
+      "options": [
+        {
+          "id": "ui_design-intern-6-a",
+          "label": "10 пикселей"
+        },
+        {
+          "id": "ui_design-intern-6-b",
+          "label": "Около 44–48 пикселей по стороне"
+        },
+        {
+          "id": "ui_design-intern-6-c",
+          "label": "200 пикселей"
+        }
+      ],
+      "correctOptionId": "ui_design-intern-6-b",
+      "explanation": "Мелкие цели приводят к ошибочным нажатиям.",
+      "source": "https://m3.material.io/foundations/designing/structure"
+    },
+    {
+      "id": "ui_design-junior-1",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Что такое дизайн-система?",
+      "options": [
+        {
+          "id": "ui_design-junior-1-a",
+          "label": "Один макет главной страницы, по которому верстают все остальные экраны"
+        },
+        {
+          "id": "ui_design-junior-1-b",
+          "label": "Логотип компании"
+        },
+        {
+          "id": "ui_design-junior-1-c",
+          "label": "Набор компонентов, правил и токенов для единообразного интерфейса"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-1-c",
+      "explanation": "Дизайн-система ускоряет разработку и сохраняет согласованность.",
+      "source": "https://www.nngroup.com/articles/design-systems-101/"
+    },
+    {
+      "id": "ui_design-junior-2",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Что такое состояния компонента?",
+      "options": [
+        {
+          "id": "ui_design-junior-2-a",
+          "label": "Версии файла макета, сохранённые дизайнером в истории изменений Figma"
+        },
+        {
+          "id": "ui_design-junior-2-b",
+          "label": "Варианты вида: обычный, наведение, фокус, нажатие, отключённый, ошибка"
+        },
+        {
+          "id": "ui_design-junior-2-c",
+          "label": "Цвета бренда"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-2-b",
+      "explanation": "Все состояния нужно спроектировать, иначе разработчики их придумают.",
+      "source": "https://m3.material.io/foundations/interaction/states/overview"
+    },
+    {
+      "id": "ui_design-junior-3",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Как оформить сообщение об ошибке в форме?",
+      "options": [
+        {
+          "id": "ui_design-junior-3-a",
+          "label": "Только красной рамкой без текста"
+        },
+        {
+          "id": "ui_design-junior-3-b",
+          "label": "Рядом с полем, понятным языком и с подсказкой, как исправить"
+        },
+        {
+          "id": "ui_design-junior-3-c",
+          "label": "Всплывающим окном после отправки всей формы"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-3-b",
+      "explanation": "Сообщение должно объяснять, что не так и что делать.",
+      "source": "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+    },
+    {
+      "id": "ui_design-junior-4",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Зачем нужен видимый фокус элементов?",
+      "options": [
+        {
+          "id": "ui_design-junior-4-a",
+          "label": "Пользователи клавиатуры должны видеть, где находятся"
+        },
+        {
+          "id": "ui_design-junior-4-b",
+          "label": "Для красоты"
+        },
+        {
+          "id": "ui_design-junior-4-c",
+          "label": "Чтобы ускорить анимацию переходов при нажатии на кнопки"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-4-a",
+      "explanation": "Скрытие фокуса нарушает доступность.",
+      "source": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html"
+    },
+    {
+      "id": "ui_design-junior-5",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Что такое токены дизайна?",
+      "options": [
+        {
+          "id": "ui_design-junior-5-a",
+          "label": "Именованные значения цветов, отступов и шрифтов, общие для дизайна и кода"
+        },
+        {
+          "id": "ui_design-junior-5-b",
+          "label": "Ключи доступа к Figma и другим инструментам дизайна для разработчиков команды"
+        },
+        {
+          "id": "ui_design-junior-5-c",
+          "label": "Иконки"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-5-a",
+      "explanation": "Токены позволяют менять тему в одном месте.",
+      "source": "https://www.w3.org/community/design-tokens/"
+    },
+    {
+      "id": "ui_design-junior-6",
+      "grade": "junior",
+      "skillId": "ui_design",
+      "prompt": "Как передать макет разработчикам без потерь?",
+      "options": [
+        {
+          "id": "ui_design-junior-6-a",
+          "label": "Компоненты из дизайн-системы, описанные состояния, адаптивность и спецификации"
+        },
+        {
+          "id": "ui_design-junior-6-b",
+          "label": "Только картинка экрана в высоком разрешении, остальное разработчики решат сами"
+        },
+        {
+          "id": "ui_design-junior-6-c",
+          "label": "Устное описание"
+        }
+      ],
+      "correctOptionId": "ui_design-junior-6-a",
+      "explanation": "Неописанные состояния и размеры — частая причина расхождений.",
+      "source": "https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode"
+    },
+    {
+      "id": "ui_design-middle-1",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Как спроектировать адаптивный интерфейс?",
+      "options": [
+        {
+          "id": "ui_design-middle-1-a",
+          "label": "Нарисовать только десктопную версию"
+        },
+        {
+          "id": "ui_design-middle-1-b",
+          "label": "Определить контрольные точки и поведение компонентов на каждой ширине"
+        },
+        {
+          "id": "ui_design-middle-1-c",
+          "label": "Масштабировать десктопный макет пропорционально ширине любого экрана"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-1-b",
+      "explanation": "Контент должен перестраиваться, а не уменьшаться.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes"
+    },
+    {
+      "id": "ui_design-middle-2",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Чем полезна типографическая шкала?",
+      "options": [
+        {
+          "id": "ui_design-middle-2-a",
+          "label": "Ускоряет загрузку шрифтов за счёт меньшего числа файлов"
+        },
+        {
+          "id": "ui_design-middle-2-b",
+          "label": "Заменяет сетку"
+        },
+        {
+          "id": "ui_design-middle-2-c",
+          "label": "Задаёт согласованные размеры шрифтов для заголовков и текста"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-2-c",
+      "explanation": "Ограниченный набор размеров делает иерархию ясной.",
+      "source": "https://m3.material.io/styles/typography/type-scale-tokens"
+    },
+    {
+      "id": "ui_design-middle-3",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Как проектировать пустые состояния экрана?",
+      "options": [
+        {
+          "id": "ui_design-middle-3-a",
+          "label": "Оставить пустую страницу без текста, чтобы не отвлекать пользователя"
+        },
+        {
+          "id": "ui_design-middle-3-b",
+          "label": "Показать ошибку"
+        },
+        {
+          "id": "ui_design-middle-3-c",
+          "label": "Объяснить, почему пусто, и предложить следующее действие"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-3-c",
+      "explanation": "Пустое состояние — возможность помочь пользователю начать.",
+      "source": "https://www.nngroup.com/articles/empty-state-interface-design/"
+    },
+    {
+      "id": "ui_design-middle-4",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Как оформить загрузку данных?",
+      "options": [
+        {
+          "id": "ui_design-middle-4-a",
+          "label": "Белый экран до полной загрузки"
+        },
+        {
+          "id": "ui_design-middle-4-b",
+          "label": "Скелетоны или индикаторы с сохранением раскладки"
+        },
+        {
+          "id": "ui_design-middle-4-c",
+          "label": "Мигающий текст"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-4-b",
+      "explanation": "Сохранение раскладки предотвращает скачки контента.",
+      "source": "https://www.nngroup.com/articles/skeleton-screens/"
+    },
+    {
+      "id": "ui_design-middle-5",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Как поддерживать тёмную тему в дизайн-системе?",
+      "options": [
+        {
+          "id": "ui_design-middle-5-a",
+          "label": "Инвертировать все цвета"
+        },
+        {
+          "id": "ui_design-middle-5-b",
+          "label": "Через семантические токены цветов с отдельными значениями для темы"
+        },
+        {
+          "id": "ui_design-middle-5-c",
+          "label": "Сделать отдельные макеты всех экранов вручную"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-5-b",
+      "explanation": "Семантические токены (фон, текст, акцент) переключаются целиком.",
+      "source": "https://m3.material.io/styles/color/system/overview"
+    },
+    {
+      "id": "ui_design-middle-6",
+      "grade": "middle",
+      "skillId": "ui_design",
+      "prompt": "Как проверить доступность макета до разработки?",
+      "options": [
+        {
+          "id": "ui_design-middle-6-a",
+          "label": "Доступность проверяется только в готовом коде, макет на неё не влияет"
+        },
+        {
+          "id": "ui_design-middle-6-b",
+          "label": "Проверить контраст, размеры целей, порядок фокуса и подписи"
+        },
+        {
+          "id": "ui_design-middle-6-c",
+          "label": "Достаточно красивого цвета"
+        }
+      ],
+      "correctOptionId": "ui_design-middle-6-b",
+      "explanation": "Ранняя проверка дешевле исправлений.",
+      "source": "https://www.w3.org/WAI/WCAG22/quickref/"
+    },
+    {
+      "id": "ui_design-senior-1",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как развивать дизайн-систему при росте продукта?",
+      "options": [
+        {
+          "id": "ui_design-senior-1-a",
+          "label": "Вклад команд через процесс ревью, версии и документацию использования"
+        },
+        {
+          "id": "ui_design-senior-1-b",
+          "label": "Запретить новые компоненты"
+        },
+        {
+          "id": "ui_design-senior-1-c",
+          "label": "Каждая команда делает свои компоненты и добавляет их в библиотеку без проверки и версий"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-1-a",
+      "explanation": "Процесс вклада сохраняет согласованность и скорость.",
+      "source": "https://www.designsystems.com/"
+    },
+    {
+      "id": "ui_design-senior-2",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как измерить эффективность дизайн-системы?",
+      "options": [
+        {
+          "id": "ui_design-senior-2-a",
+          "label": "Число компонентов в библиотеке и количество цветов в палитре дизайн-системы"
+        },
+        {
+          "id": "ui_design-senior-2-b",
+          "label": "Число цветов"
+        },
+        {
+          "id": "ui_design-senior-2-c",
+          "label": "Доля использования компонентов, скорость разработки и число расхождений интерфейса"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-2-c",
+      "explanation": "Метрики показывают, помогает ли система командам.",
+      "source": "https://www.nngroup.com/articles/design-systems-101/"
+    },
+    {
+      "id": "ui_design-senior-3",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как проектировать интерфейс для данных с большим объёмом?",
+      "options": [
+        {
+          "id": "ui_design-senior-3-a",
+          "label": "Фильтры, сортировка, поиск, пагинация и сохранение состояния просмотра"
+        },
+        {
+          "id": "ui_design-senior-3-b",
+          "label": "Показывать все данные одной большой таблицей без фильтров и сортировки"
+        },
+        {
+          "id": "ui_design-senior-3-c",
+          "label": "Скрывать данные"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-3-a",
+      "explanation": "Пользователь должен быстро находить нужное.",
+      "source": "https://www.nngroup.com/articles/data-tables/"
+    },
+    {
+      "id": "ui_design-senior-4",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как обосновать дизайнерское решение перед командой?",
+      "options": [
+        {
+          "id": "ui_design-senior-4-a",
+          "label": "Через личный вкус и опыт ведущего дизайнера, подкреплённые ссылками на модные тренды"
+        },
+        {
+          "id": "ui_design-senior-4-b",
+          "label": "Через цели пользователей, данные исследований и принципы дизайн-системы"
+        },
+        {
+          "id": "ui_design-senior-4-c",
+          "label": "Через тренды"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-4-b",
+      "explanation": "Аргументы, связанные с целями, проще принять.",
+      "source": "https://www.nngroup.com/articles/design-critiques/"
+    },
+    {
+      "id": "ui_design-senior-5",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как сделать микровзаимодействия полезными?",
+      "options": [
+        {
+          "id": "ui_design-senior-5-a",
+          "label": "Добавлять анимацию ко всем элементам интерфейса и делать её длиннее двух секунд для заметности"
+        },
+        {
+          "id": "ui_design-senior-5-b",
+          "label": "Давать обратную связь о действии, не мешая и учитывая настройку уменьшения движения"
+        },
+        {
+          "id": "ui_design-senior-5-c",
+          "label": "Делать анимации длиннее 2 секунд"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-5-b",
+      "explanation": "Учитывайте prefers-reduced-motion.",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion"
+    },
+    {
+      "id": "ui_design-senior-6",
+      "grade": "senior",
+      "skillId": "ui_design",
+      "prompt": "Как работать с обратной связью стейкхолдеров по макетам?",
+      "options": [
+        {
+          "id": "ui_design-senior-6-a",
+          "label": "Собрать её структурированно, отделить проблемы от решений и согласовать приоритеты"
+        },
+        {
+          "id": "ui_design-senior-6-b",
+          "label": "Вносить все правки подряд в порядке поступления, не обсуждая причины, чтобы быстрее закрыть замечания"
+        },
+        {
+          "id": "ui_design-senior-6-c",
+          "label": "Игнорировать"
+        }
+      ],
+      "correctOptionId": "ui_design-senior-6-a",
+      "explanation": "Важно понять стоящую за правкой проблему.",
+      "source": "https://www.nngroup.com/articles/design-critiques/"
+    },
+    {
+      "id": "ui_design-lead-1",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Как построить дизайн-команду в продуктовой компании?",
+      "options": [
+        {
+          "id": "ui_design-lead-1-a",
+          "label": "Один дизайнер на всю компанию"
+        },
+        {
+          "id": "ui_design-lead-1-b",
+          "label": "Один дизайнер на всю компанию, который принимает все решения по интерфейсам продуктов"
+        },
+        {
+          "id": "ui_design-lead-1-c",
+          "label": "Дизайнеры в продуктовых командах плюс общая практика и дизайн-система"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-1-c",
+      "explanation": "Встроенные дизайнеры ближе к задачам, общая практика сохраняет качество.",
+      "source": "https://www.nngroup.com/articles/design-operations-101/"
+    },
+    {
+      "id": "ui_design-lead-2",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Как оценивать работу дизайнеров?",
+      "options": [
+        {
+          "id": "ui_design-lead-2-a",
+          "label": "По влиянию на метрики продукта, качеству решений и сотрудничеству"
+        },
+        {
+          "id": "ui_design-lead-2-b",
+          "label": "По числу макетов"
+        },
+        {
+          "id": "ui_design-lead-2-c",
+          "label": "По числу нарисованных макетов и часов, проведённых в Figma за месяц"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-2-a",
+      "explanation": "Результат дизайна измеряется пользовательской ценностью.",
+      "source": "https://www.nngroup.com/articles/ux-maturity-model/"
+    },
+    {
+      "id": "ui_design-lead-3",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Что такое DesignOps?",
+      "options": [
+        {
+          "id": "ui_design-lead-3-a",
+          "label": "Автоматическая генерация дизайна интерфейсов нейросетью по текстовому описанию задачи"
+        },
+        {
+          "id": "ui_design-lead-3-b",
+          "label": "Организация процессов, инструментов и людей для эффективной дизайн-работы"
+        },
+        {
+          "id": "ui_design-lead-3-c",
+          "label": "Отдел тестирования"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-3-b",
+      "explanation": "DesignOps масштабирует практику дизайна.",
+      "source": "https://www.nngroup.com/articles/design-operations-101/"
+    },
+    {
+      "id": "ui_design-lead-4",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Как обеспечить соответствие продукта требованиям доступности?",
+      "options": [
+        {
+          "id": "ui_design-lead-4-a",
+          "label": "Проверить доступность один раз перед запуском и исправить найденное за неделю"
+        },
+        {
+          "id": "ui_design-lead-4-b",
+          "label": "Включить доступность в стандарты, обучение, ревью и тестирование"
+        },
+        {
+          "id": "ui_design-lead-4-c",
+          "label": "Оставить на разработчиков"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-4-b",
+      "explanation": "Доступность должна быть частью процесса.",
+      "source": "https://www.w3.org/WAI/planning/"
+    },
+    {
+      "id": "ui_design-lead-5",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Как согласовать бренд и удобство интерфейса?",
+      "options": [
+        {
+          "id": "ui_design-lead-5-a",
+          "label": "Жертвовать удобством ради бренда, потому что узнаваемость важнее любых метрик продукта"
+        },
+        {
+          "id": "ui_design-lead-5-b",
+          "label": "Не использовать бренд"
+        },
+        {
+          "id": "ui_design-lead-5-c",
+          "label": "Выразить бренд через токены и стиль, не нарушая принципов юзабилити"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-5-c",
+      "explanation": "Бренд и удобство совместимы при системном подходе.",
+      "source": "https://www.nngroup.com/articles/ten-usability-heuristics/"
+    },
+    {
+      "id": "ui_design-lead-6",
+      "grade": "lead",
+      "skillId": "ui_design",
+      "prompt": "Когда переделывать интерфейс целиком?",
+      "options": [
+        {
+          "id": "ui_design-lead-6-a",
+          "label": "Когда исследования показывают системные проблемы, а постепенные улучшения их не решают"
+        },
+        {
+          "id": "ui_design-lead-6-b",
+          "label": "Каждый год"
+        },
+        {
+          "id": "ui_design-lead-6-c",
+          "label": "Когда сменился руководитель"
+        }
+      ],
+      "correctOptionId": "ui_design-lead-6-a",
+      "explanation": "Полный редизайн рискован и дорог.",
+      "source": "https://www.nngroup.com/articles/usability-testing-101/"
+    },
+    {
+      "id": "ux_design-intern-1",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Что такое UX?",
+      "options": [
+        {
+          "id": "ux_design-intern-1-a",
+          "label": "Только внешний вид интерфейса: цвета, шрифты и иллюстрации продукта"
+        },
+        {
+          "id": "ux_design-intern-1-b",
+          "label": "Опыт пользователя при взаимодействии с продуктом"
+        },
+        {
+          "id": "ux_design-intern-1-c",
+          "label": "Язык программирования"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-1-b",
+      "explanation": "UX включает удобство, полезность и эмоции.",
+      "source": "https://www.nngroup.com/articles/definition-user-experience/"
+    },
+    {
+      "id": "ux_design-intern-2",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Что такое персона?",
+      "options": [
+        {
+          "id": "ux_design-intern-2-a",
+          "label": "Реальный пользователь с именем, который согласился помогать команде"
+        },
+        {
+          "id": "ux_design-intern-2-b",
+          "label": "Обобщённый образ пользователя на основе исследований"
+        },
+        {
+          "id": "ux_design-intern-2-c",
+          "label": "Тип аккаунта"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-2-b",
+      "explanation": "Персоны помогают команде помнить о целях пользователей.",
+      "source": "https://www.nngroup.com/articles/persona/"
+    },
+    {
+      "id": "ux_design-intern-3",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Что такое юзабилити-тестирование?",
+      "options": [
+        {
+          "id": "ux_design-intern-3-a",
+          "label": "Опрос пользователей о любимых цветах и шрифтах интерфейса продукта"
+        },
+        {
+          "id": "ux_design-intern-3-b",
+          "label": "Наблюдение за тем, как пользователи выполняют задачи в продукте"
+        },
+        {
+          "id": "ux_design-intern-3-c",
+          "label": "Проверка кода"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-3-b",
+      "explanation": "Пять участников обычно находят большинство крупных проблем.",
+      "source": "https://www.nngroup.com/articles/usability-testing-101/"
+    },
+    {
+      "id": "ux_design-intern-4",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Что такое пользовательский путь (customer journey map)?",
+      "options": [
+        {
+          "id": "ux_design-intern-4-a",
+          "label": "Карта офиса"
+        },
+        {
+          "id": "ux_design-intern-4-b",
+          "label": "Визуализация шагов, действий и эмоций пользователя при достижении цели"
+        },
+        {
+          "id": "ux_design-intern-4-c",
+          "label": "Схема офиса компании с расположением отделов и переговорных комнат"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-4-b",
+      "explanation": "Карта выявляет болевые точки на пути.",
+      "source": "https://www.nngroup.com/articles/journey-mapping-101/"
+    },
+    {
+      "id": "ux_design-intern-5",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Что такое прототип?",
+      "options": [
+        {
+          "id": "ux_design-intern-5-a",
+          "label": "Финальная версия продукта, готовая к выпуску в магазин приложений"
+        },
+        {
+          "id": "ux_design-intern-5-b",
+          "label": "Интерактивная модель продукта для проверки идей до разработки"
+        },
+        {
+          "id": "ux_design-intern-5-c",
+          "label": "Документация"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-5-b",
+      "explanation": "Прототипы бывают низкой и высокой детализации.",
+      "source": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+    },
+    {
+      "id": "ux_design-intern-6",
+      "grade": "intern",
+      "skillId": "ux_design",
+      "prompt": "Зачем проводить интервью с пользователями?",
+      "options": [
+        {
+          "id": "ux_design-intern-6-a",
+          "label": "Продать продукт"
+        },
+        {
+          "id": "ux_design-intern-6-b",
+          "label": "Понять их задачи, контекст и проблемы"
+        },
+        {
+          "id": "ux_design-intern-6-c",
+          "label": "Проверить скорость сайта"
+        }
+      ],
+      "correctOptionId": "ux_design-intern-6-b",
+      "explanation": "Интервью раскрывают мотивацию, которую не видно в аналитике.",
+      "source": "https://www.nngroup.com/articles/user-interviews/"
+    },
+    {
+      "id": "ux_design-junior-1",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Как сформулировать вопрос интервью без подсказки ответа?",
+      "options": [
+        {
+          "id": "ux_design-junior-1-a",
+          "label": "«Вам ведь удобно искать вакансии у нас?»"
+        },
+        {
+          "id": "ux_design-junior-1-b",
+          "label": "«Расскажите, как вы сейчас ищете работу?»"
+        },
+        {
+          "id": "ux_design-junior-1-c",
+          "label": "«Вы бы купили наш сервис?»"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-1-b",
+      "explanation": "Открытые вопросы о прошлом опыте дают надёжные данные.",
+      "source": "https://www.nngroup.com/articles/interviewing-users/"
+    },
+    {
+      "id": "ux_design-junior-2",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Что такое информационная архитектура?",
+      "options": [
+        {
+          "id": "ux_design-junior-2-a",
+          "label": "Схема базы данных"
+        },
+        {
+          "id": "ux_design-junior-2-b",
+          "label": "Организация и навигация контента, чтобы пользователи находили нужное"
+        },
+        {
+          "id": "ux_design-junior-2-c",
+          "label": "Архитектура серверов, на которых работает продукт, и связи между ними"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-2-b",
+      "explanation": "Карточная сортировка помогает её проектировать.",
+      "source": "https://www.nngroup.com/articles/ia-vs-navigation/"
+    },
+    {
+      "id": "ux_design-junior-3",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Для чего нужна карточная сортировка?",
+      "options": [
+        {
+          "id": "ux_design-junior-3-a",
+          "label": "Сортировать задачи разработчиков по приоритету в трекере задач"
+        },
+        {
+          "id": "ux_design-junior-3-b",
+          "label": "Распечатать макеты"
+        },
+        {
+          "id": "ux_design-junior-3-c",
+          "label": "Узнать, как пользователи группируют и называют разделы"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-3-c",
+      "explanation": "Открытая сортировка выявляет ментальные модели.",
+      "source": "https://www.nngroup.com/articles/card-sorting-definition/"
+    },
+    {
+      "id": "ux_design-junior-4",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Что такое эвристики Нильсена?",
+      "options": [
+        {
+          "id": "ux_design-junior-4-a",
+          "label": "Метрики загрузки страниц и производительности интерфейса в браузере"
+        },
+        {
+          "id": "ux_design-junior-4-b",
+          "label": "Общие принципы удобства интерфейса для экспертной оценки"
+        },
+        {
+          "id": "ux_design-junior-4-c",
+          "label": "Правила вёрстки"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-4-b",
+      "explanation": "Например: видимость статуса системы, предотвращение ошибок.",
+      "source": "https://www.nngroup.com/articles/ten-usability-heuristics/"
+    },
+    {
+      "id": "ux_design-junior-5",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Чем качественные исследования отличаются от количественных?",
+      "options": [
+        {
+          "id": "ux_design-junior-5-a",
+          "label": "Количественные всегда точнее"
+        },
+        {
+          "id": "ux_design-junior-5-b",
+          "label": "Качественные отвечают «почему», количественные — «сколько»"
+        },
+        {
+          "id": "ux_design-junior-5-c",
+          "label": "Качественные не требуют участников"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-5-b",
+      "explanation": "Методы дополняют друг друга.",
+      "source": "https://www.nngroup.com/articles/quant-vs-qual/"
+    },
+    {
+      "id": "ux_design-junior-6",
+      "grade": "junior",
+      "skillId": "ux_design",
+      "prompt": "Что такое метрика SUS?",
+      "options": [
+        {
+          "id": "ux_design-junior-6-a",
+          "label": "Стандартный опросник оценки воспринимаемого удобства из 10 вопросов"
+        },
+        {
+          "id": "ux_design-junior-6-b",
+          "label": "Скорость ответа сервера по 95-му перцентилю при пиковой нагрузке на продукт"
+        },
+        {
+          "id": "ux_design-junior-6-c",
+          "label": "Число пользователей"
+        }
+      ],
+      "correctOptionId": "ux_design-junior-6-a",
+      "explanation": "Результат SUS — число от 0 до 100.",
+      "source": "https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html"
+    },
+    {
+      "id": "ux_design-middle-1",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Как определить, какие проблемы удобства исправлять первыми?",
+      "options": [
+        {
+          "id": "ux_design-middle-1-a",
+          "label": "По порядку обнаружения в отчёте исследования, начиная с самой первой проблемы"
+        },
+        {
+          "id": "ux_design-middle-1-b",
+          "label": "По мнению дизайнера"
+        },
+        {
+          "id": "ux_design-middle-1-c",
+          "label": "По частоте, влиянию на задачу и настойчивости проблемы"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-1-c",
+      "explanation": "Оценка серьёзности помогает расставить приоритеты.",
+      "source": "https://www.nngroup.com/articles/how-to-rate-the-severity-of-usability-problems/"
+    },
+    {
+      "id": "ux_design-middle-2",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Что такое Jobs To Be Done?",
+      "options": [
+        {
+          "id": "ux_design-middle-2-a",
+          "label": "Методика найма дизайнеров через тестовые задания на реальных задачах продукта"
+        },
+        {
+          "id": "ux_design-middle-2-b",
+          "label": "Методика найма"
+        },
+        {
+          "id": "ux_design-middle-2-c",
+          "label": "Подход, рассматривающий, какую «работу» пользователь нанимает продукт выполнить"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-2-c",
+      "explanation": "JTBD фокусируется на цели, а не на характеристиках пользователя.",
+      "source": "https://hbr.org/2016/09/know-your-customers-jobs-to-be-done"
+    },
+    {
+      "id": "ux_design-middle-3",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Как проводить A/B-тест интерфейса?",
+      "options": [
+        {
+          "id": "ux_design-middle-3-a",
+          "label": "Показать оба варианта коллегам из соседних команд и выбрать тот, который понравился большинству из них"
+        },
+        {
+          "id": "ux_design-middle-3-b",
+          "label": "Сравнить с прошлым месяцем"
+        },
+        {
+          "id": "ux_design-middle-3-c",
+          "label": "Случайно разделить пользователей, сравнить заранее выбранную метрику с достаточной выборкой"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-3-c",
+      "explanation": "Эксперимент отделяет эффект изменения от внешних факторов.",
+      "source": "https://www.nngroup.com/articles/putting-ab-testing-in-its-place/"
+    },
+    {
+      "id": "ux_design-middle-4",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Что такое дизайн-спринт?",
+      "options": [
+        {
+          "id": "ux_design-middle-4-a",
+          "label": "Спринт разработчиков"
+        },
+        {
+          "id": "ux_design-middle-4-b",
+          "label": "Быстрая отрисовка макетов без исследований"
+        },
+        {
+          "id": "ux_design-middle-4-c",
+          "label": "Пятидневный процесс от проблемы до проверенного на пользователях прототипа"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-4-c",
+      "explanation": "Метод сжимает цикл проверки идеи.",
+      "source": "https://www.thesprintbook.com/"
+    },
+    {
+      "id": "ux_design-middle-5",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Как исследовать поведение без доступа к пользователям лично?",
+      "options": [
+        {
+          "id": "ux_design-middle-5-a",
+          "label": "Не исследовать, а полагаться на опыт команды и интуицию"
+        },
+        {
+          "id": "ux_design-middle-5-b",
+          "label": "Удалённые тесты, аналитика поведения и опросы"
+        },
+        {
+          "id": "ux_design-middle-5-c",
+          "label": "Предполагать"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-5-b",
+      "explanation": "Удалённые немодерируемые тесты масштабируются.",
+      "source": "https://www.nngroup.com/articles/remote-usability-tests/"
+    },
+    {
+      "id": "ux_design-middle-6",
+      "grade": "middle",
+      "skillId": "ux_design",
+      "prompt": "Что такое когнитивная нагрузка в интерфейсе?",
+      "options": [
+        {
+          "id": "ux_design-middle-6-a",
+          "label": "Нагрузка на процессор устройства при отрисовке интерфейса"
+        },
+        {
+          "id": "ux_design-middle-6-b",
+          "label": "Умственные усилия, необходимые для использования интерфейса"
+        },
+        {
+          "id": "ux_design-middle-6-c",
+          "label": "Число экранов"
+        }
+      ],
+      "correctOptionId": "ux_design-middle-6-b",
+      "explanation": "Снижайте её: меньше выбора, понятные подписи, прогрессивное раскрытие.",
+      "source": "https://www.nngroup.com/articles/minimize-cognitive-load/"
+    },
+    {
+      "id": "ux_design-senior-1",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Как выстроить постоянный поток исследований в продуктовой команде?",
+      "options": [
+        {
+          "id": "ux_design-senior-1-a",
+          "label": "Исследования раз в год перед редизайном силами внешнего агентства"
+        },
+        {
+          "id": "ux_design-senior-1-b",
+          "label": "Только по запросу руководства"
+        },
+        {
+          "id": "ux_design-senior-1-c",
+          "label": "Регулярные встречи с пользователями, общая база инсайтов и участие команды"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-1-c",
+      "explanation": "Непрерывное исследование (continuous discovery) снижает риск неверных решений.",
+      "source": "https://www.producttalk.org/2021/08/product-discovery/"
+    },
+    {
+      "id": "ux_design-senior-2",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Как измерить влияние UX на бизнес?",
+      "options": [
+        {
+          "id": "ux_design-senior-2-a",
+          "label": "Связать UX-метрики (успех задач, время, конверсия) с бизнес-показателями"
+        },
+        {
+          "id": "ux_design-senior-2-b",
+          "label": "Число макетов"
+        },
+        {
+          "id": "ux_design-senior-2-c",
+          "label": "Количество проведённых исследований и интервью за квартал работы команды"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-2-a",
+      "explanation": "Модель HEART связывает опыт и цели.",
+      "source": "https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/"
+    },
+    {
+      "id": "ux_design-senior-3",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Как избежать искажения выводов исследования?",
+      "options": [
+        {
+          "id": "ux_design-senior-3-a",
+          "label": "Триангуляция методов, корректная выборка и разделение наблюдений и интерпретаций"
+        },
+        {
+          "id": "ux_design-senior-3-b",
+          "label": "Опрашивать только лояльных клиентов, чтобы получить согласованные ответы"
+        },
+        {
+          "id": "ux_design-senior-3-c",
+          "label": "Подтверждать гипотезы команды"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-3-a",
+      "explanation": "Предвзятость подтверждения — частая ловушка.",
+      "source": "https://www.nngroup.com/articles/triangulation-better-research-results-using-multiple-ux-methods/"
+    },
+    {
+      "id": "ux_design-senior-4",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Что такое тёмные паттерны и как к ним относиться?",
+      "options": [
+        {
+          "id": "ux_design-senior-4-a",
+          "label": "Тёмная тема интерфейса, которая снижает нагрузку на глаза пользователей ночью"
+        },
+        {
+          "id": "ux_design-senior-4-b",
+          "label": "Приёмы, обманом подталкивающие пользователя к действиям против его интересов; их следует избегать"
+        },
+        {
+          "id": "ux_design-senior-4-c",
+          "label": "Паттерны вёрстки для ночного режима"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-4-b",
+      "explanation": "Они вредят доверию и могут нарушать закон о защите прав потребителей.",
+      "source": "https://www.deceptive.design/"
+    },
+    {
+      "id": "ux_design-senior-5",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Как проектировать сложный сервис с несколькими ролями?",
+      "options": [
+        {
+          "id": "ux_design-senior-5-a",
+          "label": "Проектировать только для одной роли"
+        },
+        {
+          "id": "ux_design-senior-5-b",
+          "label": "Карты сервиса с учётом всех ролей и «закулисных» процессов"
+        },
+        {
+          "id": "ux_design-senior-5-c",
+          "label": "Сделать отдельные продукты для каждой роли без связей"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-5-b",
+      "explanation": "Service blueprint связывает опыт и внутренние процессы.",
+      "source": "https://www.nngroup.com/articles/service-blueprints-definition/"
+    },
+    {
+      "id": "ux_design-senior-6",
+      "grade": "senior",
+      "skillId": "ux_design",
+      "prompt": "Как работать с противоречием между пожеланиями пользователей и бизнес-целями?",
+      "options": [
+        {
+          "id": "ux_design-senior-6-a",
+          "label": "Искать решения, создающие ценность для обеих сторон, и проверять их"
+        },
+        {
+          "id": "ux_design-senior-6-b",
+          "label": "Всегда выбирать бизнес"
+        },
+        {
+          "id": "ux_design-senior-6-c",
+          "label": "Всегда выбирать бизнес-цели, потому что пользователи не знают, что им нужно"
+        }
+      ],
+      "correctOptionId": "ux_design-senior-6-a",
+      "explanation": "Устойчивый продукт удовлетворяет обе стороны.",
+      "source": "https://www.nngroup.com/articles/ux-strategy/"
+    },
+    {
+      "id": "ux_design-lead-1",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Как оценить зрелость UX в компании?",
+      "options": [
+        {
+          "id": "ux_design-lead-1-a",
+          "label": "По числу дизайнеров"
+        },
+        {
+          "id": "ux_design-lead-1-b",
+          "label": "По месту исследований в решениях, ресурсам и влиянию на стратегию"
+        },
+        {
+          "id": "ux_design-lead-1-c",
+          "label": "По количеству дизайнеров и исследователей в штате компании"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-1-b",
+      "explanation": "Модели зрелости UX описывают этапы развития.",
+      "source": "https://www.nngroup.com/articles/ux-maturity-model/"
+    },
+    {
+      "id": "ux_design-lead-2",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Как организовать демократизацию исследований?",
+      "options": [
+        {
+          "id": "ux_design-lead-2-a",
+          "label": "Запретить исследования всем, кроме профильных исследователей, чтобы сохранить качество"
+        },
+        {
+          "id": "ux_design-lead-2-b",
+          "label": "Позволить всем делать всё без правил"
+        },
+        {
+          "id": "ux_design-lead-2-c",
+          "label": "Обучить команды базовым методам и сохранить экспертный контроль качества"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-2-c",
+      "explanation": "Демократизация масштабирует исследования при сохранении качества.",
+      "source": "https://www.nngroup.com/articles/democratize-user-research/"
+    },
+    {
+      "id": "ux_design-lead-3",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Как обосновать бюджет на исследования?",
+      "options": [
+        {
+          "id": "ux_design-lead-3-a",
+          "label": "Сослаться на тренды рынка и успешные кейсы крупных компаний"
+        },
+        {
+          "id": "ux_design-lead-3-b",
+          "label": "Не обосновывать"
+        },
+        {
+          "id": "ux_design-lead-3-c",
+          "label": "Показать стоимость неверных решений и примеры выигрыша от исследований"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-3-c",
+      "explanation": "Исследования снижают риск дорогих ошибок.",
+      "source": "https://www.nngroup.com/articles/ux-maturity-model/"
+    },
+    {
+      "id": "ux_design-lead-4",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Как хранить и переиспользовать результаты исследований?",
+      "options": [
+        {
+          "id": "ux_design-lead-4-a",
+          "label": "В личных папках исследователей"
+        },
+        {
+          "id": "ux_design-lead-4-b",
+          "label": "Репозиторий инсайтов с тегами и доступом для команд"
+        },
+        {
+          "id": "ux_design-lead-4-c",
+          "label": "Только в презентациях"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-4-b",
+      "explanation": "Репозиторий предотвращает повторные исследования.",
+      "source": "https://www.nngroup.com/articles/research-repositories/"
+    },
+    {
+      "id": "ux_design-lead-5",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Какие этические принципы важны в исследованиях пользователей?",
+      "options": [
+        {
+          "id": "ux_design-lead-5-a",
+          "label": "Скрывать цель исследования от участников всегда, чтобы получить честные ответы"
+        },
+        {
+          "id": "ux_design-lead-5-b",
+          "label": "Информированное согласие, защита персональных данных и уважение к участникам"
+        },
+        {
+          "id": "ux_design-lead-5-c",
+          "label": "Записывать без согласия"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-5-b",
+      "explanation": "Персональные данные участников защищаются законом.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "ux_design-lead-6",
+      "grade": "lead",
+      "skillId": "ux_design",
+      "prompt": "Как влиять на продуктовую стратегию через UX?",
+      "options": [
+        {
+          "id": "ux_design-lead-6-a",
+          "label": "Работать только над интерфейсом готовых решений"
+        },
+        {
+          "id": "ux_design-lead-6-b",
+          "label": "Участвовать в формировании целей на основе инсайтов и данных"
+        },
+        {
+          "id": "ux_design-lead-6-c",
+          "label": "Ждать задач от менеджеров"
+        }
+      ],
+      "correctOptionId": "ux_design-lead-6-b",
+      "explanation": "Ранние инсайты меняют направление продукта.",
+      "source": "https://www.nngroup.com/articles/ux-strategy/"
+    },
+    {
+      "id": "agile-intern-1",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Что такое спринт в Scrum?",
+      "options": [
+        {
+          "id": "agile-intern-1-a",
+          "label": "Фиксированный период, обычно до месяца, за который создаётся инкремент"
+        },
+        {
+          "id": "agile-intern-1-b",
+          "label": "Совещание команды"
+        },
+        {
+          "id": "agile-intern-1-c",
+          "label": "Документ с требованиями, который команда утверждает на весь проект"
+        }
+      ],
+      "correctOptionId": "agile-intern-1-a",
+      "explanation": "Спринты идут последовательно без перерывов.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-intern-2",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Какие роли есть в Scrum?",
+      "options": [
+        {
+          "id": "agile-intern-2-a",
+          "label": "Директор, менеджер и тестировщик"
+        },
+        {
+          "id": "agile-intern-2-b",
+          "label": "Владелец продукта, Scrum-мастер и разработчики"
+        },
+        {
+          "id": "agile-intern-2-c",
+          "label": "Заказчик и подрядчик"
+        }
+      ],
+      "correctOptionId": "agile-intern-2-b",
+      "explanation": "Scrum Guide описывает три ответственности.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-intern-3",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Что такое бэклог продукта?",
+      "options": [
+        {
+          "id": "agile-intern-3-a",
+          "label": "Упорядоченный список работ для улучшения продукта"
+        },
+        {
+          "id": "agile-intern-3-b",
+          "label": "Архив выполненных задач команды за все спринты проекта"
+        },
+        {
+          "id": "agile-intern-3-c",
+          "label": "План отпусков"
+        }
+      ],
+      "correctOptionId": "agile-intern-3-a",
+      "explanation": "Им управляет владелец продукта.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-intern-4",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Что показывает Kanban-доска?",
+      "options": [
+        {
+          "id": "agile-intern-4-a",
+          "label": "Зарплаты сотрудников"
+        },
+        {
+          "id": "agile-intern-4-b",
+          "label": "Поток задач по этапам работы"
+        },
+        {
+          "id": "agile-intern-4-c",
+          "label": "График отпусков"
+        }
+      ],
+      "correctOptionId": "agile-intern-4-b",
+      "explanation": "Колонки отражают этапы, карточки — задачи.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-intern-5",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Какова цель ежедневного Scrum?",
+      "options": [
+        {
+          "id": "agile-intern-5-a",
+          "label": "Проверить прогресс к цели спринта и скорректировать план"
+        },
+        {
+          "id": "agile-intern-5-b",
+          "label": "Отчитаться руководителю"
+        },
+        {
+          "id": "agile-intern-5-c",
+          "label": "Обсудить все технические детали задач подробно и распределить работу на неделю"
+        }
+      ],
+      "correctOptionId": "agile-intern-5-a",
+      "explanation": "Встреча длится до 15 минут.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-intern-6",
+      "grade": "intern",
+      "skillId": "agile",
+      "prompt": "Что ценит Agile-манифест выше процессов и инструментов?",
+      "options": [
+        {
+          "id": "agile-intern-6-a",
+          "label": "Подробную документацию"
+        },
+        {
+          "id": "agile-intern-6-b",
+          "label": "Следование плану"
+        },
+        {
+          "id": "agile-intern-6-c",
+          "label": "Людей и взаимодействие"
+        }
+      ],
+      "correctOptionId": "agile-intern-6-c",
+      "explanation": "Манифест не отрицает правую часть, но ценит левую больше.",
+      "source": "https://agilemanifesto.org/"
+    },
+    {
+      "id": "agile-junior-1",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Зачем ограничивать незавершённую работу (WIP) в Kanban?",
+      "options": [
+        {
+          "id": "agile-junior-1-a",
+          "label": "Чтобы занять всех работой"
+        },
+        {
+          "id": "agile-junior-1-b",
+          "label": "Чтобы увеличить число задач в работе и загрузить всех участников команды"
+        },
+        {
+          "id": "agile-junior-1-c",
+          "label": "Чтобы уменьшить переключения и ускорить завершение задач"
+        }
+      ],
+      "correctOptionId": "agile-junior-1-c",
+      "explanation": "Ограничения WIP выявляют узкие места.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-junior-2",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Что происходит на ретроспективе?",
+      "options": [
+        {
+          "id": "agile-junior-2-a",
+          "label": "Демонстрация результата заказчику"
+        },
+        {
+          "id": "agile-junior-2-b",
+          "label": "Планирование следующего релиза"
+        },
+        {
+          "id": "agile-junior-2-c",
+          "label": "Команда обсуждает, как улучшить свою работу"
+        }
+      ],
+      "correctOptionId": "agile-junior-2-c",
+      "explanation": "Результат — конкретные улучшения на следующий спринт.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-junior-3",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Что такое Definition of Done?",
+      "options": [
+        {
+          "id": "agile-junior-3-a",
+          "label": "Список задач спринта"
+        },
+        {
+          "id": "agile-junior-3-b",
+          "label": "Общие критерии качества, которым должен соответствовать инкремент"
+        },
+        {
+          "id": "agile-junior-3-c",
+          "label": "Дата окончания проекта, согласованная с заказчиком при подписании договора"
+        }
+      ],
+      "correctOptionId": "agile-junior-3-b",
+      "explanation": "DoD обеспечивает прозрачность готовности.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-junior-4",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Что такое story points?",
+      "options": [
+        {
+          "id": "agile-junior-4-a",
+          "label": "Часы работы"
+        },
+        {
+          "id": "agile-junior-4-b",
+          "label": "Относительная оценка объёма и сложности работы"
+        },
+        {
+          "id": "agile-junior-4-c",
+          "label": "Оценка качества кода по результатам ревью"
+        }
+      ],
+      "correctOptionId": "agile-junior-4-b",
+      "explanation": "Story points сравнивают задачи между собой, а не с часами.",
+      "source": "https://www.atlassian.com/agile/project-management/estimation"
+    },
+    {
+      "id": "agile-junior-5",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Что такое обзор спринта (Sprint Review)?",
+      "options": [
+        {
+          "id": "agile-junior-5-a",
+          "label": "Проверка кода"
+        },
+        {
+          "id": "agile-junior-5-b",
+          "label": "Демонстрация результата и обсуждение следующих шагов со стейкхолдерами"
+        },
+        {
+          "id": "agile-junior-5-c",
+          "label": "Оценка работы каждого разработчика руководителем по итогам спринта"
+        }
+      ],
+      "correctOptionId": "agile-junior-5-b",
+      "explanation": "Это рабочая сессия, а не только презентация.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-junior-6",
+      "grade": "junior",
+      "skillId": "agile",
+      "prompt": "Что такое lead time в Kanban?",
+      "options": [
+        {
+          "id": "agile-junior-6-a",
+          "label": "Время от поступления запроса до его выполнения"
+        },
+        {
+          "id": "agile-junior-6-b",
+          "label": "Время работы над задачей без ожиданий"
+        },
+        {
+          "id": "agile-junior-6-c",
+          "label": "Число задач на доске"
+        }
+      ],
+      "correctOptionId": "agile-junior-6-a",
+      "explanation": "Lead time включает ожидание в очереди.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-middle-1",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Velocity команды упала. Что сделать?",
+      "options": [
+        {
+          "id": "agile-middle-1-a",
+          "label": "Разобраться в причинах на ретроспективе, не используя velocity как оценку людей"
+        },
+        {
+          "id": "agile-middle-1-b",
+          "label": "Потребовать увеличить velocity и сравнивать команды между собой по этому показателю"
+        },
+        {
+          "id": "agile-middle-1-c",
+          "label": "Изменить шкалу оценок"
+        }
+      ],
+      "correctOptionId": "agile-middle-1-a",
+      "explanation": "Velocity — инструмент планирования, а не KPI.",
+      "source": "https://www.scrum.org/resources/blog/velocity-agile-metric-not-performance-metric"
+    },
+    {
+      "id": "agile-middle-2",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Как планировать при высокой неопределённости?",
+      "options": [
+        {
+          "id": "agile-middle-2-a",
+          "label": "Подробный план на год вперёд с фиксированным объёмом работ и датами"
+        },
+        {
+          "id": "agile-middle-2-b",
+          "label": "Не планировать вообще"
+        },
+        {
+          "id": "agile-middle-2-c",
+          "label": "Короткие итерации, гипотезы и регулярная корректировка плана"
+        }
+      ],
+      "correctOptionId": "agile-middle-2-c",
+      "explanation": "Эмпиризм: прозрачность, проверка, адаптация.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-middle-3",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Что такое кумулятивная диаграмма потока?",
+      "options": [
+        {
+          "id": "agile-middle-3-a",
+          "label": "Диаграмма Ганта с задачами проекта, их сроками и зависимостями между ними"
+        },
+        {
+          "id": "agile-middle-3-b",
+          "label": "График числа задач по этапам во времени, показывающий узкие места и рост очередей"
+        },
+        {
+          "id": "agile-middle-3-c",
+          "label": "Организационная схема"
+        }
+      ],
+      "correctOptionId": "agile-middle-3-b",
+      "explanation": "Расширяющаяся полоса этапа указывает на накопление работы.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-middle-4",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Как учитывать срочные задачи в Kanban?",
+      "options": [
+        {
+          "id": "agile-middle-4-a",
+          "label": "Отменить все остальные задачи спринта и заняться срочной"
+        },
+        {
+          "id": "agile-middle-4-b",
+          "label": "Класс обслуживания «срочно» с отдельными правилами"
+        },
+        {
+          "id": "agile-middle-4-c",
+          "label": "Не принимать срочные задачи"
+        }
+      ],
+      "correctOptionId": "agile-middle-4-b",
+      "explanation": "Классы обслуживания задают политику для разных типов работы.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-middle-5",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Как вести командную работу над историей, чтобы закончить её быстрее?",
+      "options": [
+        {
+          "id": "agile-middle-5-a",
+          "label": "Каждый берёт отдельную историю"
+        },
+        {
+          "id": "agile-middle-5-b",
+          "label": "Работать над ней вместе (swarming), ограничивая параллельные истории"
+        },
+        {
+          "id": "agile-middle-5-c",
+          "label": "Делить историю по специальностям и передавать по очереди"
+        }
+      ],
+      "correctOptionId": "agile-middle-5-b",
+      "explanation": "Совместная работа сокращает время ожидания между этапами.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-middle-6",
+      "grade": "middle",
+      "skillId": "agile",
+      "prompt": "Как прогнозировать срок выполнения набора задач?",
+      "options": [
+        {
+          "id": "agile-middle-6-a",
+          "label": "Сложить оптимистичные оценки задач и добавить к сумме один день"
+        },
+        {
+          "id": "agile-middle-6-b",
+          "label": "Спросить руководителя"
+        },
+        {
+          "id": "agile-middle-6-c",
+          "label": "Вероятностно по историческим данным пропускной способности, например методом Монте-Карло"
+        }
+      ],
+      "correctOptionId": "agile-middle-6-c",
+      "explanation": "Вероятностный прогноз даёт сроки с уровнем уверенности.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-senior-1",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Как масштабировать Agile на несколько команд одного продукта?",
+      "options": [
+        {
+          "id": "agile-senior-1-a",
+          "label": "Общий бэклог продукта, синхронизация зависимостей и общие события, например по LeSS или Nexus"
+        },
+        {
+          "id": "agile-senior-1-b",
+          "label": "Каждая команда со своим владельцем продукта и бэклогом без координации"
+        },
+        {
+          "id": "agile-senior-1-c",
+          "label": "Вернуться к водопаду"
+        }
+      ],
+      "correctOptionId": "agile-senior-1-a",
+      "explanation": "Фреймворки масштабирования решают проблему интеграции.",
+      "source": "https://less.works/"
+    },
+    {
+      "id": "agile-senior-2",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Что делать, если Scrum в команде стал формальностью?",
+      "options": [
+        {
+          "id": "agile-senior-2-a",
+          "label": "Отменить все встречи"
+        },
+        {
+          "id": "agile-senior-2-b",
+          "label": "Добавить больше отчётов и обязательных встреч для контроля команды"
+        },
+        {
+          "id": "agile-senior-2-c",
+          "label": "Вернуться к целям событий и проверять, приносят ли они пользу"
+        }
+      ],
+      "correctOptionId": "agile-senior-2-c",
+      "explanation": "Формальное выполнение событий без адаптации не даёт результатов.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-senior-3",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Какие метрики потока стоит использовать?",
+      "options": [
+        {
+          "id": "agile-senior-3-a",
+          "label": "Число строк кода"
+        },
+        {
+          "id": "agile-senior-3-b",
+          "label": "Число строк кода и количество встреч команды за неделю"
+        },
+        {
+          "id": "agile-senior-3-c",
+          "label": "Время выполнения, пропускную способность, WIP и возраст задач"
+        }
+      ],
+      "correctOptionId": "agile-senior-3-c",
+      "explanation": "Метрики потока отражают скорость доставки ценности.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-senior-4",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Как работать с техническим долгом в Agile?",
+      "options": [
+        {
+          "id": "agile-senior-4-a",
+          "label": "Игнорировать технический долг до полной остановки разработки"
+        },
+        {
+          "id": "agile-senior-4-b",
+          "label": "Делать его видимым в бэклоге и регулярно выделять ресурсы на погашение"
+        },
+        {
+          "id": "agile-senior-4-c",
+          "label": "Погашать только по выходным"
+        }
+      ],
+      "correctOptionId": "agile-senior-4-b",
+      "explanation": "Невидимый долг замедляет развитие.",
+      "source": "https://martinfowler.com/bliki/TechnicalDebt.html"
+    },
+    {
+      "id": "agile-senior-5",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Как связать Agile-команды с целями компании?",
+      "options": [
+        {
+          "id": "agile-senior-5-a",
+          "label": "Через ежедневные отчёты"
+        },
+        {
+          "id": "agile-senior-5-b",
+          "label": "Через цели продукта и OKR, видимые командам"
+        },
+        {
+          "id": "agile-senior-5-c",
+          "label": "Никак"
+        }
+      ],
+      "correctOptionId": "agile-senior-5-b",
+      "explanation": "Команды выбирают способы достижения общих целей.",
+      "source": "https://www.whatmatters.com/faqs/okr-meaning-definition-example"
+    },
+    {
+      "id": "agile-senior-6",
+      "grade": "senior",
+      "skillId": "agile",
+      "prompt": "Как оценить, подходит ли Scrum команде?",
+      "options": [
+        {
+          "id": "agile-senior-6-a",
+          "label": "Scrum подходит всем"
+        },
+        {
+          "id": "agile-senior-6-b",
+          "label": "По характеру работы: при непрерывном потоке заявок Kanban может подойти лучше"
+        },
+        {
+          "id": "agile-senior-6-c",
+          "label": "Scrum подходит любой команде одинаково хорошо, независимо от характера работы"
+        }
+      ],
+      "correctOptionId": "agile-senior-6-b",
+      "explanation": "Выбор методики зависит от работы.",
+      "source": "https://kanban.university/kanban-guide/"
+    },
+    {
+      "id": "agile-lead-1",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Как проводить Agile-трансформацию организации?",
+      "options": [
+        {
+          "id": "agile-lead-1-a",
+          "label": "Начать с целей, пилотных команд, обучения руководителей и измерения результатов"
+        },
+        {
+          "id": "agile-lead-1-b",
+          "label": "Объявить приказом и переименовать роли"
+        },
+        {
+          "id": "agile-lead-1-c",
+          "label": "Купить инструмент и считать трансформацию завершённой"
+        }
+      ],
+      "correctOptionId": "agile-lead-1-a",
+      "explanation": "Изменение культуры требует поддержки руководства.",
+      "source": "https://www.scrum.org/resources/evidence-based-management"
+    },
+    {
+      "id": "agile-lead-2",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Как руководителю поддерживать самоорганизацию команд?",
+      "options": [
+        {
+          "id": "agile-lead-2-a",
+          "label": "Распределять каждую задачу лично и ежедневно проверять ход её выполнения"
+        },
+        {
+          "id": "agile-lead-2-b",
+          "label": "Задавать цели и границы, убирать препятствия и не управлять задачами напрямую"
+        },
+        {
+          "id": "agile-lead-2-c",
+          "label": "Не участвовать вовсе"
+        }
+      ],
+      "correctOptionId": "agile-lead-2-b",
+      "explanation": "Сервисное лидерство — основа Agile-руководства.",
+      "source": "https://scrumguides.org/scrum-guide.html"
+    },
+    {
+      "id": "agile-lead-3",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Что такое Evidence-Based Management?",
+      "options": [
+        {
+          "id": "agile-lead-3-a",
+          "label": "Управление на основе интуиции руководителя и опыта прошлых проектов"
+        },
+        {
+          "id": "agile-lead-3-b",
+          "label": "Подход к улучшению на основе измерения ценности, скорости и способности к инновациям"
+        },
+        {
+          "id": "agile-lead-3-c",
+          "label": "Методика найма"
+        }
+      ],
+      "correctOptionId": "agile-lead-3-b",
+      "explanation": "EBM помогает понять, приносят ли изменения пользу.",
+      "source": "https://www.scrum.org/resources/evidence-based-management"
+    },
+    {
+      "id": "agile-lead-4",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Как работать с фиксированным бюджетом и сроком в Agile-проекте?",
+      "options": [
+        {
+          "id": "agile-lead-4-a",
+          "label": "Фиксировать всё, включая объём работ, и наказывать за отклонения"
+        },
+        {
+          "id": "agile-lead-4-b",
+          "label": "Отказаться от сроков"
+        },
+        {
+          "id": "agile-lead-4-c",
+          "label": "Фиксировать срок и бюджет, а объём управлять по приоритетам"
+        }
+      ],
+      "correctOptionId": "agile-lead-4-c",
+      "explanation": "Гибкий объём позволяет выпускать самое ценное.",
+      "source": "https://en.wikipedia.org/wiki/MoSCoW_method"
+    },
+    {
+      "id": "agile-lead-5",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Как организовать зависимость команд от общей платформы?",
+      "options": [
+        {
+          "id": "agile-lead-5-a",
+          "label": "Платформенная команда с понятным API и самообслуживанием"
+        },
+        {
+          "id": "agile-lead-5-b",
+          "label": "Все команды ждут платформу в общей очереди"
+        },
+        {
+          "id": "agile-lead-5-c",
+          "label": "Каждая команда делает свою платформу"
+        }
+      ],
+      "correctOptionId": "agile-lead-5-a",
+      "explanation": "Topology команд снижает связанность.",
+      "source": "https://teamtopologies.com/key-concepts"
+    },
+    {
+      "id": "agile-lead-6",
+      "grade": "lead",
+      "skillId": "agile",
+      "prompt": "Как понять, что процессы в организации улучшаются?",
+      "options": [
+        {
+          "id": "agile-lead-6-a",
+          "label": "По метрикам доставки и удовлетворённости клиентов и сотрудников во времени"
+        },
+        {
+          "id": "agile-lead-6-b",
+          "label": "По числу внедрённых практик и полученных сертификатов"
+        },
+        {
+          "id": "agile-lead-6-c",
+          "label": "По числу сертификатов"
+        }
+      ],
+      "correctOptionId": "agile-lead-6-a",
+      "explanation": "Результат важнее формы.",
+      "source": "https://dora.dev/guides/dora-metrics-four-keys/"
+    },
+    {
+      "id": "project_management-intern-1",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что такое проект?",
+      "options": [
+        {
+          "id": "project_management-intern-1-a",
+          "label": "Временная деятельность для создания уникального результата"
+        },
+        {
+          "id": "project_management-intern-1-b",
+          "label": "Постоянная операционная деятельность подразделения компании"
+        },
+        {
+          "id": "project_management-intern-1-c",
+          "label": "Отдел компании"
+        }
+      ],
+      "correctOptionId": "project_management-intern-1-a",
+      "explanation": "У проекта есть начало, конец и цель.",
+      "source": "https://en.wikipedia.org/wiki/Project_management"
+    },
+    {
+      "id": "project_management-intern-2",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что такое «железный треугольник» проекта?",
+      "options": [
+        {
+          "id": "project_management-intern-2-a",
+          "label": "Три руководителя проекта"
+        },
+        {
+          "id": "project_management-intern-2-b",
+          "label": "Взаимосвязь сроков, стоимости и объёма работ"
+        },
+        {
+          "id": "project_management-intern-2-c",
+          "label": "Три этапа тестирования"
+        }
+      ],
+      "correctOptionId": "project_management-intern-2-b",
+      "explanation": "Изменение одного параметра влияет на другие и на качество.",
+      "source": "https://en.wikipedia.org/wiki/Project_management_triangle"
+    },
+    {
+      "id": "project_management-intern-3",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что такое веха (milestone)?",
+      "options": [
+        {
+          "id": "project_management-intern-3-a",
+          "label": "Ежедневная задача"
+        },
+        {
+          "id": "project_management-intern-3-b",
+          "label": "Бюджет проекта"
+        },
+        {
+          "id": "project_management-intern-3-c",
+          "label": "Значимая контрольная точка проекта"
+        }
+      ],
+      "correctOptionId": "project_management-intern-3-c",
+      "explanation": "Вехи не имеют длительности.",
+      "source": "https://en.wikipedia.org/wiki/Milestone_(project_management)"
+    },
+    {
+      "id": "project_management-intern-4",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что показывает диаграмма Ганта?",
+      "options": [
+        {
+          "id": "project_management-intern-4-a",
+          "label": "Распределение бюджета"
+        },
+        {
+          "id": "project_management-intern-4-b",
+          "label": "Задачи проекта на временной шкале с длительностями и зависимостями"
+        },
+        {
+          "id": "project_management-intern-4-c",
+          "label": "Организационную структуру проекта с руководителями и подчинёнными"
+        }
+      ],
+      "correctOptionId": "project_management-intern-4-b",
+      "explanation": "Она наглядна для планирования сроков.",
+      "source": "https://en.wikipedia.org/wiki/Gantt_chart"
+    },
+    {
+      "id": "project_management-intern-5",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что такое риск проекта?",
+      "options": [
+        {
+          "id": "project_management-intern-5-a",
+          "label": "Уже случившаяся проблема, которую нужно срочно решить"
+        },
+        {
+          "id": "project_management-intern-5-b",
+          "label": "Задача без исполнителя"
+        },
+        {
+          "id": "project_management-intern-5-c",
+          "label": "Неопределённое событие, которое может повлиять на цели проекта"
+        }
+      ],
+      "correctOptionId": "project_management-intern-5-c",
+      "explanation": "Риски выявляют и планируют реакцию заранее.",
+      "source": "https://en.wikipedia.org/wiki/Project_risk_management"
+    },
+    {
+      "id": "project_management-intern-6",
+      "grade": "intern",
+      "skillId": "project_management",
+      "prompt": "Что такое устав проекта?",
+      "options": [
+        {
+          "id": "project_management-intern-6-a",
+          "label": "Договор с поставщиком на выполнение работ проекта с ценой, сроками и штрафами"
+        },
+        {
+          "id": "project_management-intern-6-b",
+          "label": "Документ, утверждающий существование проекта, цели и полномочия руководителя"
+        },
+        {
+          "id": "project_management-intern-6-c",
+          "label": "Договор с поставщиком"
+        }
+      ],
+      "correctOptionId": "project_management-intern-6-b",
+      "explanation": "Устав запускает проект.",
+      "source": "https://en.wikipedia.org/wiki/Project_charter"
+    },
+    {
+      "id": "project_management-junior-1",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Что такое иерархическая структура работ (WBS)?",
+      "options": [
+        {
+          "id": "project_management-junior-1-a",
+          "label": "Декомпозиция всего объёма проекта на управляемые пакеты работ"
+        },
+        {
+          "id": "project_management-junior-1-b",
+          "label": "График платежей"
+        },
+        {
+          "id": "project_management-junior-1-c",
+          "label": "Список сотрудников проекта с их ролями и загрузкой по неделям"
+        }
+      ],
+      "correctOptionId": "project_management-junior-1-a",
+      "explanation": "WBS основа для оценки и планирования.",
+      "source": "https://en.wikipedia.org/wiki/Work_breakdown_structure"
+    },
+    {
+      "id": "project_management-junior-2",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Что такое критический путь?",
+      "options": [
+        {
+          "id": "project_management-junior-2-a",
+          "label": "Самые дорогие задачи проекта, которые нужно контролировать в первую очередь"
+        },
+        {
+          "id": "project_management-junior-2-b",
+          "label": "Задачи руководителя"
+        },
+        {
+          "id": "project_management-junior-2-c",
+          "label": "Самая длинная цепочка зависимых задач, определяющая минимальный срок проекта"
+        }
+      ],
+      "correctOptionId": "project_management-junior-2-c",
+      "explanation": "Задержка на критическом пути сдвигает весь проект.",
+      "source": "https://en.wikipedia.org/wiki/Critical_path_method"
+    },
+    {
+      "id": "project_management-junior-3",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Как реагировать на риск?",
+      "options": [
+        {
+          "id": "project_management-junior-3-a",
+          "label": "Избежать, снизить, передать или принять"
+        },
+        {
+          "id": "project_management-junior-3-b",
+          "label": "Только игнорировать"
+        },
+        {
+          "id": "project_management-junior-3-c",
+          "label": "Только страховать"
+        }
+      ],
+      "correctOptionId": "project_management-junior-3-a",
+      "explanation": "Стратегия выбирается по вероятности и влиянию.",
+      "source": "https://en.wikipedia.org/wiki/Project_risk_management"
+    },
+    {
+      "id": "project_management-junior-4",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Что такое расползание объёма (scope creep)?",
+      "options": [
+        {
+          "id": "project_management-junior-4-a",
+          "label": "Неконтролируемое добавление работ без изменения сроков и бюджета"
+        },
+        {
+          "id": "project_management-junior-4-b",
+          "label": "Сокращение команды проекта при нехватке бюджета на работы"
+        },
+        {
+          "id": "project_management-junior-4-c",
+          "label": "Ускорение проекта"
+        }
+      ],
+      "correctOptionId": "project_management-junior-4-a",
+      "explanation": "Управление изменениями предотвращает его.",
+      "source": "https://en.wikipedia.org/wiki/Scope_creep"
+    },
+    {
+      "id": "project_management-junior-5",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Зачем нужен план коммуникаций?",
+      "options": [
+        {
+          "id": "project_management-junior-5-a",
+          "label": "Запретить переписку"
+        },
+        {
+          "id": "project_management-junior-5-b",
+          "label": "Определить, кто, что, когда и как получает информацию о проекте"
+        },
+        {
+          "id": "project_management-junior-5-c",
+          "label": "Сократить переписку и проводить встречи только по запросу заказчика"
+        }
+      ],
+      "correctOptionId": "project_management-junior-5-b",
+      "explanation": "Ясные каналы снижают недопонимание.",
+      "source": "https://en.wikipedia.org/wiki/Project_management"
+    },
+    {
+      "id": "project_management-junior-6",
+      "grade": "junior",
+      "skillId": "project_management",
+      "prompt": "Что такое оценка «трёх точек»?",
+      "options": [
+        {
+          "id": "project_management-junior-6-a",
+          "label": "Оптимистичная, наиболее вероятная и пессимистичная оценки для расчёта ожидаемой"
+        },
+        {
+          "id": "project_management-junior-6-b",
+          "label": "Оценки трёх разных сотрудников, из которых выбирается средняя по команде"
+        },
+        {
+          "id": "project_management-junior-6-c",
+          "label": "Оценка за три дня"
+        }
+      ],
+      "correctOptionId": "project_management-junior-6-a",
+      "explanation": "PERT: (O + 4M + P) / 6.",
+      "source": "https://en.wikipedia.org/wiki/Three-point_estimation"
+    },
+    {
+      "id": "project_management-middle-1",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Что показывает метод освоенного объёма (EVM)?",
+      "options": [
+        {
+          "id": "project_management-middle-1-a",
+          "label": "Удовлетворённость команды и заказчика по итогам опроса каждого этапа"
+        },
+        {
+          "id": "project_management-middle-1-b",
+          "label": "Число задач"
+        },
+        {
+          "id": "project_management-middle-1-c",
+          "label": "Соотношение плана, выполненного объёма и фактических затрат"
+        }
+      ],
+      "correctOptionId": "project_management-middle-1-c",
+      "explanation": "Индексы CPI и SPI показывают отклонения по стоимости и срокам.",
+      "source": "https://en.wikipedia.org/wiki/Earned_value_management"
+    },
+    {
+      "id": "project_management-middle-2",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Проект отстаёт от графика. Какие есть стандартные приёмы сжатия сроков?",
+      "options": [
+        {
+          "id": "project_management-middle-2-a",
+          "label": "Отменить тестирование"
+        },
+        {
+          "id": "project_management-middle-2-b",
+          "label": "Перенести срок без обсуждения и сократить тестирование до минимума"
+        },
+        {
+          "id": "project_management-middle-2-c",
+          "label": "Ускорение за счёт ресурсов (crashing) или параллельное выполнение (fast tracking)"
+        }
+      ],
+      "correctOptionId": "project_management-middle-2-c",
+      "explanation": "Оба приёма имеют цену: деньги или риск.",
+      "source": "https://en.wikipedia.org/wiki/Schedule_compression"
+    },
+    {
+      "id": "project_management-middle-3",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Как управлять ожиданиями стейкхолдеров?",
+      "options": [
+        {
+          "id": "project_management-middle-3-a",
+          "label": "Сообщать только хорошие новости"
+        },
+        {
+          "id": "project_management-middle-3-b",
+          "label": "Регулярно и честно сообщать о статусе, рисках и изменениях"
+        },
+        {
+          "id": "project_management-middle-3-c",
+          "label": "Не общаться до сдачи"
+        }
+      ],
+      "correctOptionId": "project_management-middle-3-b",
+      "explanation": "Раннее раскрытие проблем сохраняет доверие.",
+      "source": "https://en.wikipedia.org/wiki/Stakeholder_management"
+    },
+    {
+      "id": "project_management-middle-4",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Как выбрать между водопадом и гибким подходом?",
+      "options": [
+        {
+          "id": "project_management-middle-4-a",
+          "label": "Всегда водопад, потому что он надёжнее для любых проектов"
+        },
+        {
+          "id": "project_management-middle-4-b",
+          "label": "Всегда Agile"
+        },
+        {
+          "id": "project_management-middle-4-c",
+          "label": "По стабильности требований, рискам и возможности получать обратную связь"
+        }
+      ],
+      "correctOptionId": "project_management-middle-4-c",
+      "explanation": "Гибридные подходы тоже распространены.",
+      "source": "https://en.wikipedia.org/wiki/Disciplined_agile_delivery"
+    },
+    {
+      "id": "project_management-middle-5",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Что такое реестр рисков?",
+      "options": [
+        {
+          "id": "project_management-middle-5-a",
+          "label": "Список рисков с вероятностью, влиянием, владельцем и планом реагирования"
+        },
+        {
+          "id": "project_management-middle-5-b",
+          "label": "Список прошлых ошибок команды с фамилиями виновных сотрудников"
+        },
+        {
+          "id": "project_management-middle-5-c",
+          "label": "Журнал посещаемости"
+        }
+      ],
+      "correctOptionId": "project_management-middle-5-a",
+      "explanation": "Реестр регулярно пересматривают.",
+      "source": "https://en.wikipedia.org/wiki/Project_risk_management"
+    },
+    {
+      "id": "project_management-middle-6",
+      "grade": "middle",
+      "skillId": "project_management",
+      "prompt": "Как вести проект с подрядчиком?",
+      "options": [
+        {
+          "id": "project_management-middle-6-a",
+          "label": "Передать задачу подрядчику и ждать результата до окончания срока договора"
+        },
+        {
+          "id": "project_management-middle-6-b",
+          "label": "Чёткий договор с результатами, критериями приёмки и регулярным контролем"
+        },
+        {
+          "id": "project_management-middle-6-c",
+          "label": "Платить заранее всю сумму"
+        }
+      ],
+      "correctOptionId": "project_management-middle-6-b",
+      "explanation": "Критерии приёмки защищают обе стороны.",
+      "source": "https://en.wikipedia.org/wiki/Procurement"
+    },
+    {
+      "id": "project_management-senior-1",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как управлять портфелем проектов?",
+      "options": [
+        {
+          "id": "project_management-senior-1-a",
+          "label": "Отбирать и балансировать проекты по стратегической ценности, ресурсам и рискам"
+        },
+        {
+          "id": "project_management-senior-1-b",
+          "label": "Запускать все предложенные проекты одновременно, чтобы ничего не упустить"
+        },
+        {
+          "id": "project_management-senior-1-c",
+          "label": "Выбирать по личным предпочтениям"
+        }
+      ],
+      "correctOptionId": "project_management-senior-1-a",
+      "explanation": "Управление портфелем связывает проекты со стратегией.",
+      "source": "https://en.wikipedia.org/wiki/Project_portfolio_management"
+    },
+    {
+      "id": "project_management-senior-2",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как спасать проект в кризисе?",
+      "options": [
+        {
+          "id": "project_management-senior-2-a",
+          "label": "Скрывать проблемы"
+        },
+        {
+          "id": "project_management-senior-2-b",
+          "label": "Оценить реальное состояние, пересогласовать объём, сроки и ресурсы и усилить контроль"
+        },
+        {
+          "id": "project_management-senior-2-c",
+          "label": "Добавить людей в последний момент без плана"
+        }
+      ],
+      "correctOptionId": "project_management-senior-2-b",
+      "explanation": "Закон Брукса: добавление людей в опаздывающий проект замедляет его.",
+      "source": "https://en.wikipedia.org/wiki/Brooks%27s_law"
+    },
+    {
+      "id": "project_management-senior-3",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как оценивать проект с большой неопределённостью?",
+      "options": [
+        {
+          "id": "project_management-senior-3-a",
+          "label": "Одним точным числом, чтобы заказчик сразу мог согласовать бюджет"
+        },
+        {
+          "id": "project_management-senior-3-b",
+          "label": "Диапазонами с допущениями, уточняя оценку по мере получения знаний"
+        },
+        {
+          "id": "project_management-senior-3-c",
+          "label": "Не оценивать"
+        }
+      ],
+      "correctOptionId": "project_management-senior-3-b",
+      "explanation": "Конус неопределённости сужается по ходу проекта.",
+      "source": "https://en.wikipedia.org/wiki/Cone_of_Uncertainty"
+    },
+    {
+      "id": "project_management-senior-4",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как управлять конфликтом в команде проекта?",
+      "options": [
+        {
+          "id": "project_management-senior-4-a",
+          "label": "Игнорировать"
+        },
+        {
+          "id": "project_management-senior-4-b",
+          "label": "Выяснить интересы сторон и искать решение совместно"
+        },
+        {
+          "id": "project_management-senior-4-c",
+          "label": "Наказать обе стороны"
+        }
+      ],
+      "correctOptionId": "project_management-senior-4-b",
+      "explanation": "Сотрудничество даёт устойчивые решения.",
+      "source": "https://en.wikipedia.org/wiki/Conflict_management"
+    },
+    {
+      "id": "project_management-senior-5",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как завершать проект?",
+      "options": [
+        {
+          "id": "project_management-senior-5-a",
+          "label": "Просто прекратить работу после последней задачи и распустить команду"
+        },
+        {
+          "id": "project_management-senior-5-b",
+          "label": "Приёмка результата, передача в эксплуатацию, закрытие договоров и фиксация уроков"
+        },
+        {
+          "id": "project_management-senior-5-c",
+          "label": "Удалить документацию"
+        }
+      ],
+      "correctOptionId": "project_management-senior-5-b",
+      "explanation": "Извлечённые уроки улучшают следующие проекты.",
+      "source": "https://en.wikipedia.org/wiki/Lessons_learned"
+    },
+    {
+      "id": "project_management-senior-6",
+      "grade": "senior",
+      "skillId": "project_management",
+      "prompt": "Как управлять зависимостями между проектами?",
+      "options": [
+        {
+          "id": "project_management-senior-6-a",
+          "label": "Карта зависимостей, общие вехи и регулярная координация владельцев"
+        },
+        {
+          "id": "project_management-senior-6-b",
+          "label": "Каждый проект решает свои зависимости самостоятельно, без общей координации"
+        },
+        {
+          "id": "project_management-senior-6-c",
+          "label": "Игнорировать"
+        }
+      ],
+      "correctOptionId": "project_management-senior-6-a",
+      "explanation": "Невидимые зависимости — частая причина срывов.",
+      "source": "https://en.wikipedia.org/wiki/Program_management"
+    },
+    {
+      "id": "project_management-lead-1",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Зачем нужен проектный офис (PMO)?",
+      "options": [
+        {
+          "id": "project_management-lead-1-a",
+          "label": "Стандартизировать управление проектами, обеспечивать прозрачность и поддержку"
+        },
+        {
+          "id": "project_management-lead-1-b",
+          "label": "Заменить руководителей проектов"
+        },
+        {
+          "id": "project_management-lead-1-c",
+          "label": "Контролировать каждого сотрудника и заменить руководителей проектов"
+        }
+      ],
+      "correctOptionId": "project_management-lead-1-a",
+      "explanation": "Тип PMO зависит от зрелости организации.",
+      "source": "https://en.wikipedia.org/wiki/Project_management_office"
+    },
+    {
+      "id": "project_management-lead-2",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Как развивать руководителей проектов в компании?",
+      "options": [
+        {
+          "id": "project_management-lead-2-a",
+          "label": "Только сертификация"
+        },
+        {
+          "id": "project_management-lead-2-b",
+          "label": "Компетентностная модель, наставничество и ротация по проектам"
+        },
+        {
+          "id": "project_management-lead-2-c",
+          "label": "Назначение без подготовки"
+        }
+      ],
+      "correctOptionId": "project_management-lead-2-b",
+      "explanation": "Практика и наставничество важнее формальных сертификатов.",
+      "source": "https://en.wikipedia.org/wiki/Project_manager"
+    },
+    {
+      "id": "project_management-lead-3",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Как оценить успех проекта?",
+      "options": [
+        {
+          "id": "project_management-lead-3-a",
+          "label": "Только по срокам"
+        },
+        {
+          "id": "project_management-lead-3-b",
+          "label": "По достигнутой бизнес-ценности, а не только по срокам и бюджету"
+        },
+        {
+          "id": "project_management-lead-3-c",
+          "label": "По числу документов проекта и соблюдению сроков отдельных задач"
+        }
+      ],
+      "correctOptionId": "project_management-lead-3-b",
+      "explanation": "Проект в срок без ценности — неудача.",
+      "source": "https://en.wikipedia.org/wiki/Project_management"
+    },
+    {
+      "id": "project_management-lead-4",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Как выбирать методологию для разных проектов в организации?",
+      "options": [
+        {
+          "id": "project_management-lead-4-a",
+          "label": "Один подход для всех проектов"
+        },
+        {
+          "id": "project_management-lead-4-b",
+          "label": "Каждый проект без методологии"
+        },
+        {
+          "id": "project_management-lead-4-c",
+          "label": "Адаптировать подход к контексту проекта, а не применять один ко всем"
+        }
+      ],
+      "correctOptionId": "project_management-lead-4-c",
+      "explanation": "Disciplined Agile описывает выбор способа работы.",
+      "source": "https://en.wikipedia.org/wiki/Disciplined_agile_delivery"
+    },
+    {
+      "id": "project_management-lead-5",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Как управлять ресурсами между многими проектами?",
+      "options": [
+        {
+          "id": "project_management-lead-5-a",
+          "label": "Разрешить проектам переманивать людей"
+        },
+        {
+          "id": "project_management-lead-5-b",
+          "label": "Загружать всех на 150%"
+        },
+        {
+          "id": "project_management-lead-5-c",
+          "label": "Централизованное планирование загрузки и приоритизация по портфелю"
+        }
+      ],
+      "correctOptionId": "project_management-lead-5-c",
+      "explanation": "Перегрузка ведёт к срывам и выгоранию.",
+      "source": "https://en.wikipedia.org/wiki/Project_portfolio_management"
+    },
+    {
+      "id": "project_management-lead-6",
+      "grade": "lead",
+      "skillId": "project_management",
+      "prompt": "Как выстроить отчётность для руководства компании?",
+      "options": [
+        {
+          "id": "project_management-lead-6-a",
+          "label": "Краткие дашборды по ключевым показателям, рискам и решениям, требующим внимания"
+        },
+        {
+          "id": "project_management-lead-6-b",
+          "label": "Подробные отчёты на сто страниц по каждому проекту ежемесячно"
+        },
+        {
+          "id": "project_management-lead-6-c",
+          "label": "Отчёты только при проблемах"
+        }
+      ],
+      "correctOptionId": "project_management-lead-6-a",
+      "explanation": "Руководству нужна информация для решений.",
+      "source": "https://en.wikipedia.org/wiki/Dashboard_(business)"
+    }
+  ]
+}

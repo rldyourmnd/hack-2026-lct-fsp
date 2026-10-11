@@ -2,14 +2,14 @@
 
 The web application of the FSP reverse-hiring platform. A candidate confirms a specialization and grade with a
 knowledge test, enriches the profile from sources and receives salary-bearing invitations; an employer
-describes needs, searches an anonymous bank of verified candidates, keeps shortlists and invites a specific person,
+describes needs, searches an anonymous bank of test-confirmed and estimated candidates, keeps shortlists and invites a specific person,
 whose contacts open only to that company after the candidate accepts. As an additional path, the employer can
 publish a need as a vacancy and the candidate can apply to it, choosing which contacts the company receives; and
 each week the platform offers the candidate a short task from a company, whose answer keeps the profile fresh.
 
-The app talks to the API described in [`../contracts/openapi.json`](../contracts/openapi.json). Today that API is the
-mock in [`../mock-server`](../mock-server/README.md), so profiles, sources, assessment results and the candidate bank
-are synthetic, and the interface says so wherever it matters. The domain rules the screens show are in
+The app talks to the API described in [`../contracts/openapi.json`](../contracts/openapi.json). Local development uses the
+stateful [`mock-server`](../mock-server/README.md); the public stand uses Rust/PostgreSQL, real email and
+source analysis. Seed accounts and the FSP provider are explicitly fictional. The domain rules the screens show are in
 [`../docs/product/BUSINESS_RULES.md`](../docs/product/BUSINESS_RULES.md).
 
 ## Documentation
@@ -78,12 +78,13 @@ FSP_API_TARGET=http://127.0.0.1:8080 bun run dev
 | Variable | Read by | Effect |
 | --- | --- | --- |
 | `FSP_API_TARGET` | Vite dev and preview servers | Where `/api` (and in dev `/__mock__`) is proxied; default `http://127.0.0.1:4010` |
-| `VITE_DEMO_STAND` | Build | `1` labels fictional data in a production build; seed-account hints also require `realEmail` false |
-| `VITE_DEMO_EMAIL_CODE` | Build | Shown next to the code field while the server delivers codes to the demo mailbox |
+| `VITE_DEMO_STAND` | Build | `1` labels fictional data and displays the three disclosed seed accounts |
+| `VITE_DEMO_EMAIL_CODE` | Build | Shown for `mock_mailbox` challenges; never used for arbitrary real-mail addresses |
 | `VITE_API_ORIGIN` | Build, tests | Absolute API origin; empty (same origin) in the app, set by tests because Node cannot resolve relative URLs |
 
-The stand builds with `VITE_DEMO_STAND=1` to identify fictional data. When `capabilities.realEmail` is true,
-login hides seed-account hints and demo codes and explains actual inbox delivery. Public acceptance creates
+The stand builds with `VITE_DEMO_STAND=1` to identify fictional data. Arbitrary addresses use actual
+Resend mail. Three exact seeded demo addresses retain a disclosed fixed code; the challenge delivery mode selects
+the appropriate guidance. Demo sign-in does not prove mailbox ownership. Public acceptance creates
 a candidate and two companies using real unique test inboxes; OTPs/cookies are excluded from traces/screenshots.
 See [the stand runbook](../infra/README.md) for private acceptance credentials.
 

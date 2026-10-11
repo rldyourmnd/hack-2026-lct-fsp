@@ -51,6 +51,15 @@ case "${1:?gate required}" in
     body='{"email":"ci@example.com","role":"candidate"}'
     test "$(status -X POST -H "Origin: $base" -H 'Content-Type: application/json' -d "$body" "$base/api/v1/auth/email/challenges")" = 201
     test "$(status -X POST -H 'Origin: https://evil.example' -H 'Content-Type: application/json' -d "$body" "$base/api/v1/auth/email/challenges")" = 403
+    interview=http://127.0.0.1:4040
+    started="$(curl -fsS -H 'Authorization: Bearer demo-interview-token' -H 'Content-Type: application/json' \
+      -d '{"candidateId":"ci-candidate","blueprintId":"backend-middle-v1","maxTurns":10}' \
+      "$interview/v1/interviews")"
+    interview_id="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["id"])' <<<"$started")"
+    docker compose restart interview
+    for _ in {1..30}; do curl -fsS "$interview/health" >/dev/null 2>&1 && break; sleep 1; done
+    curl -fsS -H 'Authorization: Bearer demo-interview-token' \
+      "$interview/v1/interviews/$interview_id" >/dev/null
     bash infra/tests/nginx.sh "$base"
     ;;
   release-safety)
@@ -59,12 +68,6 @@ case "${1:?gate required}" in
     bash infra/tests/nginx-config.sh
     python3 -m unittest discover -s infra/ci -p 'test_*.py'
     shellcheck infra/*.sh infra/tests/*.sh infra/ci/*.sh
-    database="fsp-ci-backup-$$"
-    trap 'docker rm -f "$database" >/dev/null 2>&1 || true' EXIT
-    docker run --detach --name "$database" --label fsp.ci=true --memory=512m -e POSTGRES_HOST_AUTH_METHOD=trust postgres:17-alpine
-    for _ in {1..60}; do docker exec "$database" pg_isready -U postgres && break; sleep 1; done
-    docker cp infra "$database:/tmp/fsp-infra"
-    docker exec -e PGUSER=postgres "$database" bash /tmp/fsp-infra/tests/backup.sh
     ;;
   *) echo 'Unknown gate' >&2; exit 1 ;;
 esac

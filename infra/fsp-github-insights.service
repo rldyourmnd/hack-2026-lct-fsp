@@ -1,0 +1,35 @@
+[Unit]
+Description=Public GitHub activity analysis for candidate profiles
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fsp
+Group=fsp
+Environment=FSP_GITHUB_INSIGHTS_HOST=127.0.0.1
+Environment=FSP_GITHUB_INSIGHTS_PORT=4030
+# Blobless clones of public repositories live here only while one analysis reads them.
+CacheDirectory=fsp-github-insights
+CacheDirectoryMode=0700
+Environment=HOME=/var/cache/fsp-github-insights
+# No token is required. An optional read-only GITHUB_TOKEN only raises GitHub's anonymous limits.
+EnvironmentFile=-/etc/fsp/github-insights.env
+ExecStart=/opt/fsp/current/bin/fsp-github-insights
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+LockPersonality=yes
+# git index-pack of several large histories at once.
+MemoryMax=2G
+
+[Install]
+WantedBy=multi-user.target

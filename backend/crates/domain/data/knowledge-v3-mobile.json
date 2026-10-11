@@ -1,0 +1,4145 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "swift-intern-1",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Чем let отличается от var в Swift?",
+      "options": [
+        {
+          "id": "swift-intern-1-a",
+          "label": "let работает только с числами"
+        },
+        {
+          "id": "swift-intern-1-b",
+          "label": "let объявляет константу, var — переменную"
+        },
+        {
+          "id": "swift-intern-1-c",
+          "label": "var объявляет константу, а let — переменную, которую можно менять"
+        }
+      ],
+      "correctOptionId": "swift-intern-1-b",
+      "explanation": "Значение let нельзя изменить после инициализации.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics/"
+    },
+    {
+      "id": "swift-intern-2",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Что такое опционал (Optional)?",
+      "options": [
+        {
+          "id": "swift-intern-2-a",
+          "label": "Тип, который может содержать значение или nil"
+        },
+        {
+          "id": "swift-intern-2-b",
+          "label": "Необязательный параметр функции, который можно не передавать при вызове"
+        },
+        {
+          "id": "swift-intern-2-c",
+          "label": "Тип только для строк"
+        }
+      ],
+      "correctOptionId": "swift-intern-2-a",
+      "explanation": "Опционалы делают отсутствие значения явным.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics/#Optionals"
+    },
+    {
+      "id": "swift-intern-3",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Как безопасно извлечь значение опционала?",
+      "options": [
+        {
+          "id": "swift-intern-3-a",
+          "label": "optional! всегда"
+        },
+        {
+          "id": "swift-intern-3-b",
+          "label": "optional.value()"
+        },
+        {
+          "id": "swift-intern-3-c",
+          "label": "if let value = optional { … }"
+        }
+      ],
+      "correctOptionId": "swift-intern-3-c",
+      "explanation": "Принудительное извлечение ! упадёт при nil.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics/#Optional-Binding"
+    },
+    {
+      "id": "swift-intern-4",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Как объявить массив строк?",
+      "options": [
+        {
+          "id": "swift-intern-4-a",
+          "label": "var names = String[]"
+        },
+        {
+          "id": "swift-intern-4-b",
+          "label": "var names: [String] = []"
+        },
+        {
+          "id": "swift-intern-4-c",
+          "label": "var names: Array = \"строки\""
+        }
+      ],
+      "correctOptionId": "swift-intern-4-b",
+      "explanation": "[String] — сокращение для Array<String>.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/collectiontypes/"
+    },
+    {
+      "id": "swift-intern-5",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Что выведет print(\"Привет, \\(name)\") при name = \"Аня\"?",
+      "options": [
+        {
+          "id": "swift-intern-5-a",
+          "label": "Привет, Аня"
+        },
+        {
+          "id": "swift-intern-5-b",
+          "label": "Привет, \\(name)"
+        },
+        {
+          "id": "swift-intern-5-c",
+          "label": "Привет, name"
+        }
+      ],
+      "correctOptionId": "swift-intern-5-a",
+      "explanation": "Интерполяция строк подставляет значение выражения.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/stringsandcharacters/#String-Interpolation"
+    },
+    {
+      "id": "swift-intern-6",
+      "grade": "intern",
+      "skillId": "swift",
+      "prompt": "Какой оператор задаёт значение по умолчанию для nil?",
+      "options": [
+        {
+          "id": "swift-intern-6-a",
+          "label": "||"
+        },
+        {
+          "id": "swift-intern-6-b",
+          "label": "?:"
+        },
+        {
+          "id": "swift-intern-6-c",
+          "label": "??"
+        }
+      ],
+      "correctOptionId": "swift-intern-6-c",
+      "explanation": "name ?? \"Гость\" вернёт \"Гость\", если name равен nil.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/basicoperators/#Nil-Coalescing-Operator"
+    },
+    {
+      "id": "swift-junior-1",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Чем struct отличается от class в Swift?",
+      "options": [
+        {
+          "id": "swift-junior-1-a",
+          "label": "Структура — тип-значение и копируется, класс — ссылочный тип"
+        },
+        {
+          "id": "swift-junior-1-b",
+          "label": "Структуры не могут иметь методов и инициализаторов, а классы могут"
+        },
+        {
+          "id": "swift-junior-1-c",
+          "label": "Классы нельзя наследовать"
+        }
+      ],
+      "correctOptionId": "swift-junior-1-a",
+      "explanation": "Изменение копии структуры не влияет на оригинал.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/classesandstructures/"
+    },
+    {
+      "id": "swift-junior-2",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Что делает guard let?",
+      "options": [
+        {
+          "id": "swift-junior-2-a",
+          "label": "Извлекает опционал и требует выхода из области при nil"
+        },
+        {
+          "id": "swift-junior-2-b",
+          "label": "Объявляет глобальную константу, доступную во всех файлах модуля"
+        },
+        {
+          "id": "swift-junior-2-c",
+          "label": "Создаёт цикл"
+        }
+      ],
+      "correctOptionId": "swift-junior-2-a",
+      "explanation": "guard упрощает ранний выход и уменьшает вложенность.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow/#Early-Exit"
+    },
+    {
+      "id": "swift-junior-3",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Что такое протокол в Swift?",
+      "options": [
+        {
+          "id": "swift-junior-3-a",
+          "label": "Набор требований к методам и свойствам, который реализуют типы"
+        },
+        {
+          "id": "swift-junior-3-b",
+          "label": "Сетевой протокол"
+        },
+        {
+          "id": "swift-junior-3-c",
+          "label": "Класс с реализацией по умолчанию, от которого наследуются остальные классы"
+        }
+      ],
+      "correctOptionId": "swift-junior-3-a",
+      "explanation": "Протоколы — основа полиморфизма в Swift.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/"
+    },
+    {
+      "id": "swift-junior-4",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Зачем в замыкании писать [weak self]?",
+      "options": [
+        {
+          "id": "swift-junior-4-a",
+          "label": "Чтобы избежать цикла сильных ссылок между объектом и замыканием"
+        },
+        {
+          "id": "swift-junior-4-b",
+          "label": "Чтобы замыкание работало быстрее"
+        },
+        {
+          "id": "swift-junior-4-c",
+          "label": "Чтобы self стал опционалом и замыкание выполнялось быстрее на главном потоке"
+        }
+      ],
+      "correctOptionId": "swift-junior-4-a",
+      "explanation": "Цикл ссылок приводит к утечке памяти при ARC.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-for-Closures"
+    },
+    {
+      "id": "swift-junior-5",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Как обработать ошибку функции, помеченной throws?",
+      "options": [
+        {
+          "id": "swift-junior-5-a",
+          "label": "if f() == error"
+        },
+        {
+          "id": "swift-junior-5-b",
+          "label": "do { try f() } catch { … }"
+        },
+        {
+          "id": "swift-junior-5-c",
+          "label": "f()! без обработки"
+        }
+      ],
+      "correctOptionId": "swift-junior-5-b",
+      "explanation": "try? превращает ошибку в nil, try! падает при ошибке.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/errorhandling/"
+    },
+    {
+      "id": "swift-junior-6",
+      "grade": "junior",
+      "skillId": "swift",
+      "prompt": "Что такое enum с ассоциированными значениями?",
+      "options": [
+        {
+          "id": "swift-junior-6-a",
+          "label": "Перечисление, варианты которого несут данные, например case failure(Error)"
+        },
+        {
+          "id": "swift-junior-6-b",
+          "label": "Перечисление, варианты которого могут быть только строками или целыми числами"
+        },
+        {
+          "id": "swift-junior-6-c",
+          "label": "Массив значений"
+        }
+      ],
+      "correctOptionId": "swift-junior-6-a",
+      "explanation": "Удобно для результатов и состояний.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/enumerations/#Associated-Values"
+    },
+    {
+      "id": "swift-middle-1",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Что делает async/await в Swift?",
+      "options": [
+        {
+          "id": "swift-middle-1-a",
+          "label": "Позволяет писать асинхронный код последовательно, приостанавливая функцию до результата"
+        },
+        {
+          "id": "swift-middle-1-b",
+          "label": "Запускает функцию в отдельном процессе и блокирует главный поток до завершения работы"
+        },
+        {
+          "id": "swift-middle-1-c",
+          "label": "Блокирует главный поток до завершения"
+        }
+      ],
+      "correctOptionId": "swift-middle-1-a",
+      "explanation": "await приостанавливает задачу без блокировки потока.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/"
+    },
+    {
+      "id": "swift-middle-2",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Для чего нужен actor?",
+      "options": [
+        {
+          "id": "swift-middle-2-a",
+          "label": "Ускоряет анимации"
+        },
+        {
+          "id": "swift-middle-2-b",
+          "label": "Заменяет протоколы и классы для описания сетевых сервисов приложения"
+        },
+        {
+          "id": "swift-middle-2-c",
+          "label": "Защищает изменяемое состояние от гонок, сериализуя доступ"
+        }
+      ],
+      "correctOptionId": "swift-middle-2-c",
+      "explanation": "Доступ к состоянию актора снаружи требует await.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Actors"
+    },
+    {
+      "id": "swift-middle-3",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Что такое generics?",
+      "options": [
+        {
+          "id": "swift-middle-3-a",
+          "label": "Обобщённый код, работающий с разными типами с проверкой на этапе компиляции"
+        },
+        {
+          "id": "swift-middle-3-b",
+          "label": "Динамическая типизация через тип Any с проверкой типов во время выполнения"
+        },
+        {
+          "id": "swift-middle-3-c",
+          "label": "Тип Any"
+        }
+      ],
+      "correctOptionId": "swift-middle-3-a",
+      "explanation": "Обобщения сохраняют типобезопасность.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics/"
+    },
+    {
+      "id": "swift-middle-4",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Что такое copy-on-write для массивов Swift?",
+      "options": [
+        {
+          "id": "swift-middle-4-a",
+          "label": "Массивы всегда копируются при присваивании сразу"
+        },
+        {
+          "id": "swift-middle-4-b",
+          "label": "Массивы нельзя копировать"
+        },
+        {
+          "id": "swift-middle-4-c",
+          "label": "Копирование буфера откладывается до первого изменения копии"
+        }
+      ],
+      "correctOptionId": "swift-middle-4-c",
+      "explanation": "Это делает типы-значения эффективными.",
+      "source": "https://developer.apple.com/documentation/swift/array"
+    },
+    {
+      "id": "swift-middle-5",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Что делает @MainActor?",
+      "options": [
+        {
+          "id": "swift-middle-5-a",
+          "label": "Гарантирует выполнение кода на главном акторе, связанном с главным потоком"
+        },
+        {
+          "id": "swift-middle-5-b",
+          "label": "Ускоряет код"
+        },
+        {
+          "id": "swift-middle-5-c",
+          "label": "Делает метод статическим и доступным из любого потока без синхронизации"
+        }
+      ],
+      "correctOptionId": "swift-middle-5-a",
+      "explanation": "Обновления UI должны выполняться на главном потоке.",
+      "source": "https://developer.apple.com/documentation/swift/mainactor"
+    },
+    {
+      "id": "swift-middle-6",
+      "grade": "middle",
+      "skillId": "swift",
+      "prompt": "Что такое протокол с associatedtype?",
+      "options": [
+        {
+          "id": "swift-middle-6-a",
+          "label": "Протокол без методов"
+        },
+        {
+          "id": "swift-middle-6-b",
+          "label": "Протокол с типом-заполнителем, который задаёт реализующий тип"
+        },
+        {
+          "id": "swift-middle-6-c",
+          "label": "Протокол, который могут реализовать только классы, но не структуры"
+        }
+      ],
+      "correctOptionId": "swift-middle-6-b",
+      "explanation": "Пример — Sequence с ассоциированным типом Element.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics/#Associated-Types"
+    },
+    {
+      "id": "swift-senior-1",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Что проверяет строгий режим конкурентности Swift 6 (Sendable)?",
+      "options": [
+        {
+          "id": "swift-senior-1-a",
+          "label": "Что код компилируется быстрее за счёт параллельной проверки модулей"
+        },
+        {
+          "id": "swift-senior-1-b",
+          "label": "Что нет утечек памяти"
+        },
+        {
+          "id": "swift-senior-1-c",
+          "label": "Что значения, передаваемые между доменами конкурентности, безопасны от гонок данных"
+        }
+      ],
+      "correctOptionId": "swift-senior-1-c",
+      "explanation": "Компилятор отклоняет передачу несинхронизированного изменяемого состояния.",
+      "source": "https://www.swift.org/migration/documentation/swift-6-concurrency-migration-guide/"
+    },
+    {
+      "id": "swift-senior-2",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Чем some View отличается от any View?",
+      "options": [
+        {
+          "id": "swift-senior-2-a",
+          "label": "any — непрозрачный конкретный тип, а some — контейнер с динамической диспетчеризацией вызовов во время выполнения"
+        },
+        {
+          "id": "swift-senior-2-b",
+          "label": "some — непрозрачный конкретный тип, any — экзистенциальный контейнер с динамической диспетчеризацией"
+        },
+        {
+          "id": "swift-senior-2-c",
+          "label": "any быстрее some"
+        }
+      ],
+      "correctOptionId": "swift-senior-2-b",
+      "explanation": "Непрозрачные типы сохраняют информацию о типе для компилятора.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/opaquetypes/"
+    },
+    {
+      "id": "swift-senior-3",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Как найти утечку памяти в iOS-приложении?",
+      "options": [
+        {
+          "id": "swift-senior-3-a",
+          "label": "По размеру IPA-файла"
+        },
+        {
+          "id": "swift-senior-3-b",
+          "label": "Перезапуском симулятора и сравнением потребления памяти в Activity Monitor"
+        },
+        {
+          "id": "swift-senior-3-c",
+          "label": "Instruments (Leaks, Allocations) и Memory Graph в Xcode"
+        }
+      ],
+      "correctOptionId": "swift-senior-3-c",
+      "explanation": "Граф памяти показывает циклы сильных ссылок.",
+      "source": "https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use"
+    },
+    {
+      "id": "swift-senior-4",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Что такое структурированная конкурентность?",
+      "options": [
+        {
+          "id": "swift-senior-4-a",
+          "label": "Запуск задач без связи друг с другом, чтобы их отмена не влияла на другие"
+        },
+        {
+          "id": "swift-senior-4-b",
+          "label": "Дочерние задачи привязаны к родительской области и отменяются вместе с ней"
+        },
+        {
+          "id": "swift-senior-4-c",
+          "label": "Использование только GCD"
+        }
+      ],
+      "correctOptionId": "swift-senior-4-b",
+      "explanation": "TaskGroup и async let — примеры структурированной конкурентности.",
+      "source": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Tasks-and-Task-Groups"
+    },
+    {
+      "id": "swift-senior-5",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Как сделать модуль Swift-пакета пригодным для повторного использования?",
+      "options": [
+        {
+          "id": "swift-senior-5-a",
+          "label": "Сделать все типы модуля public, чтобы потребителям было удобнее"
+        },
+        {
+          "id": "swift-senior-5-b",
+          "label": "Не писать документацию"
+        },
+        {
+          "id": "swift-senior-5-c",
+          "label": "Чёткий публичный API, тесты и семантическое версионирование"
+        }
+      ],
+      "correctOptionId": "swift-senior-5-c",
+      "explanation": "Публичный API — контракт с потребителями.",
+      "source": "https://www.swift.org/documentation/package-manager/"
+    },
+    {
+      "id": "swift-senior-6",
+      "grade": "senior",
+      "skillId": "swift",
+      "prompt": "Что даёт ключевое слово consuming или тип ~Copyable?",
+      "options": [
+        {
+          "id": "swift-senior-6-a",
+          "label": "Ускорение компиляции"
+        },
+        {
+          "id": "swift-senior-6-b",
+          "label": "Автоматическое кэширование"
+        },
+        {
+          "id": "swift-senior-6-c",
+          "label": "Явное управление владением, исключающее копии"
+        }
+      ],
+      "correctOptionId": "swift-senior-6-c",
+      "explanation": "Некопируемые типы позволяют моделировать уникальные ресурсы.",
+      "source": "https://github.com/swiftlang/swift-evolution/blob/main/proposals/0390-noncopyable-structs-and-enums.md"
+    },
+    {
+      "id": "swift-lead-1",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Как организовать модульную архитектуру большого iOS-приложения?",
+      "options": [
+        {
+          "id": "swift-lead-1-a",
+          "label": "Разделение на модули Swift Package по фичам с явными зависимостями"
+        },
+        {
+          "id": "swift-lead-1-b",
+          "label": "Один большой таргет"
+        },
+        {
+          "id": "swift-lead-1-c",
+          "label": "Копирование кода между проектами и один большой таргет приложения"
+        }
+      ],
+      "correctOptionId": "swift-lead-1-a",
+      "explanation": "Модули ускоряют сборку и уменьшают связанность.",
+      "source": "https://www.swift.org/documentation/package-manager/"
+    },
+    {
+      "id": "swift-lead-2",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Как сократить время сборки iOS-проекта?",
+      "options": [
+        {
+          "id": "swift-lead-2-a",
+          "label": "Удалить тесты"
+        },
+        {
+          "id": "swift-lead-2-b",
+          "label": "Перейти на Objective-C полностью и удалить тесты из основной сборки"
+        },
+        {
+          "id": "swift-lead-2-c",
+          "label": "Модуляризация, кэширование сборки и устранение медленных выражений типов"
+        }
+      ],
+      "correctOptionId": "swift-lead-2-c",
+      "explanation": "-Xfrontend -warn-long-expression-type-checking помогает найти медленные места.",
+      "source": "https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds"
+    },
+    {
+      "id": "swift-lead-3",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Как вводить строгую конкурентность Swift 6 в существующий проект?",
+      "options": [
+        {
+          "id": "swift-lead-3-a",
+          "label": "Сразу во всём проекте с отключением сборки при ошибках"
+        },
+        {
+          "id": "swift-lead-3-b",
+          "label": "Не вводить"
+        },
+        {
+          "id": "swift-lead-3-c",
+          "label": "Поэтапно по модулям, включая проверки как предупреждения"
+        }
+      ],
+      "correctOptionId": "swift-lead-3-c",
+      "explanation": "Руководство миграции предлагает пошаговый подход.",
+      "source": "https://www.swift.org/migration/documentation/swift-6-concurrency-migration-guide/"
+    },
+    {
+      "id": "swift-lead-4",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Какие стандарты код-ревью важны в iOS-команде?",
+      "options": [
+        {
+          "id": "swift-lead-4-a",
+          "label": "Только стиль отступов и длину строк, остальное проверяет компилятор"
+        },
+        {
+          "id": "swift-lead-4-b",
+          "label": "Число строк"
+        },
+        {
+          "id": "swift-lead-4-c",
+          "label": "Читаемость, безопасность потоков, управление памятью и тесты"
+        }
+      ],
+      "correctOptionId": "swift-lead-4-c",
+      "explanation": "Автоматизируйте стиль линтером, ревью — для смысла.",
+      "source": "https://github.com/realm/SwiftLint"
+    },
+    {
+      "id": "swift-lead-5",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Как выбирать сторонние зависимости?",
+      "options": [
+        {
+          "id": "swift-lead-5-a",
+          "label": "Брать самые новые"
+        },
+        {
+          "id": "swift-lead-5-b",
+          "label": "Оценить поддержку, лицензию, размер и риски безопасности"
+        },
+        {
+          "id": "swift-lead-5-c",
+          "label": "Брать всё, что экономит время сегодня"
+        }
+      ],
+      "correctOptionId": "swift-lead-5-b",
+      "explanation": "Каждая зависимость — долгосрочное обязательство.",
+      "source": "https://www.swift.org/documentation/package-manager/"
+    },
+    {
+      "id": "swift-lead-6",
+      "grade": "lead",
+      "skillId": "swift",
+      "prompt": "Как обучать разработчиков новым возможностям Swift?",
+      "options": [
+        {
+          "id": "swift-lead-6-a",
+          "label": "Запретить новые возможности языка до тех пор, пока их не выучат все"
+        },
+        {
+          "id": "swift-lead-6-b",
+          "label": "Ничего не делать"
+        },
+        {
+          "id": "swift-lead-6-c",
+          "label": "Внутренние разборы, пилоты в реальном коде и обновление гайдлайнов"
+        }
+      ],
+      "correctOptionId": "swift-lead-6-c",
+      "explanation": "Практика на своём коде закрепляет знания.",
+      "source": "https://www.swift.org/documentation/"
+    },
+    {
+      "id": "ios_platform-intern-1",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "В какой среде разрабатывают iOS-приложения?",
+      "options": [
+        {
+          "id": "ios_platform-intern-1-a",
+          "label": "Android Studio"
+        },
+        {
+          "id": "ios_platform-intern-1-b",
+          "label": "Visual Studio"
+        },
+        {
+          "id": "ios_platform-intern-1-c",
+          "label": "Xcode"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-1-c",
+      "explanation": "Xcode включает редактор, симуляторы и инструменты отладки.",
+      "source": "https://developer.apple.com/xcode/"
+    },
+    {
+      "id": "ios_platform-intern-2",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "Что такое SwiftUI?",
+      "options": [
+        {
+          "id": "ios_platform-intern-2-a",
+          "label": "База данных"
+        },
+        {
+          "id": "ios_platform-intern-2-b",
+          "label": "Язык программирования для описания интерфейсов, заменяющий Swift"
+        },
+        {
+          "id": "ios_platform-intern-2-c",
+          "label": "Декларативный фреймворк для построения интерфейсов на платформах Apple"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-2-c",
+      "explanation": "Интерфейс описывается как функция состояния.",
+      "source": "https://developer.apple.com/xcode/swiftui/"
+    },
+    {
+      "id": "ios_platform-intern-3",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "Что такое симулятор iOS?",
+      "options": [
+        {
+          "id": "ios_platform-intern-3-a",
+          "label": "Тестовый сервер Apple, на который загружают сборки приложения"
+        },
+        {
+          "id": "ios_platform-intern-3-b",
+          "label": "Веб-сайт Apple"
+        },
+        {
+          "id": "ios_platform-intern-3-c",
+          "label": "Программа на Mac, запускающая приложение без физического устройства"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-3-c",
+      "explanation": "Некоторые функции оборудования доступны только на устройстве.",
+      "source": "https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device"
+    },
+    {
+      "id": "ios_platform-intern-4",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "Где хранится список разрешений и метаданные приложения?",
+      "options": [
+        {
+          "id": "ios_platform-intern-4-a",
+          "label": "В README"
+        },
+        {
+          "id": "ios_platform-intern-4-b",
+          "label": "В Package.swift"
+        },
+        {
+          "id": "ios_platform-intern-4-c",
+          "label": "В файле Info.plist"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-4-c",
+      "explanation": "Например, описание причины доступа к камере.",
+      "source": "https://developer.apple.com/documentation/bundleresources/information-property-list"
+    },
+    {
+      "id": "ios_platform-intern-5",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "Как приложение запрашивает доступ к камере?",
+      "options": [
+        {
+          "id": "ios_platform-intern-5-a",
+          "label": "Доступ к камере даётся приложению автоматически при установке"
+        },
+        {
+          "id": "ios_platform-intern-5-b",
+          "label": "Через настройки сервера"
+        },
+        {
+          "id": "ios_platform-intern-5-c",
+          "label": "Системным запросом с описанием причины в Info.plist"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-5-c",
+      "explanation": "Без описания причины приложение упадёт при запросе.",
+      "source": "https://developer.apple.com/documentation/avfoundation/requesting-authorization-to-capture-and-save-media"
+    },
+    {
+      "id": "ios_platform-intern-6",
+      "grade": "intern",
+      "skillId": "ios_platform",
+      "prompt": "Как опубликовать приложение для пользователей?",
+      "options": [
+        {
+          "id": "ios_platform-intern-6-a",
+          "label": "Через App Store Connect после проверки Apple"
+        },
+        {
+          "id": "ios_platform-intern-6-b",
+          "label": "Загрузить IPA на сайт"
+        },
+        {
+          "id": "ios_platform-intern-6-c",
+          "label": "Отправить файл по почте"
+        }
+      ],
+      "correctOptionId": "ios_platform-intern-6-a",
+      "explanation": "TestFlight используется для бета-тестирования.",
+      "source": "https://developer.apple.com/app-store-connect/"
+    },
+    {
+      "id": "ios_platform-junior-1",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Что делает @State в SwiftUI?",
+      "options": [
+        {
+          "id": "ios_platform-junior-1-a",
+          "label": "Делает свойство глобальным и сохраняет его на диск между запусками приложения"
+        },
+        {
+          "id": "ios_platform-junior-1-b",
+          "label": "Сохраняет данные на диск"
+        },
+        {
+          "id": "ios_platform-junior-1-c",
+          "label": "Хранит локальное изменяемое состояние представления и перерисовывает его при изменении"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-1-c",
+      "explanation": "Для общего состояния используют наблюдаемые модели.",
+      "source": "https://developer.apple.com/documentation/swiftui/state"
+    },
+    {
+      "id": "ios_platform-junior-2",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Почему сетевой запрос нельзя выполнять синхронно на главном потоке?",
+      "options": [
+        {
+          "id": "ios_platform-junior-2-a",
+          "label": "Запрос не отправится"
+        },
+        {
+          "id": "ios_platform-junior-2-b",
+          "label": "Apple запрещает сеть"
+        },
+        {
+          "id": "ios_platform-junior-2-c",
+          "label": "Интерфейс зависнет до ответа"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-2-c",
+      "explanation": "Используйте URLSession с async/await.",
+      "source": "https://developer.apple.com/documentation/foundation/urlsession"
+    },
+    {
+      "id": "ios_platform-junior-3",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Как выполнить HTTP-запрос стандартными средствами?",
+      "options": [
+        {
+          "id": "ios_platform-junior-3-a",
+          "label": "URLSession"
+        },
+        {
+          "id": "ios_platform-junior-3-b",
+          "label": "NSNetworkManager"
+        },
+        {
+          "id": "ios_platform-junior-3-c",
+          "label": "HTTPKit из коробки"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-3-a",
+      "explanation": "URLSession — стандартный API сети в Foundation.",
+      "source": "https://developer.apple.com/documentation/foundation/urlsession"
+    },
+    {
+      "id": "ios_platform-junior-4",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Где хранить пароль или токен пользователя?",
+      "options": [
+        {
+          "id": "ios_platform-junior-4-a",
+          "label": "В UserDefaults"
+        },
+        {
+          "id": "ios_platform-junior-4-b",
+          "label": "В файле Documents"
+        },
+        {
+          "id": "ios_platform-junior-4-c",
+          "label": "В Keychain"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-4-c",
+      "explanation": "Keychain шифрует секреты; UserDefaults не защищён.",
+      "source": "https://developer.apple.com/documentation/security/keychain-services"
+    },
+    {
+      "id": "ios_platform-junior-5",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Что такое жизненный цикл сцены (scene phase)?",
+      "options": [
+        {
+          "id": "ios_platform-junior-5-a",
+          "label": "Состояния active, inactive и background, на которые приложение реагирует"
+        },
+        {
+          "id": "ios_platform-junior-5-b",
+          "label": "Порядок экранов в навигации приложения от запуска до закрытия"
+        },
+        {
+          "id": "ios_platform-junior-5-c",
+          "label": "Этапы сборки"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-5-a",
+      "explanation": "При переходе в фон сохраняют данные.",
+      "source": "https://developer.apple.com/documentation/swiftui/scenephase"
+    },
+    {
+      "id": "ios_platform-junior-6",
+      "grade": "junior",
+      "skillId": "ios_platform",
+      "prompt": "Как отобразить список данных в SwiftUI?",
+      "options": [
+        {
+          "id": "ios_platform-junior-6-a",
+          "label": "Цикл for внутри body без ForEach и идентификаторов элементов"
+        },
+        {
+          "id": "ios_platform-junior-6-b",
+          "label": "List или LazyVStack с ForEach по идентифицируемым элементам"
+        },
+        {
+          "id": "ios_platform-junior-6-c",
+          "label": "UITableView обязательно"
+        }
+      ],
+      "correctOptionId": "ios_platform-junior-6-b",
+      "explanation": "Идентификаторы нужны для корректных обновлений.",
+      "source": "https://developer.apple.com/documentation/swiftui/list"
+    },
+    {
+      "id": "ios_platform-middle-1",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Как хранить структурированные данные локально в современном iOS?",
+      "options": [
+        {
+          "id": "ios_platform-middle-1-a",
+          "label": "SwiftData или Core Data"
+        },
+        {
+          "id": "ios_platform-middle-1-b",
+          "label": "В UserDefaults большими массивами"
+        },
+        {
+          "id": "ios_platform-middle-1-c",
+          "label": "В Keychain"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-1-a",
+      "explanation": "Базы данных подходят для объектов и запросов.",
+      "source": "https://developer.apple.com/documentation/swiftdata"
+    },
+    {
+      "id": "ios_platform-middle-2",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Как реализовать фоновое обновление данных?",
+      "options": [
+        {
+          "id": "ios_platform-middle-2-a",
+          "label": "Бесконечным таймером в фоне"
+        },
+        {
+          "id": "ios_platform-middle-2-b",
+          "label": "Приложение всегда работает в фоне, поэтому достаточно обычного таймера"
+        },
+        {
+          "id": "ios_platform-middle-2-c",
+          "label": "Через BackgroundTasks с регистрацией задачи и учётом ограничений системы"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-2-c",
+      "explanation": "Система сама решает, когда выполнить фоновую задачу.",
+      "source": "https://developer.apple.com/documentation/backgroundtasks"
+    },
+    {
+      "id": "ios_platform-middle-3",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Как отправить push-уведомление на iOS?",
+      "options": [
+        {
+          "id": "ios_platform-middle-3-a",
+          "label": "Через SMS"
+        },
+        {
+          "id": "ios_platform-middle-3-b",
+          "label": "Через APNs с токеном устройства и разрешением пользователя"
+        },
+        {
+          "id": "ios_platform-middle-3-c",
+          "label": "Прямым соединением сервера с телефоном по его IP-адресу"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-3-b",
+      "explanation": "Сервер отправляет уведомление в Apple Push Notification service.",
+      "source": "https://developer.apple.com/documentation/usernotifications"
+    },
+    {
+      "id": "ios_platform-middle-4",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Чем @Observable отличается от ObservableObject?",
+      "options": [
+        {
+          "id": "ios_platform-middle-4-a",
+          "label": "Это одно и то же, просто @Observable работает только с UIKit, а ObservableObject — со SwiftUI"
+        },
+        {
+          "id": "ios_platform-middle-4-b",
+          "label": "Отслеживает доступ к отдельным свойствам и перерисовывает только зависящие представления"
+        },
+        {
+          "id": "ios_platform-middle-4-c",
+          "label": "@Observable работает только с UIKit"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-4-b",
+      "explanation": "Макрос Observation уменьшает лишние перерисовки.",
+      "source": "https://developer.apple.com/documentation/observation"
+    },
+    {
+      "id": "ios_platform-middle-5",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Как обеспечить доступность интерфейса iOS?",
+      "options": [
+        {
+          "id": "ios_platform-middle-5-a",
+          "label": "Подписи VoiceOver, поддержка Dynamic Type и достаточный контраст"
+        },
+        {
+          "id": "ios_platform-middle-5-b",
+          "label": "Только крупные кнопки"
+        },
+        {
+          "id": "ios_platform-middle-5-c",
+          "label": "Не нужно ничего делать: Apple делает интерфейсы доступными автоматически"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-5-a",
+      "explanation": "Accessibility Inspector помогает проверить.",
+      "source": "https://developer.apple.com/accessibility/"
+    },
+    {
+      "id": "ios_platform-middle-6",
+      "grade": "middle",
+      "skillId": "ios_platform",
+      "prompt": "Как организовать навигацию в SwiftUI с программными переходами?",
+      "options": [
+        {
+          "id": "ios_platform-middle-6-a",
+          "label": "NavigationStack с путём навигации"
+        },
+        {
+          "id": "ios_platform-middle-6-b",
+          "label": "Только кнопками назад"
+        },
+        {
+          "id": "ios_platform-middle-6-c",
+          "label": "Через глобальные переменные"
+        }
+      ],
+      "correctOptionId": "ios_platform-middle-6-a",
+      "explanation": "Путь позволяет управлять стеком из кода и восстанавливать состояние.",
+      "source": "https://developer.apple.com/documentation/swiftui/navigationstack"
+    },
+    {
+      "id": "ios_platform-senior-1",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как анализировать проблемы производительности интерфейса?",
+      "options": [
+        {
+          "id": "ios_platform-senior-1-a",
+          "label": "По ощущениям на симуляторе и размеру исходного кода экранов"
+        },
+        {
+          "id": "ios_platform-senior-1-b",
+          "label": "По размеру исходников"
+        },
+        {
+          "id": "ios_platform-senior-1-c",
+          "label": "Instruments (Time Profiler, Hangs) на реальном устройстве"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-1-c",
+      "explanation": "Симулятор не отражает производительность устройства.",
+      "source": "https://developer.apple.com/documentation/xcode/improving-your-app-s-performance"
+    },
+    {
+      "id": "ios_platform-senior-2",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как обеспечить безопасность сетевого взаимодействия?",
+      "options": [
+        {
+          "id": "ios_platform-senior-2-a",
+          "label": "App Transport Security, проверка сертификатов и хранение секретов вне кода"
+        },
+        {
+          "id": "ios_platform-senior-2-b",
+          "label": "Отключить ATS"
+        },
+        {
+          "id": "ios_platform-senior-2-c",
+          "label": "Хранить ключи API в строках кода и отключить App Transport Security"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-2-a",
+      "explanation": "Ключи в бинарнике можно извлечь.",
+      "source": "https://developer.apple.com/documentation/security/preventing-insecure-network-connections"
+    },
+    {
+      "id": "ios_platform-senior-3",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как отслеживать падения приложения у пользователей?",
+      "options": [
+        {
+          "id": "ios_platform-senior-3-a",
+          "label": "Отчёты о сбоях Xcode Organizer или специализированный сервис с символикацией"
+        },
+        {
+          "id": "ios_platform-senior-3-b",
+          "label": "Ждать отзывов в App Store"
+        },
+        {
+          "id": "ios_platform-senior-3-c",
+          "label": "Логи на устройстве пользователя, которые он присылает по почте"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-3-a",
+      "explanation": "Символикация превращает адреса в имена функций.",
+      "source": "https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs"
+    },
+    {
+      "id": "ios_platform-senior-4",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как постепенно перенести экран с UIKit на SwiftUI?",
+      "options": [
+        {
+          "id": "ios_platform-senior-4-a",
+          "label": "Переписать всё приложение за один релиз, потому что смешивать фреймворки нельзя"
+        },
+        {
+          "id": "ios_platform-senior-4-b",
+          "label": "Встроить SwiftUI через UIHostingController и мигрировать по экранам"
+        },
+        {
+          "id": "ios_platform-senior-4-c",
+          "label": "Смешивать нельзя"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-4-b",
+      "explanation": "Взаимодействие фреймворков поддерживается официально.",
+      "source": "https://developer.apple.com/documentation/swiftui/uihostingcontroller"
+    },
+    {
+      "id": "ios_platform-senior-5",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как снизить энергопотребление приложения?",
+      "options": [
+        {
+          "id": "ios_platform-senior-5-a",
+          "label": "Чаще обновлять данные в фоне и держать GPS включённым постоянно, чтобы не тратить энергию на повторный поиск"
+        },
+        {
+          "id": "ios_platform-senior-5-b",
+          "label": "Держать GPS включённым постоянно"
+        },
+        {
+          "id": "ios_platform-senior-5-c",
+          "label": "Группировать сетевые запросы, ограничивать фоновую работу и использовать эффективные API местоположения"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-5-c",
+      "explanation": "Energy Log в Instruments показывает расход.",
+      "source": "https://developer.apple.com/documentation/xcode/improving-your-app-s-performance"
+    },
+    {
+      "id": "ios_platform-senior-6",
+      "grade": "senior",
+      "skillId": "ios_platform",
+      "prompt": "Как соблюдать требования приватности App Store?",
+      "options": [
+        {
+          "id": "ios_platform-senior-6-a",
+          "label": "Собирать все данные без описания и скрывать сбор от проверки App Store"
+        },
+        {
+          "id": "ios_platform-senior-6-b",
+          "label": "Скрыть сбор данных"
+        },
+        {
+          "id": "ios_platform-senior-6-c",
+          "label": "Заполнить манифест приватности и метки данных и запрашивать только нужные разрешения"
+        }
+      ],
+      "correctOptionId": "ios_platform-senior-6-c",
+      "explanation": "Неточные сведения приводят к отказу в публикации.",
+      "source": "https://developer.apple.com/documentation/bundleresources/privacy-manifest-files"
+    },
+    {
+      "id": "ios_platform-lead-1",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Как построить конвейер выпуска iOS-приложения?",
+      "options": [
+        {
+          "id": "ios_platform-lead-1-a",
+          "label": "CI со сборкой, тестами, подписью и автоматической загрузкой в TestFlight"
+        },
+        {
+          "id": "ios_platform-lead-1-b",
+          "label": "Ручная сборка на ноутбуке разработчика и выпуск без автоматических тестов"
+        },
+        {
+          "id": "ios_platform-lead-1-c",
+          "label": "Выпуск без тестов"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-1-a",
+      "explanation": "Автоматизация снижает ошибки при релизах.",
+      "source": "https://developer.apple.com/xcode-cloud/"
+    },
+    {
+      "id": "ios_platform-lead-2",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Как управлять поэтапным выпуском обновления?",
+      "options": [
+        {
+          "id": "ios_platform-lead-2-a",
+          "label": "Выпустить сразу всем без контроля"
+        },
+        {
+          "id": "ios_platform-lead-2-b",
+          "label": "Отправлять сборки вручную пользователям"
+        },
+        {
+          "id": "ios_platform-lead-2-c",
+          "label": "Phased release в App Store и фича-флаги"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-2-c",
+      "explanation": "Постепенный выпуск ограничивает влияние ошибок.",
+      "source": "https://developer.apple.com/help/app-store-connect/update-your-app/release-a-version-update-in-phases"
+    },
+    {
+      "id": "ios_platform-lead-3",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Какую минимальную версию iOS поддерживать?",
+      "options": [
+        {
+          "id": "ios_platform-lead-3-a",
+          "label": "Всегда самую старую"
+        },
+        {
+          "id": "ios_platform-lead-3-b",
+          "label": "Только последнюю бета-версию"
+        },
+        {
+          "id": "ios_platform-lead-3-c",
+          "label": "По доле пользователей, стоимости поддержки и нужным API"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-3-c",
+      "explanation": "Решение пересматривают с выходом новых версий.",
+      "source": "https://developer.apple.com/support/app-store/"
+    },
+    {
+      "id": "ios_platform-lead-4",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Как сохранить качество при росте iOS-команды?",
+      "options": [
+        {
+          "id": "ios_platform-lead-4-a",
+          "label": "Каждый пишет как хочет, а качество проверяется только тестировщиками"
+        },
+        {
+          "id": "ios_platform-lead-4-b",
+          "label": "Архитектурные гайдлайны, модульность, тесты и регулярные ревью"
+        },
+        {
+          "id": "ios_platform-lead-4-c",
+          "label": "Запретить изменения"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-4-b",
+      "explanation": "Согласованные правила снижают стоимость поддержки.",
+      "source": "https://developer.apple.com/documentation/xcode/testing"
+    },
+    {
+      "id": "ios_platform-lead-5",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Нативная разработка или кросс-платформа: как выбрать?",
+      "options": [
+        {
+          "id": "ios_platform-lead-5-a",
+          "label": "По требованиям к производительности, доступу к платформе, бюджету и компетенциям"
+        },
+        {
+          "id": "ios_platform-lead-5-b",
+          "label": "Всегда нативная разработка, потому что кросс-платформа не подходит для серьёзных продуктов"
+        },
+        {
+          "id": "ios_platform-lead-5-c",
+          "label": "Всегда кросс-платформа"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-5-a",
+      "explanation": "Каждый вариант — компромисс.",
+      "source": "https://developer.apple.com/documentation/"
+    },
+    {
+      "id": "ios_platform-lead-6",
+      "grade": "lead",
+      "skillId": "ios_platform",
+      "prompt": "Как реагировать на отказ App Review?",
+      "options": [
+        {
+          "id": "ios_platform-lead-6-a",
+          "label": "Отправить ту же сборку повторно, пока другой проверяющий её не одобрит без изменений"
+        },
+        {
+          "id": "ios_platform-lead-6-b",
+          "label": "Игнорировать"
+        },
+        {
+          "id": "ios_platform-lead-6-c",
+          "label": "Изучить указанное правило, исправить или аргументированно ответить через Resolution Center"
+        }
+      ],
+      "correctOptionId": "ios_platform-lead-6-c",
+      "explanation": "Правила App Review публичны.",
+      "source": "https://developer.apple.com/app-store/review/guidelines/"
+    },
+    {
+      "id": "kotlin-intern-1",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Чем val отличается от var в Kotlin?",
+      "options": [
+        {
+          "id": "kotlin-intern-1-a",
+          "label": "val работает только с числами"
+        },
+        {
+          "id": "kotlin-intern-1-b",
+          "label": "var нельзя использовать в классах, а val — только внутри функций"
+        },
+        {
+          "id": "kotlin-intern-1-c",
+          "label": "val — ссылка только для чтения, var — изменяемая"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-1-c",
+      "explanation": "Предпочитайте val, если значение не меняется.",
+      "source": "https://kotlinlang.org/docs/basic-syntax.html#variables"
+    },
+    {
+      "id": "kotlin-intern-2",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Что означает тип String? в Kotlin?",
+      "options": [
+        {
+          "id": "kotlin-intern-2-a",
+          "label": "Строка с вопросом"
+        },
+        {
+          "id": "kotlin-intern-2-b",
+          "label": "Обязательная строка"
+        },
+        {
+          "id": "kotlin-intern-2-c",
+          "label": "Строка, которая может быть null"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-2-c",
+      "explanation": "Типы без ? не допускают null.",
+      "source": "https://kotlinlang.org/docs/null-safety.html"
+    },
+    {
+      "id": "kotlin-intern-3",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Что делает оператор ?. ?",
+      "options": [
+        {
+          "id": "kotlin-intern-3-a",
+          "label": "Сравнивает строки"
+        },
+        {
+          "id": "kotlin-intern-3-b",
+          "label": "Принудительно разыменовывает объект и падает при null"
+        },
+        {
+          "id": "kotlin-intern-3-c",
+          "label": "Безопасный вызов: вернёт null, если объект null"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-3-c",
+      "explanation": "user?.name не упадёт при user == null.",
+      "source": "https://kotlinlang.org/docs/null-safety.html#safe-call-operator"
+    },
+    {
+      "id": "kotlin-intern-4",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Как объявить функцию в Kotlin?",
+      "options": [
+        {
+          "id": "kotlin-intern-4-a",
+          "label": "fun sum(a: Int, b: Int): Int = a + b"
+        },
+        {
+          "id": "kotlin-intern-4-b",
+          "label": "function sum(a, b)"
+        },
+        {
+          "id": "kotlin-intern-4-c",
+          "label": "def sum(a: Int, b: Int)"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-4-a",
+      "explanation": "Тип результата указывается после двоеточия.",
+      "source": "https://kotlinlang.org/docs/functions.html"
+    },
+    {
+      "id": "kotlin-intern-5",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Как вывести строку с подстановкой значения?",
+      "options": [
+        {
+          "id": "kotlin-intern-5-a",
+          "label": "println(\"Возраст: \" + age.toString()) — единственный способ"
+        },
+        {
+          "id": "kotlin-intern-5-b",
+          "label": "println(\"Возраст: $age\")"
+        },
+        {
+          "id": "kotlin-intern-5-c",
+          "label": "print(\"Возраст: %age\")"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-5-b",
+      "explanation": "Строковые шаблоны поддерживают $имя и ${выражение}.",
+      "source": "https://kotlinlang.org/docs/strings.html#string-templates"
+    },
+    {
+      "id": "kotlin-intern-6",
+      "grade": "intern",
+      "skillId": "kotlin",
+      "prompt": "Чем List отличается от MutableList?",
+      "options": [
+        {
+          "id": "kotlin-intern-6-a",
+          "label": "List хранит только числа, а MutableList — объекты любых типов"
+        },
+        {
+          "id": "kotlin-intern-6-b",
+          "label": "MutableList неупорядочен"
+        },
+        {
+          "id": "kotlin-intern-6-c",
+          "label": "List нельзя изменять через этот интерфейс, MutableList — можно"
+        }
+      ],
+      "correctOptionId": "kotlin-intern-6-c",
+      "explanation": "Интерфейсы коллекций разделяют чтение и изменение.",
+      "source": "https://kotlinlang.org/docs/collections-overview.html"
+    },
+    {
+      "id": "kotlin-junior-1",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Что такое data class?",
+      "options": [
+        {
+          "id": "kotlin-junior-1-a",
+          "label": "Класс для работы с базой данных через аннотации и автоматические запросы"
+        },
+        {
+          "id": "kotlin-junior-1-b",
+          "label": "Класс для данных с автоматическими equals, hashCode, toString и copy"
+        },
+        {
+          "id": "kotlin-junior-1-c",
+          "label": "Абстрактный класс"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-1-b",
+      "explanation": "copy создаёт изменённую копию.",
+      "source": "https://kotlinlang.org/docs/data-classes.html"
+    },
+    {
+      "id": "kotlin-junior-2",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Чем полезен sealed class?",
+      "options": [
+        {
+          "id": "kotlin-junior-2-a",
+          "label": "Запрещает создание объектов"
+        },
+        {
+          "id": "kotlin-junior-2-b",
+          "label": "Делает класс закрытым для изменений и потокобезопасным для любых операций"
+        },
+        {
+          "id": "kotlin-junior-2-c",
+          "label": "Ограничивает набор наследников, и when проверяет полноту вариантов"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-2-c",
+      "explanation": "Удобен для моделирования состояний экрана.",
+      "source": "https://kotlinlang.org/docs/sealed-classes.html"
+    },
+    {
+      "id": "kotlin-junior-3",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Что делает функция-расширение?",
+      "options": [
+        {
+          "id": "kotlin-junior-3-a",
+          "label": "Расширяет размер массива при добавлении нового элемента"
+        },
+        {
+          "id": "kotlin-junior-3-b",
+          "label": "Наследует класс"
+        },
+        {
+          "id": "kotlin-junior-3-c",
+          "label": "Добавляет функцию к существующему типу без наследования"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-3-c",
+      "explanation": "fun String.isEmail(): Boolean — пример расширения.",
+      "source": "https://kotlinlang.org/docs/extensions.html"
+    },
+    {
+      "id": "kotlin-junior-4",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Что делает оператор Элвис ?: ?",
+      "options": [
+        {
+          "id": "kotlin-junior-4-a",
+          "label": "Возвращает правую часть, если левая равна null"
+        },
+        {
+          "id": "kotlin-junior-4-b",
+          "label": "Сравнивает два значения"
+        },
+        {
+          "id": "kotlin-junior-4-c",
+          "label": "Создаёт null"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-4-a",
+      "explanation": "val name = user?.name ?: \"Гость\".",
+      "source": "https://kotlinlang.org/docs/null-safety.html#elvis-operator"
+    },
+    {
+      "id": "kotlin-junior-5",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Чем отличаются функции apply и let?",
+      "options": [
+        {
+          "id": "kotlin-junior-5-a",
+          "label": "Это одно и то же, просто apply работает только с null, а let — с любыми значениями без исключений"
+        },
+        {
+          "id": "kotlin-junior-5-b",
+          "label": "let работает только с null"
+        },
+        {
+          "id": "kotlin-junior-5-c",
+          "label": "apply возвращает объект и использует this, let возвращает результат лямбды и использует it"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-5-c",
+      "explanation": "Функции области видимости различаются контекстом и результатом.",
+      "source": "https://kotlinlang.org/docs/scope-functions.html"
+    },
+    {
+      "id": "kotlin-junior-6",
+      "grade": "junior",
+      "skillId": "kotlin",
+      "prompt": "Что вернёт listOf(1, 2, 3).map { it * 2 }?",
+      "options": [
+        {
+          "id": "kotlin-junior-6-a",
+          "label": "[1, 2, 3, 2]"
+        },
+        {
+          "id": "kotlin-junior-6-b",
+          "label": "12"
+        },
+        {
+          "id": "kotlin-junior-6-c",
+          "label": "[2, 4, 6]"
+        }
+      ],
+      "correctOptionId": "kotlin-junior-6-c",
+      "explanation": "map преобразует каждый элемент.",
+      "source": "https://kotlinlang.org/docs/collection-transformations.html"
+    },
+    {
+      "id": "kotlin-middle-1",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Что такое корутины?",
+      "options": [
+        {
+          "id": "kotlin-middle-1-a",
+          "label": "Потоки операционной системы с собственным стеком и планированием ядра"
+        },
+        {
+          "id": "kotlin-middle-1-b",
+          "label": "Лёгкие приостанавливаемые вычисления для асинхронного кода"
+        },
+        {
+          "id": "kotlin-middle-1-c",
+          "label": "Процессы"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-1-b",
+      "explanation": "Тысячи корутин работают на небольшом числе потоков.",
+      "source": "https://kotlinlang.org/docs/coroutines-overview.html"
+    },
+    {
+      "id": "kotlin-middle-2",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Что делает модификатор suspend?",
+      "options": [
+        {
+          "id": "kotlin-middle-2-a",
+          "label": "Делает функцию синхронной и запрещает её вызов из других потоков"
+        },
+        {
+          "id": "kotlin-middle-2-b",
+          "label": "Помечает функцию, которая может приостановиться без блокировки потока"
+        },
+        {
+          "id": "kotlin-middle-2-c",
+          "label": "Запрещает вызов функции"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-2-b",
+      "explanation": "suspend-функции вызываются из корутин.",
+      "source": "https://kotlinlang.org/docs/composing-suspending-functions.html"
+    },
+    {
+      "id": "kotlin-middle-3",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Чем Flow отличается от suspend-функции?",
+      "options": [
+        {
+          "id": "kotlin-middle-3-a",
+          "label": "Flow работает только в UI-слое, а suspend — только в слое данных приложения"
+        },
+        {
+          "id": "kotlin-middle-3-b",
+          "label": "Flow выдаёт поток значений во времени, suspend — одно значение"
+        },
+        {
+          "id": "kotlin-middle-3-c",
+          "label": "Это синонимы"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-3-b",
+      "explanation": "Flow холодный: начинает работу при сборе.",
+      "source": "https://kotlinlang.org/docs/flow.html"
+    },
+    {
+      "id": "kotlin-middle-4",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Что такое Dispatchers.IO?",
+      "options": [
+        {
+          "id": "kotlin-middle-4-a",
+          "label": "Диспетчер для блокирующих операций ввода-вывода"
+        },
+        {
+          "id": "kotlin-middle-4-b",
+          "label": "Диспетчер для обновления UI"
+        },
+        {
+          "id": "kotlin-middle-4-c",
+          "label": "Диспетчер для вычислений на GPU"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-4-a",
+      "explanation": "Для UI — Dispatchers.Main, для вычислений — Default.",
+      "source": "https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"
+    },
+    {
+      "id": "kotlin-middle-5",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Что даёт структурированная конкурентность корутин?",
+      "options": [
+        {
+          "id": "kotlin-middle-5-a",
+          "label": "Дочерние корутины живут в области родителя и отменяются вместе с ней"
+        },
+        {
+          "id": "kotlin-middle-5-b",
+          "label": "Корутины никогда не отменяются"
+        },
+        {
+          "id": "kotlin-middle-5-c",
+          "label": "Корутины никогда не отменяются автоматически, пока не завершат работу"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-5-a",
+      "explanation": "Это предотвращает утечки корутин.",
+      "source": "https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency"
+    },
+    {
+      "id": "kotlin-middle-6",
+      "grade": "middle",
+      "skillId": "kotlin",
+      "prompt": "Чем inline-функция полезна для лямбд?",
+      "options": [
+        {
+          "id": "kotlin-middle-6-a",
+          "label": "Делает функцию приватной для модуля и запрещает рекурсивные вызовы"
+        },
+        {
+          "id": "kotlin-middle-6-b",
+          "label": "Запрещает рекурсию"
+        },
+        {
+          "id": "kotlin-middle-6-c",
+          "label": "Тело и лямбда встраиваются в место вызова, убирая накладные расходы"
+        }
+      ],
+      "correctOptionId": "kotlin-middle-6-c",
+      "explanation": "Также позволяет reified-параметры типа.",
+      "source": "https://kotlinlang.org/docs/inline-functions.html"
+    },
+    {
+      "id": "kotlin-senior-1",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Чем StateFlow отличается от SharedFlow?",
+      "options": [
+        {
+          "id": "kotlin-senior-1-a",
+          "label": "StateFlow холодный и запускает вычисления для каждого подписчика заново, а SharedFlow всегда хранит только последнее значение"
+        },
+        {
+          "id": "kotlin-senior-1-b",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "kotlin-senior-1-c",
+          "label": "StateFlow хранит текущее значение и выдаёт его новым подписчикам, SharedFlow настраивается по буферу и повтору"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-1-c",
+      "explanation": "StateFlow удобен для состояния экрана.",
+      "source": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/"
+    },
+    {
+      "id": "kotlin-senior-2",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Почему нельзя перехватывать CancellationException без повторного выброса?",
+      "options": [
+        {
+          "id": "kotlin-senior-2-a",
+          "label": "Это замедляет код"
+        },
+        {
+          "id": "kotlin-senior-2-b",
+          "label": "Это ломает отмену корутин"
+        },
+        {
+          "id": "kotlin-senior-2-c",
+          "label": "Это запрещено компилятором"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-2-b",
+      "explanation": "Отмена передаётся через это исключение.",
+      "source": "https://kotlinlang.org/docs/cancellation-and-timeouts.html"
+    },
+    {
+      "id": "kotlin-senior-3",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Что такое Kotlin Multiplatform?",
+      "options": [
+        {
+          "id": "kotlin-senior-3-a",
+          "label": "Запуск Android-приложения на iOS без изменений кода и интерфейса"
+        },
+        {
+          "id": "kotlin-senior-3-b",
+          "label": "Общий код на Kotlin для нескольких платформ с платформенными реализациями"
+        },
+        {
+          "id": "kotlin-senior-3-c",
+          "label": "Компилятор JavaScript"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-3-b",
+      "explanation": "expect/actual объявляют платформенные части.",
+      "source": "https://kotlinlang.org/docs/multiplatform.html"
+    },
+    {
+      "id": "kotlin-senior-4",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Как тестировать корутины детерминированно?",
+      "options": [
+        {
+          "id": "kotlin-senior-4-a",
+          "label": "Thread.sleep в тестах с запасом по времени для каждой корутины"
+        },
+        {
+          "id": "kotlin-senior-4-b",
+          "label": "runTest и тестовый диспетчер с виртуальным временем"
+        },
+        {
+          "id": "kotlin-senior-4-c",
+          "label": "Не тестировать"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-4-b",
+      "explanation": "Виртуальное время пропускает задержки мгновенно.",
+      "source": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/"
+    },
+    {
+      "id": "kotlin-senior-5",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Что такое value class?",
+      "options": [
+        {
+          "id": "kotlin-senior-5-a",
+          "label": "Класс с изменяемыми полями, который передаётся по ссылке и копируется только вручную"
+        },
+        {
+          "id": "kotlin-senior-5-b",
+          "label": "Синоним data class"
+        },
+        {
+          "id": "kotlin-senior-5-c",
+          "label": "Обёртка над одним значением без накладных расходов в рантайме в большинстве случаев"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-5-c",
+      "explanation": "Удобно для типобезопасных идентификаторов.",
+      "source": "https://kotlinlang.org/docs/inline-classes.html"
+    },
+    {
+      "id": "kotlin-senior-6",
+      "grade": "senior",
+      "skillId": "kotlin",
+      "prompt": "Как избежать утечки корутин в Android?",
+      "options": [
+        {
+          "id": "kotlin-senior-6-a",
+          "label": "Использовать GlobalScope везде, чтобы корутины не отменялись при повороте экрана"
+        },
+        {
+          "id": "kotlin-senior-6-b",
+          "label": "Не отменять корутины"
+        },
+        {
+          "id": "kotlin-senior-6-c",
+          "label": "Запускать их в областях с жизненным циклом, например viewModelScope"
+        }
+      ],
+      "correctOptionId": "kotlin-senior-6-c",
+      "explanation": "Область отменяется при уничтожении владельца.",
+      "source": "https://developer.android.com/topic/libraries/architecture/coroutines"
+    },
+    {
+      "id": "kotlin-lead-1",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Как организовать кодстайл в Kotlin-команде?",
+      "options": [
+        {
+          "id": "kotlin-lead-1-a",
+          "label": "Устные договорённости"
+        },
+        {
+          "id": "kotlin-lead-1-b",
+          "label": "Разные стили в каждом модуле на усмотрение команды, которая его ведёт"
+        },
+        {
+          "id": "kotlin-lead-1-c",
+          "label": "Официальные соглашения, автоматический форматтер и статический анализ в CI"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-1-c",
+      "explanation": "ktlint и detekt автоматизируют проверки.",
+      "source": "https://kotlinlang.org/docs/coding-conventions.html"
+    },
+    {
+      "id": "kotlin-lead-2",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Когда вводить Kotlin Multiplatform в продукт?",
+      "options": [
+        {
+          "id": "kotlin-lead-2-a",
+          "label": "Всегда сразу во всех проектах, потому что общий код дешевле двух отдельных кодовых баз"
+        },
+        {
+          "id": "kotlin-lead-2-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "kotlin-lead-2-c",
+          "label": "Когда общая бизнес-логика значительна и команда готова поддерживать сборку для платформ"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-2-c",
+      "explanation": "KMP добавляет сложность сборки и отладки.",
+      "source": "https://kotlinlang.org/docs/multiplatform.html"
+    },
+    {
+      "id": "kotlin-lead-3",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Как мигрировать проект с Java на Kotlin?",
+      "options": [
+        {
+          "id": "kotlin-lead-3-a",
+          "label": "Конвертировать весь Java-код автоматически за один день и запретить Java"
+        },
+        {
+          "id": "kotlin-lead-3-b",
+          "label": "Запретить Java немедленно"
+        },
+        {
+          "id": "kotlin-lead-3-c",
+          "label": "Постепенно, начиная с новых модулей и тестов, используя совместимость языков"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-3-c",
+      "explanation": "Kotlin полностью совместим с Java.",
+      "source": "https://developer.android.com/kotlin/add-kotlin"
+    },
+    {
+      "id": "kotlin-lead-4",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Как поддерживать время сборки Gradle приемлемым?",
+      "options": [
+        {
+          "id": "kotlin-lead-4-a",
+          "label": "Отключить все проверки"
+        },
+        {
+          "id": "kotlin-lead-4-b",
+          "label": "Объединить все модули в один, чтобы Gradle не тратил время на зависимости"
+        },
+        {
+          "id": "kotlin-lead-4-c",
+          "label": "Модуляризация, кэш сборки, конфигурационный кэш и анализ сборки"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-4-c",
+      "explanation": "Build Scan показывает узкие места.",
+      "source": "https://docs.gradle.org/current/userguide/performance.html"
+    },
+    {
+      "id": "kotlin-lead-5",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Как оценивать технические решения в команде?",
+      "options": [
+        {
+          "id": "kotlin-lead-5-a",
+          "label": "Решает самый старший разработчик без объяснений и обсуждения альтернатив"
+        },
+        {
+          "id": "kotlin-lead-5-b",
+          "label": "Голосованием без анализа"
+        },
+        {
+          "id": "kotlin-lead-5-c",
+          "label": "Через RFC или ADR с обсуждением альтернатив и последствий"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-5-c",
+      "explanation": "Записанные решения помогают новым участникам.",
+      "source": "https://adr.github.io/"
+    },
+    {
+      "id": "kotlin-lead-6",
+      "grade": "lead",
+      "skillId": "kotlin",
+      "prompt": "Как планировать обновления Kotlin и библиотек?",
+      "options": [
+        {
+          "id": "kotlin-lead-6-a",
+          "label": "Регулярно, небольшими шагами, с прогоном тестов"
+        },
+        {
+          "id": "kotlin-lead-6-b",
+          "label": "Раз в несколько лет большим скачком"
+        },
+        {
+          "id": "kotlin-lead-6-c",
+          "label": "Никогда"
+        }
+      ],
+      "correctOptionId": "kotlin-lead-6-a",
+      "explanation": "Мелкие обновления проще отлаживать.",
+      "source": "https://kotlinlang.org/docs/releases.html"
+    },
+    {
+      "id": "android_platform-intern-1",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "В какой среде разрабатывают Android-приложения?",
+      "options": [
+        {
+          "id": "android_platform-intern-1-a",
+          "label": "Android Studio"
+        },
+        {
+          "id": "android_platform-intern-1-b",
+          "label": "Xcode"
+        },
+        {
+          "id": "android_platform-intern-1-c",
+          "label": "Photoshop"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-1-a",
+      "explanation": "Android Studio включает эмулятор и инструменты профилирования.",
+      "source": "https://developer.android.com/studio"
+    },
+    {
+      "id": "android_platform-intern-2",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "Что такое Activity?",
+      "options": [
+        {
+          "id": "android_platform-intern-2-a",
+          "label": "Фоновый процесс, который работает без интерфейса постоянно"
+        },
+        {
+          "id": "android_platform-intern-2-b",
+          "label": "Компонент, представляющий экран взаимодействия с пользователем"
+        },
+        {
+          "id": "android_platform-intern-2-c",
+          "label": "База данных"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-2-b",
+      "explanation": "Activity имеет жизненный цикл.",
+      "source": "https://developer.android.com/guide/components/activities/intro-activities"
+    },
+    {
+      "id": "android_platform-intern-3",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "Где объявляются разрешения приложения?",
+      "options": [
+        {
+          "id": "android_platform-intern-3-a",
+          "label": "В build.gradle"
+        },
+        {
+          "id": "android_platform-intern-3-b",
+          "label": "В strings.xml"
+        },
+        {
+          "id": "android_platform-intern-3-c",
+          "label": "В AndroidManifest.xml"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-3-c",
+      "explanation": "Опасные разрешения дополнительно запрашиваются во время работы.",
+      "source": "https://developer.android.com/guide/topics/permissions/overview"
+    },
+    {
+      "id": "android_platform-intern-4",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "Что такое Jetpack Compose?",
+      "options": [
+        {
+          "id": "android_platform-intern-4-a",
+          "label": "Декларативный инструментарий для интерфейсов Android"
+        },
+        {
+          "id": "android_platform-intern-4-b",
+          "label": "Сборщик проектов, заменяющий Gradle в новых версиях Android Studio"
+        },
+        {
+          "id": "android_platform-intern-4-c",
+          "label": "Эмулятор"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-4-a",
+      "explanation": "Интерфейс описывается composable-функциями.",
+      "source": "https://developer.android.com/compose"
+    },
+    {
+      "id": "android_platform-intern-5",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "Что такое APK или AAB?",
+      "options": [
+        {
+          "id": "android_platform-intern-5-a",
+          "label": "Форматы пакетов для установки и публикации приложения"
+        },
+        {
+          "id": "android_platform-intern-5-b",
+          "label": "Языки программирования для разработки приложений под Android"
+        },
+        {
+          "id": "android_platform-intern-5-c",
+          "label": "Типы разрешений"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-5-a",
+      "explanation": "Google Play требует Android App Bundle.",
+      "source": "https://developer.android.com/guide/app-bundle"
+    },
+    {
+      "id": "android_platform-intern-6",
+      "grade": "intern",
+      "skillId": "android_platform",
+      "prompt": "Где хранить строки интерфейса для перевода?",
+      "options": [
+        {
+          "id": "android_platform-intern-6-a",
+          "label": "В ресурсах strings.xml"
+        },
+        {
+          "id": "android_platform-intern-6-b",
+          "label": "В коде Kotlin"
+        },
+        {
+          "id": "android_platform-intern-6-c",
+          "label": "В названии файлов"
+        }
+      ],
+      "correctOptionId": "android_platform-intern-6-a",
+      "explanation": "Ресурсы позволяют локализацию по языкам.",
+      "source": "https://developer.android.com/guide/topics/resources/localization"
+    },
+    {
+      "id": "android_platform-junior-1",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Что происходит с Activity при повороте экрана по умолчанию?",
+      "options": [
+        {
+          "id": "android_platform-junior-1-a",
+          "label": "Ничего не происходит"
+        },
+        {
+          "id": "android_platform-junior-1-b",
+          "label": "Она пересоздаётся, и состояние нужно сохранять"
+        },
+        {
+          "id": "android_platform-junior-1-c",
+          "label": "Приложение закрывается и запускается заново с главного экрана"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-1-b",
+      "explanation": "ViewModel переживает изменение конфигурации.",
+      "source": "https://developer.android.com/guide/topics/resources/runtime-changes"
+    },
+    {
+      "id": "android_platform-junior-2",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Зачем нужен ViewModel?",
+      "options": [
+        {
+          "id": "android_platform-junior-2-a",
+          "label": "Хранить состояние экрана с учётом жизненного цикла"
+        },
+        {
+          "id": "android_platform-junior-2-b",
+          "label": "Рисовать интерфейс экрана и обрабатывать нажатия пользователя"
+        },
+        {
+          "id": "android_platform-junior-2-c",
+          "label": "Хранить пароли"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-2-a",
+      "explanation": "ViewModel не должна ссылаться на View или Activity.",
+      "source": "https://developer.android.com/topic/libraries/architecture/viewmodel"
+    },
+    {
+      "id": "android_platform-junior-3",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Как хранить небольшие настройки пользователя?",
+      "options": [
+        {
+          "id": "android_platform-junior-3-a",
+          "label": "DataStore"
+        },
+        {
+          "id": "android_platform-junior-3-b",
+          "label": "SQLite для каждой настройки"
+        },
+        {
+          "id": "android_platform-junior-3-c",
+          "label": "Глобальные переменные"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-3-a",
+      "explanation": "DataStore заменяет SharedPreferences.",
+      "source": "https://developer.android.com/topic/libraries/architecture/datastore"
+    },
+    {
+      "id": "android_platform-junior-4",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Что такое Room?",
+      "options": [
+        {
+          "id": "android_platform-junior-4-a",
+          "label": "Сетевой клиент для REST API с автоматическим кэшированием ответов сервера в памяти приложения"
+        },
+        {
+          "id": "android_platform-junior-4-b",
+          "label": "Библиотека для работы с SQLite через аннотации и проверку запросов на этапе компиляции"
+        },
+        {
+          "id": "android_platform-junior-4-c",
+          "label": "Фреймворк интерфейса"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-4-b",
+      "explanation": "Room проверяет SQL при сборке.",
+      "source": "https://developer.android.com/training/data-storage/room"
+    },
+    {
+      "id": "android_platform-junior-5",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Что делает remember в Compose?",
+      "options": [
+        {
+          "id": "android_platform-junior-5-a",
+          "label": "Сохраняет данные на диск между запусками приложения"
+        },
+        {
+          "id": "android_platform-junior-5-b",
+          "label": "Запоминает пароль"
+        },
+        {
+          "id": "android_platform-junior-5-c",
+          "label": "Сохраняет значение между перекомпозициями"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-5-c",
+      "explanation": "Для переживания поворота используют rememberSaveable.",
+      "source": "https://developer.android.com/develop/ui/compose/state"
+    },
+    {
+      "id": "android_platform-junior-6",
+      "grade": "junior",
+      "skillId": "android_platform",
+      "prompt": "Почему нельзя выполнять сеть на главном потоке Android?",
+      "options": [
+        {
+          "id": "android_platform-junior-6-a",
+          "label": "Интерфейс зависнет, и система выбросит NetworkOnMainThreadException"
+        },
+        {
+          "id": "android_platform-junior-6-b",
+          "label": "Сеть работает только в фоновых службах, а в Activity недоступна совсем"
+        },
+        {
+          "id": "android_platform-junior-6-c",
+          "label": "Это быстрее"
+        }
+      ],
+      "correctOptionId": "android_platform-junior-6-a",
+      "explanation": "Используйте корутины с Dispatchers.IO.",
+      "source": "https://developer.android.com/reference/android/os/NetworkOnMainThreadException"
+    },
+    {
+      "id": "android_platform-middle-1",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Как выполнить гарантированную фоновую работу, например отправку журналов?",
+      "options": [
+        {
+          "id": "android_platform-middle-1-a",
+          "label": "Бесконечный поток в Activity"
+        },
+        {
+          "id": "android_platform-middle-1-b",
+          "label": "Таймер в Application"
+        },
+        {
+          "id": "android_platform-middle-1-c",
+          "label": "WorkManager с ограничениями"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-1-c",
+      "explanation": "WorkManager переживает перезапуск устройства.",
+      "source": "https://developer.android.com/topic/libraries/architecture/workmanager"
+    },
+    {
+      "id": "android_platform-middle-2",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Что такое внедрение зависимостей Hilt?",
+      "options": [
+        {
+          "id": "android_platform-middle-2-a",
+          "label": "Библиотека анимаций и переходов между экранами для Jetpack Compose"
+        },
+        {
+          "id": "android_platform-middle-2-b",
+          "label": "Фреймворк DI для Android на основе Dagger с компонентами жизненного цикла"
+        },
+        {
+          "id": "android_platform-middle-2-c",
+          "label": "Сетевой клиент"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-2-b",
+      "explanation": "DI упрощает тестирование и замену реализаций.",
+      "source": "https://developer.android.com/training/dependency-injection/hilt-android"
+    },
+    {
+      "id": "android_platform-middle-3",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Как избегать лишних перекомпозиций в Compose?",
+      "options": [
+        {
+          "id": "android_platform-middle-3-a",
+          "label": "Использовать больше глобальных переменных и пересоздавать все composable при каждом изменении"
+        },
+        {
+          "id": "android_platform-middle-3-b",
+          "label": "Стабильные параметры, derivedStateOf и вынесение чтения состояния ниже по дереву"
+        },
+        {
+          "id": "android_platform-middle-3-c",
+          "label": "Отключить Compose"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-3-b",
+      "explanation": "Layout Inspector показывает счётчики перекомпозиций.",
+      "source": "https://developer.android.com/develop/ui/compose/performance/bestpractices"
+    },
+    {
+      "id": "android_platform-middle-4",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Как организовать слои приложения по рекомендациям Android?",
+      "options": [
+        {
+          "id": "android_platform-middle-4-a",
+          "label": "Всё в Activity"
+        },
+        {
+          "id": "android_platform-middle-4-b",
+          "label": "Только слой данных, а логика экранов размещается прямо в Activity"
+        },
+        {
+          "id": "android_platform-middle-4-c",
+          "label": "UI-слой, слой данных с репозиториями и необязательный доменный слой"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-4-c",
+      "explanation": "Однонаправленный поток данных упрощает состояние.",
+      "source": "https://developer.android.com/topic/architecture"
+    },
+    {
+      "id": "android_platform-middle-5",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Как обработать отзыв разрешения пользователем?",
+      "options": [
+        {
+          "id": "android_platform-middle-5-a",
+          "label": "Проверять разрешение перед использованием и корректно работать без него"
+        },
+        {
+          "id": "android_platform-middle-5-b",
+          "label": "Считать, что разрешение дано навсегда, и не проверять его повторно"
+        },
+        {
+          "id": "android_platform-middle-5-c",
+          "label": "Закрывать приложение"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-5-a",
+      "explanation": "Пользователь может отозвать разрешение в настройках.",
+      "source": "https://developer.android.com/training/permissions/requesting"
+    },
+    {
+      "id": "android_platform-middle-6",
+      "grade": "middle",
+      "skillId": "android_platform",
+      "prompt": "Что такое deep link?",
+      "options": [
+        {
+          "id": "android_platform-middle-6-a",
+          "label": "Ссылка на Google Play"
+        },
+        {
+          "id": "android_platform-middle-6-b",
+          "label": "Скрытая ссылка в коде"
+        },
+        {
+          "id": "android_platform-middle-6-c",
+          "label": "Ссылка, открывающая конкретный экран приложения"
+        }
+      ],
+      "correctOptionId": "android_platform-middle-6-c",
+      "explanation": "App Links проверяют владение доменом.",
+      "source": "https://developer.android.com/training/app-links"
+    },
+    {
+      "id": "android_platform-senior-1",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как уменьшить время холодного старта приложения?",
+      "options": [
+        {
+          "id": "android_platform-senior-1-a",
+          "label": "Загружать все библиотеки и данные в Application.onCreate до показа экрана"
+        },
+        {
+          "id": "android_platform-senior-1-b",
+          "label": "Отложить инициализацию, Baseline Profiles и анализ через Macrobenchmark"
+        },
+        {
+          "id": "android_platform-senior-1-c",
+          "label": "Добавить заставку на 5 секунд"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-1-b",
+      "explanation": "Baseline Profiles ускоряют выполнение критических путей.",
+      "source": "https://developer.android.com/topic/performance/baselineprofiles/overview"
+    },
+    {
+      "id": "android_platform-senior-2",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как анализировать ANR?",
+      "options": [
+        {
+          "id": "android_platform-senior-2-a",
+          "label": "По отчётам Android Vitals и трассировкам главного потока"
+        },
+        {
+          "id": "android_platform-senior-2-b",
+          "label": "По отзывам пользователей в магазине и перезапуску эмулятора"
+        },
+        {
+          "id": "android_platform-senior-2-c",
+          "label": "Перезапуском эмулятора"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-2-a",
+      "explanation": "ANR возникает при блокировке главного потока.",
+      "source": "https://developer.android.com/topic/performance/vitals/anr"
+    },
+    {
+      "id": "android_platform-senior-3",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как защитить приложение от обратной разработки и утечки ключей?",
+      "options": [
+        {
+          "id": "android_platform-senior-3-a",
+          "label": "Хранить ключи в BuildConfig и отключить обфускацию, чтобы упростить отладку сборок"
+        },
+        {
+          "id": "android_platform-senior-3-b",
+          "label": "Отключить обфускацию"
+        },
+        {
+          "id": "android_platform-senior-3-c",
+          "label": "R8-обфускация, хранение секретов на сервере и проверка целостности через Play Integrity"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-3-c",
+      "explanation": "Секреты в APK можно извлечь.",
+      "source": "https://developer.android.com/privacy-and-security/security-tips"
+    },
+    {
+      "id": "android_platform-senior-4",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как поддерживать большие экраны и складные устройства?",
+      "options": [
+        {
+          "id": "android_platform-senior-4-a",
+          "label": "Фиксированная портретная ориентация"
+        },
+        {
+          "id": "android_platform-senior-4-b",
+          "label": "Отдельное приложение для планшетов"
+        },
+        {
+          "id": "android_platform-senior-4-c",
+          "label": "Адаптивные макеты по классам размеров окна"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-4-c",
+      "explanation": "Window size classes упрощают адаптацию.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive"
+    },
+    {
+      "id": "android_platform-senior-5",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как организовать модульность большого Android-приложения?",
+      "options": [
+        {
+          "id": "android_platform-senior-5-a",
+          "label": "Один модуль app"
+        },
+        {
+          "id": "android_platform-senior-5-b",
+          "label": "Отдельный модуль на каждый класс, чтобы сборка шла параллельно"
+        },
+        {
+          "id": "android_platform-senior-5-c",
+          "label": "Feature- и core-модули с явными зависимостями и convention-плагинами Gradle"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-5-c",
+      "explanation": "Модульность ускоряет сборку и изолирует изменения.",
+      "source": "https://developer.android.com/topic/modularization"
+    },
+    {
+      "id": "android_platform-senior-6",
+      "grade": "senior",
+      "skillId": "android_platform",
+      "prompt": "Как тестировать интерфейс Compose?",
+      "options": [
+        {
+          "id": "android_platform-senior-6-a",
+          "label": "Compose UI-тесты с семантическими селекторами"
+        },
+        {
+          "id": "android_platform-senior-6-b",
+          "label": "Скриншоты вручную"
+        },
+        {
+          "id": "android_platform-senior-6-c",
+          "label": "Только модульные тесты ViewModel"
+        }
+      ],
+      "correctOptionId": "android_platform-senior-6-a",
+      "explanation": "Семантика делает тесты устойчивыми.",
+      "source": "https://developer.android.com/develop/ui/compose/testing"
+    },
+    {
+      "id": "android_platform-lead-1",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как выстроить выпуск Android-приложения?",
+      "options": [
+        {
+          "id": "android_platform-lead-1-a",
+          "label": "Ручная сборка"
+        },
+        {
+          "id": "android_platform-lead-1-b",
+          "label": "Выпуск сразу на 100% пользователей после ручной сборки на ноутбуке"
+        },
+        {
+          "id": "android_platform-lead-1-c",
+          "label": "Автоматическая сборка, тесты, подпись и поэтапный выпуск в Google Play"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-1-c",
+      "explanation": "Staged rollout позволяет остановить выпуск.",
+      "source": "https://support.google.com/googleplay/android-developer/answer/6346149"
+    },
+    {
+      "id": "android_platform-lead-2",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как выбирать минимальный уровень API?",
+      "options": [
+        {
+          "id": "android_platform-lead-2-a",
+          "label": "Самый новый"
+        },
+        {
+          "id": "android_platform-lead-2-b",
+          "label": "Самый старый уровень API, чтобы охватить вообще все устройства"
+        },
+        {
+          "id": "android_platform-lead-2-c",
+          "label": "По распределению версий у пользователей и стоимости поддержки"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-2-c",
+      "explanation": "Пересматривают ежегодно.",
+      "source": "https://developer.android.com/guide/topics/manifest/uses-sdk-element"
+    },
+    {
+      "id": "android_platform-lead-3",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как следить за качеством приложения в продакшене?",
+      "options": [
+        {
+          "id": "android_platform-lead-3-a",
+          "label": "Только оценки и отзывы пользователей в магазине приложений"
+        },
+        {
+          "id": "android_platform-lead-3-b",
+          "label": "Android Vitals, отчёты о сбоях и метрики производительности"
+        },
+        {
+          "id": "android_platform-lead-3-c",
+          "label": "Не следить"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-3-b",
+      "explanation": "Плохие показатели Vitals снижают видимость в Google Play.",
+      "source": "https://developer.android.com/topic/performance/vitals"
+    },
+    {
+      "id": "android_platform-lead-4",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как переходить с View на Compose в большом проекте?",
+      "options": [
+        {
+          "id": "android_platform-lead-4-a",
+          "label": "Переписать всё сразу"
+        },
+        {
+          "id": "android_platform-lead-4-b",
+          "label": "Не использовать Compose вовсе, пока все экраны можно поддерживать на View"
+        },
+        {
+          "id": "android_platform-lead-4-c",
+          "label": "Постепенно, экран за экраном, используя взаимодействие ComposeView и AndroidView"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-4-c",
+      "explanation": "Совместимость позволяет миграцию без остановки разработки.",
+      "source": "https://developer.android.com/develop/ui/compose/migrate"
+    },
+    {
+      "id": "android_platform-lead-5",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как соблюдать требования Google Play к данным пользователей?",
+      "options": [
+        {
+          "id": "android_platform-lead-5-a",
+          "label": "Собирать все доступные данные и описать их сбор в общих словах"
+        },
+        {
+          "id": "android_platform-lead-5-b",
+          "label": "Заполнить раздел безопасности данных и минимизировать сбор"
+        },
+        {
+          "id": "android_platform-lead-5-c",
+          "label": "Скрывать сбор данных"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-5-b",
+      "explanation": "Нарушения ведут к удалению приложения.",
+      "source": "https://support.google.com/googleplay/android-developer/answer/10787469"
+    },
+    {
+      "id": "android_platform-lead-6",
+      "grade": "lead",
+      "skillId": "android_platform",
+      "prompt": "Как развивать Android-команду?",
+      "options": [
+        {
+          "id": "android_platform-lead-6-a",
+          "label": "Наставничество, ревью и обмен знаниями о платформе"
+        },
+        {
+          "id": "android_platform-lead-6-b",
+          "label": "Только найм сеньоров"
+        },
+        {
+          "id": "android_platform-lead-6-c",
+          "label": "Каждый учится сам"
+        }
+      ],
+      "correctOptionId": "android_platform-lead-6-a",
+      "explanation": "Обмен знаниями повышает уровень всей команды.",
+      "source": "https://developer.android.com/courses"
+    },
+    {
+      "id": "flutter-intern-1",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "На каком языке пишут приложения Flutter?",
+      "options": [
+        {
+          "id": "flutter-intern-1-a",
+          "label": "Kotlin"
+        },
+        {
+          "id": "flutter-intern-1-b",
+          "label": "Dart"
+        },
+        {
+          "id": "flutter-intern-1-c",
+          "label": "Swift"
+        }
+      ],
+      "correctOptionId": "flutter-intern-1-b",
+      "explanation": "Flutter использует Dart и собственный движок отрисовки.",
+      "source": "https://docs.flutter.dev/resources/faq"
+    },
+    {
+      "id": "flutter-intern-2",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "Что такое виджет во Flutter?",
+      "options": [
+        {
+          "id": "flutter-intern-2-a",
+          "label": "Отдельное приложение"
+        },
+        {
+          "id": "flutter-intern-2-b",
+          "label": "Сервер"
+        },
+        {
+          "id": "flutter-intern-2-c",
+          "label": "Описание части интерфейса"
+        }
+      ],
+      "correctOptionId": "flutter-intern-2-c",
+      "explanation": "Всё в интерфейсе Flutter — виджеты.",
+      "source": "https://docs.flutter.dev/ui"
+    },
+    {
+      "id": "flutter-intern-3",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "Чем StatelessWidget отличается от StatefulWidget?",
+      "options": [
+        {
+          "id": "flutter-intern-3-a",
+          "label": "Stateless быстрее всегда и может хранить состояние"
+        },
+        {
+          "id": "flutter-intern-3-b",
+          "label": "Это одно и то же"
+        },
+        {
+          "id": "flutter-intern-3-c",
+          "label": "Stateful хранит изменяемое состояние в объекте State"
+        }
+      ],
+      "correctOptionId": "flutter-intern-3-c",
+      "explanation": "setState перестраивает виджет.",
+      "source": "https://docs.flutter.dev/ui/interactivity"
+    },
+    {
+      "id": "flutter-intern-4",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "Что такое hot reload?",
+      "options": [
+        {
+          "id": "flutter-intern-4-a",
+          "label": "Быстрое применение изменений кода без перезапуска приложения"
+        },
+        {
+          "id": "flutter-intern-4-b",
+          "label": "Перезагрузка телефона"
+        },
+        {
+          "id": "flutter-intern-4-c",
+          "label": "Обновление приложения в магазине без проверки модераторами"
+        }
+      ],
+      "correctOptionId": "flutter-intern-4-a",
+      "explanation": "Состояние приложения сохраняется.",
+      "source": "https://docs.flutter.dev/tools/hot-reload"
+    },
+    {
+      "id": "flutter-intern-5",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "Какой виджет располагает дочерние элементы по вертикали?",
+      "options": [
+        {
+          "id": "flutter-intern-5-a",
+          "label": "Column"
+        },
+        {
+          "id": "flutter-intern-5-b",
+          "label": "Row"
+        },
+        {
+          "id": "flutter-intern-5-c",
+          "label": "Stack"
+        }
+      ],
+      "correctOptionId": "flutter-intern-5-a",
+      "explanation": "Row — по горизонтали, Stack — друг над другом.",
+      "source": "https://docs.flutter.dev/ui/layout"
+    },
+    {
+      "id": "flutter-intern-6",
+      "grade": "intern",
+      "skillId": "flutter",
+      "prompt": "Где описываются зависимости Flutter-проекта?",
+      "options": [
+        {
+          "id": "flutter-intern-6-a",
+          "label": "В pubspec.yaml"
+        },
+        {
+          "id": "flutter-intern-6-b",
+          "label": "В package.json"
+        },
+        {
+          "id": "flutter-intern-6-c",
+          "label": "В build.gradle"
+        }
+      ],
+      "correctOptionId": "flutter-intern-6-a",
+      "explanation": "Пакеты берутся из pub.dev.",
+      "source": "https://dart.dev/tools/pub/pubspec"
+    },
+    {
+      "id": "flutter-junior-1",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Что делает setState?",
+      "options": [
+        {
+          "id": "flutter-junior-1-a",
+          "label": "Сообщает фреймворку, что состояние изменилось и виджет нужно перестроить"
+        },
+        {
+          "id": "flutter-junior-1-b",
+          "label": "Сохраняет состояние виджета на диск и восстанавливает его после перезапуска"
+        },
+        {
+          "id": "flutter-junior-1-c",
+          "label": "Перезапускает приложение"
+        }
+      ],
+      "correctOptionId": "flutter-junior-1-a",
+      "explanation": "Изменять состояние нужно внутри колбэка setState.",
+      "source": "https://api.flutter.dev/flutter/widgets/State/setState.html"
+    },
+    {
+      "id": "flutter-junior-2",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Как отобразить длинный список эффективно?",
+      "options": [
+        {
+          "id": "flutter-junior-2-a",
+          "label": "Column со всеми элементами списка внутри SingleChildScrollView"
+        },
+        {
+          "id": "flutter-junior-2-b",
+          "label": "ListView.builder, создающий элементы по мере прокрутки"
+        },
+        {
+          "id": "flutter-junior-2-c",
+          "label": "Отдельный экран на элемент"
+        }
+      ],
+      "correctOptionId": "flutter-junior-2-b",
+      "explanation": "Ленивое создание экономит память.",
+      "source": "https://docs.flutter.dev/cookbook/lists/long-lists"
+    },
+    {
+      "id": "flutter-junior-3",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Что такое Future в Dart?",
+      "options": [
+        {
+          "id": "flutter-junior-3-a",
+          "label": "Результат асинхронной операции, который будет доступен позже"
+        },
+        {
+          "id": "flutter-junior-3-b",
+          "label": "Будущая версия Dart с новыми возможностями языка"
+        },
+        {
+          "id": "flutter-junior-3-c",
+          "label": "Тип виджета"
+        }
+      ],
+      "correctOptionId": "flutter-junior-3-a",
+      "explanation": "async/await упрощает работу с Future.",
+      "source": "https://dart.dev/libraries/async/async-await"
+    },
+    {
+      "id": "flutter-junior-4",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Зачем нужно ключевое слово const у виджетов?",
+      "options": [
+        {
+          "id": "flutter-junior-4-a",
+          "label": "Чтобы виджет нельзя было отобразить до загрузки данных с сервера"
+        },
+        {
+          "id": "flutter-junior-4-b",
+          "label": "Чтобы переиспользовать неизменяемые экземпляры и избегать лишних перестроений"
+        },
+        {
+          "id": "flutter-junior-4-c",
+          "label": "Чтобы ускорить сеть"
+        }
+      ],
+      "correctOptionId": "flutter-junior-4-b",
+      "explanation": "const-виджеты создаются на этапе компиляции.",
+      "source": "https://docs.flutter.dev/perf/best-practices"
+    },
+    {
+      "id": "flutter-junior-5",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Как перейти на новый экран?",
+      "options": [
+        {
+          "id": "flutter-junior-5-a",
+          "label": "Пересоздать приложение с новым корневым виджетом экрана"
+        },
+        {
+          "id": "flutter-junior-5-b",
+          "label": "Navigator.push или маршрутизация через пакет вроде go_router"
+        },
+        {
+          "id": "flutter-junior-5-c",
+          "label": "Изменить main()"
+        }
+      ],
+      "correctOptionId": "flutter-junior-5-b",
+      "explanation": "Навигатор хранит стек маршрутов.",
+      "source": "https://docs.flutter.dev/ui/navigation"
+    },
+    {
+      "id": "flutter-junior-6",
+      "grade": "junior",
+      "skillId": "flutter",
+      "prompt": "Что такое null safety в Dart?",
+      "options": [
+        {
+          "id": "flutter-junior-6-a",
+          "label": "Типы по умолчанию не допускают null; null явно разрешается через ?"
+        },
+        {
+          "id": "flutter-junior-6-b",
+          "label": "Запрет любых null"
+        },
+        {
+          "id": "flutter-junior-6-c",
+          "label": "Автоматическая замена всех null на значения по умолчанию при компиляции"
+        }
+      ],
+      "correctOptionId": "flutter-junior-6-a",
+      "explanation": "Ошибки null ловятся при компиляции.",
+      "source": "https://dart.dev/null-safety"
+    },
+    {
+      "id": "flutter-middle-1",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Как разделить бизнес-логику и интерфейс во Flutter?",
+      "options": [
+        {
+          "id": "flutter-middle-1-a",
+          "label": "Управление состоянием через BLoC, Riverpod или Provider с отдельными слоями"
+        },
+        {
+          "id": "flutter-middle-1-b",
+          "label": "Вся логика в build"
+        },
+        {
+          "id": "flutter-middle-1-c",
+          "label": "Глобальные переменные и вся логика внутри метода build каждого виджета"
+        }
+      ],
+      "correctOptionId": "flutter-middle-1-a",
+      "explanation": "Разделение упрощает тестирование.",
+      "source": "https://docs.flutter.dev/data-and-backend/state-mgmt/options"
+    },
+    {
+      "id": "flutter-middle-2",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Что такое Stream в Dart?",
+      "options": [
+        {
+          "id": "flutter-middle-2-a",
+          "label": "Последовательность асинхронных событий"
+        },
+        {
+          "id": "flutter-middle-2-b",
+          "label": "Синхронный список значений в памяти"
+        },
+        {
+          "id": "flutter-middle-2-c",
+          "label": "Файл на диске"
+        }
+      ],
+      "correctOptionId": "flutter-middle-2-a",
+      "explanation": "StreamBuilder перестраивает виджет при новых событиях.",
+      "source": "https://dart.dev/libraries/async/using-streams"
+    },
+    {
+      "id": "flutter-middle-3",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Как вызвать платформенный код Android или iOS?",
+      "options": [
+        {
+          "id": "flutter-middle-3-a",
+          "label": "Через platform channels или FFI"
+        },
+        {
+          "id": "flutter-middle-3-b",
+          "label": "Напрямую из виджета без моста"
+        },
+        {
+          "id": "flutter-middle-3-c",
+          "label": "Нельзя никак"
+        }
+      ],
+      "correctOptionId": "flutter-middle-3-a",
+      "explanation": "MethodChannel передаёт сообщения между Dart и платформой.",
+      "source": "https://docs.flutter.dev/platform-integration/platform-channels"
+    },
+    {
+      "id": "flutter-middle-4",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Как выполнить тяжёлое вычисление, не блокируя интерфейс?",
+      "options": [
+        {
+          "id": "flutter-middle-4-a",
+          "label": "В build"
+        },
+        {
+          "id": "flutter-middle-4-b",
+          "label": "В изоляте (Isolate.run или compute)"
+        },
+        {
+          "id": "flutter-middle-4-c",
+          "label": "В setState"
+        }
+      ],
+      "correctOptionId": "flutter-middle-4-b",
+      "explanation": "Изоляты не делят память с главным.",
+      "source": "https://docs.flutter.dev/perf/isolates"
+    },
+    {
+      "id": "flutter-middle-5",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Чем полезны ключи (Keys) виджетов?",
+      "options": [
+        {
+          "id": "flutter-middle-5-a",
+          "label": "Сохраняют состояние элементов при перестановке в списке"
+        },
+        {
+          "id": "flutter-middle-5-b",
+          "label": "Шифруют данные виджета при сохранении на диск"
+        },
+        {
+          "id": "flutter-middle-5-c",
+          "label": "Ускоряют сеть"
+        }
+      ],
+      "correctOptionId": "flutter-middle-5-a",
+      "explanation": "Без ключей состояние может перейти к другому элементу.",
+      "source": "https://api.flutter.dev/flutter/foundation/Key-class.html"
+    },
+    {
+      "id": "flutter-middle-6",
+      "grade": "middle",
+      "skillId": "flutter",
+      "prompt": "Как тестировать виджеты?",
+      "options": [
+        {
+          "id": "flutter-middle-6-a",
+          "label": "Только вручную"
+        },
+        {
+          "id": "flutter-middle-6-b",
+          "label": "Виджет-тесты с WidgetTester без устройства"
+        },
+        {
+          "id": "flutter-middle-6-c",
+          "label": "Только интеграционными тестами на телефоне"
+        }
+      ],
+      "correctOptionId": "flutter-middle-6-b",
+      "explanation": "Виджет-тесты быстрые и проверяют интерфейс.",
+      "source": "https://docs.flutter.dev/testing/overview"
+    },
+    {
+      "id": "flutter-senior-1",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Как найти причину пропуска кадров?",
+      "options": [
+        {
+          "id": "flutter-senior-1-a",
+          "label": "Отладочная сборка на эмуляторе и проверка плавности по ощущениям тестировщика"
+        },
+        {
+          "id": "flutter-senior-1-b",
+          "label": "Flutter DevTools: профилировщик производительности и перестроений в профильной сборке"
+        },
+        {
+          "id": "flutter-senior-1-c",
+          "label": "По ощущениям"
+        }
+      ],
+      "correctOptionId": "flutter-senior-1-b",
+      "explanation": "Отладочная сборка медленнее релизной.",
+      "source": "https://docs.flutter.dev/perf/ui-performance"
+    },
+    {
+      "id": "flutter-senior-2",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Что такое дерево элементов и RenderObject?",
+      "options": [
+        {
+          "id": "flutter-senior-2-a",
+          "label": "Виджеты — конфигурация, элементы — экземпляры в дереве, RenderObject — разметка и отрисовка"
+        },
+        {
+          "id": "flutter-senior-2-b",
+          "label": "Это три названия одного и того же объекта, которые используются в разных версиях Flutter"
+        },
+        {
+          "id": "flutter-senior-2-c",
+          "label": "RenderObject — сетевой объект"
+        }
+      ],
+      "correctOptionId": "flutter-senior-2-a",
+      "explanation": "Понимание трёх деревьев помогает оптимизации.",
+      "source": "https://docs.flutter.dev/resources/architectural-overview"
+    },
+    {
+      "id": "flutter-senior-3",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Как уменьшить размер приложения?",
+      "options": [
+        {
+          "id": "flutter-senior-3-a",
+          "label": "Добавить больше шрифтов и ресурсов и отключить tree shaking при сборке приложения"
+        },
+        {
+          "id": "flutter-senior-3-b",
+          "label": "Анализ размера, разделение по ABI, сжатие ресурсов и удаление неиспользуемых пакетов"
+        },
+        {
+          "id": "flutter-senior-3-c",
+          "label": "Отключить tree shaking"
+        }
+      ],
+      "correctOptionId": "flutter-senior-3-b",
+      "explanation": "flutter build --analyze-size показывает вклад компонентов.",
+      "source": "https://docs.flutter.dev/perf/app-size"
+    },
+    {
+      "id": "flutter-senior-4",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Как организовать большой Flutter-проект?",
+      "options": [
+        {
+          "id": "flutter-senior-4-a",
+          "label": "Один файл main.dart"
+        },
+        {
+          "id": "flutter-senior-4-b",
+          "label": "Копирование кода между экранами"
+        },
+        {
+          "id": "flutter-senior-4-c",
+          "label": "Пакеты по фичам, общие слои и единая архитектура состояния"
+        }
+      ],
+      "correctOptionId": "flutter-senior-4-c",
+      "explanation": "Монорепозиторий с пакетами упрощает поддержку.",
+      "source": "https://docs.flutter.dev/app-architecture"
+    },
+    {
+      "id": "flutter-senior-5",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Как обеспечить доступность во Flutter?",
+      "options": [
+        {
+          "id": "flutter-senior-5-a",
+          "label": "Только крупные шрифты в настройках приложения для всех пользователей"
+        },
+        {
+          "id": "flutter-senior-5-b",
+          "label": "Только крупные шрифты"
+        },
+        {
+          "id": "flutter-senior-5-c",
+          "label": "Семантические виджеты, масштабирование шрифта и проверка с экранными дикторами"
+        }
+      ],
+      "correctOptionId": "flutter-senior-5-c",
+      "explanation": "Semantics описывает элементы для вспомогательных технологий.",
+      "source": "https://docs.flutter.dev/ui/accessibility-and-internationalization/accessibility"
+    },
+    {
+      "id": "flutter-senior-6",
+      "grade": "senior",
+      "skillId": "flutter",
+      "prompt": "Как работать с офлайн-режимом?",
+      "options": [
+        {
+          "id": "flutter-senior-6-a",
+          "label": "Показывать ошибку без сети и кэшировать только картинки на устройстве"
+        },
+        {
+          "id": "flutter-senior-6-b",
+          "label": "Локальное хранилище как источник истины и синхронизация с сервером"
+        },
+        {
+          "id": "flutter-senior-6-c",
+          "label": "Кэшировать только картинки"
+        }
+      ],
+      "correctOptionId": "flutter-senior-6-b",
+      "explanation": "Offline-first повышает надёжность.",
+      "source": "https://docs.flutter.dev/app-architecture/design-patterns/offline-first"
+    },
+    {
+      "id": "flutter-lead-1",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Когда Flutter — хороший выбор для продукта?",
+      "options": [
+        {
+          "id": "flutter-lead-1-a",
+          "label": "Всегда, для любого продукта, потому что один код дешевле двух нативных приложений"
+        },
+        {
+          "id": "flutter-lead-1-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "flutter-lead-1-c",
+          "label": "Когда нужен единый интерфейс на нескольких платформах и нет тяжёлой зависимости от нативных API"
+        }
+      ],
+      "correctOptionId": "flutter-lead-1-c",
+      "explanation": "Сложные нативные интеграции увеличивают стоимость.",
+      "source": "https://docs.flutter.dev/resources/faq"
+    },
+    {
+      "id": "flutter-lead-2",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Как организовать CI для Flutter?",
+      "options": [
+        {
+          "id": "flutter-lead-2-a",
+          "label": "Сборка вручную на ноутбуке разработчика только под iOS перед релизом"
+        },
+        {
+          "id": "flutter-lead-2-b",
+          "label": "Только на iOS"
+        },
+        {
+          "id": "flutter-lead-2-c",
+          "label": "Анализ, тесты, сборка под каждую платформу и автоматическая публикация"
+        }
+      ],
+      "correctOptionId": "flutter-lead-2-c",
+      "explanation": "Автоматизация обеспечивает одинаковые сборки.",
+      "source": "https://docs.flutter.dev/deployment/cd"
+    },
+    {
+      "id": "flutter-lead-3",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Как управлять обновлениями Flutter SDK?",
+      "options": [
+        {
+          "id": "flutter-lead-3-a",
+          "label": "Всегда использовать последнюю бета-версию SDK, чтобы получать исправления первыми"
+        },
+        {
+          "id": "flutter-lead-3-b",
+          "label": "Фиксировать версию и обновлять плановыми шагами с тестами"
+        },
+        {
+          "id": "flutter-lead-3-c",
+          "label": "Никогда не обновлять"
+        }
+      ],
+      "correctOptionId": "flutter-lead-3-b",
+      "explanation": "FVM помогает фиксировать версию.",
+      "source": "https://docs.flutter.dev/release/upgrade"
+    },
+    {
+      "id": "flutter-lead-4",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Как оценить качество сторонних пакетов pub.dev?",
+      "options": [
+        {
+          "id": "flutter-lead-4-a",
+          "label": "По числу звёзд автора"
+        },
+        {
+          "id": "flutter-lead-4-b",
+          "label": "По оценкам, поддержке, платформам и активности"
+        },
+        {
+          "id": "flutter-lead-4-c",
+          "label": "Брать первые в поиске"
+        }
+      ],
+      "correctOptionId": "flutter-lead-4-b",
+      "explanation": "pub.dev показывает метрики пакета.",
+      "source": "https://pub.dev/help/scoring"
+    },
+    {
+      "id": "flutter-lead-5",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Как распределить работу между Flutter и нативными разработчиками?",
+      "options": [
+        {
+          "id": "flutter-lead-5-a",
+          "label": "Flutter-команда ведёт общий интерфейс, нативные специалисты — платформенные интеграции"
+        },
+        {
+          "id": "flutter-lead-5-b",
+          "label": "Все делают всё, а нативные разработчики не нужны, потому что Flutter закрывает платформу"
+        },
+        {
+          "id": "flutter-lead-5-c",
+          "label": "Нативные разработчики не нужны"
+        }
+      ],
+      "correctOptionId": "flutter-lead-5-a",
+      "explanation": "Платформенные интеграции требуют знаний платформы.",
+      "source": "https://docs.flutter.dev/platform-integration"
+    },
+    {
+      "id": "flutter-lead-6",
+      "grade": "lead",
+      "skillId": "flutter",
+      "prompt": "Как контролировать производительность в продакшене?",
+      "options": [
+        {
+          "id": "flutter-lead-6-a",
+          "label": "Метрики старта, кадров и сбоев с реальных устройств"
+        },
+        {
+          "id": "flutter-lead-6-b",
+          "label": "Только тесты на эмуляторе"
+        },
+        {
+          "id": "flutter-lead-6-c",
+          "label": "Отзывы в магазине"
+        }
+      ],
+      "correctOptionId": "flutter-lead-6-a",
+      "explanation": "Реальные устройства различаются по мощности.",
+      "source": "https://docs.flutter.dev/perf"
+    },
+    {
+      "id": "mobile_development-intern-1",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Чем нативное приложение отличается от кросс-платформенного?",
+      "options": [
+        {
+          "id": "mobile_development-intern-1-a",
+          "label": "Нативное приложение работает только без интернета, а кросс-платформенное нельзя публиковать в магазинах"
+        },
+        {
+          "id": "mobile_development-intern-1-b",
+          "label": "Кросс-платформенное нельзя публиковать в магазинах"
+        },
+        {
+          "id": "mobile_development-intern-1-c",
+          "label": "Нативное пишется под одну платформу её средствами, кросс-платформенное — из общего кода"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-1-c",
+      "explanation": "Компромисс между затратами и доступом к платформе.",
+      "source": "https://developer.android.com/guide"
+    },
+    {
+      "id": "mobile_development-intern-2",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Почему важно тестировать приложение на реальных устройствах?",
+      "options": [
+        {
+          "id": "mobile_development-intern-2-a",
+          "label": "Эмуляторы запрещены правилами магазинов приложений для тестирования"
+        },
+        {
+          "id": "mobile_development-intern-2-b",
+          "label": "Устройства дешевле"
+        },
+        {
+          "id": "mobile_development-intern-2-c",
+          "label": "Производительность, датчики и поведение отличаются от эмулятора"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-2-c",
+      "explanation": "Эмулятор не повторяет все особенности железа.",
+      "source": "https://developer.android.com/studio/run/device"
+    },
+    {
+      "id": "mobile_development-intern-3",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Что такое адаптивный интерфейс мобильного приложения?",
+      "options": [
+        {
+          "id": "mobile_development-intern-3-a",
+          "label": "Интерфейс с анимацией"
+        },
+        {
+          "id": "mobile_development-intern-3-b",
+          "label": "Интерфейс только для планшетов"
+        },
+        {
+          "id": "mobile_development-intern-3-c",
+          "label": "Интерфейс, подстраивающийся под размеры экранов"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-3-c",
+      "explanation": "Размеры экранов сильно различаются.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes"
+    },
+    {
+      "id": "mobile_development-intern-4",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Зачем запрашивать разрешения в момент использования функции?",
+      "options": [
+        {
+          "id": "mobile_development-intern-4-a",
+          "label": "Пользователь понимает, зачем нужен доступ, и чаще соглашается"
+        },
+        {
+          "id": "mobile_development-intern-4-b",
+          "label": "Так требует только Apple, а на Android разрешения запрашивать не нужно"
+        },
+        {
+          "id": "mobile_development-intern-4-c",
+          "label": "Так быстрее работает"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-4-a",
+      "explanation": "Запрос всех разрешений при старте отпугивает.",
+      "source": "https://developer.android.com/training/permissions/requesting"
+    },
+    {
+      "id": "mobile_development-intern-5",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Что такое push-уведомление?",
+      "options": [
+        {
+          "id": "mobile_development-intern-5-a",
+          "label": "Сообщение от сервера, показываемое системой даже при закрытом приложении"
+        },
+        {
+          "id": "mobile_development-intern-5-b",
+          "label": "SMS-сообщение, которое приложение отправляет пользователю через оператора связи"
+        },
+        {
+          "id": "mobile_development-intern-5-c",
+          "label": "Письмо"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-5-a",
+      "explanation": "Злоупотребление уведомлениями ведёт к их отключению.",
+      "source": "https://firebase.google.com/docs/cloud-messaging"
+    },
+    {
+      "id": "mobile_development-intern-6",
+      "grade": "intern",
+      "skillId": "mobile_development",
+      "prompt": "Почему мобильное приложение должно работать при плохой сети?",
+      "options": [
+        {
+          "id": "mobile_development-intern-6-a",
+          "label": "Мобильная сеть всегда стабильна, поэтому дополнительная обработка ошибок не нужна"
+        },
+        {
+          "id": "mobile_development-intern-6-b",
+          "label": "Мобильное соединение нестабильно; нужны таймауты, повторы и понятные состояния"
+        },
+        {
+          "id": "mobile_development-intern-6-c",
+          "label": "Это не важно"
+        }
+      ],
+      "correctOptionId": "mobile_development-intern-6-b",
+      "explanation": "Пользователь должен понимать, что происходит.",
+      "source": "https://developer.android.com/develop/connectivity/network-ops/reading-network-state"
+    },
+    {
+      "id": "mobile_development-junior-1",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Как хранить токен авторизации на устройстве?",
+      "options": [
+        {
+          "id": "mobile_development-junior-1-a",
+          "label": "В открытом файле настроек приложения рядом с остальными данными"
+        },
+        {
+          "id": "mobile_development-junior-1-b",
+          "label": "В логах"
+        },
+        {
+          "id": "mobile_development-junior-1-c",
+          "label": "В защищённом хранилище: Keychain или Keystore"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-1-c",
+      "explanation": "Защищённые хранилища шифруют секреты.",
+      "source": "https://developer.android.com/privacy-and-security/keystore"
+    },
+    {
+      "id": "mobile_development-junior-2",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Что такое deep link?",
+      "options": [
+        {
+          "id": "mobile_development-junior-2-a",
+          "label": "Ссылка, открывающая конкретный экран приложения"
+        },
+        {
+          "id": "mobile_development-junior-2-b",
+          "label": "Ссылка на магазин приложений"
+        },
+        {
+          "id": "mobile_development-junior-2-c",
+          "label": "Скрытая функция"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-2-a",
+      "explanation": "Universal Links и App Links проверяют домен.",
+      "source": "https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app"
+    },
+    {
+      "id": "mobile_development-junior-3",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Как уменьшить расход батареи?",
+      "options": [
+        {
+          "id": "mobile_development-junior-3-a",
+          "label": "Реже обращаться к сети и GPS и группировать фоновые задачи"
+        },
+        {
+          "id": "mobile_development-junior-3-b",
+          "label": "Чаще обновлять данные"
+        },
+        {
+          "id": "mobile_development-junior-3-c",
+          "label": "Держать экран включённым и обновлять данные каждую секунду"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-3-a",
+      "explanation": "Энергопотребление влияет на оценки.",
+      "source": "https://developer.android.com/topic/performance/power"
+    },
+    {
+      "id": "mobile_development-junior-4",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Как организовать версионирование мобильного API?",
+      "options": [
+        {
+          "id": "mobile_development-junior-4-a",
+          "label": "Менять API без предупреждения"
+        },
+        {
+          "id": "mobile_development-junior-4-b",
+          "label": "Удалять старые версии API сразу после выпуска новой версии приложения"
+        },
+        {
+          "id": "mobile_development-junior-4-c",
+          "label": "Поддерживать старые версии, пока ими пользуются установленные приложения"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-4-c",
+      "explanation": "Пользователи обновляют приложения не сразу.",
+      "source": "https://cloud.google.com/apis/design/versioning"
+    },
+    {
+      "id": "mobile_development-junior-5",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Что проверить перед публикацией приложения?",
+      "options": [
+        {
+          "id": "mobile_development-junior-5-a",
+          "label": "Сбои, разрешения, политику конфиденциальности и работу на разных устройствах"
+        },
+        {
+          "id": "mobile_development-junior-5-b",
+          "label": "Только иконку"
+        },
+        {
+          "id": "mobile_development-junior-5-c",
+          "label": "Только иконку приложения и скорость сборки на компьютере разработчика"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-5-a",
+      "explanation": "Магазины отклоняют приложения с нарушениями.",
+      "source": "https://developer.apple.com/app-store/review/guidelines/"
+    },
+    {
+      "id": "mobile_development-junior-6",
+      "grade": "junior",
+      "skillId": "mobile_development",
+      "prompt": "Что такое локализация приложения?",
+      "options": [
+        {
+          "id": "mobile_development-junior-6-a",
+          "label": "Адаптация текстов, форматов дат, чисел и валют под язык и регион"
+        },
+        {
+          "id": "mobile_development-junior-6-b",
+          "label": "Определение местоположения пользователя для выбора ближайшего сервера"
+        },
+        {
+          "id": "mobile_development-junior-6-c",
+          "label": "Перевод только названия"
+        }
+      ],
+      "correctOptionId": "mobile_development-junior-6-a",
+      "explanation": "Тексты выносят в ресурсы.",
+      "source": "https://developer.android.com/guide/topics/resources/localization"
+    },
+    {
+      "id": "mobile_development-middle-1",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Как обеспечить работу офлайн?",
+      "options": [
+        {
+          "id": "mobile_development-middle-1-a",
+          "label": "Локальная база как источник истины и очередь синхронизации изменений"
+        },
+        {
+          "id": "mobile_development-middle-1-b",
+          "label": "Блокировать приложение без сети и хранить данные только в оперативной памяти"
+        },
+        {
+          "id": "mobile_development-middle-1-c",
+          "label": "Хранить данные в памяти"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-1-a",
+      "explanation": "Конфликты синхронизации нужно разрешать по правилам.",
+      "source": "https://developer.android.com/topic/architecture/data-layer/offline-first"
+    },
+    {
+      "id": "mobile_development-middle-2",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Как принудительно обновить устаревшие версии приложения?",
+      "options": [
+        {
+          "id": "mobile_development-middle-2-a",
+          "label": "Удалить приложение у пользователя удалённо и попросить установить заново"
+        },
+        {
+          "id": "mobile_development-middle-2-b",
+          "label": "Это невозможно"
+        },
+        {
+          "id": "mobile_development-middle-2-c",
+          "label": "Сервер сообщает минимальную поддерживаемую версию, приложение просит обновиться"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-2-c",
+      "explanation": "Механизм нужен для критических исправлений.",
+      "source": "https://developer.android.com/guide/playcore/in-app-updates"
+    },
+    {
+      "id": "mobile_development-middle-3",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Как измерить производительность приложения у пользователей?",
+      "options": [
+        {
+          "id": "mobile_development-middle-3-a",
+          "label": "Метрики старта, отзывчивости и сбоев с реальных устройств"
+        },
+        {
+          "id": "mobile_development-middle-3-b",
+          "label": "Только тесты в CI"
+        },
+        {
+          "id": "mobile_development-middle-3-c",
+          "label": "Отзывы пользователей"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-3-a",
+      "explanation": "Реальные данные отличаются от лабораторных.",
+      "source": "https://firebase.google.com/docs/perf-mon"
+    },
+    {
+      "id": "mobile_development-middle-4",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Что такое фича-флаги в мобильной разработке?",
+      "options": [
+        {
+          "id": "mobile_development-middle-4-a",
+          "label": "Значки «Новое» в магазине приложений для обновлённых функций"
+        },
+        {
+          "id": "mobile_development-middle-4-b",
+          "label": "Права доступа"
+        },
+        {
+          "id": "mobile_development-middle-4-c",
+          "label": "Удалённое включение функций без выпуска новой версии"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-4-c",
+      "explanation": "Флаги позволяют отключить проблемную функцию.",
+      "source": "https://firebase.google.com/docs/remote-config"
+    },
+    {
+      "id": "mobile_development-middle-5",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Как защититься от перехвата трафика приложения?",
+      "options": [
+        {
+          "id": "mobile_development-middle-5-a",
+          "label": "Шифрование трафика Base64 и использование HTTP без проверки сертификатов сервера"
+        },
+        {
+          "id": "mobile_development-middle-5-b",
+          "label": "Шифрование Base64"
+        },
+        {
+          "id": "mobile_development-middle-5-c",
+          "label": "HTTPS с проверкой сертификатов и, при необходимости, закреплением сертификата"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-5-c",
+      "explanation": "Закрепление усложняет атаку посредника, но требует ротации.",
+      "source": "https://developer.android.com/privacy-and-security/security-config"
+    },
+    {
+      "id": "mobile_development-middle-6",
+      "grade": "middle",
+      "skillId": "mobile_development",
+      "prompt": "Как тестировать приложение на множестве устройств?",
+      "options": [
+        {
+          "id": "mobile_development-middle-6-a",
+          "label": "Купить все модели телефонов"
+        },
+        {
+          "id": "mobile_development-middle-6-b",
+          "label": "Облачные фермы устройств и автоматические тесты"
+        },
+        {
+          "id": "mobile_development-middle-6-c",
+          "label": "Тестировать только на одном"
+        }
+      ],
+      "correctOptionId": "mobile_development-middle-6-b",
+      "explanation": "Фермы позволяют проверить популярные модели.",
+      "source": "https://firebase.google.com/docs/test-lab"
+    },
+    {
+      "id": "mobile_development-senior-1",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как проектировать синхронизацию данных между устройствами?",
+      "options": [
+        {
+          "id": "mobile_development-senior-1-a",
+          "label": "Версии изменений, разрешение конфликтов и идемпотентные операции"
+        },
+        {
+          "id": "mobile_development-senior-1-b",
+          "label": "Последний записавший всегда прав без учёта"
+        },
+        {
+          "id": "mobile_development-senior-1-c",
+          "label": "Отключить синхронизацию"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-1-a",
+      "explanation": "CRDT — один из подходов к конфликтам.",
+      "source": "https://crdt.tech/"
+    },
+    {
+      "id": "mobile_development-senior-2",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как снижать размер приложения?",
+      "options": [
+        {
+          "id": "mobile_development-senior-2-a",
+          "label": "Удалять неиспользуемый код и ресурсы, разделять по архитектурам, загружать модули по запросу"
+        },
+        {
+          "id": "mobile_development-senior-2-b",
+          "label": "Добавлять все ресурсы и библиотеки в приложение заранее и отключить сжатие при сборке пакетов"
+        },
+        {
+          "id": "mobile_development-senior-2-c",
+          "label": "Отключать сжатие"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-2-a",
+      "explanation": "Размер влияет на конверсию установки.",
+      "source": "https://developer.android.com/topic/performance/reduce-apk-size"
+    },
+    {
+      "id": "mobile_development-senior-3",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как организовать архитектуру мобильного приложения?",
+      "options": [
+        {
+          "id": "mobile_development-senior-3-a",
+          "label": "Однонаправленный поток данных, слои и модули по фичам"
+        },
+        {
+          "id": "mobile_development-senior-3-b",
+          "label": "Вся логика в экранах и глобальные синглтоны для общего состояния"
+        },
+        {
+          "id": "mobile_development-senior-3-c",
+          "label": "Глобальные синглтоны"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-3-a",
+      "explanation": "Архитектура упрощает тестирование и развитие.",
+      "source": "https://developer.android.com/topic/architecture"
+    },
+    {
+      "id": "mobile_development-senior-4",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как реагировать на всплеск сбоев после релиза?",
+      "options": [
+        {
+          "id": "mobile_development-senior-4-a",
+          "label": "Ждать отзывов пользователей и выпустить исправление в следующем плановом релизе"
+        },
+        {
+          "id": "mobile_development-senior-4-b",
+          "label": "Остановить поэтапный выпуск, отключить функцию флагом и выпустить исправление"
+        },
+        {
+          "id": "mobile_development-senior-4-c",
+          "label": "Удалить приложение из магазина"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-4-b",
+      "explanation": "Поэтапный выпуск ограничивает ущерб.",
+      "source": "https://support.google.com/googleplay/android-developer/answer/6346149"
+    },
+    {
+      "id": "mobile_development-senior-5",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как защитить бизнес-логику приложения от подделки клиента?",
+      "options": [
+        {
+          "id": "mobile_development-senior-5-a",
+          "label": "Доверять клиенту, потому что обфускация кода полностью защищает от подделки"
+        },
+        {
+          "id": "mobile_development-senior-5-b",
+          "label": "Обфускация решает всё"
+        },
+        {
+          "id": "mobile_development-senior-5-c",
+          "label": "Проверять всё критичное на сервере и использовать аттестацию устройства"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-5-c",
+      "explanation": "Клиент находится под контролем пользователя.",
+      "source": "https://developer.android.com/google/play/integrity"
+    },
+    {
+      "id": "mobile_development-senior-6",
+      "grade": "senior",
+      "skillId": "mobile_development",
+      "prompt": "Как работать с разными размерами экранов и складными устройствами?",
+      "options": [
+        {
+          "id": "mobile_development-senior-6-a",
+          "label": "Фиксированная раскладка"
+        },
+        {
+          "id": "mobile_development-senior-6-b",
+          "label": "Только портрет"
+        },
+        {
+          "id": "mobile_development-senior-6-c",
+          "label": "Адаптивные макеты и тесты на разных классах размеров"
+        }
+      ],
+      "correctOptionId": "mobile_development-senior-6-c",
+      "explanation": "Складные устройства меняют размер на лету.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive"
+    },
+    {
+      "id": "mobile_development-lead-1",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как выбрать технологию для нового мобильного продукта?",
+      "options": [
+        {
+          "id": "mobile_development-lead-1-a",
+          "label": "По моде"
+        },
+        {
+          "id": "mobile_development-lead-1-b",
+          "label": "Всегда кросс-платформа"
+        },
+        {
+          "id": "mobile_development-lead-1-c",
+          "label": "По требованиям, бюджету, срокам и компетенциям команды"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-1-c",
+      "explanation": "Решение влияет на годы поддержки.",
+      "source": "https://docs.flutter.dev/resources/faq"
+    },
+    {
+      "id": "mobile_development-lead-2",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как организовать релизный цикл мобильных приложений?",
+      "options": [
+        {
+          "id": "mobile_development-lead-2-a",
+          "label": "Релиз раз в год"
+        },
+        {
+          "id": "mobile_development-lead-2-b",
+          "label": "Регулярные релизы по расписанию с поэтапным выпуском и мониторингом"
+        },
+        {
+          "id": "mobile_development-lead-2-c",
+          "label": "Релиз каждого коммита сразу всем"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-2-b",
+      "explanation": "Предсказуемый ритм упрощает планирование.",
+      "source": "https://developer.apple.com/help/app-store-connect/update-your-app/release-a-version-update-in-phases"
+    },
+    {
+      "id": "mobile_development-lead-3",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как измерять успех мобильного продукта?",
+      "options": [
+        {
+          "id": "mobile_development-lead-3-a",
+          "label": "Число скачиваний и место в рейтинге магазина приложений"
+        },
+        {
+          "id": "mobile_development-lead-3-b",
+          "label": "Число экранов"
+        },
+        {
+          "id": "mobile_development-lead-3-c",
+          "label": "Удержание, активность, конверсия и стабильность"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-3-c",
+      "explanation": "Скачивания без удержания не приносят ценности.",
+      "source": "https://firebase.google.com/docs/analytics"
+    },
+    {
+      "id": "mobile_development-lead-4",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как сохранить согласованность iOS и Android версий?",
+      "options": [
+        {
+          "id": "mobile_development-lead-4-a",
+          "label": "Разные продукты без связи"
+        },
+        {
+          "id": "mobile_development-lead-4-b",
+          "label": "Делать только одну платформу и копировать решения на вторую через год"
+        },
+        {
+          "id": "mobile_development-lead-4-c",
+          "label": "Общая дизайн-система, общие требования и синхронное планирование"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-4-c",
+      "explanation": "Пользователи ожидают одинаковых возможностей.",
+      "source": "https://m3.material.io/"
+    },
+    {
+      "id": "mobile_development-lead-5",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как соблюдать законы о данных в мобильном приложении?",
+      "options": [
+        {
+          "id": "mobile_development-lead-5-a",
+          "label": "Собирать все данные, хранить их где удобно, а согласие получать только на рассылку"
+        },
+        {
+          "id": "mobile_development-lead-5-b",
+          "label": "Хранить данные где удобно"
+        },
+        {
+          "id": "mobile_development-lead-5-c",
+          "label": "Минимизировать сбор, получать согласия и хранить персональные данные по требованиям 152-ФЗ"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-5-c",
+      "explanation": "Требования к локализации распространяются и на мобильные сервисы.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_61801/"
+    },
+    {
+      "id": "mobile_development-lead-6",
+      "grade": "lead",
+      "skillId": "mobile_development",
+      "prompt": "Как развивать мобильную команду?",
+      "options": [
+        {
+          "id": "mobile_development-lead-6-a",
+          "label": "Обмен знаниями между платформами и общие инженерные практики"
+        },
+        {
+          "id": "mobile_development-lead-6-b",
+          "label": "Изолировать iOS и Android"
+        },
+        {
+          "id": "mobile_development-lead-6-c",
+          "label": "Нанимать только одну платформу"
+        }
+      ],
+      "correctOptionId": "mobile_development-lead-6-a",
+      "explanation": "Общие практики повышают качество.",
+      "source": "https://developer.android.com/courses"
+    }
+  ]
+}

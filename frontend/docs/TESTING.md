@@ -2,15 +2,20 @@
 
 The [private CI controller](../../infra/ci/README.md) checks admitted canonical PRs and main.
 `fsp/platform` covers TypeScript, the mock and frontend; `fsp/backend` covers real PostgreSQL and the exact
-systemd PDF sandbox; `fsp/compose` covers containers; `fsp/release-safety` covers deployment and backup recovery.
+systemd PDF sandbox; `fsp/compose` covers containers; `fsp/release-safety` covers deployment activation rollback.
+Backup creation and dump/restore checks are disabled by owner policy.
 `fsp/deployment` passes only after actual HTTPS/Resend browser acceptance. GitHub Actions is retired.
 
-| Suite | Runner | Where | Count | Command |
-| --- | --- | --- | --- | --- |
-| Mock API | `bun test` | `mock-server/test/mock-api.test.ts` | 26 | `bun run --cwd ../mock-server test` |
-| Unit and component | Vitest 5 + Testing Library + MSW 3 (jsdom, on Node) | `src/**/*.test.ts(x)` | 36 in 8 files | `bun run test` |
-| Browser acceptance | Playwright 1.63 + axe, Chromium 1440×900 | `e2e/*.spec.ts` | 36 + 1 opt-in | `bun run e2e` |
-| Deployed stand | Playwright | `e2e/public/stand.spec.ts` | 2 | `FSP_PUBLIC_URL=https://nddev.link FSP_AUTH_MODE=resend bun run e2e:public` |
+| Suite | Runner | Where | Command |
+| --- | --- | --- | --- |
+| Mock API | Bun | `mock-server/test/mock-api.test.ts` | `bun run --cwd ../mock-server test` |
+| Unit and component | Vitest + Testing Library + MSW (jsdom, on Node) | `src/**/*.test.ts(x)` | `bun run test` |
+| Browser acceptance | Playwright + axe, Chromium | `e2e/*.spec.ts` | `bun run e2e` |
+| Deployed stand | Playwright, real Rust/Resend/Bifrost | `e2e/public/stand.spec.ts` | `FSP_PUBLIC_URL=https://nddev.link FSP_AUTH_MODE=resend bun run e2e:public` |
+
+Use the current test report for counts; `bun run e2e --list` lists collected browser scenarios. Documentation
+screenshots are opt-in. `SCREENSHOTS=1 bun run e2e e2e/interview.spec.ts` refreshes the interview desktop/mobile
+examples with fictional data.
 
 `bun run verify` runs the codegen check, typecheck, Biome, the FSD layer check, the unit tests, the production build
 and the bundle check; `just verify` adds the mock tests. JSON reports go to `test-results/`.
@@ -22,7 +27,8 @@ the generated one), the error-code catalog (every code, status and literal messa
 `contracts/error-codes.json`), origin/host/role boundaries, the stand configuration (only the configured origin, no
 development routes), e-mail verification and expiry, the server-owned category, automatic source jobs without
 inferred hours or grades, the assessment lifecycle, failure and service-error outcomes, same-grade retry, downgrade
-refusal and cooldown, stale checks and revoked consent, need validation and tenant isolation, the anonymous and
+refusal and cooldown, graph-interview prerequisite traversal and stale revisions, stale checks and revoked consent,
+need validation and tenant isolation, the anonymous and
 deterministic bank, shortlist persistence, invitations with frozen terms, idempotency and per-company disclosure,
 decline and withdrawal, vacancy publication and the candidate feed, applications with frozen terms, eligibility,
 disclosure and its withdrawal, weekly task offers, answers, reviews and profile freshness, task authoring and
@@ -54,7 +60,7 @@ acceptance cases they cover.
 | Spec | Cases |
 | --- | --- |
 | `auth.spec.ts` | Registration with a wrong and an expired code; role separation and deep links that return after sign-in; an expired session clears private data; logout |
-| `candidate.spec.ts` | A new candidate reaches a verified category without FSP; the draft survives a reload, an upgrade updates every view and the PDF is real; a failed upgrade keeps Джуниор; a service failure is retryable without penalty; the cooldown comes from the server; automatic source enrichment and empty FSP history; a verified FSP record; graph loads on demand and shares selection with the keyboard-accessible list; PDF import applies only on confirmation |
+| `candidate.spec.ts` | A new candidate reaches a verified category without FSP; a graph interview descends to a missing prerequisite and survives reload; the knowledge-test draft survives a reload, an upgrade updates every view and the PDF is real; a failed upgrade keeps Джуниор; a service failure is retryable without penalty; the cooldown comes from the server; automatic source enrichment and empty FSP history; a verified FSP record; the competence graph loads on demand and shares selection with the keyboard-accessible list; PDF import applies only on confirmation |
 | `employer.spec.ts` | Salary validation, read-only tax basis, saving without publication; filters in the URL with a shortlist that survives filtering and reload; required coverage, verification gaps and verified grade kept apart; publication only on the needs list and no chat or ATS controls; a search failure is an error with retry; an emptied bank keeps shortlist entries as unavailable; graph loading/failure/manual retry is explicit and list mode makes no graph request |
 | `invitations.spec.ts` | Anonymous until acceptance, then only the chosen fields and only for the inviting company; viewing changes only the status and declining grants nothing; a stale tab sees the canonical decision and a withdrawn offer cannot be accepted |
 | `vacancies.spec.ts` | Publishing and unpublishing a need, the candidate feed with filters, salary and fit; applying opens only the chosen contacts to that company, which views and accepts while the candidate follows the status; withdrawing takes the contacts back; a candidate without a verified grade is told why applying is unavailable |
@@ -68,8 +74,9 @@ e-mail, repository names, references or fixture links) before disclosure.
 ## Deployed stand
 
 `e2e/public/stand.spec.ts` checks HTTPS, deep links, capability flags, no-store and blocked mock controls.
-Its second scenario creates a new candidate and two new companies, completes a knowledge test, exports a
-real PDF, accepts an invitation and verifies that the other company still cannot see private contacts.
+Its second scenario creates a new candidate and two new companies, completes a knowledge test, starts and resumes a
+persisted graph interview, exports a real PDF, accepts an invitation and verifies that the other company still cannot
+see private contacts.
 All actors use unique addresses; no seeded company login or production reset is used.
 
 For nddev.link, set `FSP_AUTH_MODE=resend` and inject `FSP_RESEND_ACCEPTANCE_KEY` privately. The helper
@@ -106,3 +113,17 @@ The live browser pass also exposed an outer API timeout shorter than the gateway
 graph failures. [Issue #27](https://github.com/KirpaDmitriy/sport-programming-federation/issues/27) tracks the
 55-second API deadline, on-demand graph queries and manual retry. Its forced-error browser regression runs
 locally against an intercepted response; this is separate from the unmodified HTTPS stand evidence in #23.
+
+## Failure-safe public acceptance
+
+`e2e/public/actors.ts` owns only the fresh `fsp-ci-*` actors registered by the public suite. Its fixture has a
+separate 90-second teardown budget: unpublish the candidate, remove all needs owned by the newly created
+companies, then close every owned browser context. Teardown runs after test failure too; cleanup failures fail
+the release check. Accounts, private interview history and invitations persist; no database reset or unrelated
+actor cleanup occurs. Process termination or infrastructure failure can still prevent cleanup and requires
+inspection of the failed run. `e2e/acceptance-cleanup.spec.ts` injects failure after writes and verifies cleanup,
+identity guarding, context closure and preservation of another company's need against the local mock.
+
+`e2e/interview.spec.ts` uses a controlled browser speech adapter to exercise startup errors and late callbacks.
+It proves application behavior, not physical microphone or vendor speech availability. Public acceptance checks
+the actual delivered Permissions-Policy and completes a text answer against the real model.

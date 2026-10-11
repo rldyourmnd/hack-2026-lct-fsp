@@ -2,6 +2,8 @@
 
 One DigitalOcean droplet (`fsp-career-demo`, Ubuntu 24.04, 8 vCPU / 16 GiB) serves the platform at
 <https://nddev.link> through Cloudflare Full (strict), with a Let's Encrypt origin certificate.
+
+Before releasing or recovering deployment access, read the [production deployment runbook](../docs/DEPLOYMENT_RUNBOOK.md). It records the actually used private-controller path and the current CI-host recovery state.
 The original IP `188.166.88.183` retains its short-lived certificate for a canonical HTTPS redirect. Access material (SSH
 key, host key, droplet metadata) lives in the git-ignored `.fsp-infra/` at the repository root.
 
@@ -12,8 +14,9 @@ key, host key, droplet metadata) lives in the git-ignored `.fsp-infra/` at the r
 | `release.sh` | On the host: builds the release (frontend, mock, Rust backend), switches `/opt/fsp/current` atomically, runs the API implementation chosen by `/etc/fsp/api-backend`, health-checks and rolls back on failure |
 | `fsp-mock-api.service` | Hardened systemd unit for the mock API (user `fsp`, `127.0.0.1:4010`) |
 | `fsp-simulator.service` | Fictional participant-results HTTP service on private loopback 4020; released with the API, no public nginx route |
+| `fsp-github-insights.service` | Tokenless public GitHub analysis on private loopback 4030 with `git` clones in its `CacheDirectory`; an optional `GITHUB_TOKEN` in root-private `/etc/fsp/github-insights.env` only raises limits; released with the API, no public nginx route |
+| `fsp-interview.service` | Graph-guided interview engine on private loopback 4040; PostgreSQL sessions, Bifrost/offline evaluation and an internal token shared with the API; released with the API, no public nginx route |
 | `fsp-api.service` | Hardened systemd unit for the Rust API (same user and port; `StateDirectory=fsp` gives it `/var/lib/fsp`) |
-| `backup-db.sh`, `fsp-backup.service`, `fsp-backup.timer` | Private daily PostgreSQL archives, with a tested restore procedure |
 | `nginx/` | Site config (SPA fallback, `/api/v1/` proxy, `/__mock__` → 404), ACME bootstrap config, security headers |
 
 nginx serves the built SPA from `/opt/fsp/current/frontend/dist` with an `index.html` fallback, forwards only
@@ -81,7 +84,7 @@ are protected from retention even when rolling back to an older SHA. A process k
 power failure cannot run a shell rollback handler; inspect the current symlink and service health after recovery.
 
 Database migrations run when Rust starts and are forward-only. A binary rollback does not undo a migration;
-all new migrations must preserve reads/writes by every retained rollback binary. Take a backup before a schema change.
+all new migrations must preserve reads/writes by every retained rollback binary. Do not create a backup; the owner has disabled backups.
 `backend/ROLLBACK_COMPATIBLE` declares the `sqlx-forward-additive-v1` startup policy: only unknown versions
 newer than the embedded history are tolerated; known checksums and dirty state are still checked under SQLx's
 advisory lock. It is not proof that arbitrary DDL is backward compatible; review additive SQL and application
@@ -110,34 +113,20 @@ Credentials are root-only on the CI host; neither PR jobs nor git contain deploy
 
 ## Backups and recovery
 
-`fsp-backup.timer` runs daily with persistent scheduling. Its service runs as `postgres`, writes mode-600
-custom-format archives under `/var/backups/fsp`, and retains completed archives for 14 days. It validates an
-archive before publishing it atomically or pruning old files. A failed dump preserves previous backups.
-The backup script is installed at `/usr/local/libexec/fsp-backup-db` by provisioning; update that installed
-copy when changing the script. Run `systemctl start fsp-backup` before a migration and inspect
-`journalctl -u fsp-backup` and `systemctl list-timers fsp-backup.timer`.
+The owner disabled backups and additional copies on 2026-10-08. Do not create database/configuration archives,
+provider snapshots, off-host backup copies or redundant repository mirrors unless explicitly requested later.
+Existing FSP backup archives were deleted. The stand's `fsp-backup.service` and `fsp-backup.timer`
+are stopped and masked; provisioning removes the old executable and preserves the masks. CI no longer makes
+backup archives or runs dump/restore checks. DigitalOcean backup scheduling is disabled for this droplet.
 
-Local archives protect against application mistakes, not loss of the droplet. Copy them over the existing
-SSH connection to private storage outside the host (for example git-ignored `.fsp-infra/backups/`); never
-commit them or send them to a public artifact service. Off-host retention is not automated.
-
-Test recovery into a newly created isolated database, not the live `fsp` database:
-
-```sh
-sudo -u postgres createdb fsp_restore_check
-sudo -u postgres pg_restore --dbname=fsp_restore_check --single-transaction --exit-on-error --no-owner /var/backups/fsp/<archive>.dump
-sudo -u postgres psql -d fsp_restore_check -c 'SELECT count(*) FROM _sqlx_migrations'
-sudo -u postgres dropdb fsp_restore_check
-```
-
-For a live recovery, stop the API, preserve the damaged database, restore into a new database owned by `fsp`,
-validate it, and change the root-managed connection setting before starting the API. This requires a deliberate
-recovery decision; ordinary deployment never restores or drops the live database. CI verifies a real dump/restore
-round trip and that a failed backup leaves the previous archive intact (`infra/tests/backup.sh`).
+There is no database backup recovery service. Release activation still validates compatibility and can undo
+an incomplete activation using short-lived transaction state; that state is removed when activation ends.
+Normal application releases, the working database and canonical Git history are deployment/source state.
+The additional GitHub mirror is retired; synchronize permanent local branches only with `upstream`.
 
 | Task on the host | Command |
 | --- | --- |
-| API status / logs | `systemctl status fsp-api fsp-simulator`, `journalctl -u fsp-api -n 100` |
+| API status / logs | `systemctl status fsp-api fsp-simulator fsp-github-insights fsp-interview`, `journalctl -u fsp-api -n 100` |
 | Which API serves | `cat /etc/fsp/api-backend` |
 | Certificate | `certbot certificates`; renewal by `snap.certbot.renew.timer` using each certificate's policy (the short-lived IP certificate uses three days), then the nginx reload hook |
 | Renewal dry run | `certbot renew --cert-name nddev.link --dry-run --no-random-sleep-on-renew` |
@@ -159,17 +148,16 @@ so a fresh database is ready on first start.
 | Task | Command |
 | --- | --- |
 | Shell | `su - postgres -c "psql -d fsp"` or `psql "$DATABASE_URL"` after sourcing `db.env` |
-| Backup | `systemctl start fsp-backup.service`; inspect the private archive and service journal |
-| Restore test | Use a new isolated database as described in [Backups and recovery](#backups-and-recovery) |
 | Rotate password | `ALTER ROLE fsp PASSWORD '…'` then update `DATABASE_URL` in `/etc/fsp/db.env` and restart `fsp-api` |
 
 Migrations are embedded with `sqlx::migrate!` and applied by the reviewed forward-additive runner in
 `backend/crates/storage-postgres/src/migrations.rs`. A binary rollback must remain compatible with the current schema; restoring an earlier database is a separate recovery operation, never an automatic deploy step.
-The installed `fsp-backup.timer` provides daily local backups. Off-host retention remains an operator task.
+Backup creation is disabled by owner policy; both historical backup units remain masked.
 
 ## LLM chain
 
-The Rust backend can call a real model for competence-graph extraction. The chain on the stand is
+The Rust backend calls a real model for the background estimate review (deep reasoning, growth advice), résumé
+fields with page excerpts and the assessment assistant; the competence graph is deterministic. The chain on the stand is
 `fsp-api` → Bifrost (`127.0.0.1:4000`) → CLIProxyAPI (`127.0.0.1:18317`) → xAI OAuth → Grok.
 
 Services `fsp-cliproxy.service` and `fsp-bifrost.service` run as `fsp`, bound to loopback. Binaries live in
@@ -182,8 +170,8 @@ Host-side secrets (never committed):
 | --- | --- |
 | `/etc/fsp/cliproxy.yaml` | CLIProxyAPI config; template: [`llm/cliproxy.yaml.example`](llm/cliproxy.yaml.example) |
 | `/var/lib/fsp/cliproxy-auth/xai-*.json` | xAI OAuth token file (writable — CLIProxyAPI refreshes it) |
-| `/var/lib/fsp/bifrost/config.json` | Bifrost config; reference: [`llm/bifrost-config.json`](llm/bifrost-config.json) |
-| `/etc/fsp/llm.env` | `NDDEV_CLIPROXY_KEY` (CLIProxyAPI api-key), `NDDEV_BIFROST_KEY` (Bifrost virtual key) and the backend-side `BIFROST_CHAT_URL`, `BIFROST_API_KEY` (= the virtual key), `BIFROST_MODEL=grok-build/grok-4.7` — `fsp-api.service` loads the same file, so provisioning never rewrites it |
+| `/var/lib/fsp/bifrost/config.json` | Bifrost config; reference: [`llm/bifrost-config.json`](llm/bifrost-config.json). The provider timeout is 360 s: a deep-reasoning estimate review takes one to four minutes; restart `fsp-bifrost` after changing it |
+| `/etc/fsp/llm.env` | `NDDEV_CLIPROXY_KEY` (CLIProxyAPI api-key), `NDDEV_BIFROST_KEY` (Bifrost virtual key) and the backend-side `BIFROST_CHAT_URL`, `BIFROST_API_KEY` (= the virtual key), `BIFROST_MODEL=grok-build/grok-4.7`, optional `BIFROST_REASONING_EFFORT` (default `high`, `none` disables it for the background estimate review) — `fsp-api.service` loads the same file, so provisioning never rewrites it |
 
 Without configured Bifrost the backend reports `meta.capabilities.realLlm: false` and builds a deterministic
 graph from stored skills. An error from a configured provider remains an error; it never silently falls back. The xAI OAuth token is shared with the local `nddev-runtime` setup; refresh-token rotation
@@ -215,9 +203,12 @@ Ubuntu/systemd, and release activation runs it before changing units or the acti
 For first enablement, probe the deployed binary, set the flag, restart the API and check capability plus a real
 preview. If this fails, restore the flag before restarting. There is no unsandboxed fallback. See [backend limits](../backend/README.md#pdf-import-runtime).
 
-The release builds both Rust binaries, installs/restarts `fsp-simulator.service` before API activation and checks
-its loopback health together with API and nginx. Failed activation restores the previous units/release. Rolling
-back to a schema-compatible release without the simulator stops the helper. The schema guard runs first;
+The release builds the three Rust binaries, installs/restarts `fsp-simulator.service` and
+`fsp-github-insights.service` before API activation and checks their loopback health together with API and nginx.
+Failed activation restores the previous units/release. Rolling back to a schema-compatible release without a helper
+stops that helper. The insights service needs no token; the API
+enables GitHub connection only with `FSP_GITHUB_INSIGHTS_URL` in `rust-api.env`
+([GitHub insights](../docs/github-insights.md#operation)). The schema guard runs first;
 helper lifecycle support alone does not make a historical binary a valid rollback target.
 `0004_fsp_results.sql` preserves historical records with an empty detailed-results array until refreshed.
 [FSP fixtures](../docs/fsp-simulator.md) are entirely fictional and cannot establish real federation identity.
@@ -230,7 +221,11 @@ validates those values without sourcing secrets. Provisioning preserves the
 existing runtime hostname. Certificate renewal uses `/var/www/acme` over both
 HTTP and HTTPS; verify `certbot renew --cert-name nddev.link --dry-run` after
 DNS/proxy changes. Cloudflare uses Full (strict), minimum TLS 1.2, and respects
-origin cache headers. `/api/v1/` always returns `Cache-Control: no-store`.
+origin cache headers. HTTPS responses advertise host-only HSTS for one week (`max-age=604800`), including
+error responses; subdomains and preload are not opted in. Plain HTTP Docker responses omit HSTS.
+`/api/v1/` always returns one `Cache-Control: no-store`, including proxy-generated 429 responses. nginx
+suppresses upstream duplicates before setting `X-Content-Type-Options: nosniff`; direct API protection remains.
+The real renewal unit on the Snap installation is `snap.certbot.renew.timer`, not `certbot.timer`.
 Visitor IP headers are trusted only from the published Cloudflare networks in
 `nginx/fsp-cloudflare-real-ip.conf`; review this list during infrastructure upkeep.
 
@@ -258,18 +253,18 @@ DKIM/DMARC, then creates a candidate and two companies through public workflows.
 No fixed code or auth bypass is enabled. Browser traces/screenshots are disabled
 for this suite so OTPs and session cookies cannot enter CI artifacts.
 
-For the first cutover, deploy the supporting release while the IP/demo settings
-still work, back up runtime/nginx configuration, and only then atomically switch
-hostname, certificate, origins and real-mail secrets. Reload nginx and restart
-the API; verify origin TLS, email delivery and login before enabling the Cloudflare
-proxy and updating release variables. Restore the private configuration backup
-if activation fails. Subsequent releases use the normal guarded deployment.
+Domain/real-mail cutover is complete. Use the normal guarded release process; do not rerun historical
+cutover helpers or create configuration backups. Validate active hostname/origins/certificate/mail settings
+in place, and keep changes compatible with the running release.
 `RUNTIME_CAPABILITIES` and `check-runtime-compatibility.sh` reject rollbacks that
 cannot support the active domain or real-mail authentication. Never disable real
 mail or restore old demo authentication as a normal rollback procedure.
+The first activated release that declares `catalog-v2` records it in `/etc/fsp/data-capabilities`: stored data
+may then use its grades, specializations and skills, so rollbacks to releases without `catalog-v2` are refused.
+The marker is monotonic; never delete it to force such a rollback.
 
 Rotating `FSP_AUTH_KEY` invalidates all existing sessions/codes while preserving
-accounts and profiles. Back up this secret separately from the database.
+accounts and profiles. Keep its active value only in the authorized private runtime configuration.
 Resend's delivered event means recipient-server acceptance; only mailbox evidence
 or the recipient can confirm inbox placement. Inspect bounced/failed messages by
 delivery ID in the Resend dashboard or CLI without printing OTP bodies.

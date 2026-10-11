@@ -1,7 +1,7 @@
 {
   "contractVersion": "0.1.0",
-  "routeCount": 79,
-  "coveredOperationCount": 79,
+  "routeCount": 86,
+  "coveredOperationCount": 86,
   "operations": [
     {
       "operationId": "getHealth",
@@ -96,6 +96,16 @@
       ]
     },
     {
+      "operationId": "refreshMyEstimate",
+      "method": "POST",
+      "path": "/api/v1/me/profile/estimate",
+      "observedStatuses": [
+        200,
+        400,
+        409
+      ]
+    },
+    {
       "operationId": "exportMyProfile",
       "method": "GET",
       "path": "/api/v1/me/profile/export",
@@ -125,7 +135,8 @@
       "path": "/api/v1/me/sources/{provider}/connect",
       "observedStatuses": [
         200,
-        404
+        404,
+        422
       ]
     },
     {
@@ -219,6 +230,47 @@
       "observedStatuses": [
         202,
         422
+      ]
+    },
+    {
+      "operationId": "listMyInterviews",
+      "method": "GET",
+      "path": "/api/v1/me/interviews",
+      "observedStatuses": [
+        200
+      ]
+    },
+    {
+      "operationId": "startInterview",
+      "method": "POST",
+      "path": "/api/v1/me/interviews",
+      "observedStatuses": [
+        201
+      ]
+    },
+    {
+      "operationId": "getInterview",
+      "method": "GET",
+      "path": "/api/v1/me/interviews/{interviewId}",
+      "observedStatuses": [
+        200
+      ]
+    },
+    {
+      "operationId": "answerInterview",
+      "method": "POST",
+      "path": "/api/v1/me/interviews/{interviewId}/answers",
+      "observedStatuses": [
+        200,
+        409
+      ]
+    },
+    {
+      "operationId": "synthesizeInterviewSpeech",
+      "method": "POST",
+      "path": "/api/v1/me/interviews/{interviewId}/speech",
+      "observedStatuses": [
+        503
       ]
     },
     {
@@ -623,6 +675,14 @@
       "operationId": "listApplications",
       "method": "GET",
       "path": "/api/v1/applications",
+      "observedStatuses": [
+        200
+      ]
+    },
+    {
+      "operationId": "getHiringFlowAnalytics",
+      "method": "GET",
+      "path": "/api/v1/analytics/hiring-flow",
       "observedStatuses": [
         200
       ]

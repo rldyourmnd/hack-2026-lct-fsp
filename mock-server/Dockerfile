@@ -6,7 +6,9 @@ WORKDIR /app/mock-server
 COPY mock-server/package.json mock-server/bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY mock-server/src ./src
-COPY backend/crates/domain/data/knowledge-v1.json /app/backend/crates/domain/data/knowledge-v1.json
+# The catalog, knowledge banks and golden GitHub fixtures are shared with the Rust domain.
+COPY backend/crates/domain/data /app/backend/crates/domain/data
+COPY contracts/fixtures /app/contracts/fixtures
 COPY mock-server/fixtures/DejaVuSans.ttf mock-server/fixtures/DejaVu-LICENSE.txt ./fixtures/
 # File modes follow the checkout's umask; the service user only needs to read.
 RUN chmod -R a+rX /app

@@ -25,6 +25,10 @@ stand. Dima's first version, a Python (FastAPI) MVP, is tagged `archive/dima-mvp
   both `danil` and `danil/x`. The external [CI controller](infra/ci/README.md) then merges verified personal → `dev` → `main` PRs.
   Delete the feature branch after merging; keep `danil`, `dima`, `dev` and `main` permanent. `main` is what
   `infra/deploy.sh` ships to the stand.
+- Owner standard: do not create or schedule data/configuration backups, snapshots, off-host backup copies,
+  or redundant repository mirrors unless the owner explicitly requests them. FSP backup units stay masked;
+  provisioning and CI must not re-enable backup creation. Existing backup archives were deleted.
+  Synchronize local branches with canonical `upstream` only; do not update the retired GitHub mirror.
 - Never commit secrets. Stand access lives in the git-ignored `.fsp-infra/`; service secrets belong in environment
   files on the host.
 - Write code, comments, documentation and commit messages in English; user-facing text is Russian.

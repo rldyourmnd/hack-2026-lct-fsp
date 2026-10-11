@@ -14,6 +14,45 @@ export function VerifiedGradeBadge({ grade, specialization, withSpecialization }
   return <StatusChip tone="success">{`${prefix}${gradeLabel[grade]} подтверждён`}</StatusChip>;
 }
 
+type CategorySource = NonNullable<components['schemas']['Category']['source']>;
+type Confidence = NonNullable<components['schemas']['Category']['confidence']>;
+
+export const categorySourceLabel: Record<CategorySource, string> = {
+  assessment: 'подтверждено тестом',
+  estimate: 'оценка по открытым данным',
+};
+
+export const estimateConfidenceLabel: Record<Confidence, string> = {
+  low: 'низкая уверенность',
+  medium: 'средняя уверенность',
+  high: 'высокая уверенность',
+};
+
+type CategoryProps = {
+  specialization: Specialization | null;
+  grade: Grade | null;
+  source: CategorySource | null;
+  confidence: Confidence | null;
+};
+
+/**
+ * The employer-visible category with where it comes from: a passed test, or an estimate from
+ * public evidence with its confidence. Only a test result reads as «подтверждено».
+ */
+export function CategoryBadge({ specialization, grade, source, confidence }: CategoryProps) {
+  if (!specialization || !grade || !source) return <StatusChip tone="neutral">Категория не присвоена</StatusChip>;
+  const category = `${specializationLabel[specialization]} · ${gradeLabel[grade]}`;
+  if (source === 'assessment')
+    return (
+      <StatusChip tone="success" icon="checkCircle">{`${category} · ${categorySourceLabel.assessment}`}</StatusChip>
+    );
+  return (
+    <StatusChip tone="info" icon="chart">
+      {`${category} · оценка${confidence ? `, ${estimateConfidenceLabel[confidence]}` : ''}`}
+    </StatusChip>
+  );
+}
+
 export function TargetGradeBadge({ grade }: { grade: Grade }) {
   return (
     <StatusChip tone="info" icon="chart">

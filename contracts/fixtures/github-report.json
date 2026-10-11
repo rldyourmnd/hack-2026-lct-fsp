@@ -1,0 +1,2486 @@
+{
+  "accountCreatedAt": "2020-01-01T00:00:00Z",
+  "activity": {
+    "activeDaysLastYear": 237,
+    "activeWeeksLastYear": 52,
+    "activeYears": 3,
+    "calendar": [
+      {
+        "count": 0,
+        "date": "2025-10-10"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-11"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-12"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-13"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-14"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-15"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-16"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-17"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-18"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-19"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-20"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-21"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-22"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-23"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-24"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-25"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-26"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-27"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-28"
+      },
+      {
+        "count": 4,
+        "date": "2025-10-29"
+      },
+      {
+        "count": 2,
+        "date": "2025-10-30"
+      },
+      {
+        "count": 0,
+        "date": "2025-10-31"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-01"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-02"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-03"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-04"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-05"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-06"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-07"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-08"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-09"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-10"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-11"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-12"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-13"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-14"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-15"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-16"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-17"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-18"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-19"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-20"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-21"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-22"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-23"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-24"
+      },
+      {
+        "count": 2,
+        "date": "2025-11-25"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-26"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-27"
+      },
+      {
+        "count": 4,
+        "date": "2025-11-28"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-29"
+      },
+      {
+        "count": 0,
+        "date": "2025-11-30"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-01"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-02"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-03"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-04"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-05"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-06"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-07"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-08"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-09"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-10"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-11"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-12"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-13"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-14"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-15"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-16"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-17"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-18"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-19"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-20"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-21"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-22"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-23"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-24"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-25"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-26"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-27"
+      },
+      {
+        "count": 0,
+        "date": "2025-12-28"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-29"
+      },
+      {
+        "count": 4,
+        "date": "2025-12-30"
+      },
+      {
+        "count": 2,
+        "date": "2025-12-31"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-01"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-02"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-03"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-04"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-05"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-06"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-07"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-08"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-09"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-10"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-11"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-12"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-13"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-14"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-15"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-16"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-17"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-18"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-19"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-20"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-21"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-22"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-23"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-24"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-25"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-26"
+      },
+      {
+        "count": 4,
+        "date": "2026-01-27"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-28"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-29"
+      },
+      {
+        "count": 2,
+        "date": "2026-01-30"
+      },
+      {
+        "count": 0,
+        "date": "2026-01-31"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-01"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-02"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-03"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-04"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-05"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-06"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-07"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-08"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-09"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-10"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-11"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-12"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-13"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-14"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-15"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-16"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-17"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-18"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-19"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-20"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-21"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-22"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-23"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-24"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-25"
+      },
+      {
+        "count": 4,
+        "date": "2026-02-26"
+      },
+      {
+        "count": 2,
+        "date": "2026-02-27"
+      },
+      {
+        "count": 0,
+        "date": "2026-02-28"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-01"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-02"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-03"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-04"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-05"
+      },
+      {
+        "count": 1,
+        "date": "2026-03-06"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-07"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-08"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-09"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-10"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-11"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-12"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-13"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-14"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-15"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-16"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-17"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-18"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-19"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-20"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-21"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-22"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-23"
+      },
+      {
+        "count": 1,
+        "date": "2026-03-24"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-25"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-26"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-27"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-28"
+      },
+      {
+        "count": 0,
+        "date": "2026-03-29"
+      },
+      {
+        "count": 5,
+        "date": "2026-03-30"
+      },
+      {
+        "count": 3,
+        "date": "2026-03-31"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-01"
+      },
+      {
+        "count": 1,
+        "date": "2026-04-02"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-03"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-04"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-05"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-06"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-07"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-08"
+      },
+      {
+        "count": 6,
+        "date": "2026-04-09"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-10"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-11"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-12"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-13"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-14"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-15"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-16"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-17"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-18"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-19"
+      },
+      {
+        "count": 1,
+        "date": "2026-04-20"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-21"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-22"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-23"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-24"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-25"
+      },
+      {
+        "count": 0,
+        "date": "2026-04-26"
+      },
+      {
+        "count": 5,
+        "date": "2026-04-27"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-28"
+      },
+      {
+        "count": 2,
+        "date": "2026-04-29"
+      },
+      {
+        "count": 3,
+        "date": "2026-04-30"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-01"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-02"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-03"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-04"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-05"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-06"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-07"
+      },
+      {
+        "count": 1,
+        "date": "2026-05-08"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-09"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-10"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-11"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-12"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-13"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-14"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-15"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-16"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-17"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-18"
+      },
+      {
+        "count": 6,
+        "date": "2026-05-19"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-20"
+      },
+      {
+        "count": 5,
+        "date": "2026-05-21"
+      },
+      {
+        "count": 3,
+        "date": "2026-05-22"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-23"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-24"
+      },
+      {
+        "count": 4,
+        "date": "2026-05-25"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-26"
+      },
+      {
+        "count": 4,
+        "date": "2026-05-27"
+      },
+      {
+        "count": 2,
+        "date": "2026-05-28"
+      },
+      {
+        "count": 4,
+        "date": "2026-05-29"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-30"
+      },
+      {
+        "count": 0,
+        "date": "2026-05-31"
+      },
+      {
+        "count": 3,
+        "date": "2026-06-01"
+      },
+      {
+        "count": 5,
+        "date": "2026-06-02"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-03"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-04"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-05"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-06"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-07"
+      },
+      {
+        "count": 5,
+        "date": "2026-06-08"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-09"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-10"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-11"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-12"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-13"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-14"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-15"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-16"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-17"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-18"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-19"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-20"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-21"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-22"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-23"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-24"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-25"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-26"
+      },
+      {
+        "count": 0,
+        "date": "2026-06-27"
+      },
+      {
+        "count": 1,
+        "date": "2026-06-28"
+      },
+      {
+        "count": 2,
+        "date": "2026-06-29"
+      },
+      {
+        "count": 4,
+        "date": "2026-06-30"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-01"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-02"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-03"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-04"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-05"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-06"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-07"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-08"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-09"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-10"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-11"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-12"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-13"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-14"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-15"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-16"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-17"
+      },
+      {
+        "count": 1,
+        "date": "2026-07-18"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-19"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-20"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-21"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-22"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-23"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-24"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-25"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-26"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-27"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-28"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-29"
+      },
+      {
+        "count": 4,
+        "date": "2026-07-30"
+      },
+      {
+        "count": 2,
+        "date": "2026-07-31"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-01"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-02"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-03"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-04"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-05"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-06"
+      },
+      {
+        "count": 5,
+        "date": "2026-08-07"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-08"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-09"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-10"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-11"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-12"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-13"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-14"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-15"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-16"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-17"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-18"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-19"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-20"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-21"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-22"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-23"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-24"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-25"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-26"
+      },
+      {
+        "count": 5,
+        "date": "2026-08-27"
+      },
+      {
+        "count": 2,
+        "date": "2026-08-28"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-29"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-30"
+      },
+      {
+        "count": 4,
+        "date": "2026-08-31"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-01"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-02"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-03"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-04"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-05"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-06"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-07"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-08"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-09"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-10"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-11"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-12"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-13"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-14"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-15"
+      },
+      {
+        "count": 5,
+        "date": "2026-09-16"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-17"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-18"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-19"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-20"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-21"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-22"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-23"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-24"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-25"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-26"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-27"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-28"
+      },
+      {
+        "count": 0,
+        "date": "2026-09-29"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-30"
+      },
+      {
+        "count": 2,
+        "date": "2026-10-01"
+      },
+      {
+        "count": 4,
+        "date": "2026-10-02"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-03"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-04"
+      },
+      {
+        "count": 2,
+        "date": "2026-10-05"
+      },
+      {
+        "count": 5,
+        "date": "2026-10-06"
+      },
+      {
+        "count": 2,
+        "date": "2026-10-07"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-08"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-09"
+      }
+    ],
+    "commitsLastYear": 770,
+    "currentDailyStreak": 0,
+    "currentWeeklyStreak": 52,
+    "lastActiveOn": "2026-10-07",
+    "longestDailyStreak": 6,
+    "longestGapDaysLastYear": 3,
+    "longestWeeklyStreak": 52,
+    "pullRequestsLastYear": 20,
+    "trendPercent": 2,
+    "yearly": [
+      {
+        "activeDays": 40,
+        "commits": 40,
+        "pullRequests": null,
+        "year": 2023
+      },
+      {
+        "activeDays": 51,
+        "commits": 152,
+        "pullRequests": null,
+        "year": 2025
+      },
+      {
+        "activeDays": 184,
+        "commits": 618,
+        "pullRequests": null,
+        "year": 2026
+      }
+    ]
+  },
+  "algorithmVersion": "github-insights-v3",
+  "collaboration": {
+    "approvedPullRequests": 8,
+    "externalMergeRatePercent": null,
+    "externalMerged": 2,
+    "externalPullRequests": 3,
+    "externalRepositories": 1,
+    "independentReviews": 2,
+    "issuesTotal": 7,
+    "notableContributions": [
+      {
+        "commits": 2,
+        "mergedPullRequests": 2,
+        "repository": "other/library",
+        "stars": 9000,
+        "url": "https://github.com/other/library"
+      }
+    ],
+    "pullRequestsTotal": 25,
+    "reviewsOfOthers": 5
+  },
+  "coverage": {
+    "commitsAnalyzed": 790,
+    "commitsLastYearFound": 750,
+    "commitsLastYearTotal": 770,
+    "commitsPublicTotal": 810,
+    "coveragePercent": 97,
+    "from": "2023-02-01T17:30:00Z",
+    "notes": [],
+    "partial": false,
+    "repositoriesAnalyzed": 3,
+    "to": "2026-10-09T12:00:00Z"
+  },
+  "craft": {
+    "ciPercent": 100,
+    "containerPercent": 50,
+    "conventionalCommitsPercent": 100,
+    "dependencyUpdatesPercent": 50,
+    "descriptiveMessagesPercent": 100,
+    "largeCommitsPercent": 0,
+    "licensePercent": 100,
+    "lintPercent": 50,
+    "lockfilePercent": 100,
+    "medianFilesPerCommit": 2,
+    "mergeCommitsPercent": 0,
+    "readmePercent": 100,
+    "substantiveRepositories": 2,
+    "testsPercent": 100
+  },
+  "dimensions": [
+    {
+      "id": "consistency",
+      "label": "Регулярность",
+      "metrics": [
+        {
+          "display": "52 из 52",
+          "id": "active_weeks",
+          "label": "Активных недель за год",
+          "publicDisplay": "≈50 из 52",
+          "score": 100,
+          "value": 52
+        },
+        {
+          "display": "52 недели",
+          "id": "longest_weekly_streak",
+          "label": "Самая длинная серия активных недель",
+          "publicDisplay": "≈50 недель",
+          "score": 100,
+          "value": 52
+        },
+        {
+          "display": "52 недели",
+          "id": "current_weekly_streak",
+          "label": "Текущая серия активных недель",
+          "publicDisplay": "≈50 недель",
+          "score": 100,
+          "value": 52
+        },
+        {
+          "display": "13 месяцев",
+          "id": "active_months_24",
+          "label": "Активных месяцев за два года",
+          "publicDisplay": "≈10 месяцев",
+          "score": 65,
+          "value": 13
+        },
+        {
+          "display": "равномерная",
+          "id": "regularity",
+          "label": "Равномерность по неделям",
+          "publicDisplay": "равномерная",
+          "score": 100,
+          "value": -61
+        }
+      ],
+      "score": 95,
+      "summary": "Стабильная регулярная активность на протяжении года",
+      "weight": 15
+    },
+    {
+      "id": "engagement",
+      "label": "Вовлечённость",
+      "metrics": [
+        {
+          "display": "770",
+          "id": "commits_last_year",
+          "label": "Публичных коммитов за год",
+          "publicDisplay": "≈770",
+          "score": 96,
+          "value": 770
+        },
+        {
+          "display": "237 дней",
+          "id": "active_days_last_year",
+          "label": "Активных дней за год",
+          "publicDisplay": "≈230 дней",
+          "score": 100,
+          "value": 237
+        },
+        {
+          "display": "6 дней",
+          "id": "longest_daily_streak",
+          "label": "Самая длинная серия дней подряд",
+          "publicDisplay": "6 дней",
+          "score": 20,
+          "value": 6
+        },
+        {
+          "display": "5 дней",
+          "id": "days_per_active_week",
+          "label": "Дней в активную неделю (медиана)",
+          "publicDisplay": "5 дней",
+          "score": 100,
+          "value": 5
+        },
+        {
+          "display": "2 ч 15 мин",
+          "id": "hours_per_active_day",
+          "label": "Время в активный день (медиана)",
+          "publicDisplay": "2–2,5 ч",
+          "score": 38,
+          "value": 135
+        },
+        {
+          "display": "12 ч 05 мин",
+          "id": "hours_per_active_week",
+          "label": "Время в активную неделю (медиана)",
+          "publicDisplay": "10–15 ч",
+          "score": 40,
+          "value": 725
+        },
+        {
+          "display": "2",
+          "id": "days_since_last_activity",
+          "label": "Дней с последней активности",
+          "publicDisplay": "до недели",
+          "score": 100,
+          "value": 2
+        }
+      ],
+      "score": 72,
+      "summary": "Заметная вовлечённость",
+      "weight": 15
+    },
+    {
+      "id": "longevity",
+      "label": "Стаж",
+      "metrics": [
+        {
+          "display": "6 лет",
+          "id": "account_age",
+          "label": "Возраст аккаунта",
+          "publicDisplay": "6 лет",
+          "score": 100,
+          "value": 6
+        },
+        {
+          "display": "3 года",
+          "id": "active_years",
+          "label": "Лет с публичными коммитами",
+          "publicDisplay": "3 года",
+          "score": 60,
+          "value": 3
+        },
+        {
+          "display": "2 года",
+          "id": "sustained_years",
+          "label": "Лет с 50+ активными днями",
+          "publicDisplay": "2 года",
+          "score": 50,
+          "value": 2
+        }
+      ],
+      "score": 69,
+      "summary": "Несколько лет активности",
+      "weight": 10
+    },
+    {
+      "id": "collaboration",
+      "label": "Совместная работа",
+      "metrics": [
+        {
+          "display": "8",
+          "id": "approved_pull_requests",
+          "label": "PR, одобренные другими людьми в ревью",
+          "publicDisplay": "8",
+          "score": 67,
+          "value": 8
+        },
+        {
+          "display": "2",
+          "id": "independent_reviews",
+          "label": "Ревью PR в независимых репозиториях",
+          "publicDisplay": "2",
+          "score": 28,
+          "value": 2
+        },
+        {
+          "display": "1",
+          "id": "external_repositories",
+          "label": "Независимых проектов с принятым вкладом",
+          "publicDisplay": "1",
+          "score": 10,
+          "value": 1
+        },
+        {
+          "display": "2",
+          "id": "external_merged",
+          "label": "Принятых PR в независимые проекты",
+          "publicDisplay": "2",
+          "score": 34,
+          "value": 2
+        }
+      ],
+      "score": 39,
+      "summary": "Совместная работа подтверждается слабо",
+      "weight": 15
+    },
+    {
+      "id": "ownership",
+      "label": "Собственные проекты и организации",
+      "metrics": [
+        {
+          "display": "2",
+          "id": "led_repositories",
+          "label": "Проектов, где пишет большую часть кода",
+          "publicDisplay": "2",
+          "score": 20,
+          "value": 2
+        },
+        {
+          "display": "2",
+          "id": "maintained_repositories",
+          "label": "Проектов с коммитами за год",
+          "publicDisplay": "2",
+          "score": 25,
+          "value": 2
+        },
+        {
+          "display": "1",
+          "id": "own_organizations",
+          "label": "Собственных организаций",
+          "publicDisplay": "1",
+          "score": 33,
+          "value": 1
+        },
+        {
+          "display": "1",
+          "id": "own_organization_repositories",
+          "label": "Репозиториев в собственных организациях",
+          "publicDisplay": "1",
+          "score": 7,
+          "value": 1
+        },
+        {
+          "display": "20",
+          "id": "pull_requests_last_year",
+          "label": "Pull request’ов за год",
+          "publicDisplay": "≈20",
+          "score": 53,
+          "value": 20
+        }
+      ],
+      "score": 27,
+      "summary": "Несколько собственных проектов",
+      "weight": 15
+    },
+    {
+      "id": "craft",
+      "label": "Инженерная культура",
+      "metrics": [
+        {
+          "display": "100%",
+          "id": "readme",
+          "label": "Проекты с README",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "100%",
+          "id": "license",
+          "label": "Проекты с лицензией",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "100%",
+          "id": "ci",
+          "label": "Проекты с CI",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "100%",
+          "id": "tests",
+          "label": "Проекты с тестами",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "100%",
+          "id": "lockfile",
+          "label": "Зафиксированные зависимости",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "50%",
+          "id": "lint",
+          "label": "Линтеры и форматтеры",
+          "publicDisplay": "≈50%",
+          "score": 50,
+          "value": 50
+        },
+        {
+          "display": "50%",
+          "id": "dependency_updates",
+          "label": "Автообновление зависимостей",
+          "publicDisplay": "≈50%",
+          "score": 50,
+          "value": 50
+        },
+        {
+          "display": "100%",
+          "id": "descriptive_messages",
+          "label": "Содержательные сообщения коммитов",
+          "publicDisplay": "≈100%",
+          "score": 100,
+          "value": 100
+        },
+        {
+          "display": "2",
+          "id": "median_files_per_commit",
+          "label": "Файлов в коммите (медиана)",
+          "publicDisplay": "2",
+          "score": 100,
+          "value": 2
+        }
+      ],
+      "score": 93,
+      "summary": "Проекты оформлены зрело: CI, тесты, зависимости и стиль",
+      "weight": 15
+    },
+    {
+      "id": "impact",
+      "label": "Признание",
+      "metrics": [
+        {
+          "display": "52",
+          "id": "maintained_stars",
+          "label": "Звёзды основных проектов",
+          "publicDisplay": "≈50",
+          "score": 64,
+          "value": 52
+        },
+        {
+          "display": "1",
+          "id": "owned_forks",
+          "label": "Форки собственных проектов",
+          "publicDisplay": "1",
+          "score": 15,
+          "value": 1
+        },
+        {
+          "display": "1",
+          "id": "notable_external",
+          "label": "Принятый вклад в независимые проекты от 1000 звёзд",
+          "publicDisplay": "1",
+          "score": 33,
+          "value": 1
+        },
+        {
+          "display": "25",
+          "id": "followers",
+          "label": "Подписчики",
+          "publicDisplay": "≈25",
+          "score": 61,
+          "value": 25
+        }
+      ],
+      "score": 44,
+      "summary": "Небольшое признание сообщества",
+      "weight": 5
+    },
+    {
+      "id": "scope",
+      "label": "Масштаб и сложность",
+      "metrics": [
+        {
+          "display": "1",
+          "id": "sustained_systems",
+          "label": "Своих проектов, которые развивает полгода и дольше",
+          "publicDisplay": "1",
+          "score": 20,
+          "value": 1
+        },
+        {
+          "display": "2",
+          "id": "engineering_areas",
+          "label": "Направлений разработки с долей от 15%",
+          "publicDisplay": "2",
+          "score": 67,
+          "value": 2
+        },
+        {
+          "display": "1",
+          "id": "system_layers",
+          "label": "Слоёв системы, используемых в двух и более проектах",
+          "publicDisplay": "1",
+          "score": 17,
+          "value": 1
+        },
+        {
+          "display": "1",
+          "id": "design_artifacts",
+          "label": "Проектов с архитектурными решениями, контрактами API или миграциями",
+          "publicDisplay": "1",
+          "score": 20,
+          "value": 1
+        }
+      ],
+      "score": 29,
+      "summary": "Масштаб работы пока ограничен",
+      "weight": 10
+    }
+  ],
+  "displayName": "Иван Петров",
+  "flags": [],
+  "generatedAt": "2026-10-09T12:00:00Z",
+  "highlights": [
+    "Активность около 50 из 52 недель за последний год",
+    "Обычно 2–2,5 ч работы в активный день",
+    "Ведёт 2 собственных проекта в 1 организации",
+    "PR, одобренные другими людьми: 8",
+    "Принятый вклад в крупные независимые open source-проекты",
+    "CI настроен примерно в 100% основных проектов"
+  ],
+  "index": {
+    "band": "strong",
+    "confidence": "high",
+    "score": 61
+  },
+  "languages": [
+    {
+      "filesChanged": 728,
+      "language": "Rust",
+      "percent": 71
+    },
+    {
+      "filesChanged": 172,
+      "language": "TypeScript",
+      "percent": 17
+    },
+    {
+      "filesChanged": 120,
+      "language": "Python",
+      "percent": 12
+    }
+  ],
+  "login": "owner",
+  "organizations": {
+    "contributed": [
+      {
+        "affiliated": true,
+        "commits": 75,
+        "login": "acme-labs",
+        "repositories": 1,
+        "url": "https://github.com/acme-labs"
+      }
+    ],
+    "memberships": [
+      {
+        "login": "acme-labs",
+        "url": "https://github.com/acme-labs"
+      }
+    ]
+  },
+  "ownership": {
+    "directPushRepositories": 2,
+    "ledRepositories": 2,
+    "maintainedRepositories": 2,
+    "ownOrganizationRepositories": 1,
+    "ownOrganizations": 1
+  },
+  "profile": {
+    "archetypes": [
+      {
+        "evidence": [
+          "Rust — 728 изменённых файлов",
+          "Python — 120 изменённых файлов",
+          "Axum, FastAPI, HTTP-клиенты Python, Tokio, PostgreSQL"
+        ],
+        "id": "backend",
+        "label": "Бэкенд",
+        "percent": 83
+      },
+      {
+        "evidence": [
+          "TypeScript — 172 изменённых файла",
+          "React, TanStack Query, Vite"
+        ],
+        "id": "frontend",
+        "label": "Фронтенд",
+        "percent": 17
+      }
+    ],
+    "focusTopics": [
+      "platform",
+      "rust",
+      "web"
+    ],
+    "publicSummary": "Основные направления — бэкенд (83%) и фронтенд (17%); пишет в основном на Rust (71%) и TypeScript (17%). Ведёт 2 проекта в 1 организации. За год — 770 публичных коммитов. Ключевые технологии: GitHub Actions, Axum, FastAPI, HTTP-клиенты Python.",
+    "summary": "Основные направления — бэкенд (83%) и фронтенд (17%); пишет в основном на Rust (71%) и TypeScript (17%). Ведёт 2 проекта в 1 организации (acme-labs). За год — 770 публичных коммитов. Ключевые технологии: GitHub Actions, Axum, FastAPI, HTTP-клиенты Python. Темы проектов: platform, rust, web.",
+    "topProjects": [
+      {
+        "description": "Rust project",
+        "lastCommitAt": "2026-10-07T08:20:00Z",
+        "nameWithOwner": "owner/project",
+        "primaryLanguage": "Rust",
+        "stars": 12,
+        "url": "https://github.com/owner/project",
+        "userCommits": 728,
+        "userSharePercent": 97
+      },
+      {
+        "description": "Python project",
+        "lastCommitAt": "2026-05-22T16:53:00Z",
+        "nameWithOwner": "acme-labs/platform",
+        "primaryLanguage": "Python",
+        "stars": 40,
+        "url": "https://github.com/acme-labs/platform",
+        "userCommits": 60,
+        "userSharePercent": 75
+      }
+    ]
+  },
+  "profileUrl": "https://github.com/owner",
+  "repositories": [
+    {
+      "archived": false,
+      "description": "Rust project",
+      "fork": false,
+      "forks": 1,
+      "hygiene": [
+        "readme",
+        "license",
+        "ci",
+        "tests",
+        "lockfile",
+        "lint",
+        "dependency_updates",
+        "container",
+        "description"
+      ],
+      "lastUserCommitAt": "2026-10-07T08:20:00Z",
+      "led": true,
+      "nameWithOwner": "owner/project",
+      "owned": true,
+      "primaryLanguage": "Rust",
+      "pushedAt": "2026-10-07T12:00:00Z",
+      "stack": [
+        "Axum",
+        "Dependabot",
+        "Docker",
+        "GitHub Actions",
+        "PostgreSQL",
+        "React",
+        "SQLx",
+        "Serde"
+      ],
+      "stars": 12,
+      "technologies": [
+        "actix",
+        "docker",
+        "github_actions",
+        "postgresql",
+        "react",
+        "rust",
+        "tanstack",
+        "tokio",
+        "typescript",
+        "vite"
+      ],
+      "totalCommits": 748,
+      "url": "https://github.com/owner/project",
+      "userCommits": 728,
+      "userSharePercent": 97
+    },
+    {
+      "archived": false,
+      "description": "Python project",
+      "fork": false,
+      "forks": 4,
+      "hygiene": [
+        "readme",
+        "license",
+        "ci",
+        "tests",
+        "lockfile",
+        "description"
+      ],
+      "lastUserCommitAt": "2026-05-22T16:53:00Z",
+      "led": true,
+      "nameWithOwner": "acme-labs/platform",
+      "owned": false,
+      "primaryLanguage": "Python",
+      "pushedAt": "2026-10-07T12:00:00Z",
+      "stack": [
+        "FastAPI",
+        "GitHub Actions",
+        "HTTP-клиенты Python",
+        "SQLAlchemy"
+      ],
+      "stars": 40,
+      "technologies": [
+        "fastapi",
+        "github_actions",
+        "sqlalchemy"
+      ],
+      "totalCommits": 80,
+      "url": "https://github.com/acme-labs/platform",
+      "userCommits": 60,
+      "userSharePercent": 75
+    },
+    {
+      "archived": false,
+      "description": "Go project",
+      "fork": false,
+      "forks": 900,
+      "hygiene": [
+        "readme",
+        "license",
+        "description"
+      ],
+      "lastUserCommitAt": "2026-06-02T15:00:00Z",
+      "led": false,
+      "nameWithOwner": "other/library",
+      "owned": false,
+      "primaryLanguage": "Go",
+      "pushedAt": "2026-10-07T12:00:00Z",
+      "stack": [
+        "Redis"
+      ],
+      "stars": 9000,
+      "technologies": [
+        "redis"
+      ],
+      "totalCommits": 500,
+      "url": "https://github.com/other/library",
+      "userCommits": 2,
+      "userSharePercent": 0
+    }
+  ],
+  "rhythm": {
+    "activeDays": 235,
+    "eveningPercent": 1,
+    "hourlyPercent": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      31,
+      31,
+      0,
+      1,
+      1,
+      16,
+      17,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "longestSessionMinutes": 395,
+    "medianMinutesPerActiveDay": 135,
+    "medianMinutesPerActiveWeek": 725,
+    "nightPercent": 0,
+    "officeHoursPercent": 99,
+    "p90MinutesPerActiveDay": 211,
+    "sampleSize": 750,
+    "sessionsPerActiveDayTenths": 16,
+    "timezoneOffsets": [
+      {
+        "offsetMinutes": 180,
+        "percent": 100
+      }
+    ],
+    "weekdayPercent": [
+      20,
+      20,
+      20,
+      20,
+      20,
+      0,
+      0
+    ],
+    "weekendPercent": 0
+  },
+  "stack": [
+    {
+      "category": "language",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Rust",
+      "repositories": 1,
+      "signals": [
+        "4 файлов Rust"
+      ]
+    },
+    {
+      "category": "language",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "TypeScript",
+      "repositories": 1,
+      "signals": [
+        "package.json: typescript"
+      ]
+    },
+    {
+      "category": "backend",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Axum",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: axum"
+      ]
+    },
+    {
+      "category": "backend",
+      "lastUsedAt": "2026-05-22T16:53:00Z",
+      "name": "FastAPI",
+      "repositories": 1,
+      "signals": [
+        "pyproject.toml: fastapi"
+      ]
+    },
+    {
+      "category": "backend",
+      "lastUsedAt": "2026-05-22T16:53:00Z",
+      "name": "HTTP-клиенты Python",
+      "repositories": 1,
+      "signals": [
+        "pyproject.toml: httpx"
+      ]
+    },
+    {
+      "category": "backend",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Tokio",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: tokio"
+      ]
+    },
+    {
+      "category": "frontend",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "React",
+      "repositories": 1,
+      "signals": [
+        "package.json: react"
+      ]
+    },
+    {
+      "category": "frontend",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "TanStack Query",
+      "repositories": 1,
+      "signals": [
+        "package.json: @tanstack/react-query"
+      ]
+    },
+    {
+      "category": "frontend",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Vite",
+      "repositories": 1,
+      "signals": [
+        "package.json: vite"
+      ]
+    },
+    {
+      "category": "data",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "PostgreSQL",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: sqlx"
+      ]
+    },
+    {
+      "category": "data",
+      "lastUsedAt": "2026-05-22T16:53:00Z",
+      "name": "SQLAlchemy",
+      "repositories": 1,
+      "signals": [
+        "pyproject.toml: sqlalchemy"
+      ]
+    },
+    {
+      "category": "data",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "SQLx",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: sqlx"
+      ]
+    },
+    {
+      "category": "infrastructure",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "GitHub Actions",
+      "repositories": 2,
+      "signals": [
+        "workflow GitHub Actions"
+      ]
+    },
+    {
+      "category": "infrastructure",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Docker",
+      "repositories": 1,
+      "signals": [
+        "1 файлов Dockerfile",
+        "Dockerfile"
+      ]
+    },
+    {
+      "category": "quality",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Dependabot",
+      "repositories": 1,
+      "signals": [
+        "dependabot.yml"
+      ]
+    },
+    {
+      "category": "quality",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "rustfmt / Clippy",
+      "repositories": 1,
+      "signals": [
+        "конфигурация rustfmt/Clippy"
+      ]
+    },
+    {
+      "category": "tooling",
+      "lastUsedAt": "2026-10-07T08:20:00Z",
+      "name": "Serde",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: serde"
+      ]
+    }
+  ],
+  "technologies": [
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: axum"
+      ],
+      "skillId": "actix"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "1 файлов Dockerfile",
+        "Dockerfile"
+      ],
+      "skillId": "docker"
+    },
+    {
+      "lastPushedAt": "2026-05-22T16:53:00Z",
+      "repositories": 1,
+      "signals": [
+        "pyproject.toml: fastapi"
+      ],
+      "skillId": "fastapi"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 2,
+      "signals": [
+        "workflow GitHub Actions"
+      ],
+      "skillId": "github_actions"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: sqlx"
+      ],
+      "skillId": "postgresql"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "package.json: react"
+      ],
+      "skillId": "react"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "4 файлов Rust"
+      ],
+      "skillId": "rust"
+    },
+    {
+      "lastPushedAt": "2026-05-22T16:53:00Z",
+      "repositories": 1,
+      "signals": [
+        "pyproject.toml: sqlalchemy"
+      ],
+      "skillId": "sqlalchemy"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "package.json: @tanstack/react-query"
+      ],
+      "skillId": "tanstack"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "Cargo.toml: tokio"
+      ],
+      "skillId": "tokio"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "package.json: typescript"
+      ],
+      "skillId": "typescript"
+    },
+    {
+      "lastPushedAt": "2026-10-07T08:20:00Z",
+      "repositories": 1,
+      "signals": [
+        "package.json: vite"
+      ],
+      "skillId": "vite"
+    }
+  ]
+}

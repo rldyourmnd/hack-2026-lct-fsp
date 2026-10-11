@@ -1,0 +1,2765 @@
+{
+  "version": "knowledge-v3",
+  "questions": [
+    {
+      "id": "onec_language-intern-1",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Как в языке 1С объявить локальную переменную?",
+      "options": [
+        {
+          "id": "onec_language-intern-1-a",
+          "label": "var Сумма;"
+        },
+        {
+          "id": "onec_language-intern-1-b",
+          "label": "Перем Сумма;"
+        },
+        {
+          "id": "onec_language-intern-1-c",
+          "label": "dim Сумма"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-1-b",
+      "explanation": "Переменные также появляются при первом присваивании внутри процедуры.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-intern-2",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Как записывается условие во встроенном языке 1С?",
+      "options": [
+        {
+          "id": "onec_language-intern-2-a",
+          "label": "if (Условие) { … }"
+        },
+        {
+          "id": "onec_language-intern-2-b",
+          "label": "Когда Условие … Конец;"
+        },
+        {
+          "id": "onec_language-intern-2-c",
+          "label": "Если Условие Тогда … КонецЕсли;"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-2-c",
+      "explanation": "Ветви дополняются ИначеЕсли и Иначе.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-intern-3",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Чем процедура отличается от функции в 1С?",
+      "options": [
+        {
+          "id": "onec_language-intern-3-a",
+          "label": "Функция возвращает значение оператором Возврат, процедура — нет"
+        },
+        {
+          "id": "onec_language-intern-3-b",
+          "label": "Процедура всегда выполняется на сервере"
+        },
+        {
+          "id": "onec_language-intern-3-c",
+          "label": "Функцию нельзя вызвать из другого модуля, а процедуру можно вызвать откуда угодно"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-3-a",
+      "explanation": "Значение функции можно использовать в выражении.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-intern-4",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Какой объект метаданных хранит список однотипных элементов, например номенклатуру?",
+      "options": [
+        {
+          "id": "onec_language-intern-4-a",
+          "label": "Документ"
+        },
+        {
+          "id": "onec_language-intern-4-b",
+          "label": "Справочник"
+        },
+        {
+          "id": "onec_language-intern-4-c",
+          "label": "Регистр накопления"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-4-b",
+      "explanation": "Документы фиксируют события, регистры хранят движения и остатки.",
+      "source": "https://v8.1c.ru/platforma/spravochniki/"
+    },
+    {
+      "id": "onec_language-intern-5",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Что фиксирует документ в 1С?",
+      "options": [
+        {
+          "id": "onec_language-intern-5-a",
+          "label": "Постоянный список однотипных элементов, например номенклатуру или контрагентов"
+        },
+        {
+          "id": "onec_language-intern-5-b",
+          "label": "Настройку пользователя"
+        },
+        {
+          "id": "onec_language-intern-5-c",
+          "label": "Хозяйственное событие с датой, например продажу или поступление"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-5-c",
+      "explanation": "Проведение документа формирует движения по регистрам.",
+      "source": "https://v8.1c.ru/platforma/dokumenty/"
+    },
+    {
+      "id": "onec_language-intern-6",
+      "grade": "intern",
+      "skillId": "onec_language",
+      "prompt": "Как вывести сообщение пользователю в 1С?",
+      "options": [
+        {
+          "id": "onec_language-intern-6-a",
+          "label": "Сообщить(\"Текст\");"
+        },
+        {
+          "id": "onec_language-intern-6-b",
+          "label": "print(\"Текст\");"
+        },
+        {
+          "id": "onec_language-intern-6-c",
+          "label": "MessageBox(\"Текст\") в любом контексте"
+        }
+      ],
+      "correctOptionId": "onec_language-intern-6-a",
+      "explanation": "Для расширенных сообщений используют объект СообщениеПользователю.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-junior-1",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Что означают директивы &НаКлиенте и &НаСервере?",
+      "options": [
+        {
+          "id": "onec_language-junior-1-a",
+          "label": "Права доступа пользователя к форме: только чтение или полное редактирование данных"
+        },
+        {
+          "id": "onec_language-junior-1-b",
+          "label": "Версию платформы"
+        },
+        {
+          "id": "onec_language-junior-1-c",
+          "label": "Где выполняется процедура модуля формы: на клиенте или на сервере"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-1-c",
+      "explanation": "Обращение к базе данных выполняется на сервере.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-junior-2",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Что такое проведение документа?",
+      "options": [
+        {
+          "id": "onec_language-junior-2-a",
+          "label": "Печать документа"
+        },
+        {
+          "id": "onec_language-junior-2-b",
+          "label": "Удаление документа из базы с пересчётом всех итогов по регистрам сведений"
+        },
+        {
+          "id": "onec_language-junior-2-c",
+          "label": "Формирование движений по регистрам на основании документа"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-2-c",
+      "explanation": "Движения формируются в обработке проведения модуля объекта.",
+      "source": "https://v8.1c.ru/platforma/dokumenty/"
+    },
+    {
+      "id": "onec_language-junior-3",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Для чего нужен регистр накопления?",
+      "options": [
+        {
+          "id": "onec_language-junior-3-a",
+          "label": "Для учёта движений и остатков или оборотов показателей, например товаров на складе"
+        },
+        {
+          "id": "onec_language-junior-3-b",
+          "label": "Для хранения списка контрагентов с их реквизитами, договорами и контактными лицами"
+        },
+        {
+          "id": "onec_language-junior-3-c",
+          "label": "Для печатных форм"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-3-a",
+      "explanation": "Остатковый регистр хранит итоги по измерениям.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-junior-4",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Какой тип коллекции 1С подходит для табличных данных в памяти?",
+      "options": [
+        {
+          "id": "onec_language-junior-4-a",
+          "label": "ТаблицаЗначений"
+        },
+        {
+          "id": "onec_language-junior-4-b",
+          "label": "Строка"
+        },
+        {
+          "id": "onec_language-junior-4-c",
+          "label": "Булево"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-4-a",
+      "explanation": "Таблица значений поддерживает колонки, поиск и сортировку.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-junior-5",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Как получить объект справочника для изменения по ссылке?",
+      "options": [
+        {
+          "id": "onec_language-junior-5-a",
+          "label": "Ссылка.ПолучитьОбъект()"
+        },
+        {
+          "id": "onec_language-junior-5-b",
+          "label": "Ссылка.Изменить()"
+        },
+        {
+          "id": "onec_language-junior-5-c",
+          "label": "Справочник.Открыть(Ссылка)"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-5-a",
+      "explanation": "Изменения сохраняются методом Записать() объекта.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-junior-6",
+      "grade": "junior",
+      "skillId": "onec_language",
+      "prompt": "Почему не стоит обращаться к реквизитам ссылки через точку в цикле?",
+      "options": [
+        {
+          "id": "onec_language-junior-6-a",
+          "label": "Это синтаксическая ошибка"
+        },
+        {
+          "id": "onec_language-junior-6-b",
+          "label": "Реквизиты ссылки недоступны через точку, поэтому код в цикле вызывает ошибку"
+        },
+        {
+          "id": "onec_language-junior-6-c",
+          "label": "Каждое обращение может выполнять отдельный запрос к базе"
+        }
+      ],
+      "correctOptionId": "onec_language-junior-6-c",
+      "explanation": "Данные лучше получить одним запросом.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-1",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Как правильно получить данные для обработки большого числа документов?",
+      "options": [
+        {
+          "id": "onec_language-middle-1-a",
+          "label": "Получать объект каждого документа через ПолучитьОбъект в цикле"
+        },
+        {
+          "id": "onec_language-middle-1-b",
+          "label": "Через перебор формы списка"
+        },
+        {
+          "id": "onec_language-middle-1-c",
+          "label": "Одним запросом вместо обращений к объектам в цикле"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-1-c",
+      "explanation": "Запрос сокращает число обращений к базе.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-2",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Что такое общий модуль с флагом «Привилегированный»?",
+      "options": [
+        {
+          "id": "onec_language-middle-2-a",
+          "label": "Модуль, код которого выполняется без проверки прав пользователя"
+        },
+        {
+          "id": "onec_language-middle-2-b",
+          "label": "Модуль, доступный только администратору для чтения и изменения в конфигураторе"
+        },
+        {
+          "id": "onec_language-middle-2-c",
+          "label": "Модуль клиентского приложения"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-2-a",
+      "explanation": "Использовать осторожно и только для обоснованных операций.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-3",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Зачем нужна транзакция при записи нескольких объектов?",
+      "options": [
+        {
+          "id": "onec_language-middle-3-a",
+          "label": "Чтобы все изменения применились вместе или ни одно"
+        },
+        {
+          "id": "onec_language-middle-3-b",
+          "label": "Чтобы ускорить запись"
+        },
+        {
+          "id": "onec_language-middle-3-c",
+          "label": "Чтобы записать объекты на клиенте"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-3-a",
+      "explanation": "НачатьТранзакцию, ЗафиксироватьТранзакцию и ОтменитьТранзакцию управляют ею явно.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-4",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Что такое серверный вызов из клиентского кода и почему их число важно?",
+      "options": [
+        {
+          "id": "onec_language-middle-4-a",
+          "label": "Вызов внешней обработки с сервера для печати документов на клиенте пользователя"
+        },
+        {
+          "id": "onec_language-middle-4-b",
+          "label": "Отправка письма"
+        },
+        {
+          "id": "onec_language-middle-4-c",
+          "label": "Обращение клиента к серверу по сети; лишние вызовы замедляют интерфейс"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-4-c",
+      "explanation": "Данные для формы стоит получать за один вызов.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-5",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Что такое управляемая блокировка?",
+      "options": [
+        {
+          "id": "onec_language-middle-5-a",
+          "label": "Явная блокировка данных средствами платформы для корректного чтения остатков при проведении"
+        },
+        {
+          "id": "onec_language-middle-5-b",
+          "label": "Блокировка пользователя администратором на время проведения документов, чтобы он не мог открыть базу"
+        },
+        {
+          "id": "onec_language-middle-5-c",
+          "label": "Запрет печати"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-5-a",
+      "explanation": "Без блокировки возможны отрицательные остатки при параллельном проведении.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-middle-6",
+      "grade": "middle",
+      "skillId": "onec_language",
+      "prompt": "Зачем использовать модуль менеджера объекта?",
+      "options": [
+        {
+          "id": "onec_language-middle-6-a",
+          "label": "Для хранения данных объекта и его табличных частей в базе, а не для процедур работы с ним"
+        },
+        {
+          "id": "onec_language-middle-6-b",
+          "label": "Для процедур, работающих с объектами этого типа в целом, а не с конкретным экземпляром"
+        },
+        {
+          "id": "onec_language-middle-6-c",
+          "label": "Для описания формы"
+        }
+      ],
+      "correctOptionId": "onec_language-middle-6-b",
+      "explanation": "Например, функции печати или поиска.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-1",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Что такое расширение конфигурации и зачем оно нужно?",
+      "options": [
+        {
+          "id": "onec_language-senior-1-a",
+          "label": "Внешняя обработка"
+        },
+        {
+          "id": "onec_language-senior-1-b",
+          "label": "Механизм доработки типовой конфигурации без снятия с поддержки"
+        },
+        {
+          "id": "onec_language-senior-1-c",
+          "label": "Отдельная информационная база с копией конфигурации для разработки доработок"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-1-b",
+      "explanation": "Расширения упрощают обновление типовых решений.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-2",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Как организовать длительную операцию, не блокируя интерфейс?",
+      "options": [
+        {
+          "id": "onec_language-senior-2-a",
+          "label": "Выполнить в клиентском модуле в цикле"
+        },
+        {
+          "id": "onec_language-senior-2-b",
+          "label": "Попросить пользователя подождать"
+        },
+        {
+          "id": "onec_language-senior-2-c",
+          "label": "Фоновое задание с отображением прогресса"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-2-c",
+      "explanation": "БСП содержит подсистему длительных операций.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-3",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Как найти медленный код в конфигурации?",
+      "options": [
+        {
+          "id": "onec_language-senior-3-a",
+          "label": "По ощущениям пользователей и количеству строк кода в общих модулях конфигурации"
+        },
+        {
+          "id": "onec_language-senior-3-b",
+          "label": "Пересохранить конфигурацию"
+        },
+        {
+          "id": "onec_language-senior-3-c",
+          "label": "Замер производительности в отладчике и технологический журнал"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-3-c",
+      "explanation": "Замер показывает время по строкам кода.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-4",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Чем полезна Библиотека стандартных подсистем (БСП)?",
+      "options": [
+        {
+          "id": "onec_language-senior-4-a",
+          "label": "Только набор картинок, стилей и макетов печатных форм для типовых решений"
+        },
+        {
+          "id": "onec_language-senior-4-b",
+          "label": "Отдельная платформа"
+        },
+        {
+          "id": "onec_language-senior-4-c",
+          "label": "Готовые подсистемы: права, обмены, печать, длительные операции"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-4-c",
+      "explanation": "Использование БСП ускоряет разработку и унифицирует решения.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-5",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Как писать код для режима сервиса и разделения данных?",
+      "options": [
+        {
+          "id": "onec_language-senior-5-a",
+          "label": "Учитывать разделители и не хранить общие данные в разделённых объектах"
+        },
+        {
+          "id": "onec_language-senior-5-b",
+          "label": "Игнорировать разделение"
+        },
+        {
+          "id": "onec_language-senior-5-c",
+          "label": "Хранить все данные в константах, потому что разделение данных платформа делает сама"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-5-a",
+      "explanation": "Ошибки разделения ведут к смешиванию данных абонентов.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-senior-6",
+      "grade": "senior",
+      "skillId": "onec_language",
+      "prompt": "Зачем следовать стандартам разработки 1С?",
+      "options": [
+        {
+          "id": "onec_language-senior-6-a",
+          "label": "Чтобы код занимал меньше места"
+        },
+        {
+          "id": "onec_language-senior-6-b",
+          "label": "Чтобы код занимал меньше места, а стандарты нужны только самой фирме 1С"
+        },
+        {
+          "id": "onec_language-senior-6-c",
+          "label": "Для единообразия, производительности и упрощения поддержки и обновлений"
+        }
+      ],
+      "correctOptionId": "onec_language-senior-6-c",
+      "explanation": "Стандарты опубликованы на ИТС.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-lead-1",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Как организовать групповую разработку в 1С?",
+      "options": [
+        {
+          "id": "onec_language-lead-1-a",
+          "label": "Правка в рабочей базе всеми одновременно"
+        },
+        {
+          "id": "onec_language-lead-1-b",
+          "label": "Хранилище конфигурации или Git через EDT с ревью изменений"
+        },
+        {
+          "id": "onec_language-lead-1-c",
+          "label": "Обмен файлами конфигурации по почте"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-1-b",
+      "explanation": "EDT позволяет работать с Git и ветками.",
+      "source": "https://edt.1c.ru/"
+    },
+    {
+      "id": "onec_language-lead-2",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Как планировать обновление сильно доработанной типовой конфигурации?",
+      "options": [
+        {
+          "id": "onec_language-lead-2-a",
+          "label": "Обновлять сразу в рабочей базе, а конфликты доработок исправлять по мере жалоб пользователей"
+        },
+        {
+          "id": "onec_language-lead-2-b",
+          "label": "Оценить доработки, перенести их в расширения где возможно и тестировать обновление на копии"
+        },
+        {
+          "id": "onec_language-lead-2-c",
+          "label": "Никогда не обновлять"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-2-b",
+      "explanation": "Доработки в расширениях снижают стоимость обновлений.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-lead-3",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Как автоматизировать тестирование решений на 1С?",
+      "options": [
+        {
+          "id": "onec_language-lead-3-a",
+          "label": "Только ручное тестирование ключевыми пользователями в рабочей базе после обновления"
+        },
+        {
+          "id": "onec_language-lead-3-b",
+          "label": "Сценарные и модульные тесты (например, Vanessa Automation) в конвейере CI"
+        },
+        {
+          "id": "onec_language-lead-3-c",
+          "label": "Тестировать в рабочей базе"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-3-b",
+      "explanation": "Автотесты защищают от регрессий при обновлениях.",
+      "source": "https://github.com/Pr-Mex/vanessa-automation"
+    },
+    {
+      "id": "onec_language-lead-4",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Как оценивать качество кода конфигурации?",
+      "options": [
+        {
+          "id": "onec_language-lead-4-a",
+          "label": "Автоматическая проверка конфигурации и статический анализ по стандартам"
+        },
+        {
+          "id": "onec_language-lead-4-b",
+          "label": "По количеству модулей конфигурации и скорости запуска клиентского приложения"
+        },
+        {
+          "id": "onec_language-lead-4-c",
+          "label": "По скорости запуска"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-4-a",
+      "explanation": "Инструменты проверки находят нарушения стандартов.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-lead-5",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Как распределять доработки между разработчиками 1С?",
+      "options": [
+        {
+          "id": "onec_language-lead-5-a",
+          "label": "По подсистемам с ответственными и общими правилами"
+        },
+        {
+          "id": "onec_language-lead-5-b",
+          "label": "Каждый правит что хочет"
+        },
+        {
+          "id": "onec_language-lead-5-c",
+          "label": "Один разработчик на всё"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-5-a",
+      "explanation": "Владение подсистемами снижает конфликты.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_language-lead-6",
+      "grade": "lead",
+      "skillId": "onec_language",
+      "prompt": "Когда выносить логику во внешний сервис, а не реализовывать в 1С?",
+      "options": [
+        {
+          "id": "onec_language-lead-6-a",
+          "label": "Всегда выносить любую логику во внешние сервисы, потому что платформа 1С не масштабируется"
+        },
+        {
+          "id": "onec_language-lead-6-b",
+          "label": "Никогда"
+        },
+        {
+          "id": "onec_language-lead-6-c",
+          "label": "Когда задача требует специализированных технологий или масштаба вне возможностей платформы"
+        }
+      ],
+      "correctOptionId": "onec_language-lead-6-c",
+      "explanation": "Интеграция через HTTP-сервисы добавляет сложность.",
+      "source": "https://v8.1c.ru/platforma/http-servisy/"
+    },
+    {
+      "id": "onec_queries-intern-1",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Какое ключевое слово начинает запрос на выборку в 1С?",
+      "options": [
+        {
+          "id": "onec_queries-intern-1-a",
+          "label": "ПОЛУЧИТЬ"
+        },
+        {
+          "id": "onec_queries-intern-1-b",
+          "label": "ВЫБРАТЬ"
+        },
+        {
+          "id": "onec_queries-intern-1-c",
+          "label": "НАЙТИ"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-1-b",
+      "explanation": "Язык запросов 1С похож на SQL с русскими ключевыми словами.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-intern-2",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Как отобрать только непомеченные на удаление элементы справочника?",
+      "options": [
+        {
+          "id": "onec_queries-intern-2-a",
+          "label": "ГДЕ ПометкаУдаления = Ложь ИЛИ Истина"
+        },
+        {
+          "id": "onec_queries-intern-2-b",
+          "label": "ГДЕ НЕ ПометкаУдаления"
+        },
+        {
+          "id": "onec_queries-intern-2-c",
+          "label": "УПОРЯДОЧИТЬ ПО ПометкаУдаления"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-2-b",
+      "explanation": "Условия отбора задаются в ГДЕ.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-intern-3",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Как упорядочить результат запроса?",
+      "options": [
+        {
+          "id": "onec_queries-intern-3-a",
+          "label": "СОРТИРОВАТЬ Наименование"
+        },
+        {
+          "id": "onec_queries-intern-3-b",
+          "label": "ГРУППИРОВАТЬ ПО Наименование"
+        },
+        {
+          "id": "onec_queries-intern-3-c",
+          "label": "УПОРЯДОЧИТЬ ПО Наименование"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-3-c",
+      "explanation": "ГРУППИРОВАТЬ ПО объединяет строки для агрегатов.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-intern-4",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Как передать значение в запрос?",
+      "options": [
+        {
+          "id": "onec_queries-intern-4-a",
+          "label": "Склеить строку запроса со значением через конкатенацию строк"
+        },
+        {
+          "id": "onec_queries-intern-4-b",
+          "label": "Через параметр &Параметр и метод УстановитьПараметр"
+        },
+        {
+          "id": "onec_queries-intern-4-c",
+          "label": "Через глобальную переменную"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-4-b",
+      "explanation": "Параметры безопаснее и позволяют платформе оптимизировать запрос.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-intern-5",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Что вернёт агрегатная функция КОЛИЧЕСТВО(*)?",
+      "options": [
+        {
+          "id": "onec_queries-intern-5-a",
+          "label": "Сумму значений"
+        },
+        {
+          "id": "onec_queries-intern-5-b",
+          "label": "Число строк"
+        },
+        {
+          "id": "onec_queries-intern-5-c",
+          "label": "Максимальное значение"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-5-b",
+      "explanation": "Для суммы используется СУММА.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-intern-6",
+      "grade": "intern",
+      "skillId": "onec_queries",
+      "prompt": "Какой инструмент помогает составить запрос визуально?",
+      "options": [
+        {
+          "id": "onec_queries-intern-6-a",
+          "label": "Конструктор печати"
+        },
+        {
+          "id": "onec_queries-intern-6-b",
+          "label": "Конструктор запроса"
+        },
+        {
+          "id": "onec_queries-intern-6-c",
+          "label": "Отладчик"
+        }
+      ],
+      "correctOptionId": "onec_queries-intern-6-b",
+      "explanation": "Конструктор генерирует текст запроса.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-1",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Чем ЛЕВОЕ СОЕДИНЕНИЕ отличается от ВНУТРЕННЕГО?",
+      "options": [
+        {
+          "id": "onec_queries-junior-1-a",
+          "label": "Возвращает только совпадающие строки"
+        },
+        {
+          "id": "onec_queries-junior-1-b",
+          "label": "Сохраняет все строки левой таблицы, даже без пары"
+        },
+        {
+          "id": "onec_queries-junior-1-c",
+          "label": "Объединяет таблицы без условия"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-1-b",
+      "explanation": "Отсутствующие значения правой таблицы равны NULL.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-2",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Что делает функция ЕСТЬNULL(Поле, 0)?",
+      "options": [
+        {
+          "id": "onec_queries-junior-2-a",
+          "label": "Возвращает 0, если значение поля NULL"
+        },
+        {
+          "id": "onec_queries-junior-2-b",
+          "label": "Проверяет, равно ли поле нулю"
+        },
+        {
+          "id": "onec_queries-junior-2-c",
+          "label": "Удаляет NULL из таблицы"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-2-a",
+      "explanation": "Часто используется после левого соединения.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-3",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Что такое виртуальная таблица Остатки регистра накопления?",
+      "options": [
+        {
+          "id": "onec_queries-junior-3-a",
+          "label": "Копия регистра"
+        },
+        {
+          "id": "onec_queries-junior-3-b",
+          "label": "Временная таблица пользователя, которую он заполняет вручную перед отчётом"
+        },
+        {
+          "id": "onec_queries-junior-3-c",
+          "label": "Таблица остатков на момент времени с отбором по измерениям"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-3-c",
+      "explanation": "Параметры виртуальной таблицы задают дату и условие.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-4",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Почему отбор лучше задавать в параметрах виртуальной таблицы, а не в ГДЕ?",
+      "options": [
+        {
+          "id": "onec_queries-junior-4-a",
+          "label": "Так требует синтаксис"
+        },
+        {
+          "id": "onec_queries-junior-4-b",
+          "label": "Так требует синтаксис языка: условия ГДЕ не работают с регистрами накопления вообще"
+        },
+        {
+          "id": "onec_queries-junior-4-c",
+          "label": "Отбор в параметрах применяется до расчёта итогов и уменьшает объём данных"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-4-c",
+      "explanation": "Это рекомендация стандартов разработки.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-5",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Что делает ОБЪЕДИНИТЬ ВСЕ?",
+      "options": [
+        {
+          "id": "onec_queries-junior-5-a",
+          "label": "Объединяет результаты нескольких запросов без удаления дублей"
+        },
+        {
+          "id": "onec_queries-junior-5-b",
+          "label": "Соединяет таблицы по общему полю и удаляет повторяющиеся строки"
+        },
+        {
+          "id": "onec_queries-junior-5-c",
+          "label": "Удаляет повторяющиеся строки"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-5-a",
+      "explanation": "ОБЪЕДИНИТЬ без ВСЕ удаляет дубли.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-junior-6",
+      "grade": "junior",
+      "skillId": "onec_queries",
+      "prompt": "Как получить представление ссылки в запросе?",
+      "options": [
+        {
+          "id": "onec_queries-junior-6-a",
+          "label": "ПРЕДСТАВЛЕНИЕ(Поле) или ПредставлениеСсылки"
+        },
+        {
+          "id": "onec_queries-junior-6-b",
+          "label": "Ссылка.Наименование всегда"
+        },
+        {
+          "id": "onec_queries-junior-6-c",
+          "label": "СТРОКА(Поле)"
+        }
+      ],
+      "correctOptionId": "onec_queries-junior-6-a",
+      "explanation": "Представление нужно для вывода пользователю.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-1",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Зачем использовать временные таблицы в пакетном запросе?",
+      "options": [
+        {
+          "id": "onec_queries-middle-1-a",
+          "label": "Чтобы сохранить промежуточные данные в базе навсегда и обойти права доступа к ним"
+        },
+        {
+          "id": "onec_queries-middle-1-b",
+          "label": "Чтобы обойти права доступа"
+        },
+        {
+          "id": "onec_queries-middle-1-c",
+          "label": "Чтобы разбить сложный запрос на шаги и переиспользовать промежуточный результат"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-1-c",
+      "explanation": "ПОМЕСТИТЬ создаёт временную таблицу, её можно индексировать.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-2",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Почему запрос в цикле — плохая практика?",
+      "options": [
+        {
+          "id": "onec_queries-middle-2-a",
+          "label": "Каждое выполнение обращается к базе; лучше получить данные одним запросом"
+        },
+        {
+          "id": "onec_queries-middle-2-b",
+          "label": "Запросы в цикле запрещены платформой и вызывают ошибку выполнения"
+        },
+        {
+          "id": "onec_queries-middle-2-c",
+          "label": "Это ускоряет работу"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-2-a",
+      "explanation": "Запросы в цикле — частая причина медленной работы.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-3",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Чем таблица ОстаткиИОбороты отличается от Остатки?",
+      "options": [
+        {
+          "id": "onec_queries-middle-3-a",
+          "label": "Возвращает начальный и конечный остатки и обороты за период"
+        },
+        {
+          "id": "onec_queries-middle-3-b",
+          "label": "Возвращает только обороты за период без начального и конечного остатков"
+        },
+        {
+          "id": "onec_queries-middle-3-c",
+          "label": "Это одно и то же"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-3-a",
+      "explanation": "Удобна для ведомостей.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-4",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Что такое разыменование ссылочных полей через точку в запросе?",
+      "options": [
+        {
+          "id": "onec_queries-middle-4-a",
+          "label": "Обычное чтение поля без соединений, потому что ссылка уже содержит все реквизиты объекта"
+        },
+        {
+          "id": "onec_queries-middle-4-b",
+          "label": "Ошибка синтаксиса"
+        },
+        {
+          "id": "onec_queries-middle-4-c",
+          "label": "Неявное соединение с таблицей объекта; при составных типах соединений много"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-4-c",
+      "explanation": "Составной тип порождает соединения со всеми возможными таблицами.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-5",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Как получить итоги по группировкам в результате запроса?",
+      "options": [
+        {
+          "id": "onec_queries-middle-5-a",
+          "label": "ИТОГИ ПО с выбором полей и агрегатов"
+        },
+        {
+          "id": "onec_queries-middle-5-b",
+          "label": "ГРУППИРОВАТЬ ПО без агрегатов"
+        },
+        {
+          "id": "onec_queries-middle-5-c",
+          "label": "УПОРЯДОЧИТЬ ПО ИТОГ"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-5-a",
+      "explanation": "Итоги удобны для иерархического обхода.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-middle-6",
+      "grade": "middle",
+      "skillId": "onec_queries",
+      "prompt": "Как получить срез последних значений периодического регистра сведений?",
+      "options": [
+        {
+          "id": "onec_queries-middle-6-a",
+          "label": "Выбрать все записи и отсортировать"
+        },
+        {
+          "id": "onec_queries-middle-6-b",
+          "label": "Функцией МАКСИМУМ по всем полям"
+        },
+        {
+          "id": "onec_queries-middle-6-c",
+          "label": "Виртуальной таблицей СрезПоследних на дату"
+        }
+      ],
+      "correctOptionId": "onec_queries-middle-6-c",
+      "explanation": "Например, действующие цены на дату.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-1",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Как ускорить медленный запрос в 1С?",
+      "options": [
+        {
+          "id": "onec_queries-senior-1-a",
+          "label": "Проанализировать план на уровне СУБД, сократить соединения, использовать отборы виртуальных таблиц и индексы"
+        },
+        {
+          "id": "onec_queries-senior-1-b",
+          "label": "Добавить больше конструкций ОБЪЕДИНИТЬ и перенести выполнение запроса на клиент, чтобы разгрузить сервер приложений"
+        },
+        {
+          "id": "onec_queries-senior-1-c",
+          "label": "Перенести запрос на клиент"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-1-a",
+      "explanation": "Технологический журнал и план запроса показывают узкие места.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-2",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Почему подзапросы в условии соединения опасны?",
+      "options": [
+        {
+          "id": "onec_queries-senior-2-a",
+          "label": "СУБД может выбрать неэффективный план; лучше временные таблицы"
+        },
+        {
+          "id": "onec_queries-senior-2-b",
+          "label": "Подзапросы в условиях соединения запрещены синтаксисом языка запросов"
+        },
+        {
+          "id": "onec_queries-senior-2-c",
+          "label": "Они всегда быстрее"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-2-a",
+      "explanation": "Это рекомендуется стандартами производительности.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-3",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Как учитываются права доступа на уровне записей (RLS) в запросе?",
+      "options": [
+        {
+          "id": "onec_queries-senior-3-a",
+          "label": "RLS не влияет на запросы, потому что ограничения проверяются только при открытии форм"
+        },
+        {
+          "id": "onec_queries-senior-3-b",
+          "label": "Платформа добавляет ограничения к запросу, что может влиять на производительность"
+        },
+        {
+          "id": "onec_queries-senior-3-c",
+          "label": "RLS работает только в формах"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-3-b",
+      "explanation": "Ключевое слово РАЗРЕШЕННЫЕ отбирает доступные записи без ошибки.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-4",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Что такое СКД?",
+      "options": [
+        {
+          "id": "onec_queries-senior-4-a",
+          "label": "Справочник контрагентов с настройками доступа пользователей к отчётам"
+        },
+        {
+          "id": "onec_queries-senior-4-b",
+          "label": "Способ хранения файлов"
+        },
+        {
+          "id": "onec_queries-senior-4-c",
+          "label": "Система компоновки данных для отчётов с настройками пользователя"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-4-c",
+      "explanation": "Схема компоновки описывает наборы данных, поля и настройки.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-5",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Когда использовать индексирование временной таблицы?",
+      "options": [
+        {
+          "id": "onec_queries-senior-5-a",
+          "label": "Всегда"
+        },
+        {
+          "id": "onec_queries-senior-5-b",
+          "label": "Никогда: индексы временных таблиц только замедляют выполнение пакета"
+        },
+        {
+          "id": "onec_queries-senior-5-c",
+          "label": "Когда по ней выполняются соединения или отборы на большом объёме данных"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-5-c",
+      "explanation": "ИНДЕКСИРОВАТЬ ПО ускоряет последующие соединения.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-senior-6",
+      "grade": "senior",
+      "skillId": "onec_queries",
+      "prompt": "Почему не стоит соединять с виртуальными таблицами регистров напрямую в больших запросах?",
+      "options": [
+        {
+          "id": "onec_queries-senior-6-a",
+          "label": "Виртуальные таблицы регистров всегда пустые, пока не выполнен пересчёт итогов в конфигураторе базы"
+        },
+        {
+          "id": "onec_queries-senior-6-b",
+          "label": "Они разворачиваются в сложные подзапросы; лучше сначала поместить результат во временную таблицу"
+        },
+        {
+          "id": "onec_queries-senior-6-c",
+          "label": "Они всегда пустые"
+        }
+      ],
+      "correctOptionId": "onec_queries-senior-6-b",
+      "explanation": "Так планировщик СУБД работает эффективнее.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-1",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как организовать контроль производительности запросов в команде?",
+      "options": [
+        {
+          "id": "onec_queries-lead-1-a",
+          "label": "Проверять запросы только по жалобам пользователей на медленную работу"
+        },
+        {
+          "id": "onec_queries-lead-1-b",
+          "label": "Не контролировать"
+        },
+        {
+          "id": "onec_queries-lead-1-c",
+          "label": "Ревью запросов, нагрузочное тестирование и мониторинг технологического журнала"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-1-c",
+      "explanation": "Проблемы с запросами проявляются на больших объёмах.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-2",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как выбирать СУБД для крупной базы 1С?",
+      "options": [
+        {
+          "id": "onec_queries-lead-2-a",
+          "label": "По нагрузке, лицензиям, поддержке и компетенциям администраторов"
+        },
+        {
+          "id": "onec_queries-lead-2-b",
+          "label": "Всегда файловый вариант"
+        },
+        {
+          "id": "onec_queries-lead-2-c",
+          "label": "Самую дешёвую СУБД без анализа нагрузки или файловый вариант для любой базы"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-2-a",
+      "explanation": "1С поддерживает PostgreSQL, MS SQL и другие.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-3",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как обучать разработчиков писать эффективные запросы?",
+      "options": [
+        {
+          "id": "onec_queries-lead-3-a",
+          "label": "Разбор реальных медленных запросов и стандарты на примерах"
+        },
+        {
+          "id": "onec_queries-lead-3-b",
+          "label": "Только самостоятельное чтение документации платформы без примеров"
+        },
+        {
+          "id": "onec_queries-lead-3-c",
+          "label": "Не обучать"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-3-a",
+      "explanation": "Практика на своих данных эффективнее.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-4",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как готовить отчёты для руководства на 1С?",
+      "options": [
+        {
+          "id": "onec_queries-lead-4-a",
+          "label": "СКД с вариантами отчётов и проверенными источниками данных"
+        },
+        {
+          "id": "onec_queries-lead-4-b",
+          "label": "Выгрузка в Excel вручную каждый раз"
+        },
+        {
+          "id": "onec_queries-lead-4-c",
+          "label": "Печать документов"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-4-a",
+      "explanation": "Варианты отчётов позволяют пользователям настраивать вид.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-5",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как решать, хранить ли агрегаты или считать на лету?",
+      "options": [
+        {
+          "id": "onec_queries-lead-5-a",
+          "label": "Всегда хранить все агрегаты, потому что расчёт на лету устарел"
+        },
+        {
+          "id": "onec_queries-lead-5-b",
+          "label": "Всегда считать"
+        },
+        {
+          "id": "onec_queries-lead-5-c",
+          "label": "По частоте запросов, объёму данных и требованиям к актуальности"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-5-c",
+      "explanation": "Агрегаты регистров ускоряют обороты ценой обслуживания.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "onec_queries-lead-6",
+      "grade": "lead",
+      "skillId": "onec_queries",
+      "prompt": "Как документировать сложные запросы?",
+      "options": [
+        {
+          "id": "onec_queries-lead-6-a",
+          "label": "Не документировать"
+        },
+        {
+          "id": "onec_queries-lead-6-b",
+          "label": "Только в отдельном документе Word, который хранится у руководителя"
+        },
+        {
+          "id": "onec_queries-lead-6-c",
+          "label": "Комментарии к шагам пакета и описание назначения временных таблиц"
+        }
+      ],
+      "correctOptionId": "onec_queries-lead-6-c",
+      "explanation": "Понятный пакетный запрос легче поддерживать.",
+      "source": "https://its.1c.ru/db/v8std"
+    },
+    {
+      "id": "erp_systems-intern-1",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Что такое ERP-система?",
+      "options": [
+        {
+          "id": "erp_systems-intern-1-a",
+          "label": "Бухгалтерская программа только для расчёта налогов и сдачи отчётности в инспекцию"
+        },
+        {
+          "id": "erp_systems-intern-1-b",
+          "label": "Сайт компании"
+        },
+        {
+          "id": "erp_systems-intern-1-c",
+          "label": "Система планирования ресурсов предприятия, объединяющая учёт и управление процессами"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-1-c",
+      "explanation": "ERP охватывает закупки, продажи, склад, производство и финансы.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-intern-2",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Что такое мастер-данные?",
+      "options": [
+        {
+          "id": "erp_systems-intern-2-a",
+          "label": "Основные справочные данные: номенклатура, контрагенты, сотрудники"
+        },
+        {
+          "id": "erp_systems-intern-2-b",
+          "label": "Данные о транзакциях: заказы, оплаты и отгрузки за текущий месяц"
+        },
+        {
+          "id": "erp_systems-intern-2-c",
+          "label": "Логи системы"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-2-a",
+      "explanation": "Качество мастер-данных влияет на все процессы.",
+      "source": "https://en.wikipedia.org/wiki/Master_data"
+    },
+    {
+      "id": "erp_systems-intern-3",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Какой процесс описывает «закупка — оплата» (procure-to-pay)?",
+      "options": [
+        {
+          "id": "erp_systems-intern-3-a",
+          "label": "От заявки на закупку до оплаты поставщику"
+        },
+        {
+          "id": "erp_systems-intern-3-b",
+          "label": "От заказа клиента до оплаты клиентом"
+        },
+        {
+          "id": "erp_systems-intern-3-c",
+          "label": "Найм сотрудника"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-3-a",
+      "explanation": "Процесс включает заказ, поступление и счёт.",
+      "source": "https://en.wikipedia.org/wiki/Procure-to-pay"
+    },
+    {
+      "id": "erp_systems-intern-4",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Что такое «заказ — оплата» (order-to-cash)?",
+      "options": [
+        {
+          "id": "erp_systems-intern-4-a",
+          "label": "Процесс закупки"
+        },
+        {
+          "id": "erp_systems-intern-4-b",
+          "label": "Процесс производства от закупки сырья до выпуска продукции"
+        },
+        {
+          "id": "erp_systems-intern-4-c",
+          "label": "Процесс от заказа клиента до получения оплаты"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-4-c",
+      "explanation": "Включает отгрузку и выставление счёта.",
+      "source": "https://en.wikipedia.org/wiki/Order_to_cash"
+    },
+    {
+      "id": "erp_systems-intern-5",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Зачем ERP-системе единая база данных?",
+      "options": [
+        {
+          "id": "erp_systems-intern-5-a",
+          "label": "Чтобы данные дублировались в каждом отделе для надёжности хранения"
+        },
+        {
+          "id": "erp_systems-intern-5-b",
+          "label": "Чтобы все подразделения работали с одинаковыми актуальными данными"
+        },
+        {
+          "id": "erp_systems-intern-5-c",
+          "label": "Чтобы снизить безопасность"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-5-b",
+      "explanation": "Единые данные устраняют расхождения между отделами.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-intern-6",
+      "grade": "intern",
+      "skillId": "erp_systems",
+      "prompt": "Какие отечественные ERP-решения распространены в России?",
+      "options": [
+        {
+          "id": "erp_systems-intern-6-a",
+          "label": "Только Microsoft Excel"
+        },
+        {
+          "id": "erp_systems-intern-6-b",
+          "label": "Только веб-сайты"
+        },
+        {
+          "id": "erp_systems-intern-6-c",
+          "label": "1С:ERP, Галактика ERP"
+        }
+      ],
+      "correctOptionId": "erp_systems-intern-6-c",
+      "explanation": "Выбор зависит от отрасли и масштаба.",
+      "source": "https://v8.1c.ru/erp/"
+    },
+    {
+      "id": "erp_systems-junior-1",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Что такое внедрение ERP?",
+      "options": [
+        {
+          "id": "erp_systems-junior-1-a",
+          "label": "Настройка и адаптация системы под процессы компании с переносом данных и обучением"
+        },
+        {
+          "id": "erp_systems-junior-1-b",
+          "label": "Установка программы на компьютеры сотрудников и покупка лицензий у вендора"
+        },
+        {
+          "id": "erp_systems-junior-1-c",
+          "label": "Покупка лицензии"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-1-a",
+      "explanation": "Внедрение — проект, затрагивающий процессы.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-junior-2",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Почему важна миграция данных при внедрении?",
+      "options": [
+        {
+          "id": "erp_systems-junior-2-a",
+          "label": "Ошибки в начальных данных искажают учёт в новой системе"
+        },
+        {
+          "id": "erp_systems-junior-2-b",
+          "label": "Данные можно ввести позже вручную, это не влияет на запуск системы"
+        },
+        {
+          "id": "erp_systems-junior-2-c",
+          "label": "Миграция не нужна"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-2-a",
+      "explanation": "Данные очищают и проверяют до переноса.",
+      "source": "https://en.wikipedia.org/wiki/Data_migration"
+    },
+    {
+      "id": "erp_systems-junior-3",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Что такое партионный учёт запасов?",
+      "options": [
+        {
+          "id": "erp_systems-junior-3-a",
+          "label": "Учёт себестоимости по партиям поступления"
+        },
+        {
+          "id": "erp_systems-junior-3-b",
+          "label": "Учёт сотрудников"
+        },
+        {
+          "id": "erp_systems-junior-3-c",
+          "label": "Учёт счетов"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-3-a",
+      "explanation": "Влияет на расчёт себестоимости продаж.",
+      "source": "https://its.1c.ru/db/erp25doc"
+    },
+    {
+      "id": "erp_systems-junior-4",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Что такое MRP?",
+      "options": [
+        {
+          "id": "erp_systems-junior-4-a",
+          "label": "Планирование потребностей в материалах на основе плана производства"
+        },
+        {
+          "id": "erp_systems-junior-4-b",
+          "label": "Модуль расчёта заработной платы производственного персонала"
+        },
+        {
+          "id": "erp_systems-junior-4-c",
+          "label": "Система отчётов"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-4-a",
+      "explanation": "MRP рассчитывает, что и когда закупить.",
+      "source": "https://en.wikipedia.org/wiki/Material_requirements_planning"
+    },
+    {
+      "id": "erp_systems-junior-5",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Зачем разграничивать роли пользователей в ERP?",
+      "options": [
+        {
+          "id": "erp_systems-junior-5-a",
+          "label": "Чтобы усложнить работу пользователей и сократить число лицензий системы на всех сотрудников"
+        },
+        {
+          "id": "erp_systems-junior-5-b",
+          "label": "Чтобы каждый видел и менял только нужные данные, снижая риски ошибок и мошенничества"
+        },
+        {
+          "id": "erp_systems-junior-5-c",
+          "label": "Роли не нужны"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-5-b",
+      "explanation": "Разделение обязанностей — требование внутреннего контроля.",
+      "source": "https://en.wikipedia.org/wiki/Separation_of_duties"
+    },
+    {
+      "id": "erp_systems-junior-6",
+      "grade": "junior",
+      "skillId": "erp_systems",
+      "prompt": "Что такое регламентированный учёт?",
+      "options": [
+        {
+          "id": "erp_systems-junior-6-a",
+          "label": "Управленческий учёт по внутренним правилам компании для руководства"
+        },
+        {
+          "id": "erp_systems-junior-6-b",
+          "label": "Учёт задач"
+        },
+        {
+          "id": "erp_systems-junior-6-c",
+          "label": "Учёт по требованиям законодательства: бухгалтерский и налоговый"
+        }
+      ],
+      "correctOptionId": "erp_systems-junior-6-c",
+      "explanation": "Управленческий учёт ведётся для внутренних решений.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_122855/"
+    },
+    {
+      "id": "erp_systems-middle-1",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Как выбрать между типовой функциональностью и доработкой?",
+      "options": [
+        {
+          "id": "erp_systems-middle-1-a",
+          "label": "Дорабатывать всё под текущие привычки пользователей, чтобы они не сопротивлялись"
+        },
+        {
+          "id": "erp_systems-middle-1-b",
+          "label": "Предпочитать типовую, дорабатывать только при важном конкурентном отличии"
+        },
+        {
+          "id": "erp_systems-middle-1-c",
+          "label": "Никогда не дорабатывать"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-1-b",
+      "explanation": "Доработки увеличивают стоимость обновлений.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-middle-2",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Что такое управленческий учёт в ERP?",
+      "options": [
+        {
+          "id": "erp_systems-middle-2-a",
+          "label": "Учёт для налоговой"
+        },
+        {
+          "id": "erp_systems-middle-2-b",
+          "label": "Учёт только расходов на ИТ"
+        },
+        {
+          "id": "erp_systems-middle-2-c",
+          "label": "Учёт для управленческих решений по правилам компании"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-2-c",
+      "explanation": "Может отличаться от регламентированного.",
+      "source": "https://its.1c.ru/db/erp25doc"
+    },
+    {
+      "id": "erp_systems-middle-3",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Как организовать интеграцию ERP с другими системами?",
+      "options": [
+        {
+          "id": "erp_systems-middle-3-a",
+          "label": "Через описанные интерфейсы обмена с контролем ошибок и журналированием"
+        },
+        {
+          "id": "erp_systems-middle-3-b",
+          "label": "Ручной перенос данных"
+        },
+        {
+          "id": "erp_systems-middle-3-c",
+          "label": "Прямая запись в таблицы чужой системы через подключение к её базе данных"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-3-a",
+      "explanation": "Конвертация данных 1С и EnterpriseData — пример стандартных обменов.",
+      "source": "https://its.1c.ru/db/metod8dev"
+    },
+    {
+      "id": "erp_systems-middle-4",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Что такое закрытие месяца?",
+      "options": [
+        {
+          "id": "erp_systems-middle-4-a",
+          "label": "Удаление всех документов за месяц и архивирование базы данных перед началом нового отчётного периода"
+        },
+        {
+          "id": "erp_systems-middle-4-b",
+          "label": "Регламентные операции: расчёт себестоимости, распределение затрат, финансовый результат"
+        },
+        {
+          "id": "erp_systems-middle-4-c",
+          "label": "Архивирование документов"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-4-b",
+      "explanation": "Корректное закрытие требует проверки данных.",
+      "source": "https://its.1c.ru/db/erp25doc"
+    },
+    {
+      "id": "erp_systems-middle-5",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Как обучать пользователей новой ERP?",
+      "options": [
+        {
+          "id": "erp_systems-middle-5-a",
+          "label": "Одна общая лекция для всех сотрудников без инструкций"
+        },
+        {
+          "id": "erp_systems-middle-5-b",
+          "label": "Без обучения"
+        },
+        {
+          "id": "erp_systems-middle-5-c",
+          "label": "Обучение по ролям на реальных сценариях и инструкции"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-5-c",
+      "explanation": "Неподготовленные пользователи — частая причина провала внедрения.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-middle-6",
+      "grade": "middle",
+      "skillId": "erp_systems",
+      "prompt": "Что такое опытная эксплуатация?",
+      "options": [
+        {
+          "id": "erp_systems-middle-6-a",
+          "label": "Тестирование системы разработчиками на демонстрационных данных до показа заказчику"
+        },
+        {
+          "id": "erp_systems-middle-6-b",
+          "label": "Работа в системе на реальных данных с повышенным контролем до промышленного запуска"
+        },
+        {
+          "id": "erp_systems-middle-6-c",
+          "label": "Демонстрация продавцом"
+        }
+      ],
+      "correctOptionId": "erp_systems-middle-6-b",
+      "explanation": "Позволяет выявить проблемы до полного перехода.",
+      "source": "https://en.wikipedia.org/wiki/Systems_development_life_cycle"
+    },
+    {
+      "id": "erp_systems-senior-1",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Как снижать риски внедрения ERP?",
+      "options": [
+        {
+          "id": "erp_systems-senior-1-a",
+          "label": "Запуск всех модулей сразу без тестов, силами только ИТ-отдела, чтобы не отвлекать бизнес от работы"
+        },
+        {
+          "id": "erp_systems-senior-1-b",
+          "label": "Поэтапный запуск, вовлечение бизнеса, управление изменениями и тестирование сквозных процессов"
+        },
+        {
+          "id": "erp_systems-senior-1-c",
+          "label": "Внедрение силами только ИТ"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-1-b",
+      "explanation": "Большинство провалов связаны с организационными факторами.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-senior-2",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Как проверять сквозной процесс в ERP?",
+      "options": [
+        {
+          "id": "erp_systems-senior-2-a",
+          "label": "Тест от начала до конца: заказ, отгрузка, счёт, оплата, проводки"
+        },
+        {
+          "id": "erp_systems-senior-2-b",
+          "label": "Проверить каждый документ отдельно"
+        },
+        {
+          "id": "erp_systems-senior-2-c",
+          "label": "Только печатные формы"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-2-a",
+      "explanation": "Ошибки часто возникают на стыках модулей.",
+      "source": "https://its.1c.ru/db/erp25doc"
+    },
+    {
+      "id": "erp_systems-senior-3",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Как обеспечить качество мастер-данных?",
+      "options": [
+        {
+          "id": "erp_systems-senior-3-a",
+          "label": "Разрешить всем создавать любые записи и чистить данные раз в пять лет"
+        },
+        {
+          "id": "erp_systems-senior-3-b",
+          "label": "Чистить данные раз в пять лет"
+        },
+        {
+          "id": "erp_systems-senior-3-c",
+          "label": "Владельцы данных, правила ввода, проверка дублей и регулярная очистка"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-3-c",
+      "explanation": "Дубли контрагентов искажают аналитику.",
+      "source": "https://en.wikipedia.org/wiki/Master_data_management"
+    },
+    {
+      "id": "erp_systems-senior-4",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Что учитывать при переходе на отечественную ERP?",
+      "options": [
+        {
+          "id": "erp_systems-senior-4-a",
+          "label": "Только цену лицензии и внешний вид интерфейса новой системы по сравнению со старой"
+        },
+        {
+          "id": "erp_systems-senior-4-b",
+          "label": "Функциональные требования, интеграции, миграцию данных и требования к импортозамещению"
+        },
+        {
+          "id": "erp_systems-senior-4-c",
+          "label": "Только интерфейс"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-4-b",
+      "explanation": "Требования регуляторов к значимым объектам КИИ влияют на выбор ПО.",
+      "source": "https://www.consultant.ru/document/cons_doc_LAW_220885/"
+    },
+    {
+      "id": "erp_systems-senior-5",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Как организовать поддержку ERP после запуска?",
+      "options": [
+        {
+          "id": "erp_systems-senior-5-a",
+          "label": "Линии поддержки, регламенты изменений и мониторинг"
+        },
+        {
+          "id": "erp_systems-senior-5-b",
+          "label": "Поддержка не нужна"
+        },
+        {
+          "id": "erp_systems-senior-5-c",
+          "label": "Каждый пользователь звонит разработчику"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-5-a",
+      "explanation": "ITIL описывает процессы поддержки.",
+      "source": "https://www.axelos.com/certifications/itil-service-management"
+    },
+    {
+      "id": "erp_systems-senior-6",
+      "grade": "senior",
+      "skillId": "erp_systems",
+      "prompt": "Как оценить эффект от внедрения?",
+      "options": [
+        {
+          "id": "erp_systems-senior-6-a",
+          "label": "По числу пользователей и количеству внедрённых модулей системы"
+        },
+        {
+          "id": "erp_systems-senior-6-b",
+          "label": "По числу модулей"
+        },
+        {
+          "id": "erp_systems-senior-6-c",
+          "label": "Сравнить ключевые показатели процессов до и после с учётом затрат"
+        }
+      ],
+      "correctOptionId": "erp_systems-senior-6-c",
+      "explanation": "Эффект измеряется бизнес-показателями.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-lead-1",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Как руководить программой внедрения ERP в холдинге?",
+      "options": [
+        {
+          "id": "erp_systems-lead-1-a",
+          "label": "Каждое предприятие внедряет систему по-своему, без участия бизнеса и общей модели"
+        },
+        {
+          "id": "erp_systems-lead-1-b",
+          "label": "Единая модель процессов, тиражирование по предприятиям и управление изменениями"
+        },
+        {
+          "id": "erp_systems-lead-1-c",
+          "label": "Внедрение без участия бизнеса"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-1-b",
+      "explanation": "Шаблонное решение снижает стоимость тиражирования.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "erp_systems-lead-2",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Как формировать требования к ERP на уровне компании?",
+      "options": [
+        {
+          "id": "erp_systems-lead-2-a",
+          "label": "Копировать старую систему"
+        },
+        {
+          "id": "erp_systems-lead-2-b",
+          "label": "От целевых процессов и бизнес-целей, а не от текущих экранных форм"
+        },
+        {
+          "id": "erp_systems-lead-2-c",
+          "label": "По пожеланиям каждого отдела без согласования"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-2-b",
+      "explanation": "Целевая модель важнее привычек.",
+      "source": "https://en.wikipedia.org/wiki/Business_analysis"
+    },
+    {
+      "id": "erp_systems-lead-3",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Как выбрать подрядчика для внедрения?",
+      "options": [
+        {
+          "id": "erp_systems-lead-3-a",
+          "label": "Самая низкая цена и первое место в поисковой выдаче"
+        },
+        {
+          "id": "erp_systems-lead-3-b",
+          "label": "Первый в поиске"
+        },
+        {
+          "id": "erp_systems-lead-3-c",
+          "label": "Опыт в отрасли, методология, команда и отзывы клиентов"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-3-c",
+      "explanation": "Ошибки выбора подрядчика дорого обходятся.",
+      "source": "https://en.wikipedia.org/wiki/Request_for_proposal"
+    },
+    {
+      "id": "erp_systems-lead-4",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Как управлять сопротивлением пользователей?",
+      "options": [
+        {
+          "id": "erp_systems-lead-4-a",
+          "label": "Вводить систему приказом без объяснений"
+        },
+        {
+          "id": "erp_systems-lead-4-b",
+          "label": "Наказывать за ошибки"
+        },
+        {
+          "id": "erp_systems-lead-4-c",
+          "label": "Объяснять цели, вовлекать ключевых пользователей и обучать"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-4-c",
+      "explanation": "Ключевые пользователи становятся проводниками изменений.",
+      "source": "https://www.prosci.com/methodology/adkar"
+    },
+    {
+      "id": "erp_systems-lead-5",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Как планировать бюджет владения ERP?",
+      "options": [
+        {
+          "id": "erp_systems-lead-5-a",
+          "label": "Учитывать лицензии, внедрение, поддержку, обновления и инфраструктуру на годы"
+        },
+        {
+          "id": "erp_systems-lead-5-b",
+          "label": "Только стоимость лицензий в первый год, остальные затраты несущественны для решения"
+        },
+        {
+          "id": "erp_systems-lead-5-c",
+          "label": "Только стоимость внедрения"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-5-a",
+      "explanation": "Совокупная стоимость владения многократно превышает лицензии.",
+      "source": "https://en.wikipedia.org/wiki/Total_cost_of_ownership"
+    },
+    {
+      "id": "erp_systems-lead-6",
+      "grade": "lead",
+      "skillId": "erp_systems",
+      "prompt": "Когда стоит заменить ERP-систему?",
+      "options": [
+        {
+          "id": "erp_systems-lead-6-a",
+          "label": "Когда ограничения системы мешают бизнесу и стоимость поддержки выше затрат на переход"
+        },
+        {
+          "id": "erp_systems-lead-6-b",
+          "label": "Каждые два года или при смене руководителя, чтобы система не устаревала морально"
+        },
+        {
+          "id": "erp_systems-lead-6-c",
+          "label": "При смене руководителя"
+        }
+      ],
+      "correctOptionId": "erp_systems-lead-6-a",
+      "explanation": "Замена ERP — крупный риск.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "abap-intern-1",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Что такое ABAP?",
+      "options": [
+        {
+          "id": "abap-intern-1-a",
+          "label": "База данных"
+        },
+        {
+          "id": "abap-intern-1-b",
+          "label": "Операционная система для серверов SAP"
+        },
+        {
+          "id": "abap-intern-1-c",
+          "label": "Язык программирования для разработки в системах SAP"
+        }
+      ],
+      "correctOptionId": "abap-intern-1-c",
+      "explanation": "ABAP используется для отчётов, интерфейсов и расширений.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm"
+    },
+    {
+      "id": "abap-intern-2",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Как объявить переменную в ABAP?",
+      "options": [
+        {
+          "id": "abap-intern-2-a",
+          "label": "int lv_count;"
+        },
+        {
+          "id": "abap-intern-2-b",
+          "label": "var lv_count = 0"
+        },
+        {
+          "id": "abap-intern-2-c",
+          "label": "DATA lv_count TYPE i."
+        }
+      ],
+      "correctOptionId": "abap-intern-2-c",
+      "explanation": "Тип i — целое число.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapdata.htm"
+    },
+    {
+      "id": "abap-intern-3",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Как вывести текст в простом отчёте ABAP?",
+      "options": [
+        {
+          "id": "abap-intern-3-a",
+          "label": "print('Текст')"
+        },
+        {
+          "id": "abap-intern-3-b",
+          "label": "echo 'Текст'"
+        },
+        {
+          "id": "abap-intern-3-c",
+          "label": "WRITE 'Текст'."
+        }
+      ],
+      "correctOptionId": "abap-intern-3-c",
+      "explanation": "WRITE используется в классических списках.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapwrite-.htm"
+    },
+    {
+      "id": "abap-intern-4",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Что такое транзакция SE38?",
+      "options": [
+        {
+          "id": "abap-intern-4-a",
+          "label": "Справочник материалов"
+        },
+        {
+          "id": "abap-intern-4-b",
+          "label": "Журнал ошибок"
+        },
+        {
+          "id": "abap-intern-4-c",
+          "label": "Редактор ABAP-программ"
+        }
+      ],
+      "correctOptionId": "abap-intern-4-c",
+      "explanation": "В современном стеке разрабатывают в ADT на Eclipse.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm"
+    },
+    {
+      "id": "abap-intern-5",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Как выбрать данные из таблицы в ABAP?",
+      "options": [
+        {
+          "id": "abap-intern-5-a",
+          "label": "SELECT … FROM … INTO TABLE …"
+        },
+        {
+          "id": "abap-intern-5-b",
+          "label": "GET ALL FROM …"
+        },
+        {
+          "id": "abap-intern-5-c",
+          "label": "FIND IN TABLE …"
+        }
+      ],
+      "correctOptionId": "abap-intern-5-a",
+      "explanation": "ABAP SQL встроен в язык.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapselect.htm"
+    },
+    {
+      "id": "abap-intern-6",
+      "grade": "intern",
+      "skillId": "abap",
+      "prompt": "Что такое внутренняя таблица?",
+      "options": [
+        {
+          "id": "abap-intern-6-a",
+          "label": "Таблица базы данных"
+        },
+        {
+          "id": "abap-intern-6-b",
+          "label": "Таблица в памяти программы"
+        },
+        {
+          "id": "abap-intern-6-c",
+          "label": "Отчёт"
+        }
+      ],
+      "correctOptionId": "abap-intern-6-b",
+      "explanation": "Внутренние таблицы обрабатываются в цикле LOOP AT.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenitab.htm"
+    },
+    {
+      "id": "abap-junior-1",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Как перебрать строки внутренней таблицы?",
+      "options": [
+        {
+          "id": "abap-junior-1-a",
+          "label": "FOR EACH lt_items AS item … NEXT для внутренних таблиц"
+        },
+        {
+          "id": "abap-junior-1-b",
+          "label": "WHILE lt_items"
+        },
+        {
+          "id": "abap-junior-1-c",
+          "label": "LOOP AT lt_items INTO DATA(ls_item). … ENDLOOP."
+        }
+      ],
+      "correctOptionId": "abap-junior-1-c",
+      "explanation": "Также можно использовать FIELD-SYMBOL для изменения строк.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abaploop_at_itab.htm"
+    },
+    {
+      "id": "abap-junior-2",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Что проверяет sy-subrc после оператора?",
+      "options": [
+        {
+          "id": "abap-junior-2-a",
+          "label": "Текущего пользователя"
+        },
+        {
+          "id": "abap-junior-2-b",
+          "label": "Код возврата: 0 обычно означает успех"
+        },
+        {
+          "id": "abap-junior-2-c",
+          "label": "Дату системы"
+        }
+      ],
+      "correctOptionId": "abap-junior-2-b",
+      "explanation": "sy-subrc нужно проверять сразу после операции.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abensystem_fields.htm"
+    },
+    {
+      "id": "abap-junior-3",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Почему SELECT внутри LOOP — плохая практика?",
+      "options": [
+        {
+          "id": "abap-junior-3-a",
+          "label": "Это синтаксическая ошибка"
+        },
+        {
+          "id": "abap-junior-3-b",
+          "label": "Много обращений к базе; лучше выбрать данные одним запросом с FOR ALL ENTRIES или JOIN"
+        },
+        {
+          "id": "abap-junior-3-c",
+          "label": "SELECT внутри LOOP запрещён синтаксисом и вызывает ошибку активации программы"
+        }
+      ],
+      "correctOptionId": "abap-junior-3-b",
+      "explanation": "Сокращение обращений к базе — главный приём производительности.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenperformance_guidl.htm"
+    },
+    {
+      "id": "abap-junior-4",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Что такое функциональный модуль?",
+      "options": [
+        {
+          "id": "abap-junior-4-a",
+          "label": "Модуль системы SAP целиком, например MM или SD, со всеми таблицами"
+        },
+        {
+          "id": "abap-junior-4-b",
+          "label": "Повторно используемая процедура с интерфейсом, вызываемая из других программ"
+        },
+        {
+          "id": "abap-junior-4-c",
+          "label": "Таблица базы данных"
+        }
+      ],
+      "correctOptionId": "abap-junior-4-b",
+      "explanation": "Функциональные модули могут вызываться удалённо (RFC).",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenfunction_module_glosry.htm"
+    },
+    {
+      "id": "abap-junior-5",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Что такое транспортный запрос?",
+      "options": [
+        {
+          "id": "abap-junior-5-a",
+          "label": "Запрос пользователя на доставку товара, который хранится в модуле логистики системы"
+        },
+        {
+          "id": "abap-junior-5-b",
+          "label": "Механизм переноса изменений между системами разработки, тестирования и продуктива"
+        },
+        {
+          "id": "abap-junior-5-c",
+          "label": "Сообщение об ошибке"
+        }
+      ],
+      "correctOptionId": "abap-junior-5-b",
+      "explanation": "Изменения не правят напрямую в продуктиве.",
+      "source": "https://help.sap.com/docs/SAP_NETWEAVER_750/4a368c163b08418890a406d413933ba7/48c4300fca5d581ce10000000a42189c.html"
+    },
+    {
+      "id": "abap-junior-6",
+      "grade": "junior",
+      "skillId": "abap",
+      "prompt": "Что такое ALV?",
+      "options": [
+        {
+          "id": "abap-junior-6-a",
+          "label": "Формат файла"
+        },
+        {
+          "id": "abap-junior-6-b",
+          "label": "Стандартный инструмент вывода табличных отчётов"
+        },
+        {
+          "id": "abap-junior-6-c",
+          "label": "Сетевой протокол обмена отчётами между системами"
+        }
+      ],
+      "correctOptionId": "abap-junior-6-b",
+      "explanation": "ALV поддерживает сортировку, фильтры и выгрузку.",
+      "source": "https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4ec38f8788d22b90e10000000a42189d.html"
+    },
+    {
+      "id": "abap-middle-1",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Что такое ABAP Objects?",
+      "options": [
+        {
+          "id": "abap-middle-1-a",
+          "label": "Набор таблиц"
+        },
+        {
+          "id": "abap-middle-1-b",
+          "label": "Объектно-ориентированное расширение ABAP с классами и интерфейсами"
+        },
+        {
+          "id": "abap-middle-1-c",
+          "label": "Графический редактор экранов для классических транзакций"
+        }
+      ],
+      "correctOptionId": "abap-middle-1-b",
+      "explanation": "Современный ABAP-код пишут на классах.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenabap_objects.htm"
+    },
+    {
+      "id": "abap-middle-2",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Как расширять стандартный код SAP без модификации?",
+      "options": [
+        {
+          "id": "abap-middle-2-a",
+          "label": "Через BAdI и точки расширения"
+        },
+        {
+          "id": "abap-middle-2-b",
+          "label": "Изменять стандартные программы напрямую"
+        },
+        {
+          "id": "abap-middle-2-c",
+          "label": "Копировать стандартную программу целиком без контроля"
+        }
+      ],
+      "correctOptionId": "abap-middle-2-a",
+      "explanation": "Модификации осложняют обновления.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenbadi_glosry.htm"
+    },
+    {
+      "id": "abap-middle-3",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Что такое CDS-представление?",
+      "options": [
+        {
+          "id": "abap-middle-3-a",
+          "label": "Определение модели данных на уровне базы с аннотациями для использования в приложениях"
+        },
+        {
+          "id": "abap-middle-3-b",
+          "label": "Отчёт ALV, который показывает данные таблиц базы пользователю с фильтрами и сортировкой"
+        },
+        {
+          "id": "abap-middle-3-c",
+          "label": "Транзакция"
+        }
+      ],
+      "correctOptionId": "abap-middle-3-a",
+      "explanation": "CDS — основа модели данных S/4HANA.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abencds.htm"
+    },
+    {
+      "id": "abap-middle-4",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Зачем нужны исключения на основе классов?",
+      "options": [
+        {
+          "id": "abap-middle-4-a",
+          "label": "Для ускорения программы за счёт пропуска проверок"
+        },
+        {
+          "id": "abap-middle-4-b",
+          "label": "Для печати"
+        },
+        {
+          "id": "abap-middle-4-c",
+          "label": "Для структурированной обработки ошибок через TRY … CATCH"
+        }
+      ],
+      "correctOptionId": "abap-middle-4-c",
+      "explanation": "Классические исключения устарели.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenabap_exceptions.htm"
+    },
+    {
+      "id": "abap-middle-5",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Как тестировать ABAP-код?",
+      "options": [
+        {
+          "id": "abap-middle-5-a",
+          "label": "Только вручную в продуктиве"
+        },
+        {
+          "id": "abap-middle-5-b",
+          "label": "ABAP Unit с тестовыми классами"
+        },
+        {
+          "id": "abap-middle-5-c",
+          "label": "Тестировать не нужно"
+        }
+      ],
+      "correctOptionId": "abap-middle-5-b",
+      "explanation": "Тесты запускаются в среде разработки и в проверках.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenabap_unit.htm"
+    },
+    {
+      "id": "abap-middle-6",
+      "grade": "middle",
+      "skillId": "abap",
+      "prompt": "Что такое RFC?",
+      "options": [
+        {
+          "id": "abap-middle-6-a",
+          "label": "Удалённый вызов функций между системами SAP и внешними системами"
+        },
+        {
+          "id": "abap-middle-6-b",
+          "label": "Формат отчёта для печати документов на принтерах"
+        },
+        {
+          "id": "abap-middle-6-c",
+          "label": "Тип таблицы"
+        }
+      ],
+      "correctOptionId": "abap-middle-6-a",
+      "explanation": "BAPI — стандартизированные RFC-интерфейсы.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenrfc_glosry.htm"
+    },
+    {
+      "id": "abap-senior-1",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Что такое принцип code pushdown в S/4HANA?",
+      "options": [
+        {
+          "id": "abap-senior-1-a",
+          "label": "Перенос обработки данных в базу (CDS, AMDP), а не в цикл на сервере приложений"
+        },
+        {
+          "id": "abap-senior-1-b",
+          "label": "Перенос кода на клиентские компьютеры пользователей для разгрузки сервера приложений"
+        },
+        {
+          "id": "abap-senior-1-c",
+          "label": "Удаление кода"
+        }
+      ],
+      "correctOptionId": "abap-senior-1-a",
+      "explanation": "HANA эффективно выполняет обработку на стороне базы.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenamdp.htm"
+    },
+    {
+      "id": "abap-senior-2",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Что такое модель RAP?",
+      "options": [
+        {
+          "id": "abap-senior-2-a",
+          "label": "ABAP RESTful Application Programming Model для транзакционных приложений и сервисов OData"
+        },
+        {
+          "id": "abap-senior-2-b",
+          "label": "Отчётный инструмент для вывода табличных данных с настраиваемыми колонками и фильтрами"
+        },
+        {
+          "id": "abap-senior-2-c",
+          "label": "Формат транспорта"
+        }
+      ],
+      "correctOptionId": "abap-senior-2-a",
+      "explanation": "RAP строится на CDS и поведенческих определениях.",
+      "source": "https://help.sap.com/docs/abap-cloud/abap-rap/abap-restful-application-programming-model"
+    },
+    {
+      "id": "abap-senior-3",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Как анализировать производительность ABAP-программы?",
+      "options": [
+        {
+          "id": "abap-senior-3-a",
+          "label": "Трассировки SQL (ST05) и профилировщик времени выполнения (SAT)"
+        },
+        {
+          "id": "abap-senior-3-b",
+          "label": "По количеству строк кода и перезапуску системы при медленной работе"
+        },
+        {
+          "id": "abap-senior-3-c",
+          "label": "Перезапуском системы"
+        }
+      ],
+      "correctOptionId": "abap-senior-3-a",
+      "explanation": "Трассировки показывают дорогие обращения.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenperformance_guidl.htm"
+    },
+    {
+      "id": "abap-senior-4",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Что такое ABAP Cloud и почему он важен?",
+      "options": [
+        {
+          "id": "abap-senior-4-a",
+          "label": "Хостинг систем SAP в облаке поставщика с ежемесячной оплатой за пользователей"
+        },
+        {
+          "id": "abap-senior-4-b",
+          "label": "Модель разработки с выпущенными API и ограниченным языком для обновляемых расширений"
+        },
+        {
+          "id": "abap-senior-4-c",
+          "label": "Облачное хранилище файлов"
+        }
+      ],
+      "correctOptionId": "abap-senior-4-b",
+      "explanation": "Clean core упрощает обновления.",
+      "source": "https://help.sap.com/docs/abap-cloud"
+    },
+    {
+      "id": "abap-senior-5",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Как обеспечить безопасность ABAP-кода?",
+      "options": [
+        {
+          "id": "abap-senior-5-a",
+          "label": "Проверки полномочий AUTHORITY-CHECK, защита от инъекций в динамическом SQL и проверка кода"
+        },
+        {
+          "id": "abap-senior-5-b",
+          "label": "Отключить проверки полномочий"
+        },
+        {
+          "id": "abap-senior-5-c",
+          "label": "Использовать только динамический SQL"
+        }
+      ],
+      "correctOptionId": "abap-senior-5-a",
+      "explanation": "Инструменты проверки кода находят уязвимости.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenabap_security.htm"
+    },
+    {
+      "id": "abap-senior-6",
+      "grade": "senior",
+      "skillId": "abap",
+      "prompt": "Как переносить кастомный код при миграции на S/4HANA?",
+      "options": [
+        {
+          "id": "abap-senior-6-a",
+          "label": "Перенести всё без анализа"
+        },
+        {
+          "id": "abap-senior-6-b",
+          "label": "Удалить весь кастомный код и внедрить систему заново без доработок"
+        },
+        {
+          "id": "abap-senior-6-c",
+          "label": "Анализ совместимости кастомного кода, удаление неиспользуемого и адаптация"
+        }
+      ],
+      "correctOptionId": "abap-senior-6-c",
+      "explanation": "Значительная часть кастомного кода обычно не используется.",
+      "source": "https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE"
+    },
+    {
+      "id": "abap-lead-1",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Что означает стратегия clean core?",
+      "options": [
+        {
+          "id": "abap-lead-1-a",
+          "label": "Удаление всех данных и доработок перед каждым обновлением системы"
+        },
+        {
+          "id": "abap-lead-1-b",
+          "label": "Отказ от расширений"
+        },
+        {
+          "id": "abap-lead-1-c",
+          "label": "Минимальные изменения ядра системы и расширения через выпущенные API"
+        }
+      ],
+      "correctOptionId": "abap-lead-1-c",
+      "explanation": "Чистое ядро упрощает обновления.",
+      "source": "https://help.sap.com/docs/abap-cloud"
+    },
+    {
+      "id": "abap-lead-2",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Как организовать разработку ABAP в команде?",
+      "options": [
+        {
+          "id": "abap-lead-2-a",
+          "label": "Разработка прямо в продуктиве без транспортов и проверок кода"
+        },
+        {
+          "id": "abap-lead-2-b",
+          "label": "Ландшафт систем, транспортная стратегия, ревью и статические проверки ATC"
+        },
+        {
+          "id": "abap-lead-2-c",
+          "label": "Без проверок"
+        }
+      ],
+      "correctOptionId": "abap-lead-2-b",
+      "explanation": "ABAP Test Cockpit автоматизирует проверки.",
+      "source": "https://help.sap.com/docs/ABAP_PLATFORM_NEW/ba879a6e2ea04d9bb94c7ccd7cdac446/62c41ad841554516bb06fb3620540e47.html"
+    },
+    {
+      "id": "abap-lead-3",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Как планировать переход с SAP ECC на S/4HANA?",
+      "options": [
+        {
+          "id": "abap-lead-3-a",
+          "label": "Перейти за один день, отключив старую систему без анализа кода и процессов"
+        },
+        {
+          "id": "abap-lead-3-b",
+          "label": "Никогда не переходить"
+        },
+        {
+          "id": "abap-lead-3-c",
+          "label": "Оценить готовность, выбрать путь перехода и спланировать адаптацию кода и процессов"
+        }
+      ],
+      "correctOptionId": "abap-lead-3-c",
+      "explanation": "Варианты: новое внедрение или конвертация системы.",
+      "source": "https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE"
+    },
+    {
+      "id": "abap-lead-4",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Как развивать компетенции ABAP-разработчиков?",
+      "options": [
+        {
+          "id": "abap-lead-4-a",
+          "label": "Только классический ABAP, потому что новые модели не используются"
+        },
+        {
+          "id": "abap-lead-4-b",
+          "label": "Обучение современному ABAP, RAP и CDS на практических задачах"
+        },
+        {
+          "id": "abap-lead-4-c",
+          "label": "Без обучения"
+        }
+      ],
+      "correctOptionId": "abap-lead-4-b",
+      "explanation": "Современный стек требует новых навыков.",
+      "source": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm"
+    },
+    {
+      "id": "abap-lead-5",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Как управлять заменой SAP на другую ERP при импортозамещении?",
+      "options": [
+        {
+          "id": "abap-lead-5-a",
+          "label": "Отключить SAP и начать с нуля в новой системе без переноса данных"
+        },
+        {
+          "id": "abap-lead-5-b",
+          "label": "Анализ процессов и данных, поэтапная миграция и параллельная работа"
+        },
+        {
+          "id": "abap-lead-5-c",
+          "label": "Перенести только справочники"
+        }
+      ],
+      "correctOptionId": "abap-lead-5-b",
+      "explanation": "Переход затрагивает процессы всей компании.",
+      "source": "https://en.wikipedia.org/wiki/Enterprise_resource_planning"
+    },
+    {
+      "id": "abap-lead-6",
+      "grade": "lead",
+      "skillId": "abap",
+      "prompt": "Как оценивать качество кастомного кода?",
+      "options": [
+        {
+          "id": "abap-lead-6-a",
+          "label": "ATC-проверки, покрытие тестами и анализ использования"
+        },
+        {
+          "id": "abap-lead-6-b",
+          "label": "По количеству программ"
+        },
+        {
+          "id": "abap-lead-6-c",
+          "label": "По дате создания"
+        }
+      ],
+      "correctOptionId": "abap-lead-6-a",
+      "explanation": "Неиспользуемый код увеличивает стоимость поддержки.",
+      "source": "https://help.sap.com/docs/ABAP_PLATFORM_NEW/ba879a6e2ea04d9bb94c7ccd7cdac446/62c41ad841554516bb06fb3620540e47.html"
+    }
+  ]
+}

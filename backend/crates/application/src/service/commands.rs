@@ -197,9 +197,9 @@ impl Commands {
                     "application_not_eligible",
                     "Заполните анкету, чтобы откликаться на вакансии",
                 ),
-                "assessment" => (
+                "category" => (
                     "application_not_eligible",
-                    "Подтвердите грейд тестом знаний, чтобы откликаться на вакансии",
+                    "Подключите GitHub или ФСП либо пройдите тест знаний, чтобы откликаться на вакансии",
                 ),
                 _ => (
                     "application_not_eligible",
@@ -328,7 +328,7 @@ impl Commands {
     }
 
     /// The mock's `startAssessment`, run inside `idempotent` by the caller:
-    /// consent, onboarding, backend-only scope, one active attempt,
+    /// consent, onboarding, supported scope, one active attempt,
     /// no same-scope downgrade and the grade-change cooldown, in this order.
     pub async fn start_assessment(
         &self,
@@ -354,11 +354,11 @@ impl Commands {
                 "Подтвердите почту и заполните анкету",
             ));
         }
-        if input.specialization != Specialization::Backend {
+        if !fsp_domain::knowledge_available(input.specialization, input.grade) {
             return Err(ApplicationError::new(
                 422,
                 "assessment_scope_unavailable",
-                "Тесты знаний доступны только для бэкенда",
+                "Для выбранной специализации и грейда тест пока недоступен",
             ));
         }
         let attempts = self
@@ -429,10 +429,18 @@ impl Commands {
                 .await
                 .map_err(ApplicationError::storage)?;
         }
-        let task = fsp_domain::knowledge_task(input.grade);
+        let assessment_id = format!("assessment-{}", Uuid::new_v4().simple());
+        let task = fsp_domain::knowledge_task(input.specialization, input.grade, &assessment_id)
+            .ok_or_else(|| {
+                ApplicationError::new(
+                    422,
+                    "assessment_scope_unavailable",
+                    "Для выбранной специализации и грейда тест пока недоступен",
+                )
+            })?;
         let timestamp = now();
         let record = fsp_domain::AssessmentRecord {
-            id: format!("assessment-{}", Uuid::new_v4().simple()),
+            id: assessment_id,
             candidate_id: candidate_id.to_string(),
             specialization: input.specialization,
             grade: input.grade,
@@ -476,7 +484,14 @@ impl Commands {
             .await?;
         let mut record = self.service.assessment_for(session, assessment_id).await?;
         mutable_assessment(&record)?;
-        if fsp_domain::score_knowledge(record.grade, &record.task, &record.answer).is_none() {
+        if fsp_domain::score_knowledge(
+            record.specialization,
+            record.grade,
+            &record.task,
+            &record.answer,
+        )
+        .is_none()
+        {
             return Err(ApplicationError::new(
                 422,
                 "answer_incomplete",
