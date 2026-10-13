@@ -6,6 +6,7 @@ import { profileKey } from '@/entities/profile';
 import { scopeOf } from '@/entities/session';
 import { graphKey, skillsKey } from '@/entities/skill';
 import { type Source, sourcesKey } from '@/entities/source';
+import { vacanciesKey } from '@/entities/vacancy';
 import { candidateSession } from '../../../test/fixtures';
 import { renderWithProviders } from '../../../test/render';
 import { API, server } from '../../../test/server';
@@ -64,7 +65,7 @@ describe('source synchronization', () => {
         http.get(`${API}/api/v1/jobs/job-sync`, () => HttpResponse.json(job)),
       );
       const scope = scopeOf(candidateSession);
-      const keys = [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope)];
+      const keys = [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope), vacanciesKey(scope)];
       const { queryClient } = await renderWithProviders(<Probe />, {
         session: candidateSession,
         prefill: (client) => {

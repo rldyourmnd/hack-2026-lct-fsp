@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-11",
+  "model": "grok-build/grok-4.7",
+  "gateway": "Bifrost -> CLIProxy",
+  "method": "Sequential synthetic requests to the live gateway; warm prompt cache; one sample per case/effort. Not p95 or a measured production SLA. No candidate data or response text retained.",
+  "validation": "Expected rubric state and exact evidence quotation for interview cases; bounded schema and backend specialization with middle/senior range for the advisory profile fixture.",
+  "qualification": "Profile high and medium returned different advisory grades (senior/middle). The result does not establish equal accuracy or qualification validity. Verified grades remain deterministic assessment results.",
+  "results": [
+    {
+      "case": "wrong",
+      "reasoning_effort": "default",
+      "duration_seconds": 4.4,
+      "valid": true,
+      "outcome": "contradicted",
+      "usage": {
+        "prompt_tokens": 1414,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 348,
+        "completion_tokens_details": {
+          "reasoning_tokens": 269
+        },
+        "total_tokens": 1762
+      }
+    },
+    {
+      "case": "wrong",
+      "reasoning_effort": "low",
+      "duration_seconds": 4.19,
+      "valid": true,
+      "outcome": "contradicted",
+      "usage": {
+        "prompt_tokens": 1414,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 315,
+        "completion_tokens_details": {
+          "reasoning_tokens": 221
+        },
+        "total_tokens": 1729
+      }
+    },
+    {
+      "case": "partial",
+      "reasoning_effort": "default",
+      "duration_seconds": 6.24,
+      "valid": true,
+      "outcome": "partial",
+      "usage": {
+        "prompt_tokens": 1415,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 458,
+        "completion_tokens_details": {
+          "reasoning_tokens": 378
+        },
+        "total_tokens": 1873
+      }
+    },
+    {
+      "case": "partial",
+      "reasoning_effort": "low",
+      "duration_seconds": 4.83,
+      "valid": true,
+      "outcome": "partial",
+      "usage": {
+        "prompt_tokens": 1415,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 304,
+        "completion_tokens_details": {
+          "reasoning_tokens": 209
+        },
+        "total_tokens": 1719
+      }
+    },
+    {
+      "case": "injection",
+      "reasoning_effort": "default",
+      "duration_seconds": 13.53,
+      "valid": true,
+      "outcome": "observed",
+      "usage": {
+        "prompt_tokens": 1409,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 743,
+        "completion_tokens_details": {
+          "reasoning_tokens": 672
+        },
+        "total_tokens": 2152
+      }
+    },
+    {
+      "case": "injection",
+      "reasoning_effort": "low",
+      "duration_seconds": 10.58,
+      "valid": true,
+      "outcome": "observed",
+      "usage": {
+        "prompt_tokens": 1409,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 513,
+        "completion_tokens_details": {
+          "reasoning_tokens": 443
+        },
+        "total_tokens": 1922
+      }
+    },
+    {
+      "case": "profile_review",
+      "reasoning_effort": "high",
+      "duration_seconds": 149.26,
+      "valid": true,
+      "outcome": "senior",
+      "usage": {
+        "prompt_tokens": 3123,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 11178,
+        "completion_tokens_details": {
+          "reasoning_tokens": 10628
+        },
+        "total_tokens": 14301
+      }
+    },
+    {
+      "case": "profile_review",
+      "reasoning_effort": "medium",
+      "duration_seconds": 49.93,
+      "valid": true,
+      "outcome": "middle",
+      "usage": {
+        "prompt_tokens": 3123,
+        "prompt_tokens_details": {
+          "cached_read_tokens": 1152,
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0
+        },
+        "completion_tokens": 3246,
+        "completion_tokens_details": {
+          "reasoning_tokens": 2788
+        },
+        "total_tokens": 6369
+      }
+    }
+  ]
+}

@@ -29,6 +29,10 @@ struct Envelope<'a> {
 }
 
 impl ApiError {
+    pub(crate) fn code(&self) -> &'static str {
+        self.code
+    }
+
     pub fn new(status: StatusCode, code: &'static str, message: impl Into<String>) -> Self {
         Self {
             status,

@@ -6,6 +6,22 @@ The October 8 migration was explicitly authorized after canonical repository bil
 repository-level runner registration was denied to the collaborator. Historical failed Actions runs remain
 visible; they are superseded by the new `fsp/*` policy, never rewritten as successes.
 
+**Recovery mode:** an external operation deleted `gha-runner-1` on October 11, 2026 at 08:16 UTC;
+`server-gha-runner-2` was retired earlier. Their private receipts and dedicated token are unavailable. Do not use
+those retired hosts. [#161](https://github.com/KirpaDmitriy/sport-programming-federation/issues/161) tracks recovery.
+
+The existing Amsterdam workspace host now has a separately installed FSP CI user and the reviewed gate scripts.
+An operator-assisted one-off bridge uses the owner's existing GitHub CLI session for API operations and canonical
+fetches, then calls the installed controller's gate, lane-merge and deployment functions. It preserves four gate
+statuses, exact-tree evidence, the controller lock, independent security checks and actual public/mail acceptance.
+The bridge does not copy the GitHub token or inject credentials into test jobs. The cold recovery run used the normal
+15 GiB admission guard. After host failures, a bounded operator retry reuses its completed caches only when
+the build dependency graphs and container build definitions are unchanged and at least 5 GiB remains; it repeats every gate. The subsequent integration includes the canonical Silero source change, using those same Rust/TypeScript caches; its Python parser/encoder checks also run in release safety. This is private
+recovery tooling, not a change to the unattended controller's 15 GiB policy. The timer remains disabled until
+unattended authentication is configured. Ubuntu SSH troubleshooting was stopped at the owner's request; do not
+claim that runner or a new dedicated PAT has been restored. Private logs/evidence and accepted-release receipts
+use `/var/lib/fsp-ci` on Amsterdam. A release is accepted only when its actual receipt and commit status agree.
+
 ## Gates and trust
 
 `gate.sh` preserves platform types/lint/contracts/components/build/browser acceptance, Rust fmt/clippy/tests
@@ -21,6 +37,8 @@ this is a trusted-maintainer runner, not an isolation boundary for hostile code.
 or put another repository's credentials in the project directory. Project containers/volumes use the `fsp-ci` prefix;
 cleanup never prunes the shared host. The controller is installed separately and is not automatically updated by a PR.
 Host CPU/memory limits, serial jobs and two Cargo build jobs leave capacity for existing runner slots.
+Compose checks let Docker allocate loopback ports for the web/API, interview and PostgreSQL services, avoiding
+collisions with other workloads. Origin checks use a fixed configured test origin independently of those ports.
 New cycles refuse to build below 15 GiB free. Logs are retained for 14 days; compact evidence is retained for reuse.
 
 Feature PRs require the maintainer to merge. The controller opens and merges personal -> dev -> main integration
@@ -35,6 +53,9 @@ permission in this account, so collaborators must use this documented merge gate
 Run reviewed `install-host.sh` as root on the authorized Ubuntu server. It installs dependencies and a separate
 FSP user's Rust 1.99.0, Node 26.11.1 and checksum-verified Compose 5.6.0; Bun 1.4.2 must already exist. It installs the
 executable-specific AppArmor profile, never changes global namespace restrictions, and does not modify other slots.
+If Ubuntu already provides `/etc/apparmor.d/bwrap`, reuse it and remove only the redundant FSP attachment;
+otherwise install the FSP profile. Two profiles for `/usr/bin/bwrap` prevent attachment and break extraction.
+Installation probes namespace creation as an unprivileged user; backend CI additionally extracts an actual PDF.
 Configure mode-600 files in mode-700 `/etc/fsp-ci`:
 
 - `github-token`: GitHub token able to read this private repository, write commit statuses and merge PRs.
@@ -46,8 +67,10 @@ Configure mode-600 files in mode-700 `/etc/fsp-ci`:
 ### Dedicated GitHub credential
 
 On October 11, 2026, [#139](https://github.com/KirpaDmitriy/sport-programming-federation/issues/139) replaced the CI
-copy of the shared credential with a separate classic PAT for `rldyourmnd`, with only `repo` scope. The current
-credential expires **November 10, 2026 at 06:31:54 UTC**; renew it before that time using the procedure below.
+copy of the shared credential with a separate classic PAT for `rldyourmnd`, with only `repo` scope. That
+credential expires **November 10, 2026 at 06:31:54 UTC**, but its only active secret copy was on the subsequently
+deleted CI host. Recovery must establish whether an authorized migration preserved it; otherwise replace the
+dedicated token and revoke its orphaned predecessor. Do not confuse its future expiry with available access.
 The original shared credential remains unchanged in its owner-managed tooling. Installation validation and
 subsequent CI/release receipts are recorded in the issue.
 
@@ -66,10 +89,10 @@ python3 infra/ci/install_token.py < .fsp-infra/ci-github-token
 Install from the accepted `main` checkout on the authorized CI host (the input redirection is local):
 
 ```sh
-ssh server-gha-runner-1 'python3 /var/lib/fsp-ci/deploy/infra/ci/install_token.py --install' < .fsp-infra/ci-github-token
+ssh "$FSP_CI_HOST" 'python3 /var/lib/fsp-ci/deploy/infra/ci/install_token.py --install' < .fsp-infra/ci-github-token
 ```
 
-The installer checks the canonical repository, push access, an admitted maintainer, exactly `repo` scope and a
+Set `FSP_CI_HOST` to the explicitly authorized replacement host after #161 is resolved. The installer checks the canonical repository, push access, an admitted maintainer, exactly `repo` scope and a
 future expiration through bounded GitHub requests. Redirects are rejected. It holds the same file lock as the
 controller, so a running or newly starting cycle cannot race the change. A busy controller or failed validation
 leaves the active token untouched; retry after the cycle finishes. The replacement is atomic and root-only, with
@@ -97,6 +120,13 @@ the actual HTTPS browser journey; failure produces a failed deployment status, n
 availability or delivery failures leave checks failed. The controller never resets the production database.
 
 ## Operation and recovery
+
+For a lost host, rebuild the reviewed controller from canonical source on the authorized destination. Restore
+the FSP-only private configuration from available owner-managed credentials, or issue replacements where the
+only copy was lost. Verify pinned stand SSH identity, file permissions, toolchains, free disk and resource limits
+before enabling the timer. Run all four gates and actual public acceptance to generate new evidence and
+`deployed.json`; historical GitHub statuses are evidence of past runs, not substitutes for these checks.
+Do not create backups, snapshots, redundant mirrors or a paid replacement without the owner's instruction.
 
 Inspect `journalctl -u fsp-ci.service` and private `/var/lib/fsp-ci/logs/<sha>/*.log`; evidence lives in
 `/var/lib/fsp-ci/evidence/`. A failed revision is retried by removing only its matching evidence JSON and requesting a

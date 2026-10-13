@@ -14,7 +14,14 @@ ARCHIVE="$TEMP_DIR/release.tar.gz"
 REMOTE_ARCHIVE="/tmp/fsp-$SHA-${ARCHIVE##*/}"
 trap 'rm -f "$ARCHIVE"; rmdir "$TEMP_DIR"' EXIT
 
-git archive --format=tar.gz -o "$ARCHIVE" "$SHA" frontend mock-server backend infra
+paths=(frontend mock-server backend infra)
+# Historical releases may predate these optional runtime sources.
+for path in contracts/openapi.json voice-runtime; do
+  if git cat-file -e "$SHA:$path" 2>/dev/null; then
+    paths+=("$path")
+  fi
+done
+git archive --format=tar.gz -o "$ARCHIVE" "$SHA" "${paths[@]}"
 scp -q -F "$SSH_CONFIG" "$ARCHIVE" "$DEPLOY_HOST:$REMOTE_ARCHIVE"
 ssh -F "$SSH_CONFIG" "$DEPLOY_HOST" bash -s -- "$SHA" "$REMOTE_ARCHIVE" <<'REMOTE'
 set -euo pipefail

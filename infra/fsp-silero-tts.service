@@ -1,0 +1,35 @@
+[Unit]
+Description=Silero v5.5 Russian CPU speech synthesis
+After=network.target
+Before=fsp-api.service
+
+[Service]
+Type=simple
+User=fsp
+Group=fsp
+Environment=SILERO_HOST=127.0.0.1
+Environment=SILERO_PORT=4050
+Environment=SILERO_MODEL_PATH=/opt/fsp/models/v5_5_ru.pt
+Environment=SILERO_MODEL_VERSION=v5_5_ru
+Environment=SILERO_CPU_THREADS=4
+Environment=SILERO_CACHE_DIR=/var/cache/fsp-silero-tts
+Environment=SILERO_CACHE_MAX_BYTES=268435456
+EnvironmentFile=-/etc/fsp/speech.env
+ExecStart=/opt/fsp/voice-venv/bin/python /opt/fsp/current/voice-runtime/server.py
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+CacheDirectory=fsp-silero-tts
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+MemoryMax=2G
+
+[Install]
+WantedBy=multi-user.target

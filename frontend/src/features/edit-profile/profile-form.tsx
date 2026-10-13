@@ -12,6 +12,7 @@ import {
   updateProfile,
 } from '@/entities/profile';
 import { useScope } from '@/entities/session';
+import { vacanciesKey } from '@/entities/vacancy';
 import { describeError, fieldErrors } from '@/shared/api';
 import { gradeLabel, gradeOrder, industryLabel, skillOptions, specializationOptions } from '@/shared/lib';
 import {
@@ -62,6 +63,7 @@ export function ProfileForm({ profile, submitLabel, onSaved }: Props) {
       }),
     onSuccess: (updated) => {
       queryClient.setQueryData(profileKey(scope), updated);
+      void queryClient.invalidateQueries({ queryKey: vacanciesKey(scope) });
       form.reset(valuesFrom(updated));
       setServerErrors({});
       toast('Профиль сохранён');

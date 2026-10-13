@@ -283,15 +283,15 @@ A candidate is `missing_required` («Не хватает свидетельст�
 `not_evidenced`, `meets_required` («Подходят по обязательным требованиям») when every required item meets and the
 grade fits (same category specialization, grade at least the need's), otherwise `needs_verification` («Требуют
 дополнительной проверки»). Desired items never compensate for a missing required one. The result carries counts, the
-per-requirement reasons, a sentence of explanation and `algorithmVersion: fixture-rules-v1`.
+per-requirement reasons, a sentence of explanation and `algorithmVersion: deterministic-rules-v2`.
 
 ### Order
 
 The server sorts; the UI groups by match status and says that the order is set by the server and is not a
 probability of being hired.
 
-- With a need: grade fit, required items met, desired items met, category strength, verified FSP participation,
-  candidate ID.
+- With a need: grade fit, required items met, desired items met, required/desired items with accepted evidence,
+  category strength, verified FSP participation, candidate ID.
 - Without a need: category specialization (catalog order), category grade (higher first), category strength,
   verified FSP participation, candidate ID.
 
@@ -307,7 +307,8 @@ there is one, for an estimated category the score and factor points (`estimate`,
 summary, evidence count, confirmation date — no evidence items), source kinds, verified FSP flag, profile freshness
 (section 11), the match and the anonymous GitHub signal (`github`: index, public summary, areas of work, dimensions
 with rounded metrics, ownership state, languages, technologies, rhythm bands, highlights and warnings — no login,
-names, links, calendar or exact counts). It
+names, links, calendar or exact counts), aggregate FSP achievements and a typed AI second opinion (see matching
+evidence below). It
 never contains a name, e-mail, handles, repository names, links or evidence titles. A profile that is not visible
 answers `404`, except to a company the candidate applied to (section 10) until the application is withdrawn.
 
@@ -351,7 +352,7 @@ applies, and the company decides.
   employer e-mail (`403 email_not_verified`) and a valid need; it sets `published: true` and `publishedAt`. Repeating
   it keeps the original time. `POST /needs/{id}/unpublish` hides the vacancy again (`publishedAt: null`). Edits to a
   published need are visible to candidates at once.
-- **Browse** (candidate): `GET /vacancies` lists published needs of every company, newest first, filtered by
+- **Browse** (candidate): `GET /vacancies` lists published needs of every company, ordered by server-computed fit when the candidate has a category and processing consent, then newest publication and stable id, filtered by
   specialization, grade, work mode and required skill, paged like the bank. A vacancy shows the company (name,
   business area, description, contact e-mail), title, specialization, grade, work mode, salary, description and the
   requirements without the evidence policy. An unpublished or unknown vacancy answers `404`.
@@ -468,3 +469,25 @@ The browser supports text and optional speech recognition with editable transcri
 remotely; only submitted text and declared response mode reach the application. Voice/text signal strength is
 a format indicator, not verified speech, identity or professional competence, and does not change matching or grades.
 There is no camera or audio archive. See [interview service](../interview-service.md) for configuration and tests.
+
+
+### Matching evidence and anonymous context (rules v2)
+
+The domain requirement evaluator is shared by match totals and explanations. Only an accepted assessment with
+an explicit sufficient grade confirms a skill. GitHub observations and FSP participation cannot borrow an assessment
+grade when its source is excluded. `requiredEvidenced` / `desiredEvidenced` count requirements with policy-accepted
+sources, including observations; they do not mean confirmed proficiency. Generic FSP skill data without competition
+provenance does not satisfy a selected-competition policy.
+
+Candidate ranking compares category fit, confirmed required/desired counts, accepted evidence coverage, category
+confidence, FSP participation, then id. Vacancy ranking compares the same fit components as coverage fractions
+because vacancies can have different requirement counts; ties use publication time and id. Both audiences receive
+the same per-requirement source, level and policy explanation. Existing invitations/applications keep their frozen
+vacancy definitions. Source/profile/test changes invalidate candidate vacancy caches; need edits invalidate employer
+candidate matches. Active matching pages refresh every 30 seconds and pause polling in background tabs.
+
+An employer's FSP card contains published-result and podium counts, relevance to the selected need's skills and
+competition policy, source verification and synchronization time. It has no account, team, exact placement or protocol
+link. Unknown competition-to-skill mappings are not inferred. The AI context exposes only validated specialization,
+grade, agreement with the rule estimate and timestamp; free-form private recommendations remain with the candidate.
+Raw source identities and links still require the existing explicit disclosure mechanism.

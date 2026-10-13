@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { type Profile, profileKey, updateProfile, yearsInIt } from '@/entities/profile';
 import { useScope } from '@/entities/session';
+import { vacanciesKey } from '@/entities/vacancy';
 import { describeError } from '@/shared/api';
 import { Button, Callout, TextField, useToast } from '@/shared/ui';
 import styles from './refine-form.module.css';
@@ -39,6 +40,7 @@ export function RefineEstimateForm({ profile }: { profile: Profile }) {
       }),
     onSuccess: (updated) => {
       queryClient.setQueryData(profileKey(scope), updated);
+      void queryClient.invalidateQueries({ queryKey: vacanciesKey(scope) });
       setEdited(false);
       toast('Оценка пересчитана');
     },

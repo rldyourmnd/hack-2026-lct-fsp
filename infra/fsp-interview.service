@@ -15,6 +15,8 @@ EnvironmentFile=-/etc/fsp/llm.env
 ExecStart=/opt/fsp/current/bin/fsp-interview-service
 Restart=on-failure
 RestartSec=2
+# Let the 45-second model turn finish before the supervisor can force termination.
+TimeoutStopSec=60s
 NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=yes

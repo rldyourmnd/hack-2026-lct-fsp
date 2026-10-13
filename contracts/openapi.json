@@ -4861,6 +4861,176 @@
         }
       }
     },
+    "/api/v1/me/interviews/{interviewId}/transcription": {
+      "post": {
+        "operationId": "transcribeInterviewSpeech",
+        "summary": "transcribeInterviewSpeech",
+        "tags": [
+          "Candidate"
+        ],
+        "description": "Contract operation; implemented by the reference mock and by the Rust backend (coverage in docs/backend-implementation-checklist.md).",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpeechTranscript"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed request or schema validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or expired mock session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role, consent, or origin restriction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown resource or resource outside this actor/company",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State, idempotency, or cooldown conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request body exceeds limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported media type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Valid shape but invalid domain values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Verification, email delivery, or proxy request limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Response conformance or unexpected server failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Verification provider failed to accept delivery",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Deterministic upstream error scenario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "interviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterviewTranscriptionInput"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/jobs/{jobId}": {
       "get": {
         "operationId": "getJob",
@@ -23013,6 +23183,57 @@
               "insufficient"
             ]
           },
+          "minimumGrade": {
+            "type": "string",
+            "enum": [
+              "intern",
+              "junior",
+              "middle",
+              "senior",
+              "lead"
+            ]
+          },
+          "evidenceGrade": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "intern",
+                  "junior",
+                  "middle",
+                  "senior",
+                  "lead"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidenceSources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "github",
+                "fsp",
+                "assessment"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "acceptedSources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "github",
+                "fsp",
+                "assessment"
+              ]
+            },
+            "uniqueItems": true
+          },
           "reason": {
             "type": "string"
           }
@@ -23022,6 +23243,10 @@
           "criticality",
           "status",
           "evidenceStatus",
+          "minimumGrade",
+          "evidenceGrade",
+          "evidenceSources",
+          "acceptedSources",
           "reason"
         ],
         "additionalProperties": false
@@ -23062,6 +23287,14 @@
             "type": "integer",
             "minimum": 0
           },
+          "requiredEvidenced": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "desiredEvidenced": {
+            "type": "integer",
+            "minimum": 0
+          },
           "requirements": {
             "type": "array",
             "items": {
@@ -23084,9 +23317,113 @@
           "requiredTotal",
           "desiredMet",
           "desiredTotal",
+          "requiredEvidenced",
+          "desiredEvidenced",
           "requirements",
           "explanation",
           "algorithmVersion"
+        ],
+        "additionalProperties": false
+      },
+      "EmployerFsp": {
+        "type": "object",
+        "properties": {
+          "verifiedParticipation": {
+            "type": "boolean"
+          },
+          "publishedResults": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "podiumResults": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "relevantResults": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "lastSyncedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "synthetic": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "verifiedParticipation",
+          "publishedResults",
+          "podiumResults",
+          "relevantResults",
+          "lastSyncedAt",
+          "synthetic"
+        ],
+        "additionalProperties": false
+      },
+      "EmployerReview": {
+        "type": "object",
+        "properties": {
+          "specialization": {
+            "type": "string",
+            "enum": [
+              "backend",
+              "frontend",
+              "fullstack",
+              "ios",
+              "android",
+              "mobile_crossplatform",
+              "devops",
+              "data_engineering",
+              "data_science",
+              "ml_engineering",
+              "qa_manual",
+              "qa_automation",
+              "security",
+              "embedded",
+              "systems",
+              "gamedev",
+              "onec",
+              "erp",
+              "system_analysis",
+              "business_analysis",
+              "data_analytics",
+              "dba",
+              "sysadmin",
+              "design",
+              "management"
+            ]
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "intern",
+              "junior",
+              "middle",
+              "senior",
+              "lead"
+            ]
+          },
+          "agrees": {
+            "type": "boolean"
+          },
+          "computedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "specialization",
+          "grade",
+          "agrees",
+          "computedAt"
         ],
         "additionalProperties": false
       },
@@ -23260,6 +23597,26 @@
               }
             ]
           },
+          "fsp": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EmployerFsp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EmployerReview"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "simulation": {
             "type": "boolean"
           }
@@ -23282,6 +23639,8 @@
           "freshness",
           "match",
           "github",
+          "fsp",
+          "review",
           "simulation"
         ],
         "additionalProperties": false
@@ -27162,6 +27521,58 @@
           "mimeType",
           "provider",
           "voice"
+        ],
+        "additionalProperties": false
+      },
+      "InterviewTranscriptionInput": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[A-Za-z0-9_.:-]+$"
+          },
+          "audioBase64": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000000
+          },
+          "mimeType": {
+            "type": "string",
+            "enum": [
+              "audio/webm",
+              "audio/mp4",
+              "audio/ogg"
+            ]
+          }
+        },
+        "required": [
+          "questionId",
+          "audioBase64",
+          "mimeType"
+        ],
+        "additionalProperties": false
+      },
+      "SpeechTranscript": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "provider": {
+            "type": "string"
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "text",
+          "provider",
+          "durationSeconds"
         ],
         "additionalProperties": false
       },

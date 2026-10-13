@@ -1,0 +1,25 @@
+{
+  "id": "silero-v5-5-cpu-tts",
+  "algorithmVersion": "silero-v5_5_ru-torch-2.5.1-cpu",
+  "change": "synthesize Russian interview questions with the checksum-pinned Silero v5.5 model on the local CPU worker",
+  "expectedEffect": "a Russian control phrase produces a non-empty mono PCM16 WAV at 24 kHz without a cloud speech API",
+  "failureCondition": "the worker requires a GPU or network after installation, rejects the control phrase, or returns an invalid or empty WAV",
+  "verification": {
+    "command": "python3 voice-runtime/test_server.py && infra/tests/silero-runtime.sh",
+    "artifact": "backend/experiments/silero-v5-5-cpu-tts.json"
+  },
+  "observed": {
+    "status": "passed",
+    "modelSha256": "50081637b602126ee06cb3bc8a744d25651d2da149ee8864b9a379bfdd934437",
+    "tests": [
+      "request_boundaries",
+      "wav_is_mono_pcm16",
+      "server_cpu_control_phrase"
+    ],
+    "offlineCpuPath": true
+  },
+  "measurementClaims": {
+    "naturalness": "not_established_without_listener_evaluation",
+    "latency": "not_established_until_production_runtime_smoke"
+  }
+}

@@ -5,6 +5,7 @@
     "": {
       "name": "@fsp/frontend",
       "dependencies": {
+        "@openobserve/browser-rum": "0.4.3",
         "@tanstack/react-form": "1.33.5",
         "@tanstack/react-query": "5.104.1",
         "@tanstack/react-router": "1.170.41",
@@ -134,6 +135,14 @@
     "@mswjs/interceptors": ["@mswjs/interceptors@0.45.7", "", { "dependencies": { "@open-draft/until": "^3.0.1", "@types/debug": "^4.1.13", "debug": "^4.4.3", "is-node-process": "^1.2.0", "outvariant": "^1.4.3", "rettime": "^0.11.12" } }, "sha512-PPZQBiojRuy1jJQoUqbrJhoac47GC1GwRazDrYwwbE70zfqMkOY/5a+Du4hp3vlPUXLt/um4TMcmRabmooAkxw=="],
 
     "@open-draft/until": ["@open-draft/until@3.0.1", "", {}, "sha512-s7/9ELP4aP9YZtW7RJaa0Xf3RISaRH9+EFN18FtykJYRHGNrl8f9ymvoNXzjhrjmftFvkQudtuDU9RYhk0xs3A=="],
+
+    "@openobserve/browser-core": ["@openobserve/browser-core@0.4.3", "", { "dependencies": { "@openobserve/js-core": "0.4.3" } }, "sha512-kfe+SWEs9YlhpmdTBAgNyMOurvUlLkghIlUwUhkWaJ+xqTAEcS862tN7awm+QnTsAVzA5QObpfjVfb7j5UdB0w=="],
+
+    "@openobserve/browser-rum": ["@openobserve/browser-rum@0.4.3", "", { "dependencies": { "@openobserve/browser-core": "0.4.3", "@openobserve/browser-rum-core": "0.4.3", "@openobserve/js-core": "0.4.3" }, "peerDependencies": { "@openobserve/browser-logs": "0.4.3" }, "optionalPeers": ["@openobserve/browser-logs"] }, "sha512-aRhI0SWJ0VFLduHaRQG0WSjOpXfxm2QatIx20MlRgefykds+s1jhMr0jbNyHmhSofiNgoml/DZ0nep8e6l8Ntw=="],
+
+    "@openobserve/browser-rum-core": ["@openobserve/browser-rum-core@0.4.3", "", { "dependencies": { "@openobserve/browser-core": "0.4.3", "@openobserve/js-core": "0.4.3" } }, "sha512-nLeG/1VWZrqWNw3DVTg1TnH8Q/8R8rWaK5jghzl8/H9q+l+k0eH99DUoDNRWqEj6vkkrbnuQsobn+VWWzyNEwg=="],
+
+    "@openobserve/js-core": ["@openobserve/js-core@0.4.3", "", {}, "sha512-TLxcxYzbkmyM+2YCiS6KvAP769HZxBRwhsvTvHD9EqLLgq0wEkQ7sc9ZS55JXM5sZGK/84EAy8CPz/EfMpIdCw=="],
 
     "@oxc-project/types": ["@oxc-project/types@0.152.0", "", {}, "sha512-oM/5rLBm2tPkg0iBgkH/FOeR3PCDpY19GTgAZjMFM8h9WI9VW7cLgzp6nwtarYKmovavIQZ+Fe/RKX/8C8O/Rw=="],
 

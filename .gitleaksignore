@@ -1,0 +1,6 @@
+# Synthetic Idempotency-Key test values and the documented loopback CI interview demo token, not provider credentials.
+# Fingerprints suppress only these reviewed historical findings; future findings remain enabled.
+676bf0d5e14887a0c7581dadf78d6f8c7f4b7df2:mock-server/test/mock-api.test.ts:generic-api-key:826
+676bf0d5e14887a0c7581dadf78d6f8c7f4b7df2:mock-server/test/mock-api.test.ts:generic-api-key:836
+c983274945222d69354272b5996a57c31b71da78:infra/ci/gate.sh:curl-auth-header:55
+c983274945222d69354272b5996a57c31b71da78:infra/ci/gate.sh:curl-auth-header:60

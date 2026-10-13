@@ -1,0 +1,30 @@
+[Unit]
+Description=GigaAM v3 Russian CPU speech recognition
+After=network.target
+Before=fsp-api.service
+
+[Service]
+Type=simple
+User=fsp
+Group=fsp
+Environment=GIGAAM_HOST=127.0.0.1
+Environment=GIGAAM_PORT=4060
+Environment=GIGAAM_MODEL_DIR=/opt/fsp/models/gigaam
+Environment=GIGAAM_CPU_THREADS=4
+ExecStart=/opt/fsp/voice-venv/bin/python /opt/fsp/current/voice-runtime/stt_server.py
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+MemoryMax=3G
+
+[Install]
+WantedBy=multi-user.target

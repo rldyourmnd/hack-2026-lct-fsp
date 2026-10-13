@@ -28,6 +28,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use tower_http::catch_panic::CatchPanicLayer;
 use tower_http::services::{ServeDir, ServeFile};
+use tracing::Instrument;
 use uuid::Uuid;
 
 pub use error::{ApiError, Detail};
@@ -235,6 +236,10 @@ pub fn router(config: HttpConfig, service: Arc<PlatformService>) -> Router {
         .route(
             "/api/v1/me/interviews/{interview_id}/speech",
             post(synthesize_interview_speech),
+        )
+        .route(
+            "/api/v1/me/interviews/{interview_id}/transcription",
+            post(transcribe_interview_speech),
         )
         .route(
             "/api/v1/me/assessments/{assessment_id}/answer",
@@ -1379,6 +1384,22 @@ async fn synthesize_interview_speech(
         .map_err(api_error)
 }
 
+async fn transcribe_interview_speech(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    ContractPath(interview_id): ContractPath<String>,
+    ContractJson(input): ContractJson<fsp_application::InterviewTranscriptionInput>,
+) -> Result<Json<fsp_application::SpeechTranscriptView>, ApiError> {
+    let session = authenticated(&state, &headers).await?;
+    require_role(&session, "candidate")?;
+    state
+        .service
+        .transcribe_interview_answer(&session, &interview_id, input)
+        .await
+        .map(Json)
+        .map_err(api_error)
+}
+
 async fn start_assessment(
     State(state): State<AppState>,
     headers: HeaderMap,
@@ -1979,11 +2000,14 @@ async fn query_guard(request: Request, next: Next) -> Response {
 }
 
 async fn authenticated(state: &AppState, headers: &HeaderMap) -> Result<SessionView, ApiError> {
-    state
+    let session = state
         .service
         .session(session_token(headers)?)
         .await
-        .map_err(api_error)
+        .map_err(api_error)?;
+    tracing::Span::current().record("actor_id", &session.actor_id);
+    tracing::Span::current().record("role", format_args!("{:?}", session.role));
+    Ok(session)
 }
 
 fn session_token(headers: &HeaderMap) -> Result<&str, ApiError> {
@@ -2016,29 +2040,90 @@ fn api_error(error: ApplicationError) -> ApiError {
 
 async fn transport(State(state): State<AppState>, request: Request, next: Next) -> Response {
     let request_id = Uuid::new_v4().to_string();
-    let foreign = request.headers().get(ORIGIN).is_some_and(|origin| {
-        !state
-            .config
-            .allowed_origins
-            .iter()
-            .any(|allowed| origin.as_bytes() == allowed.as_bytes())
-    });
-    let mut response = if foreign {
-        ApiError::forbidden("origin_not_allowed", "Этот источник запроса не разрешён")
-            .into_response()
-    } else {
-        next.run(request).await
+    let route = request
+        .extensions()
+        .get::<axum::extract::MatchedPath>()
+        .map_or("unmatched", |path| path.as_str())
+        .to_owned();
+    let method = match request.method().as_str() {
+        "GET" => "GET",
+        "POST" => "POST",
+        "PATCH" => "PATCH",
+        "PUT" => "PUT",
+        "DELETE" => "DELETE",
+        "HEAD" => "HEAD",
+        "OPTIONS" => "OPTIONS",
+        _ => "OTHER",
     };
-    if let Some(error) = response.extensions_mut().remove::<ApiError>() {
-        response = error.render(&request_id);
+    let trace_id = request
+        .headers()
+        .get("traceparent")
+        .and_then(|value| value.to_str().ok())
+        .and_then(valid_trace_id)
+        .unwrap_or("")
+        .to_owned();
+    let span = tracing::info_span!("http_request", %request_id, %route, method, %trace_id,
+        actor_id = tracing::field::Empty, role = tracing::field::Empty);
+    async move {
+        let started = std::time::Instant::now();
+        let foreign = request.headers().get(ORIGIN).is_some_and(|origin| {
+            !state
+                .config
+                .allowed_origins
+                .iter()
+                .any(|allowed| origin.as_bytes() == allowed.as_bytes())
+        });
+        let mut response = if foreign {
+            ApiError::forbidden("origin_not_allowed", "Этот источник запроса не разрешён")
+                .into_response()
+        } else {
+            next.run(request).await
+        };
+        let mut code = "ok";
+        if let Some(error) = response.extensions_mut().remove::<ApiError>() {
+            code = error.code();
+            response = error.render(&request_id);
+        }
+        let event = if matches!(method, "GET" | "HEAD" | "OPTIONS") {
+            "http_request"
+        } else {
+            "audit_command"
+        };
+        tracing::info!(
+            event,
+            status = response.status().as_u16(),
+            duration_ms = started.elapsed().as_millis() as u64,
+            code
+        );
+        let headers = response.headers_mut();
+        if let Ok(value) = HeaderValue::from_str(&request_id) {
+            headers.insert(REQUEST_ID, value);
+        }
+        headers.insert(CACHE_CONTROL, HeaderValue::from_static("no-store"));
+        headers.insert(X_CONTENT_TYPE_OPTIONS, HeaderValue::from_static("nosniff"));
+        response
     }
-    let headers = response.headers_mut();
-    if let Ok(value) = HeaderValue::from_str(&request_id) {
-        headers.insert(REQUEST_ID, value);
+    .instrument(span)
+    .await
+}
+
+fn valid_trace_id(value: &str) -> Option<&str> {
+    let parts = value.split('-').collect::<Vec<_>>();
+    if parts.len() != 4
+        || parts[0] != "00"
+        || parts[1].len() != 32
+        || parts[2].len() != 16
+        || parts[3].len() != 2
+        || !parts.iter().all(|part| {
+            part.bytes()
+                .all(|byte| byte.is_ascii_hexdigit() && !byte.is_ascii_uppercase())
+        })
+        || parts[1].bytes().all(|byte| byte == b'0')
+        || parts[2].bytes().all(|byte| byte == b'0')
+    {
+        return None;
     }
-    headers.insert(CACHE_CONTROL, HeaderValue::from_static("no-store"));
-    headers.insert(X_CONTENT_TYPE_OPTIONS, HeaderValue::from_static("nosniff"));
-    response
+    Some(parts[1])
 }
 
 #[cfg(test)]
@@ -2514,6 +2599,79 @@ mod tests {
 
     fn app() -> Router {
         app_with_static(None)
+    }
+
+    #[tokio::test]
+    async fn audit_uses_route_templates_and_never_request_content() {
+        use std::io::Write;
+        use std::sync::Mutex;
+        use tower::ServiceExt;
+        #[derive(Clone)]
+        struct Writer(Arc<Mutex<Vec<u8>>>);
+        impl Write for Writer {
+            fn write(&mut self, bytes: &[u8]) -> std::io::Result<usize> {
+                self.0.lock().unwrap().extend_from_slice(bytes);
+                Ok(bytes.len())
+            }
+            fn flush(&mut self) -> std::io::Result<()> {
+                Ok(())
+            }
+        }
+        let output = Writer(Arc::new(Mutex::new(Vec::new())));
+        let capture = output.clone();
+        let subscriber = tracing_subscriber::fmt()
+            .json()
+            .with_span_list(false)
+            .with_writer(move || capture.clone())
+            .finish();
+        tracing::subscriber::set_global_default(subscriber).unwrap();
+        let response = app()
+            .oneshot(
+                Request::builder()
+                    .method("PATCH")
+                    .uri("/api/v1/needs/private-canary-901?token=private-canary-query")
+                    .header("content-type", "application/json")
+                    .header("cookie", "fsp_session=private-canary-cookie")
+                    .header("traceparent", "private-canary-header")
+                    .body(Body::from(r#"{"title":"private-canary-body"}"#))
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+        assert!(response.status().is_client_error());
+        let wire = String::from_utf8(output.0.lock().unwrap().clone()).unwrap();
+        assert!(!wire.contains("private-canary"), "{wire}");
+        let request_id = response
+            .headers()
+            .get(REQUEST_ID)
+            .unwrap()
+            .to_str()
+            .unwrap();
+        let entry = wire
+            .lines()
+            .filter_map(|line| serde_json::from_str::<Value>(line).ok())
+            .find(|entry| entry["span"]["request_id"] == request_id)
+            .unwrap();
+        assert_eq!(entry["fields"]["event"], "audit_command");
+        assert_eq!(entry["span"]["route"], "/api/v1/needs/{need_id}");
+        assert!(entry["span"]["request_id"].as_str().is_some());
+        assert_eq!(entry["span"]["trace_id"], "");
+    }
+
+    #[test]
+    fn trace_context_accepts_only_nonzero_w3c_identifiers() {
+        assert_eq!(
+            valid_trace_id("00-12345678901234567890123456789012-1234567890123456-01"),
+            Some("12345678901234567890123456789012")
+        );
+        for invalid in [
+            "canary",
+            "00-00000000000000000000000000000000-1234567890123456-01",
+            "00-12345678901234567890123456789012-0000000000000000-01",
+            "00-12345678901234567890123456789012-1234567890123456-01-extra",
+        ] {
+            assert_eq!(valid_trace_id(invalid), None);
+        }
     }
 
     #[tokio::test(start_paused = true)]

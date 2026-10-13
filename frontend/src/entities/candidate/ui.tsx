@@ -1,4 +1,5 @@
 import type { components } from '@/shared/api';
+import { evidenceSourceLabel, gradeLabel } from '@/shared/lib';
 import type { IconName } from '@/shared/ui';
 import { StatusChip, type Tone } from '@/shared/ui';
 
@@ -37,4 +38,22 @@ const shapes = ['■', '▲', '◆', '●'];
 export function aliasShape(alias: string) {
   const digits = Number(alias.replace(/\D/g, '')) || 0;
   return shapes[digits % shapes.length];
+}
+
+/** Shared explanation from the server; neither audience recomputes evidence or rank. */
+export function RequirementEvidence({ requirement }: { requirement: components['schemas']['MatchRequirement'] }) {
+  return (
+    <div className="stack small">
+      <p>{requirement.reason}</p>
+      <p className="muted">
+        Требуется: от {gradeLabel[requirement.minimumGrade]}. Подтверждённый уровень:{' '}
+        {requirement.evidenceGrade ? gradeLabel[requirement.evidenceGrade] : 'ещё не определён'}.
+      </p>
+      <p className="muted">
+        Источники: {requirement.evidenceSources.map((source) => evidenceSourceLabel[source]).join(', ') || 'пока нет'}.{' '}
+        Принимаются для этой вакансии:{' '}
+        {requirement.acceptedSources.map((source) => evidenceSourceLabel[source]).join(', ') || 'нет среди имеющихся'}.
+      </p>
+    </div>
+  );
 }

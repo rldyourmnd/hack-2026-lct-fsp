@@ -1,0 +1,95 @@
+data_dir: /var/lib/fsp-vector
+secret:
+  ingestion:
+    type: file
+    path: /etc/fsp/vector-secrets.json
+sources:
+  host:
+    type: host_metrics
+    namespace: fsp_host
+    collectors: [cpu, memory, load, disk, filesystem, network]
+    scrape_interval_secs: 30
+    filesystem:
+      mountpoints:
+        includes: [/]
+  collector:
+    type: internal_metrics
+    namespace: fsp_collector
+    scrape_interval_secs: 30
+  services:
+    type: journald
+    since_now: true
+    include_units:
+      - fsp-api.service
+      - fsp-simulator.service
+      - fsp-github-insights.service
+      - fsp-interview.service
+      - fsp-observe-probe.service
+  access:
+    type: file
+    include: [/var/log/nginx/fsp-telemetry.json]
+    read_from: end
+transforms:
+  service_fields:
+    type: remap
+    inputs: [services]
+    source: |
+      service = ._SYSTEMD_UNIT
+      event_time = .timestamp
+      parsed, err = parse_json(.message)
+      if err != null { parsed = {} }
+      # Rebuild the envelope. Never forward the journal, arbitrary messages, prompts or headers.
+      fields = merge(object(parsed.span) ?? {}, object(parsed.fields) ?? {})
+      . = {"service": service, "timestamp": event_time, "level": parsed.level, "event": "service_event"}
+      for_each(["event", "route", "method", "status", "duration_ms", "request_id", "trace_id", "span_id", "actor_id", "role", "operation", "outcome", "code", "model", "task", "reasoning_effort"]) -> |_index, key| {
+        value = get(fields, [key]) ?? null
+        if value != null { . = set!(., [key], value) }
+      }
+  access_fields:
+    type: remap
+    inputs: [access]
+    drop_on_error: true
+    source: |
+      parsed = parse_json!(.message)
+      . = {"service": "nginx", "event": "http_request", "route": parsed.route, "method": parsed.method, "status": parsed.status, "duration_ms": to_float!(parsed.duration_seconds) * 1000.0, "request_id": parsed.request_id, "bytes": parsed.bytes}
+sinks:
+  metrics:
+    type: prometheus_remote_write
+    inputs: [host, collector]
+    endpoint: http://127.0.0.1:5080/api/default/prometheus/api/v1/write
+    request:
+      headers:
+        Authorization: "SECRET[ingestion.authorization]"
+      timeout_secs: 10
+    buffer:
+      type: memory
+      max_events: 1000
+      when_full: drop_newest
+    healthcheck:
+      enabled: false
+  openobserve:
+    type: http
+    inputs: [service_fields, access_fields]
+    uri: http://127.0.0.1:5080/api/default/fsp_logs/_multi
+    method: post
+    auth:
+      strategy: custom
+      value: "SECRET[ingestion.authorization]"
+    request:
+      headers:
+        Content-Type: application/x-ndjson
+      timeout_secs: 10
+      retry_max_duration_secs: 60
+    encoding:
+      codec: json
+    framing:
+      method: newline_delimited
+    batch:
+      max_bytes: 262144
+      timeout_secs: 2
+    buffer:
+      type: disk
+      max_size: 268435488
+      when_full: drop_newest
+    healthcheck:
+      enabled: false

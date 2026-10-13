@@ -10,6 +10,8 @@ export const vacanciesKey = (scope: Scope) => [...scope, 'vacancies'] as const;
 
 export const vacancySearchQuery = (scope: Scope, filters: VacancyFilters) =>
   queryOptions({
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
     queryKey: [...vacanciesKey(scope), 'search', filters] as const,
     queryFn: async ({ signal }) =>
       requireData(await api.GET('/api/v1/vacancies', { params: { query: filters }, signal })),
@@ -18,6 +20,8 @@ export const vacancySearchQuery = (scope: Scope, filters: VacancyFilters) =>
 
 export const vacancyQuery = (scope: Scope, vacancyId: string) =>
   queryOptions({
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
     queryKey: [...vacanciesKey(scope), vacancyId] as const,
     queryFn: async ({ signal }) =>
       requireData(await api.GET('/api/v1/vacancies/{vacancyId}', { params: { path: { vacancyId } }, signal })),

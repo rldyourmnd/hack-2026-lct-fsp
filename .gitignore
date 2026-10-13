@@ -10,3 +10,7 @@ node_modules/
 
 # Rust build output
 target/
+
+# Python bytecode from the local Silero runtime tests
+__pycache__/
+*.py[cod]

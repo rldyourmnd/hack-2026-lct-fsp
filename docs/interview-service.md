@@ -10,6 +10,13 @@ Sessions are stored in PostgreSQL as versioned JSON documents. A conditional rev
 and a partial unique index permits only one active interview per candidate. The service can restart or be replaced by
 a release without losing the current question or evidence.
 
+SIGINT and SIGTERM stop accepting new connections and let active HTTP requests finish before process exit.
+The systemd and Compose stop grace is 60 seconds, above the 45-second model turn and 55-second platform request
+budgets. A process-level PostgreSQL regression holds a controlled model response, sends each signal, then checks
+the completed HTTP response, exactly one saved revision/evidence item and a successful process exit.
+Sequential restarts still have a window where new requests can fail; this is not a zero-downtime deployment.
+Forced termination or host loss cannot drain requests. Uncommitted turns remain retryable.
+
 ## Product boundary
 
 The competency graph is the interview program, not a visualization added after the conversation. The first
@@ -35,6 +42,8 @@ It evaluates described actions and trade-offs; it does not infer personality, em
 When `BIFROST_CHAT_URL` is configured, Bifrost generates surface variants and evaluates answers against the supplied
 rubric. Output is schema-checked, evidence must quote the answer exactly, and the model cannot choose the next node
 or assign a platform grade. `INTERVIEW_BIFROST_MODEL` selects the model independently from the main API.
+Grok uses low reasoning by default, configurable with `INTERVIEW_REASONING_EFFORT`; other models retain their
+provider default unless explicitly configured. See [latency measurements and limits](ai-latency.md).
 Evaluation and generation of the next question share one 45-second model budget; persistence happens only after
 both succeed. A timeout leaves the revision, question and evidence unchanged, so the same answer can be retried.
 The internal gateway allows 50 seconds, the platform 55 and nginx 60. A provider failure is never an offline fallback.
@@ -96,9 +105,34 @@ answer with the browser speech-recognition API. The candidate can switch to text
 before sending it. Only the confirmed transcript reaches the interview service; raw audio is not stored.
 
 The platform accepts speech requests only for the candidate's current question and synthesizes the server-owned
-`delivery.speechText`; the endpoint cannot be used as a general text-to-speech proxy. `FSP_TTS_PROVIDER=xai` uses xAI
-voice synthesis. `FSP_TTS_PROVIDER=yandex` uses Yandex SpeechKit as the domestic provider. If neither is configured,
-or a request fails, the client keeps the offline-capable browser synthesis path.
+`delivery.speechText`; the endpoint cannot be used as a general text-to-speech proxy. `FSP_TTS_PROVIDER=silero`
+uses the local Russian Silero v5.5 CPU runtime on loopback. The optional `xai` and `yandex` values select xAI or
+Yandex SpeechKit. Without neural configuration, or on a current playback failure, the client uses browser synthesis
+when available; text remains usable without any speech API.
+
+Stopping playback, starting the microphone, submitting an answer, changing a question or leaving the page cancels
+pending synthesis and delayed autoplay. A generation guard rejects late network results, media callbacks and
+rejected `play()` promises, so they cannot restart an old question or alter a new player's state. Object URLs and
+handlers are released on stop. All providers bound response reads while streaming: 4 MiB for audio, with bounded
+base64/JSON overhead for SpeechKit and a separate decoded-audio check. A missing Content-Length cannot bypass the
+limit. The existing 20-second request deadline remains in force.
+
+The lifecycle follows [React effect cleanup](https://react.dev/reference/react/useEffect) and asynchronous
+[media playback](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play); provider reads use
+[reqwest chunks](https://docs.rs/reqwest/0.12.28/reqwest/struct.Response.html#method.chunk).
+
+### Local recording validation
+
+With `FSP_STT_PROVIDER=gigaam`, the platform sends a bounded browser recording to the private GigaAM worker.
+WebM, MP4 and Ogg inputs are decoded into mono 16 kHz PCM, then normalized to WAV for recognition. Duration is
+calculated from decoded samples: browser streams can omit container duration metadata. The worker rejects
+empty, malformed and over-25-second audio. Decoding has a 10-second deadline and a 26-second output ceiling,
+so an excessive recording is rejected rather than silently transcribed only in part. Temporary audio is removed
+after processing. See [FFmpeg duration limits](https://ffmpeg.org/ffmpeg.html#Main-options).
+
+Both local speech workers handle a disconnected response socket as a cancelled delivery without an uncaught
+traceback; other processing errors remain visible. `infra/tests/gigaam-runtime.sh` checks both seekable and
+streaming WebM against the actual speech services.
 
 ## Voice and avatar decision
 
@@ -143,4 +177,4 @@ cargo test -p fsp-interview-service
 The platform PostgreSQL HTTP test covers ownership and consent revocation. `frontend/e2e/interview.spec.ts`
 exercises speech startup failure, late callbacks, preserved drafts and retry in Chromium with a controlled speech
 adapter; it does not claim to test a physical microphone or a vendor recognizer. Public acceptance uses the real
-Rust/Bifrost interview and verifies the browser's microphone policy. See [stability review](stability-review-2026-10-11.md).
+Rust/Bifrost interview and verifies the browser's microphone policy. See the [browser testing guide](../frontend/docs/TESTING.md).

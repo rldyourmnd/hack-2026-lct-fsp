@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { RequirementStatusChip } from '@/entities/candidate';
+import { RequirementEvidence, RequirementStatusChip } from '@/entities/candidate';
 import { companyInitials } from '@/entities/company';
 import { skillLabel, useMeta } from '@/entities/meta';
 import { profileQuery } from '@/entities/profile';
@@ -20,7 +20,11 @@ export function CandidateVacancyPage({ vacancyId }: { vacancyId: string }) {
   const scope = useScope();
   const meta = useMeta();
   const { data: vacancy } = useSuspenseQuery(vacancyQuery(scope, vacancyId));
-  const { data: profile } = useSuspenseQuery(profileQuery(scope));
+  const { data: profile } = useSuspenseQuery({
+    ...profileQuery(scope),
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
+  });
   useDocumentTitle(vacancy.title);
   const company = vacancy.company;
   const fit = new Map(vacancy.match?.requirements.map((item) => [item.skillId, item]) ?? []);
@@ -88,7 +92,16 @@ export function CandidateVacancyPage({ vacancyId }: { vacancyId: string }) {
                             </td>
                             <td>{criticalityLabel[item.criticality]}</td>
                             <td>{gradeLabel[item.minimumGrade]}</td>
-                            {vacancy.match && <td>{own && <RequirementStatusChip status={own.status} plain />}</td>}
+                            {vacancy.match && (
+                              <td>
+                                {own && (
+                                  <div className="stack">
+                                    <RequirementStatusChip status={own.status} plain />
+                                    <RequirementEvidence requirement={own} />
+                                  </div>
+                                )}
+                              </td>
+                            )}
                           </tr>
                         );
                       })}
@@ -97,7 +110,9 @@ export function CandidateVacancyPage({ vacancyId }: { vacancyId: string }) {
                 </TableWrap>
                 {vacancy.match ? (
                   <p className="small muted">
-                    {vacancy.match.explanation} Соответствие рассчитано сервером по вашему подтверждённому профилю.
+                    {vacancy.match.explanation} Основания в принимаемых источниках: {vacancy.match.requiredEvidenced} из{' '}
+                    {vacancy.match.requiredTotal} обязательных требований. Наличие технологии в источнике не
+                    подтверждает её уровень.
                   </p>
                 ) : (
                   <p className="small muted">
@@ -120,6 +135,47 @@ export function CandidateVacancyPage({ vacancyId }: { vacancyId: string }) {
         </div>
         <div className="stack-lg">
           <ApplyPanel vacancy={vacancy} profile={profile} />
+          {profile.estimate && (
+            <Card title="Ваш профиль и ИИ-заметки" headingLevel={3}>
+              <div className="stack">
+                <p className="small muted">По данным на {formatDate(profile.estimate.computedAt)}.</p>
+                {profile.estimate.review ? (
+                  <>
+                    <p>{profile.estimate.review.rationale}</p>
+                    {profile.estimate.review.recommendations.length > 0 && (
+                      <details>
+                        <summary>Рекомендации для развития</summary>
+                        <ul>
+                          {profile.estimate.review.recommendations.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </>
+                ) : (
+                  <p className="small">
+                    Дополнительная оценка ИИ пока не готова. Соответствие требованиям уже рассчитано по доступным
+                    свидетельствам.
+                  </p>
+                )}
+                <ButtonLink to="/candidate/profile" variant="quiet">
+                  Полный разбор профиля
+                </ButtonLink>
+              </div>
+            </Card>
+          )}
+          <Card title="Ваши источники" headingLevel={3}>
+            <p className="small">
+              Проверьте GitHub, результаты ФСП и актуальность данных, на которых основано соответствие.
+            </p>
+            <ButtonLink to="/candidate/sources" variant="quiet">
+              GitHub и ФСП
+            </ButtonLink>
+            <ButtonLink to="/candidate/skills" variant="quiet">
+              Навыки и подтверждения
+            </ButtonLink>
+          </Card>
           <Card tinted title="Отклик — дополнительный путь" headingLevel={3}>
             <p className="small">
               Компании и сами приглашают кандидатов с подтверждённым грейдом, если профиль открыт для показа в

@@ -22,7 +22,7 @@ export const interviewQuery = (scope: Scope, id: string) =>
       requireData(
         await api.GET('/api/v1/me/interviews/{interviewId}', {
           params: { path: { interviewId: id } },
-          signal,
+          signal: signal ?? null,
         }),
       ),
   });
@@ -44,11 +44,26 @@ export async function answerInterview(id: string, input: InterviewAnswerInput) {
   );
 }
 
-export async function synthesizeInterviewSpeech(id: string, questionId: string) {
+export async function synthesizeInterviewSpeech(id: string, questionId: string, signal?: AbortSignal) {
   return requireData(
     await api.POST('/api/v1/me/interviews/{interviewId}/speech', {
       params: { path: { interviewId: id } },
       body: { questionId },
+      signal: signal ?? null,
+    }),
+  );
+}
+
+export async function transcribeInterviewSpeech(
+  id: string,
+  questionId: string,
+  audioBase64: string,
+  mimeType: 'audio/webm' | 'audio/mp4' | 'audio/ogg',
+) {
+  return requireData(
+    await api.POST('/api/v1/me/interviews/{interviewId}/transcription', {
+      params: { path: { interviewId: id } },
+      body: { questionId, audioBase64, mimeType },
     }),
   );
 }

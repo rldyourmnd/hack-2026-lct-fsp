@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { type EstimateAnswers, profileKey, refreshEstimate } from '@/entities/profile';
 import { useScope } from '@/entities/session';
 import { sourcesKey } from '@/entities/source';
+import { vacanciesKey } from '@/entities/vacancy';
 import { useToast } from '@/shared/ui';
 
 /**
@@ -16,6 +17,7 @@ export function useRefreshEstimate() {
     mutationFn: (answers: EstimateAnswers = 'keep') => refreshEstimate(answers),
     onSuccess: async (profile, answers) => {
       queryClient.setQueryData(profileKey(scope), profile);
+      void queryClient.invalidateQueries({ queryKey: vacanciesKey(scope) });
       await queryClient.invalidateQueries({ queryKey: sourcesKey(scope) });
       toast(answers === 'replace' ? 'Анкета заполнена по источникам' : 'Оценка обновлена');
     },

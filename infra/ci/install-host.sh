@@ -12,8 +12,7 @@ install -d -o fsp-ci -g fsp-ci /var/lib/fsp-ci/home /var/lib/fsp-ci/home/.local 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
 apt-get install -y --no-install-recommends bubblewrap poppler-utils shellcheck pkg-config libssl-dev build-essential curl ca-certificates xz-utils libnspr4 libnss3 libatk1.0-0 libatk-bridge2.0-0 libatspi2.0-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libxkbcommon0 libasound2t64 libcups2 libpango-1.0-0 libcairo2 fonts-liberation
-install -m 644 "$here/../apparmor/fsp-pdf-bwrap" /etc/apparmor.d/fsp-pdf-bwrap
-apparmor_parser -r /etc/apparmor.d/fsp-pdf-bwrap
+bash "$here/../install-pdf-sandbox.sh"
 runuser -u fsp-ci -- bash -s <<'TOOLS'
 set -euo pipefail
 export HOME=/var/lib/fsp-ci/home CARGO_HOME=/var/lib/fsp-ci/home/.cargo RUSTUP_HOME=/var/lib/fsp-ci/home/.rustup

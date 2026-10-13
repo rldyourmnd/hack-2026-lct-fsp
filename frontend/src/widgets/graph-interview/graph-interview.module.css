@@ -280,6 +280,30 @@
   box-shadow: var(--fsp-shadow-card);
 }
 
+.speechLoading {
+  display: flex;
+  align-items: center;
+  gap: var(--fsp-space-2);
+  width: fit-content;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--fsp-color-primary) 24%, var(--fsp-color-border));
+  border-radius: var(--fsp-radius-control);
+  background: var(--fsp-color-accent-subtle);
+  color: var(--fsp-color-primary);
+  font-size: var(--fsp-font-size-small);
+  font-weight: 700;
+}
+
+.speechLoading::before {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  content: "";
+  animation: spin 0.75s linear infinite;
+}
+
 .avatarStage {
   position: relative;
   display: grid;
@@ -467,6 +491,12 @@
 @keyframes pulse {
   50% {
     opacity: 0.35;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

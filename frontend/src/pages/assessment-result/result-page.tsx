@@ -12,6 +12,7 @@ import {
 import { eligibilityReasonText, profileKey, profileQuery } from '@/entities/profile';
 import { useScope } from '@/entities/session';
 import { graphKey, mySkillsQuery, SkillStatusChip, skillsKey } from '@/entities/skill';
+import { vacanciesKey } from '@/entities/vacancy';
 import { ExportProfileButton } from '@/features/profile-pdf';
 import { useStartAssessment } from '@/features/start-assessment';
 import { describeError } from '@/shared/api';
@@ -161,7 +162,13 @@ export function AssessmentResultPage({ assessmentId }: { assessmentId: string })
   useEffect(() => {
     if (!terminal) return;
     // The final outcome can change category and evidence; refresh everything derived from them.
-    for (const queryKey of [profileKey(scope), skillsKey(scope), graphKey(scope), assessmentsKey(scope)]) {
+    for (const queryKey of [
+      profileKey(scope),
+      skillsKey(scope),
+      graphKey(scope),
+      assessmentsKey(scope),
+      vacanciesKey(scope),
+    ]) {
       void queryClient.invalidateQueries({ queryKey });
     }
   }, [terminal, queryClient, scope]);

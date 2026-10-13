@@ -928,6 +928,62 @@ async fn applications_flow_both_sides() {
 }
 
 #[tokio::test]
+async fn a_private_applicant_is_visible_only_to_the_recipient_until_withdrawal() {
+    let app = test_app().await;
+    let employer = login(&app, EMPLOYER, "employer").await;
+    let candidate = login(&app, CANDIDATE_JUNIOR, "candidate").await;
+    let (status, _) = send(
+        &app,
+        "PATCH",
+        "/api/v1/me/profile",
+        Some(&candidate),
+        json!({"consents":{"processing":true,"publication":false}}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    let path = "/api/v1/candidates/candidate024?needId=need-002";
+    assert_eq!(
+        get(&app, path, Some(&employer)).await.0,
+        StatusCode::NOT_FOUND
+    );
+    let (status, application) = send_keyed(
+        &app,
+        "POST",
+        "/api/v1/me/applications",
+        Some(&candidate),
+        "private-apply-key",
+        json!({"vacancyId":"need-002","message":"Interested","disclose":["email"]}),
+    )
+    .await;
+    assert_eq!(status, StatusCode::CREATED, "{application}");
+    let (status, view) = get(&app, path, Some(&employer)).await;
+    assert_eq!(status, StatusCode::OK, "{view}");
+    assert!(view["match"].is_object());
+    assert!(!view.to_string().contains(CANDIDATE_JUNIOR));
+    let outsider = login(&app, "other-hr@example.com", "employer").await;
+    assert_eq!(
+        get(&app, "/api/v1/candidates/candidate024", Some(&outsider))
+            .await
+            .0,
+        StatusCode::NOT_FOUND
+    );
+    let (status, _) = post(
+        &app,
+        &format!(
+            "/api/v1/me/applications/{}/withdraw",
+            application["id"].as_str().unwrap()
+        ),
+        Some(&candidate),
+    )
+    .await;
+    assert_eq!(status, StatusCode::OK);
+    assert_eq!(
+        get(&app, path, Some(&employer)).await.0,
+        StatusCode::NOT_FOUND
+    );
+}
+
+#[tokio::test]
 async fn assessments_full_flow_and_grade_change() {
     let app = test_app().await;
     let candidate = login(&app, CANDIDATE_JUNIOR, "candidate").await;
@@ -2274,4 +2330,62 @@ async fn production_secret_invalidates_demo_credentials_and_rotates_sessions() {
         get(&rotated, "/api/v1/session", Some(cookie)).await.0,
         StatusCode::UNAUTHORIZED
     );
+}
+
+#[tokio::test]
+async fn vacancy_fit_is_identical_across_roles_and_policy_changes() {
+    let app = test_app().await;
+    let employer = login(&app, EMPLOYER, "employer").await;
+    let candidate = login(&app, CANDIDATE_JUNIOR, "candidate").await;
+    let (_, profile) = get(&app, "/api/v1/me/profile", Some(&candidate)).await;
+    let (_, need) = get(&app, "/api/v1/needs/need-001", Some(&employer)).await;
+    let (status, published) = post(&app, "/api/v1/needs/need-001/publish", Some(&employer)).await;
+    assert_eq!(status, StatusCode::OK, "{published}");
+    for accept_assessments in [true, false] {
+        let mut requirements = need["requirements"].clone();
+        for requirement in requirements.as_array_mut().unwrap() {
+            requirement["evidencePolicy"]["acceptAssessments"] = json!(accept_assessments);
+            requirement["evidencePolicy"]["acceptGithub"] = json!(true);
+        }
+        let (status, updated) = send(
+            &app,
+            "PATCH",
+            "/api/v1/needs/need-001",
+            Some(&employer),
+            json!({"requirements": requirements}),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK, "{updated}");
+        let (_, own) = get(&app, "/api/v1/vacancies/need-001", Some(&candidate)).await;
+        let path = format!(
+            "/api/v1/candidates/{}?needId=need-001",
+            profile["id"].as_str().unwrap()
+        );
+        let (status, seen) = get(&app, &path, Some(&employer)).await;
+        assert_eq!(status, StatusCode::OK, "{seen}");
+        assert_eq!(seen["match"], own["match"]);
+        let requirements = seen["match"]["requirements"].as_array().unwrap();
+        let confirmed = requirements
+            .iter()
+            .filter(|item| item["criticality"] == "required" && item["status"] == "meets")
+            .count();
+        assert_eq!(seen["match"]["requiredMet"], confirmed);
+        if !accept_assessments {
+            assert_eq!(confirmed, 0);
+        }
+        for field in [
+            "email",
+            "name",
+            "sourceLinks",
+            "accountLabel",
+            "teamName",
+            "protocolReference",
+            "rationale",
+        ] {
+            assert!(
+                !seen.to_string().contains(&format!("\"{field}\":")),
+                "private field {field}"
+            );
+        }
+    }
 }

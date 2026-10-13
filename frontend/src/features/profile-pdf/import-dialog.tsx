@@ -5,6 +5,7 @@ import { type Job, useJob } from '@/entities/job';
 import type { SkillId } from '@/entities/meta';
 import { profileKey } from '@/entities/profile';
 import { useScope } from '@/entities/session';
+import { vacanciesKey } from '@/entities/vacancy';
 import { type components, describeError, isApiError } from '@/shared/api';
 import { gradeLabel, gradeOrder, skillOptions, specializationOptions } from '@/shared/lib';
 import {
@@ -44,6 +45,7 @@ function PreviewForm({ jobId, result, onDone }: { jobId: string; result: ImportR
     mutationFn: (profile: Preview) => confirmProfileImport(jobId, profile),
     onSuccess: (profile) => {
       queryClient.setQueryData(profileKey(scope), profile);
+      void queryClient.invalidateQueries({ queryKey: vacanciesKey(scope) });
       toast('Данные из PDF применены к профилю');
       onDone();
     },

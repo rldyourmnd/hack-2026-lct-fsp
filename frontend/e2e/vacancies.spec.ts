@@ -111,3 +111,29 @@ test('UI-30 a candidate without a category sees why applying is unavailable and 
   await expect(page.getByRole('button', { name: 'Откликнуться и открыть контакты' })).toHaveCount(0);
   await expect(page.getByText(/Соответствие появится, когда у профиля будет категория/)).toBeVisible();
 });
+
+test('UI-39 matching explanations stay equal for the candidate and employer without exposing identity', async ({
+  browser,
+}) => {
+  const candidate = await actor(browser, ALEXEY, 'candidate');
+  const employer = await actor(browser, COMPANY_A, 'employer');
+  await candidate.page.goto('/candidate/vacancies/need-002');
+  await expect(candidate.page.getByText('Принимаются для этой вакансии:', { exact: false }).first()).toBeVisible();
+  if (process.env.SCREENSHOTS)
+    await candidate.page.screenshot({ path: 'docs/screenshots/19-candidate-vacancy.png', fullPage: true });
+  const own = await candidate.page.request.get('/api/v1/vacancies/need-002');
+  expect(own.ok()).toBe(true);
+  const ownBody = await own.json();
+  const seen = await employer.page.request.get('/api/v1/candidates/candidate024?needId=need-002');
+  expect(seen.ok()).toBe(true);
+  const seenBody = await seen.json();
+  expect(seenBody.match).toEqual(ownBody.match);
+  for (const marker of PRIVATE_MARKERS) expect(JSON.stringify(seenBody)).not.toContain(marker);
+  await employer.page.goto('/employer/candidates/candidate024?needId=need-002');
+  await employer.page
+    .getByRole('button', { name: /Показать основания:/ })
+    .first()
+    .click();
+  await expect(employer.page.getByText('Принимаются для этой вакансии:', { exact: false }).first()).toBeVisible();
+  if (seenBody.fsp) await expect(employer.page.getByRole('heading', { name: 'ФСП: достижения' })).toBeVisible();
+});

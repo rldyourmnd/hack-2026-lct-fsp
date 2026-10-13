@@ -5,6 +5,7 @@ import { profileKey } from '@/entities/profile';
 import { useScope } from '@/entities/session';
 import { graphKey, skillsKey } from '@/entities/skill';
 import { type Source, sourcesKey, syncSource } from '@/entities/source';
+import { vacanciesKey } from '@/entities/vacancy';
 
 /** Follows the source's active job (resumed after reload) and refreshes everything enrichment can change. */
 export function useSourceProcessing(source: Source | undefined) {
@@ -13,7 +14,7 @@ export function useSourceProcessing(source: Source | undefined) {
   const [startedJobId, setStartedJobId] = useState<string | null>(null);
   const refresh = () =>
     Promise.all(
-      [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope)].map((queryKey) =>
+      [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope), vacanciesKey(scope)].map((queryKey) =>
         queryClient.invalidateQueries({ queryKey }),
       ),
     );

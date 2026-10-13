@@ -32,6 +32,7 @@ if [[ "${FSP_TEST_FAIL:-}" == health && "$(readlink -f "$FSP_RELEASE_ROOT/curren
 if [[ "${FSP_TEST_FAIL:-}" == fsp_health && "$*" == *':4020/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
 if [[ "${FSP_TEST_FAIL:-}" == insights_health && "$*" == *':4030/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
 if [[ "${FSP_TEST_FAIL:-}" == interview_health && "$*" == *':4040/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
+if [[ "${FSP_TEST_FAIL:-}" == silero_health && "$*" == *':4050/health'* && "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$FSP_TEST_NEW" ]]; then exit 1; fi
 STUB
 cat > "$fixture/bin/nginx" <<'STUB'
 #!/usr/bin/env bash
@@ -112,6 +113,19 @@ for failure in restart health fsp_health insights_health interview_health nginx;
   [[ "$(cat "$FSP_SYSTEM_ROOT/etc/systemd/system/fsp-api.service")" == old-unit ]]
   echo "PASS: $failure restores release, nginx and unit"
 done
+
+reset_previous
+mkdir -p "$FSP_RELEASE_ROOT/releases/$new/voice-runtime" "$FSP_RELEASE_ROOT/voice-venv/bin" "$FSP_RELEASE_ROOT/models"
+touch "$FSP_RELEASE_ROOT/releases/$new/voice-runtime/server.py" "$FSP_RELEASE_ROOT/models/v5_5_ru.pt"
+printf '#!/bin/sh\n' > "$FSP_RELEASE_ROOT/voice-venv/bin/python"
+chmod +x "$FSP_RELEASE_ROOT/voice-venv/bin/python"
+printf 'FSP_TTS_PROVIDER=silero\n' > "$FSP_SYSTEM_ROOT/etc/fsp/speech.env"
+if FSP_TEST_FAIL=silero_health bash "$HERE/release.sh" "$new" > "$fixture/output" 2>&1; then
+  echo 'Expected Silero health failure' >&2; exit 1
+fi
+[[ "$(readlink -f "$FSP_RELEASE_ROOT/current")" == "$FSP_RELEASE_ROOT/releases/$old" ]]
+echo 'PASS: Silero health failure restores the previous release'
+rm -f "$FSP_SYSTEM_ROOT/etc/fsp/speech.env"
 
 stage="$FSP_RELEASE_ROOT/releases/.staging-test"
 make_release "$stage"

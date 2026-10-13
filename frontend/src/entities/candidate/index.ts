@@ -12,4 +12,4 @@ export {
   type Match,
   type MatchRequirement,
 } from './model';
-export { aliasShape, matchGroupView, RequirementStatusChip } from './ui';
+export { aliasShape, matchGroupView, RequirementEvidence, RequirementStatusChip } from './ui';

@@ -25,6 +25,8 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     command: ["/usr/local/bin/fsp-interview-service"]
+    # The whole model turn can take 45 seconds before persistence and response delivery.
+    stop_grace_period: 60s
     environment:
       INTERVIEW_HOST: 0.0.0.0
       INTERVIEW_PORT: 4040
@@ -74,6 +76,7 @@ services:
     restart: unless-stopped
 
   api:
+    stop_grace_period: 60s
     build:
       context: .
       dockerfile: backend/Dockerfile
@@ -122,6 +125,8 @@ services:
     restart: unless-stopped
 
   web:
+    # nginx must drain proxied requests before Compose stops the API it depends on.
+    stop_grace_period: 60s
     build:
       context: .
       dockerfile: frontend/Dockerfile

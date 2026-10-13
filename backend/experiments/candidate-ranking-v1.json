@@ -1,7 +1,7 @@
 {
   "id": "candidate-ranking-v1",
-  "algorithmVersion": "deterministic-rules-v1",
-  "change": "rank by grade match, required evidence, desired evidence, FSP verification, then candidate id",
+  "algorithmVersion": "deterministic-rules-v2",
+  "change": "rank by category fit, confirmed required and desired skills, policy-accepted observed coverage, category confidence, FSP participation, then candidate id",
   "expectedEffect": "higher deterministic match components sort first",
   "failureCondition": "order_changes_when_input_is_reversed",
   "expectedOrder": [

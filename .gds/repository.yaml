@@ -1,21 +1,24 @@
 schema_version: 1
 repository:
   id: repo_01M47ANG92T6QV80TR8CHF2JTP
-  display_name: sport-programming-federation
+  display_name: hack-2026-lct-fsp
   roles:
   - project
   lifecycle: active
 provider:
   type: github
-  installation: installation:github-personal
+  installation: installation:github-nddev-technocracy-opennetwork
   repository_id: 1406058831
-  owner: rldyourmnd
-  name: sport-programming-federation
+  owner: NDDev-Technocracy-OpenNetwork
+  name: hack-2026-lct-fsp
+  aliases:
+  - owner: rldyourmnd
+    name: sport-programming-federation
 classification:
   portfolios:
-  - portfolio:rldyourmnd
-  visibility_contract: private
-  data_classification: private
+  - portfolio:nddev-technocracy-opennetwork
+  visibility_contract: public
+  data_classification: public
 product:
   purpose: Private FSP reverse-hiring platform combining a Python MVP and contract,
     mock, frontend and backend modules.
@@ -37,8 +40,8 @@ product:
 policy:
   profiles:
   - repository-default
-  - personal-default
   - continuous-development
+  - organization-default
   rollout_ring: standard
 git:
   default_branch: main

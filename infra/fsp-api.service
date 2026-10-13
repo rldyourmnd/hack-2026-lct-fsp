@@ -1,6 +1,6 @@
 [Unit]
 Description=FSP career API (Rust backend)
-After=network.target postgresql.service fsp-interview.service
+After=network.target postgresql.service fsp-interview.service fsp-silero-tts.service fsp-gigaam-stt.service
 
 [Service]
 Type=simple
@@ -12,11 +12,14 @@ EnvironmentFile=-/etc/fsp/rust-api.env
 EnvironmentFile=-/etc/fsp/db.env
 EnvironmentFile=-/etc/fsp/llm.env
 EnvironmentFile=-/etc/fsp/interview.env
+EnvironmentFile=-/etc/fsp/speech.env
 Environment=FSP_INTERVIEW_URL=http://127.0.0.1:4040
 StateDirectory=fsp
 ExecStart=/opt/fsp/current/bin/fsp-career-api
 Restart=on-failure
 RestartSec=2
+# Request deadlines are at most 55 seconds; retain time to finish the response.
+TimeoutStopSec=60s
 NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=yes

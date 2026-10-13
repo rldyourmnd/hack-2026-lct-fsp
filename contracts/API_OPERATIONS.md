@@ -35,6 +35,7 @@ Generated from [`openapi.json`](openapi.json) by `codegen/generate.ts`. Do not e
 | `getInterview` | GET | `/api/v1/me/interviews/{interviewId}` | 200 | Application |
 | `answerInterview` | POST | `/api/v1/me/interviews/{interviewId}/answers` | 200 | Application |
 | `synthesizeInterviewSpeech` | POST | `/api/v1/me/interviews/{interviewId}/speech` | 200 | Application |
+| `transcribeInterviewSpeech` | POST | `/api/v1/me/interviews/{interviewId}/transcription` | 200 | Application |
 | `getJob` | GET | `/api/v1/jobs/{jobId}` | 200 | Application |
 | `getMyTasks` | GET | `/api/v1/me/tasks` | 200 | Application |
 | `respondToTask` | POST | `/api/v1/me/tasks/{taskId}/responses` | 201 | Application |
@@ -91,4 +92,4 @@ Generated from [`openapi.json`](openapi.json) by `codegen/generate.ts`. Do not e
 | `mockEmailCodes` | GET | `/__mock__/email-codes` | 200 | Development only |
 | `mockAdvanceClock` | POST | `/__mock__/clock` | 200 | Development only |
 
-Total documented operations: 86. Development controls are not production application endpoints.
+Total documented operations: 87. Development controls are not production application endpoints.

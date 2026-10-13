@@ -22,6 +22,7 @@
     "verify": "bun run codegen:check && bun run typecheck && bun run lint && bun run test && bun run build && bun scripts/check-bundle.ts"
   },
   "dependencies": {
+    "@openobserve/browser-rum": "0.4.3",
     "@tanstack/react-form": "1.33.5",
     "@tanstack/react-query": "5.104.1",
     "@tanstack/react-router": "1.170.41",

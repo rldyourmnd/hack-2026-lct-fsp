@@ -11,14 +11,15 @@ import {
   interviewsKey,
   interviewsQuery,
   startInterview,
-  synthesizeInterviewSpeech,
+  transcribeInterviewSpeech,
 } from '@/entities/interview';
 import { useMeta } from '@/entities/meta';
 import { useScope } from '@/entities/session';
 import { describeError, isApiError } from '@/shared/api';
 import { Button, Callout, Card, cx, ErrorState, Icon, LoadingState, StatusChip, TextareaField } from '@/shared/ui';
 import styles from './graph-interview.module.css';
-import { speechErrorMessage, submittedResponseMode } from './speech';
+import { submittedResponseMode } from './speech';
+import { useQuestionSpeech } from './use-question-speech';
 
 const stateLabel: Record<InterviewNode['state'], string> = {
   unknown: 'Не проверено',
@@ -159,29 +160,18 @@ export function InterviewGraph({ interview }: { interview: Interview }) {
   );
 }
 
-type RecognitionEvent = {
-  resultIndex: number;
-  results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }>;
-};
-type Recognition = {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  onresult: ((event: RecognitionEvent) => void) | null;
-  onerror: ((event: { error: string }) => void) | null;
-  onend: (() => void) | null;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-};
-type RecognitionConstructor = new () => Recognition;
+function recordingMimeType() {
+  for (const type of ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus']) {
+    if (MediaRecorder.isTypeSupported(type)) return type;
+  }
+  return '';
+}
 
-function recognitionConstructor() {
-  const speechWindow = window as typeof window & {
-    SpeechRecognition?: RecognitionConstructor;
-    webkitSpeechRecognition?: RecognitionConstructor;
-  };
-  return speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition ?? null;
+async function blobBase64(blob: Blob) {
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
 }
 
 function Avatar({ state }: { state: 'idle' | 'speaking' | 'listening' | 'thinking' }) {
@@ -216,170 +206,111 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
   const scope = useScope();
   const meta = useMeta();
   const queryClient = useQueryClient();
-  const recognition = useRef<Recognition | null>(null);
-  const speechAudio = useRef<HTMLAudioElement | null>(null);
-  const speechAudioUrl = useRef<string | null>(null);
+  const recorder = useRef<MediaRecorder | null>(null);
+  const microphone = useRef<MediaStream | null>(null);
+  const recordingTimer = useRef<number | null>(null);
   const draftQuestion = useRef<string | null>(null);
   const [answer, setAnswer] = useState('');
-  const [interim, setInterim] = useState('');
   const [inputMode, setInputMode] = useState<'voice' | 'text'>('text');
   const [voiceCaptured, setVoiceCaptured] = useState(false);
   const [listening, setListening] = useState(false);
-  const [speaking, setSpeaking] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
   const [speechError, setSpeechError] = useState<string | null>(null);
   const question = interview.currentQuestion;
   const speechText = question?.delivery.speechText;
 
   const releaseMicrophone = useCallback(() => {
-    const instance = recognition.current;
-    recognition.current = null;
-    if (instance) {
-      instance.onresult = null;
-      instance.onerror = null;
-      instance.onend = null;
-      instance.abort();
-    }
+    if (recordingTimer.current !== null) window.clearTimeout(recordingTimer.current);
+    recordingTimer.current = null;
+    if (recorder.current) recorder.current.onstop = null;
+    if (recorder.current?.state !== 'inactive') recorder.current?.stop();
+    recorder.current = null;
+    for (const track of microphone.current?.getTracks() ?? []) track.stop();
+    microphone.current = null;
   }, []);
 
-  const stopSpeech = useCallback(() => {
-    window.speechSynthesis.cancel();
-    speechAudio.current?.pause();
-    speechAudio.current = null;
-    if (speechAudioUrl.current) URL.revokeObjectURL(speechAudioUrl.current);
-    speechAudioUrl.current = null;
-    setSpeaking(false);
-  }, []);
-
-  const sayWithBrowser = useCallback((text: string) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ru-RU';
-    utterance.voice =
-      window.speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.lang.toLowerCase().startsWith('ru'))
-        .sort((left, right) => Number(right.localService) - Number(left.localService))[0] ?? null;
-    utterance.onstart = () => setSpeaking(true);
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    window.speechSynthesis.speak(utterance);
-  }, []);
-
-  const sayQuestion = useCallback(async () => {
-    if (!speechText || !question) return;
-    stopSpeech();
-    if (!meta.capabilities.neuralTts) {
-      sayWithBrowser(speechText);
-      return;
-    }
-    try {
-      const synthesized = await synthesizeInterviewSpeech(interview.id, question.id);
-      const bytes = Uint8Array.from(atob(synthesized.audioBase64), (character) => character.charCodeAt(0));
-      const url = URL.createObjectURL(new Blob([bytes], { type: synthesized.mimeType }));
-      const audio = new Audio(url);
-      speechAudio.current = audio;
-      speechAudioUrl.current = url;
-      audio.onplay = () => setSpeaking(true);
-      audio.onended = stopSpeech;
-      audio.onerror = () => {
-        stopSpeech();
-        sayWithBrowser(speechText);
-      };
-      await audio.play();
-    } catch {
-      stopSpeech();
-      sayWithBrowser(speechText);
-    }
-  }, [interview.id, meta.capabilities.neuralTts, question, sayWithBrowser, speechText, stopSpeech]);
+  const { preparing, speaking, stopSpeech, sayQuestion } = useQuestionSpeech(
+    interview.id,
+    question?.id,
+    speechText,
+    meta.capabilities.neuralTts,
+  );
 
   useEffect(() => {
     if (draftQuestion.current !== (question?.id ?? null)) {
       draftQuestion.current = question?.id ?? null;
       setAnswer('');
-      setInterim('');
       setVoiceCaptured(false);
       setListening(false);
+      setTranscribing(false);
       setSpeechError(null);
-      setInputMode(question?.recommendedResponseMode === 'voice' && recognitionConstructor() ? 'voice' : 'text');
+      setInputMode(question?.recommendedResponseMode ?? 'text');
     }
     return releaseMicrophone;
   }, [question?.id, question?.recommendedResponseMode, releaseMicrophone]);
 
-  useEffect(() => {
-    if (!question?.id) return undefined;
-    const timer = window.setTimeout(sayQuestion, 250);
-    return () => {
-      window.clearTimeout(timer);
-      stopSpeech();
-    };
-  }, [question?.id, sayQuestion, stopSpeech]);
-
-  const toggleListening = () => {
+  const toggleListening = async () => {
     if (listening) {
-      recognition.current?.stop();
+      recorder.current?.stop();
       return;
     }
-    const Constructor = recognitionConstructor();
-    if (!Constructor) {
-      setInputMode('text');
-      setSpeechError('В этом браузере нет распознавания речи. Продолжите текстом.');
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder !== 'function') {
+      setSpeechError('Этот браузер не умеет записывать голос. Ответьте текстом.');
       return;
     }
     releaseMicrophone();
     stopSpeech();
-    const instance = new Constructor();
-    instance.lang = 'ru-RU';
-    instance.continuous = false;
-    instance.interimResults = true;
-    instance.onresult = (event) => {
-      if (recognition.current !== instance) return;
-      let finalText = '';
-      let interimText = '';
-      for (let index = event.resultIndex; index < event.results.length; index += 1) {
-        const result = event.results[index];
-        if (!result) continue;
-        if (result.isFinal) finalText += `${result[0].transcript} `;
-        else interimText += result[0].transcript;
-      }
-      if (finalText) {
-        setAnswer((current) => `${current}${current ? ' ' : ''}${finalText.trim()}`);
-        setVoiceCaptured(true);
-      }
-      setInterim(interimText);
-    };
-    instance.onerror = (event) => {
-      if (recognition.current !== instance) return;
-      releaseMicrophone();
-      setListening(false);
-      setInterim('');
-      if (event.error === 'aborted') return;
-      setSpeechError(speechErrorMessage(event.error));
-    };
-    instance.onend = () => {
-      if (recognition.current !== instance) return;
-      releaseMicrophone();
-      setListening(false);
-      setInterim('');
-    };
-    recognition.current = instance;
-    setSpeechError(null);
-    setListening(true);
     try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = recordingMimeType();
+      const instance = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+      const chunks: Blob[] = [];
+      const currentQuestion = question?.id;
+      microphone.current = stream;
+      recorder.current = instance;
+      instance.ondataavailable = (event) => {
+        if (event.data.size > 0) chunks.push(event.data);
+      };
+      instance.onstop = () => {
+        releaseMicrophone();
+        setListening(false);
+        if (!currentQuestion || currentQuestion !== draftQuestion.current || chunks.length === 0) return;
+        const blob = new Blob(chunks, { type: instance.mimeType });
+        const baseType = blob.type.split(';')[0] as 'audio/webm' | 'audio/mp4' | 'audio/ogg';
+        setTranscribing(true);
+        void blobBase64(blob)
+          .then((audio) => transcribeInterviewSpeech(interview.id, currentQuestion, audio, baseType))
+          .then((result) => {
+            if (currentQuestion !== draftQuestion.current) return;
+            setAnswer((current) => `${current}${current ? ' ' : ''}${result.text}`);
+            setVoiceCaptured(true);
+            setSpeechError(null);
+          })
+          .catch(() => {
+            if (currentQuestion === draftQuestion.current)
+              setSpeechError('Не удалось распознать запись. Повторите или ответьте текстом.');
+          })
+          .finally(() => {
+            if (currentQuestion === draftQuestion.current) setTranscribing(false);
+          });
+      };
+      setSpeechError(null);
+      setListening(true);
       instance.start();
+      recordingTimer.current = window.setTimeout(() => instance.stop(), 24_000);
     } catch {
       releaseMicrophone();
       setListening(false);
-      setSpeechError('Не удалось включить распознавание. Попробуйте снова или ответьте текстом.');
+      setSpeechError('Не удалось включить микрофон. Разрешите доступ или ответьте текстом.');
     }
   };
 
   const mutation = useMutation({
     mutationFn: async () => {
       if (!question) throw new Error('Интервью уже завершено');
+      stopSpeech();
       releaseMicrophone();
       setListening(false);
-      setInterim('');
       return answerInterview(interview.id, {
         questionId: question.id,
         answer: answer.trim(),
@@ -389,7 +320,6 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
     },
     onSuccess: (updated) => {
       setAnswer('');
-      setInterim('');
       queryClient.setQueryData(interviewKey(scope, updated.id), updated);
       queryClient.setQueryData(interviewsKey(scope), (current: { items: Interview[] } | undefined) => ({
         items: [updated, ...(current?.items.filter((item) => item.id !== updated.id) ?? [])],
@@ -403,7 +333,8 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
     },
   });
 
-  const avatarState = mutation.isPending ? 'thinking' : listening ? 'listening' : speaking ? 'speaking' : 'idle';
+  const avatarState =
+    mutation.isPending || transcribing ? 'thinking' : listening ? 'listening' : speaking ? 'speaking' : 'idle';
   return (
     <div className={styles.interviewPage}>
       <div className={styles.liveHeader}>
@@ -428,9 +359,19 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
                     : 'Техническая ситуация'}
                 </span>
                 <p>{question.prompt}</p>
-                <Button size="sm" icon="play" disabled={mutation.isPending || listening} onClick={sayQuestion}>
-                  Повторить вслух
+                <Button
+                  size="sm"
+                  icon="play"
+                  disabled={mutation.isPending || listening || preparing}
+                  onClick={sayQuestion}
+                >
+                  {preparing ? 'Готовим голос…' : 'Повторить вслух'}
                 </Button>
+                {preparing && (
+                  <div className={styles.speechLoading} role="status">
+                    Готовим озвучку вопроса…
+                  </div>
+                )}
               </div>
               <div className={styles.modeSwitch}>
                 <Button
@@ -450,7 +391,6 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
                   onClick={() => {
                     releaseMicrophone();
                     setListening(false);
-                    setInterim('');
                     setInputMode('text');
                   }}
                 >
@@ -462,24 +402,32 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
                   <Button
                     variant={listening ? 'secondary' : 'primary'}
                     icon={listening ? 'stop' : 'mic'}
-                    disabled={mutation.isPending}
-                    onClick={toggleListening}
+                    disabled={mutation.isPending || transcribing}
+                    onClick={() => void toggleListening()}
                   >
-                    {listening ? 'Остановить запись' : answer ? 'Продолжить ответ' : 'Начать ответ'}
+                    {transcribing
+                      ? 'Расшифровываем…'
+                      : listening
+                        ? 'Остановить запись'
+                        : answer
+                          ? 'Продолжить ответ'
+                          : 'Начать ответ'}
                   </Button>
                   <span>
                     {listening
-                      ? 'Говорите — текст появляется ниже'
-                      : voiceCaptured
-                        ? 'Речь распознана. Проверьте текст перед отправкой.'
-                        : 'Микрофон включается только по нажатию'}
+                      ? 'Говорите — запись остановится через 25 секунд'
+                      : transcribing
+                        ? 'GigaAM распознаёт запись на сервере'
+                        : voiceCaptured
+                          ? 'Речь распознана. Проверьте текст перед отправкой.'
+                          : 'Микрофон включается только по нажатию'}
                   </span>
                 </div>
               )}
               {inputMode === 'voice' && (
                 <p className={styles.voiceNotice}>
-                  Браузер может передать звук своему сервису распознавания. Платформа получает только текст ответа.
-                  Можно ответить текстом без микрофона.
+                  Запись отправляется на сервер для распознавания GigaAM и не сохраняется. Можно ответить текстом без
+                  микрофона.
                 </p>
               )}
               {speechError && <Callout tone="warning">{speechError}</Callout>}
@@ -487,11 +435,9 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
                 id="interview-answer"
                 label={inputMode === 'voice' ? 'Расшифровка ответа' : 'Ваш ответ'}
                 hint={
-                  interim
-                    ? `Распознаём: ${interim}`
-                    : inputMode === 'voice'
-                      ? 'Проверьте расшифровку. Голосовой ответ учитывается как более сильный сигнал формата общения.'
-                      : 'Текстовый ответ оценивает ясность письменной коммуникации.'
+                  inputMode === 'voice'
+                    ? 'Проверьте расшифровку. Голосовой ответ учитывается как более сильный сигнал формата общения.'
+                    : 'Текстовый ответ оценивает ясность письменной коммуникации.'
                 }
                 rows={6}
                 maxLength={8000}
@@ -505,7 +451,7 @@ export function InterviewWorkspace({ interview }: { interview: Interview }) {
                 icon="send"
                 pending={mutation.isPending}
                 pendingLabel="Разбираем ответ…"
-                disabled={!answer.trim() || listening}
+                disabled={!answer.trim() || listening || transcribing}
                 onClick={() => mutation.mutate()}
               >
                 Отправить ответ

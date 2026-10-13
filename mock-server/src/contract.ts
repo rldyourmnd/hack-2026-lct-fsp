@@ -670,6 +670,10 @@ export const schemas = {
     criticality: en('required', 'desired'),
     status: en('meets', 'needs_verification', 'not_evidenced'),
     evidenceStatus: skillStatus,
+    minimumGrade: grade,
+    evidenceGrade: nullable(grade),
+    evidenceSources: arr(sourceKind, { uniqueItems: true }),
+    acceptedSources: arr(sourceKind, { uniqueItems: true }),
     reason: str(),
   }),
   Match: obj({
@@ -680,10 +684,21 @@ export const schemas = {
     requiredTotal: num({ minimum: 0 }),
     desiredMet: num({ minimum: 0 }),
     desiredTotal: num({ minimum: 0 }),
+    requiredEvidenced: num({ minimum: 0 }),
+    desiredEvidenced: num({ minimum: 0 }),
     requirements: arr(ref('MatchRequirement')),
     explanation: str(),
     algorithmVersion: str({ minLength: 1 }),
   }),
+  EmployerFsp: obj({
+    verifiedParticipation: bool,
+    publishedResults: num({ minimum: 0 }),
+    podiumResults: num({ minimum: 0 }),
+    relevantResults: num({ minimum: 0 }),
+    lastSyncedAt: nullable(dt),
+    synthetic: bool,
+  }),
+  EmployerReview: obj({ specialization, grade, agrees: bool, computedAt: dt }),
   AnonymousCandidate: obj({
     id,
     alias: str(),
@@ -702,6 +717,8 @@ export const schemas = {
     freshness: ref('Freshness'),
     match: nullable(ref('Match')),
     github: nullable(ref('GitHubSignal')),
+    fsp: nullable(ref('EmployerFsp')),
+    review: nullable(ref('EmployerReview')),
     simulation: bool,
   }),
   CandidatePage: obj({
@@ -984,6 +1001,12 @@ export const schemas = {
   }),
   InterviewSpeechInput: obj({ questionId: id }),
   SpeechAudio: obj({ audioBase64: str(), mimeType: str(), provider: str(), voice: str() }),
+  InterviewTranscriptionInput: obj({
+    questionId: id,
+    audioBase64: str({ minLength: 1, maxLength: 4_000_000 }),
+    mimeType: en('audio/webm', 'audio/mp4', 'audio/ogg'),
+  }),
+  SpeechTranscript: obj({ text: str({ minLength: 1 }), provider: str(), durationSeconds: num({ minimum: 0 }) }),
   InterviewDelivery: obj({ speechText: str(), avatarCue: en('speaking') }),
   InterviewQuestion: obj({
     id,
@@ -1212,6 +1235,10 @@ export const routes = [
   route('post', '/api/v1/me/interviews/{interviewId}/speech', 'synthesizeInterviewSpeech', 'SpeechAudio', {
     auth: 'candidate',
     body: 'InterviewSpeechInput',
+  }),
+  route('post', '/api/v1/me/interviews/{interviewId}/transcription', 'transcribeInterviewSpeech', 'SpeechTranscript', {
+    auth: 'candidate',
+    body: 'InterviewTranscriptionInput',
   }),
   route('get', '/api/v1/jobs/{jobId}', 'getJob', 'Job', { auth: 'any' }),
   route('get', '/api/v1/me/tasks', 'getMyTasks', 'MyTasks', { auth: 'candidate' }),

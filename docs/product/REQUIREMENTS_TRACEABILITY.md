@@ -8,7 +8,8 @@ screens in [`frontend/docs/SCREENS.md`](../../frontend/docs/SCREENS.md); tests i
 
 Status: **done** — implemented in the frontend, Rust API and development mock; **done, simulated** — the workflow is implemented,
 the underlying data or evaluation is a fixture; **partial** — a bounded implementation with a stated requirement gap; **not implemented**. Evidence cells list the original UI/mock
-cases; PostgreSQL regressions and delivery evidence are tracked in [the audit](../stability-audit.md).
+cases; PostgreSQL regressions are described in the [backend guide](../../backend/README.md#run-and-check),
+and release evidence follows the [CI runbook](../../infra/ci/README.md).
 
 The specification supplies no FSP API, schema or dataset (§2, p2; §4, p6), so every FSP record here is synthetic.
 

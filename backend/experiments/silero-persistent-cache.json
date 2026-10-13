@@ -1,0 +1,22 @@
+{
+  "id": "silero-persistent-cache",
+  "algorithmVersion": "silero-v5_5_ru-persistent-cache-v1",
+  "change": "Cache deterministic Silero WAV output on disk by model version, voice, sample rate, and normalized text.",
+  "expectedEffect": "A repeated synthesis returns byte-identical audio without model inference and remains cached after a worker restart.",
+  "failureCondition": "Repeated bytes differ, the post-restart request misses the cache, or a warm request takes at least half as long as the cold request.",
+  "verification": {
+    "command": "python3 voice-runtime/test_server.py && infra/tests/silero-cache-runtime.sh",
+    "artifact": "backend/experiments/silero-persistent-cache.json"
+  },
+  "observed": {
+    "status": "passed",
+    "releaseSha": "9a390afea4716934be7ccb9a2fa2d774c42ffed5",
+    "coldSeconds": 0.355965,
+    "warmSeconds": 0.002254,
+    "postRestartSeconds": 0.002127,
+    "wavSha256": "922bfabc30e5c9043857e8acc7880a97f8d11b628415c2aa116a5ffaa4096b60",
+    "byteIdentical": true,
+    "cacheSurvivedRestart": true,
+    "offlineCpuPath": true
+  }
+}

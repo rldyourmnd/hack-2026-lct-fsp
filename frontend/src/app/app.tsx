@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ToastProvider } from '@/shared/ui';
 import { createQueryClient } from './query-client';
 import { createAppRouter } from './router';
+import { useObservability } from './use-observability';
 
 function createApp() {
   let expiring = false;
@@ -25,6 +26,7 @@ function createApp() {
 
 export function App() {
   const [{ queryClient, router }] = useState(createApp);
+  useObservability(router);
   return (
     <QueryClientProvider client={queryClient}>
       <ToastProvider>

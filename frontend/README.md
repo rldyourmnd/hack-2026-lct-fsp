@@ -21,7 +21,7 @@ source analysis. Seed accounts and the FSP provider are explicitly fictional. Th
 | [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) | Tokens, UI kit, status vocabulary, layout and accessibility |
 | [`docs/TESTING.md`](docs/TESTING.md) | Unit, browser and stand tests, what each covers, how to run them |
 | [`docs/DEMO_SCRIPT_RU.md`](docs/DEMO_SCRIPT_RU.md) | Демонстрационный сценарий для показа |
-| [`AGENTS.md`](AGENTS.md) | Rules for changing the frontend |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Rules for changing the frontend |
 
 ## Stack
 

@@ -14,9 +14,8 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
 apt-get upgrade -yq
 # git: the GitHub insights service reads public repositories through blobless clones.
-apt-get install -yq nginx ufw curl unzip build-essential postgresql bubblewrap poppler-utils git
-install -D -m 644 "$HERE/apparmor/fsp-pdf-bwrap" /etc/apparmor.d/fsp-pdf-bwrap
-apparmor_parser -r /etc/apparmor.d/fsp-pdf-bwrap
+apt-get install -yq nginx ufw curl unzip build-essential postgresql bubblewrap poppler-utils git ffmpeg python3.12-venv
+bash "$HERE/install-pdf-sandbox.sh"
 
 if [ "$(/opt/bun/bin/bun --version 2>/dev/null)" != "$BUN_VERSION" ]; then
   tmp="$(mktemp -d)"
@@ -129,12 +128,19 @@ if [ ! -f /etc/fsp/interview.env ]; then
   chmod 640 "$interview_env"
   mv "$interview_env" /etc/fsp/interview.env
 fi
+if [ ! -f /etc/fsp/speech.env ]; then
+  printf 'FSP_TTS_PROVIDER=browser\n' > /etc/fsp/speech.env
+fi
 # The GitHub analysis needs no token. An optional /etc/fsp/github-insights.env (root:fsp, 640) with a
 # read-only GITHUB_TOKEN only raises GitHub's per-IP limits for anonymous requests.
 install -m 644 "$HERE/fsp-github-insights.service" /etc/systemd/system/fsp-github-insights.service
 install -m 644 "$HERE/fsp-interview.service" /etc/systemd/system/fsp-interview.service
-chown root:fsp /etc/fsp/{mock-api,rust-api,frontend-build,interview}.env
-chmod 640 /etc/fsp/{mock-api,rust-api,frontend-build,interview}.env
+install -m 644 "$HERE/fsp-silero-tts.service" /etc/systemd/system/fsp-silero-tts.service
+install -m 644 "$HERE/fsp-gigaam-stt.service" /etc/systemd/system/fsp-gigaam-stt.service
+chown root:fsp /etc/fsp/{mock-api,rust-api,frontend-build,interview,speech}.env
+chmod 640 /etc/fsp/{mock-api,rust-api,frontend-build,interview,speech}.env
+bash "$HERE/install-silero-runtime.sh" "$(dirname "$HERE")/voice-runtime"
+bash "$HERE/install-gigaam-runtime.sh"
 [ -f /etc/fsp/api-backend ] || echo mock > /etc/fsp/api-backend
 install -m 644 "$HERE/fsp-api.service" /etc/systemd/system/fsp-api.service
 install -m 644 "$HERE/fsp-mock-api.service" /etc/systemd/system/fsp-mock-api.service
@@ -150,6 +156,16 @@ case "$(cat /etc/fsp/api-backend)" in
   mock) systemctl disable fsp-api.service fsp-interview.service; systemctl enable fsp-mock-api.service ;;
   *) echo 'Invalid /etc/fsp/api-backend' >&2; exit 1 ;;
 esac
+if grep -Fxq 'FSP_TTS_PROVIDER=silero' /etc/fsp/speech.env; then
+  systemctl enable fsp-silero-tts.service
+else
+  systemctl disable fsp-silero-tts.service 2>/dev/null || true
+fi
+if grep -Fxq 'FSP_STT_PROVIDER=gigaam' /etc/fsp/speech.env; then
+  systemctl enable fsp-gigaam-stt.service
+else
+  systemctl disable fsp-gigaam-stt.service 2>/dev/null || true
+fi
 if [ -f /etc/fsp/llm.env ]; then
   systemctl enable fsp-cliproxy.service fsp-bifrost.service >/dev/null
 fi

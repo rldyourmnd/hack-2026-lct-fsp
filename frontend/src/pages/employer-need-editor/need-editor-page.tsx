@@ -2,6 +2,7 @@ import { useForm } from '@tanstack/react-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+import { candidatesKey } from '@/entities/candidate';
 import { companyQuery } from '@/entities/company';
 import { type SkillId, skillLabel, useMeta } from '@/entities/meta';
 import { createNeed, defaultEvidencePolicy, describePolicy, type Need, needsKey, updateNeed } from '@/entities/need';
@@ -202,7 +203,10 @@ export function EmployerNeedEditorPage({ need }: { need?: Need }) {
     onSuccess: async (saved, values) => {
       form.reset(values);
       queryClient.setQueryData([...needsKey(scope), saved.id], saved);
-      await queryClient.invalidateQueries({ queryKey: needsKey(scope), exact: true });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: needsKey(scope) }),
+        queryClient.invalidateQueries({ queryKey: candidatesKey(scope) }),
+      ]);
       if (afterSave === 'search') {
         await navigate({ to: '/employer/candidates', search: { needId: saved.id, mode: 'recommended' } });
       } else if (!need) {

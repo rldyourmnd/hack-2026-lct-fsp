@@ -1,0 +1,201 @@
+{
+  "summary": "Three independently operated backend services; no evidence of people management or cross-company technical influence. Synthetic evaluation fixture.",
+  "specializations": [
+    {
+      "id": "backend",
+      "share": 100
+    }
+  ],
+  "ruleGrade": "middle",
+  "score": 58,
+  "factors": [],
+  "notes": [
+    "FSP team placement does not prove individual skill."
+  ],
+  "stack": [
+    "rust",
+    "postgresql",
+    "redis",
+    "docker"
+  ],
+  "publicExperienceMonths": 30,
+  "statedExperienceMonths": 36,
+  "statedTeamRole": "Backend engineer, no management role",
+  "fspResults": [
+    "Published team result, no individual attribution."
+  ],
+  "areas": [
+    "Backend APIs, data pipelines, operations"
+  ],
+  "technologies": [
+    "Rust, PostgreSQL, Redis, Docker"
+  ],
+  "projects": [
+    {
+      "description": "Service 0: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 1: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 2: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 3: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 4: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 5: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 6: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 7: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 8: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 9: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 10: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    },
+    {
+      "description": "Service 11: independently deployable queue processor with bounded retries, SQL migrations, idempotency keys, unit and integration tests. Operated for 24 months; no measured multi-region or organizational impact.",
+      "language": "Rust",
+      "stars": 3,
+      "ownCommits": 100,
+      "ownSharePercent": 90,
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Redis",
+        "Docker"
+      ]
+    }
+  ],
+  "metrics": [
+    "tests and CI present in all projects",
+    "review contributions not observed",
+    "collaborators: not established"
+  ],
+  "growth": [],
+  "focusSkills": [
+    "observability",
+    "distributed-systems"
+  ]
+}

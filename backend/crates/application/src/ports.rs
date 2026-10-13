@@ -506,3 +506,12 @@ pub trait InterviewGateway: Send + Sync {
 pub trait SpeechSynthesisGateway: Send + Sync {
     async fn synthesize(&self, text: &str) -> Result<crate::SpeechAudioView, IntegrationError>;
 }
+
+#[async_trait]
+pub trait SpeechRecognitionGateway: Send + Sync {
+    async fn transcribe(
+        &self,
+        audio_base64: &str,
+        mime_type: &str,
+    ) -> Result<crate::SpeechTranscriptView, IntegrationError>;
+}

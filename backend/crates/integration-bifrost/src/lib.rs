@@ -14,10 +14,11 @@ pub struct BifrostGateway {
     api_key: Option<String>,
     model: String,
     reasoning_effort: Option<String>,
+    interactive_reasoning_effort: Option<String>,
 }
 
 /// How long and how deeply one call may think. Calls inside an HTTP request keep the model's
-/// default reasoning and the request deadline; background reviews may reason at length.
+/// explicit interactive reasoning and the request deadline; background reviews have a separate budget.
 struct CallBudget {
     timeout: Duration,
     max_tokens: u32,
@@ -30,7 +31,7 @@ const REQUEST_CALL: CallBudget = CallBudget {
     deep: false,
 };
 
-/// Deep reasoning on a full review takes one to four minutes; Bifrost's provider timeout is 360 s.
+/// Background reviews stay below Bifrost's 360-second provider timeout.
 const BACKGROUND_CALL: CallBudget = CallBudget {
     timeout: Duration::from_secs(330),
     max_tokens: 16_384,
@@ -45,6 +46,12 @@ impl BifrostGateway {
         model: String,
         reasoning_effort: Option<String>,
     ) -> Result<Self, IntegrationError> {
+        if reasoning_effort
+            .as_deref()
+            .is_some_and(|effort| !matches!(effort, "low" | "medium" | "high" | "xhigh"))
+        {
+            return Err(integration("invalid background reasoning effort"));
+        }
         let client = Client::builder()
             .timeout(BACKGROUND_CALL.timeout)
             .connect_timeout(Duration::from_secs(5))
@@ -52,12 +59,29 @@ impl BifrostGateway {
             .build()
             .map_err(integration)?;
         Ok(Self {
+            interactive_reasoning_effort: (model.contains("grok-")).then(|| "low".into()),
             client,
             chat_url,
             api_key,
             model,
             reasoning_effort,
         })
+    }
+
+    pub fn with_interactive_reasoning_effort(
+        mut self,
+        effort: Option<String>,
+    ) -> Result<Self, IntegrationError> {
+        if effort
+            .as_deref()
+            .is_some_and(|value| !matches!(value, "low" | "medium" | "high" | "xhigh"))
+        {
+            return Err(integration("invalid interactive reasoning effort"));
+        }
+        if effort.is_some() {
+            self.interactive_reasoning_effort = effort;
+        }
+        Ok(self)
     }
 
     async fn complete<T: DeserializeOwned>(
@@ -74,6 +98,22 @@ impl BifrostGateway {
         input: &impl serde::Serialize,
         budget: &CallBudget,
     ) -> Result<T, IntegrationError> {
+        let mut timing = CallTiming {
+            started: std::time::Instant::now(),
+            model: &self.model,
+            effort: if budget.deep {
+                self.reasoning_effort.as_deref()
+            } else {
+                self.interactive_reasoning_effort.as_deref()
+            }
+            .unwrap_or("provider_default"),
+            task: if budget.deep {
+                "profile_review"
+            } else {
+                "interactive"
+            },
+            outcome: "incomplete",
+        };
         let mut body = json!({
             "model": self.model,
             "messages": [
@@ -84,9 +124,12 @@ impl BifrostGateway {
             "max_tokens": budget.max_tokens,
             "temperature": 0
         });
-        if budget.deep
-            && let Some(effort) = &self.reasoning_effort
-        {
+        let effort = if budget.deep {
+            &self.reasoning_effort
+        } else {
+            &self.interactive_reasoning_effort
+        };
+        if let Some(effort) = effort {
             body["reasoning_effort"] = json!(effort);
         }
         let mut request = self
@@ -123,7 +166,13 @@ impl BifrostGateway {
                 code: "bifrost_invalid_response",
                 message: "Bifrost вернул пустой ответ".into(),
             })?;
-        serde_json::from_str(&content).map_err(integration)
+        let result = serde_json::from_str(&content).map_err(integration);
+        timing.outcome = if result.is_ok() {
+            "ok"
+        } else {
+            "invalid_response"
+        };
+        result
     }
 }
 
@@ -273,4 +322,81 @@ fn review_task() -> String {
          promise a grade and never repeat a step word for word. Never include names, logins, links, e-mails \
          or organizations."
     )
+}
+
+/// Drop also records cancellation at the shared request deadline; no prompt, answer or credentials.
+struct CallTiming<'a> {
+    started: std::time::Instant,
+    model: &'a str,
+    effort: &'a str,
+    task: &'a str,
+    outcome: &'static str,
+}
+
+impl Drop for CallTiming<'_> {
+    fn drop(&mut self) {
+        tracing::info!(
+            event = "llm_call",
+            task = self.task,
+            model = self.model,
+            reasoning_effort = self.effort,
+            outcome = self.outcome,
+            duration_ms = self.started.elapsed().as_millis() as u64
+        );
+    }
+}
+
+#[cfg(test)]
+mod reasoning_tests {
+    use super::*;
+    use axum::{Json, Router, extract::State, routing::post};
+    use serde_json::Value;
+    use std::sync::{Arc, Mutex};
+
+    #[tokio::test]
+    async fn wire_reasoning_budgets_are_explicit_and_preserve_json_validation() {
+        let captured = Arc::new(Mutex::new(Vec::<Value>::new()));
+        let app =
+            Router::new()
+                .route(
+                    "/chat",
+                    post(
+                        |State(captured): State<Arc<Mutex<Vec<Value>>>>,
+                         Json(body): Json<Value>| async move {
+                            captured.lock().unwrap().push(body);
+                            Json(json!({"choices":[{"message":{"content":"{\"ok\":true}"}}]}))
+                        },
+                    ),
+                )
+                .with_state(captured.clone());
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let url = format!("http://{}/chat", listener.local_addr().unwrap());
+        let server = tokio::spawn(async move {
+            axum::serve(listener, app).await.unwrap();
+        });
+        let client = BifrostGateway::new(
+            url,
+            None,
+            "grok-build/grok-4.7".into(),
+            Some("medium".into()),
+        )
+        .unwrap();
+        let first: Value = client.complete("Return JSON", &json!({})).await.unwrap();
+        let second: Value = client
+            .complete_within("Return JSON", &json!({}), &BACKGROUND_CALL)
+            .await
+            .unwrap();
+        assert_eq!(first, json!({"ok": true}));
+        assert_eq!(second, first);
+        assert_eq!(captured.lock().unwrap()[0]["reasoning_effort"], "low");
+        assert_eq!(captured.lock().unwrap()[1]["reasoning_effort"], "medium");
+        assert_eq!(captured.lock().unwrap()[0]["max_tokens"], 4096);
+        assert_eq!(captured.lock().unwrap()[1]["max_tokens"], 16384);
+        assert!(
+            client
+                .with_interactive_reasoning_effort(Some("invalid".into()))
+                .is_err()
+        );
+        server.abort();
+    }
 }

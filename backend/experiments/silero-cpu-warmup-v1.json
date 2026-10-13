@@ -1,0 +1,28 @@
+{
+  "id": "silero-cpu-warmup-v1",
+  "algorithmVersion": "silero-v5_5_ru-startup-warmup-v1",
+  "change": "run one representative Russian synthesis before the Silero HTTP server begins accepting requests",
+  "expectedEffect": "the first user synthesis avoids the one-time CPU kernel initialization penalty and approaches the latency of a repeated request",
+  "failureCondition": "the first post-readiness request remains above 3 seconds or the worker reports healthy before warmup completes",
+  "verification": {
+    "command": "infra/tests/silero-runtime.sh",
+    "artifact": "backend/experiments/silero-cpu-warmup-v1.json"
+  },
+  "baseline": {
+    "phraseCharacters": 129,
+    "cpuThreads": 4,
+    "sampleRate": 24000,
+    "coldSeconds": 4.920002,
+    "warmSeconds": 1.972634
+  },
+  "observed": {
+    "status": "passed",
+    "firstPostReadinessSeconds": 2.101956,
+    "singleRunColdStartReductionPercent": 57.3,
+    "offlineCpuPath": true
+  },
+  "measurementClaims": {
+    "steadyStateLatencyImprovement": "not_expected",
+    "naturalness": "unchanged"
+  }
+}

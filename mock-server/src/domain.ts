@@ -415,7 +415,14 @@ function match(candidate: Candidate, need: Need): Schemas['Match'] {
   const requirements = need.requirements.map((requirement): Schemas['MatchRequirement'] => {
     const skill = candidate.skills.find((item) => item.skillId === requirement.skillId);
     const policy = requirement.evidencePolicy;
-    const acceptedAssessment = policy.acceptAssessments && skill?.evidenceSources.includes('assessment');
+    const acceptedSources = (skill?.evidenceSources ?? []).filter((source) =>
+      source === 'assessment'
+        ? policy.acceptAssessments
+        : source === 'github'
+          ? policy.acceptGithub
+          : policy.acceptFsp && policy.competitionSelection === 'system',
+    );
+    const acceptedAssessment = acceptedSources.includes('assessment');
     const supported =
       skill &&
       skill.status === 'confirmed' &&
@@ -430,14 +437,18 @@ function match(candidate: Candidate, need: Need): Schemas['Match'] {
       ? 'Навык подтверждён проверкой нужного уровня, которую принимает работодатель.'
       : status === 'not_evidenced'
         ? 'Пока нет достаточных свидетельств по этому навыку.'
-        : !acceptedAssessment && skill?.status === 'confirmed'
-          ? 'Имеющееся подтверждение не соответствует политике этой потребности.'
+        : acceptedSources.length === 0
+          ? 'Имеющиеся источники не соответствуют политике этой потребности.'
           : 'Есть основания, но уровень по этому требованию ещё следует подтвердить.';
     return {
       skillId: requirement.skillId,
       criticality: requirement.criticality,
       status,
       evidenceStatus: skill?.status ?? 'insufficient',
+      minimumGrade: requirement.minimumGrade,
+      evidenceGrade: skill?.evidenceGrade ?? null,
+      evidenceSources: skill?.evidenceSources ?? [],
+      acceptedSources,
       reason,
     };
   });
@@ -460,12 +471,28 @@ function match(candidate: Candidate, need: Need): Schemas['Match'] {
     requiredTotal: required.length,
     desiredMet,
     desiredTotal: desired.length,
+    requiredEvidenced: required.filter(
+      (item) => item.evidenceStatus !== 'insufficient' && item.acceptedSources.length > 0,
+    ).length,
+    desiredEvidenced: desired.filter(
+      (item) => item.evidenceStatus !== 'insufficient' && item.acceptedSources.length > 0,
+    ).length,
     requirements,
     explanation: gradeMatches
       ? `Подтверждено обязательных требований: ${requiredMet} из ${required.length}.`
       : 'Специализация или грейд категории пока не соответствуют потребности.',
-    algorithmVersion: 'fixture-rules-v1',
+    algorithmVersion: 'deterministic-rules-v2',
   };
+}
+function compareVacancyFit(a: Schemas['Match'], b: Schemas['Match']): number {
+  const coverage = (n: number, total: number) => (total === 0 ? 1 : n / total);
+  return (
+    Number(b.gradeMatches) - Number(a.gradeMatches) ||
+    coverage(b.requiredMet, b.requiredTotal) - coverage(a.requiredMet, a.requiredTotal) ||
+    coverage(b.desiredMet, b.desiredTotal) - coverage(a.desiredMet, a.desiredTotal) ||
+    coverage(b.requiredEvidenced, b.requiredTotal) - coverage(a.requiredEvidenced, a.requiredTotal) ||
+    coverage(b.desiredEvidenced, b.desiredTotal) - coverage(a.desiredEvidenced, a.desiredTotal)
+  );
 }
 const fspVerified = (candidate: Candidate) =>
   candidate.sources.some((source) => source.provider === 'fsp' && source.verifiedParticipation);
@@ -502,7 +529,41 @@ function anonymous(s: State, candidate: Candidate, need: Need | null = null): Sc
     freshness: freshness(s, candidate),
     match: need ? match(candidate, need) : null,
     github: githubProjection(candidate),
+    fsp: fspProjection(candidate, need),
+    review: estimate?.review
+      ? {
+          specialization: estimate.review.specialization,
+          grade: estimate.review.grade,
+          agrees: estimate.review.agrees,
+          computedAt: estimate.computedAt,
+        }
+      : null,
     simulation: true,
+  };
+}
+function fspProjection(candidate: Candidate, need: Need | null): Schemas['EmployerFsp'] | null {
+  const source = candidate.sources.find((item) => item.provider === 'fsp');
+  if (!source) return null;
+  const published = (source.fspResults ?? []).filter((item) => item.status === 'published');
+  return {
+    verifiedParticipation: source.verifiedParticipation ?? false,
+    publishedResults: published.length,
+    podiumResults: published.filter((item) => item.place !== null && item.place >= 1 && item.place <= 3).length,
+    relevantResults: published.filter((result) =>
+      need?.requirements.some((requirement) => {
+        const policy = requirement.evidencePolicy;
+        return (
+          policy.acceptFsp &&
+          (policy.competitionSelection === 'system' || policy.competitionIds.includes(result.competitionId)) &&
+          COMPETITIONS.some(
+            (competition) =>
+              competition.id === result.competitionId && competition.skillIds.includes(requirement.skillId),
+          )
+        );
+      }),
+    ).length,
+    lastSyncedAt: source.lastSyncedAt,
+    synthetic: source.synthetic,
   };
 }
 function githubProjection(candidate: Candidate): Schemas['GitHubSignal'] | null {
@@ -1179,6 +1240,7 @@ type Handlers = { [R in Route as R['operationId']]: (ctx: Context<BodyOf<R>, Act
 const handlers: Handlers = {
   getHealth: () => ({ status: 'ok', service: 'fsp-mock-api', version: '0.1.0' }),
   synthesizeInterviewSpeech: () => fail(503, 'speech_not_configured', 'В демо-режиме используется голос браузера'),
+  transcribeInterviewSpeech: () => fail(503, 'speech_not_configured', 'Распознавание речи в мок-сервере не настроено'),
   getMeta: ({ s }) => ({
     contractVersion: '0.1.0',
     mode: 'mock',
@@ -1849,6 +1911,8 @@ const handlers: Handlers = {
         ? Number(b.match.gradeMatches) - Number(a.match.gradeMatches) ||
           b.match.requiredMet - a.match.requiredMet ||
           b.match.desiredMet - a.match.desiredMet ||
+          b.match.requiredEvidenced - a.match.requiredEvidenced ||
+          b.match.desiredEvidenced - a.match.desiredEvidenced ||
           strength(b) - strength(a) ||
           Number(b.fspVerified) - Number(a.fspVerified) ||
           a.id.localeCompare(b.id)
@@ -2038,8 +2102,13 @@ const handlers: Handlers = {
           (!workMode || need.workMode === workMode) &&
           (!skill || need.requirements.some((item) => item.skillId === skill)),
       )
-      .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? '') || a.id.localeCompare(b.id))
-      .map((need) => vacancyDto(ctx.s, need, candidate));
+      .map((need) => vacancyDto(ctx.s, need, candidate))
+      .sort(
+        (a, b) =>
+          (a.match && b.match ? compareVacancyFit(a.match, b.match) : 0) ||
+          b.publishedAt.localeCompare(a.publishedAt) ||
+          a.id.localeCompare(b.id),
+      );
     const page = typeof ctx.query.page === 'number' ? ctx.query.page : 1;
     const pageSize = typeof ctx.query.pageSize === 'number' ? ctx.query.pageSize : 10;
     return {

@@ -515,6 +515,11 @@ test('graph interview follows prerequisites and rejects a stale answer', async (
     body: { questionId: started.currentQuestion.id },
     status: 503,
   });
+  await request('POST', `/api/v1/me/interviews/${started.id}/transcription`, {
+    actor: candidate,
+    body: { questionId: started.currentQuestion.id, audioBase64: 'YXVkaW8=', mimeType: 'audio/webm' },
+    status: 503,
+  });
 
   const answered = (
     await request('POST', `/api/v1/me/interviews/${started.id}/answers`, {
@@ -1233,7 +1238,7 @@ test('vacancy publication needs a complete company and shows candidates only pub
   let page = (await request('GET', '/api/v1/vacancies', { actor: candidate })).body;
   assert.deepEqual(
     page.items.map((item: Body) => item.id),
-    ['need-b-002', 'need-002', 'need-b-001'],
+    ['need-002', 'need-b-002', 'need-b-001'],
   );
   await request('POST', '/api/v1/needs/need-001/publish', { actor: b, status: 404 });
   const published = (await request('POST', '/api/v1/needs/need-001/publish', { actor: a })).body;
@@ -1246,7 +1251,7 @@ test('vacancy publication needs a complete company and shows candidates only pub
   page = (await request('GET', '/api/v1/vacancies?pageSize=2', { actor: candidate })).body;
   assert.deepEqual(
     page.items.map((item: Body) => item.id),
-    ['need-001', 'need-b-002'],
+    ['need-002', 'need-b-002'],
   );
   assert.equal(page.total, 4);
   assert.equal(page.hasNextPage, true);
@@ -1301,7 +1306,11 @@ test('vacancy publication needs a complete company and shows candidates only pub
     body: { displayName: 'Третья компания', businessArea: 'Финтех', description: 'Платёжные сервисы.' },
   });
   await request('POST', `/api/v1/needs/${own.id}/publish`, { actor: employer });
-  assert.equal((await request('GET', '/api/v1/vacancies', { actor: candidate })).body.items[0].id, own.id);
+  assert.ok(
+    (await request('GET', '/api/v1/vacancies', { actor: candidate })).body.items.some(
+      (item: Body) => item.id === own.id,
+    ),
+  );
 });
 
 test('applications disclose the chosen fields, keep vacancy terms and follow employer decisions', async (t) => {
@@ -1662,4 +1671,45 @@ after(async () => {
     [],
     'Every declared operation must be exercised',
   );
+});
+
+test('candidate and employer see identical policy-aware fit and safe source projections', async (t) => {
+  const { request, login } = await setup(t, { scenario: 'qualified' });
+  const candidate = await login('candidate024');
+  const employer = await login('employer-a');
+  await request('POST', '/api/v1/needs/need-001/publish', { actor: employer });
+  const original = (await request('GET', '/api/v1/needs/need-001', { actor: employer })).body;
+  for (const acceptAssessments of [true, false]) {
+    await request('PATCH', '/api/v1/needs/need-001', {
+      actor: employer,
+      body: {
+        requirements: original.requirements.map((item: Body) => ({
+          ...item,
+          evidencePolicy: { ...item.evidencePolicy, acceptAssessments, acceptGithub: true },
+        })),
+      },
+    });
+    const own = (await request('GET', '/api/v1/vacancies/need-001', { actor: candidate })).body;
+    const seen = (await request('GET', '/api/v1/candidates/candidate024?needId=need-001', { actor: employer })).body;
+    assert.deepEqual(own.match, seen.match);
+    assertAnonymous(seen);
+    assert.equal(
+      seen.match.requiredMet,
+      seen.match.requirements.filter((item: Body) => item.criticality === 'required' && item.status === 'meets').length,
+    );
+    assert.equal(
+      seen.match.requiredEvidenced,
+      seen.match.requirements.filter(
+        (item: Body) =>
+          item.criticality === 'required' && item.evidenceStatus !== 'insufficient' && item.acceptedSources.length > 0,
+      ).length,
+    );
+    if (!acceptAssessments) assert.equal(seen.match.requiredMet, 0);
+    for (const item of seen.match.requirements) {
+      if (!acceptAssessments) assert.ok(!item.acceptedSources.includes('assessment'));
+      assert.ok(item.acceptedSources.every((source: string) => item.evidenceSources.includes(source)));
+    }
+    assert.ok(seen.fsp === null || (!('teamName' in seen.fsp) && !('accountLabel' in seen.fsp)));
+    assert.ok(seen.review === null || !('rationale' in seen.review));
+  }
 });

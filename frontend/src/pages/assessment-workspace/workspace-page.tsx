@@ -17,6 +17,7 @@ import { useMeta } from '@/entities/meta';
 import { profileKey } from '@/entities/profile';
 import { useScope } from '@/entities/session';
 import { graphKey, skillsKey } from '@/entities/skill';
+import { vacanciesKey } from '@/entities/vacancy';
 import { describeError, isApiError, newIdempotencyKey } from '@/shared/api';
 import { formatTime, gradeLabel, specializationLabel, useDocumentTitle } from '@/shared/lib';
 import {
@@ -252,6 +253,7 @@ function Workspace({ assessment }: { assessment: Assessment }) {
           assessmentKey(scope, assessment.id),
           assessmentsKey(scope),
           profileKey(scope),
+          vacanciesKey(scope),
           skillsKey(scope),
           graphKey(scope),
         ].map((queryKey) => queryClient.invalidateQueries({ queryKey })),

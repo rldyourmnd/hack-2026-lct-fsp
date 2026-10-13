@@ -12,6 +12,8 @@ export const candidatesKey = (scope: Scope) => [...scope, 'candidates'] as const
 
 export const candidateSearchQuery = (scope: Scope, filters: CandidateFilters) =>
   queryOptions({
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
     queryKey: [...candidatesKey(scope), 'search', filters] as const,
     queryFn: async ({ signal }) =>
       requireData(await api.GET('/api/v1/candidates', { params: { query: filters }, signal })),
@@ -21,6 +23,8 @@ export const candidateSearchQuery = (scope: Scope, filters: CandidateFilters) =>
 /** Employer projection: anonymous by construction, regardless of any later disclosure. */
 export const candidateQuery = (scope: Scope, candidateId: string, needId?: string) =>
   queryOptions({
+    refetchInterval: 30_000,
+    refetchIntervalInBackground: false,
     queryKey: [...candidatesKey(scope), candidateId, 'profile', needId ?? null] as const,
     queryFn: async ({ signal }) =>
       requireData(

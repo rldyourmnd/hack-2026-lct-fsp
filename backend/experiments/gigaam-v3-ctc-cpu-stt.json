@@ -1,0 +1,23 @@
+{
+  "id": "gigaam-v3-ctc-cpu-stt",
+  "algorithmVersion": "gigaam-v3-ctc-7447938d-cpu",
+  "change": "transcribe short Russian interview recordings with checksum-pinned GigaAM v3 CTC on the local CPU worker",
+  "expectedEffect": "a Russian control recording produces a non-empty transcript without a browser or cloud speech API",
+  "failureCondition": "the worker requires a GPU or network after installation, exceeds the 3 GiB service limit, or returns an empty transcript",
+  "verification": {
+    "command": "infra/tests/gigaam-runtime.sh",
+    "artifact": "backend/experiments/gigaam-v3-ctc-cpu-stt.json"
+  },
+  "observed": {
+    "status": "passed",
+    "checkpointMd5": "73413e7be9c6a5935827bfab5c0dd678",
+    "offlineCpuPath": true,
+    "controlTranscript": "проверяем распознавание русской речи",
+    "controlChainSeconds": 1.22,
+    "workerMemoryPeakBytes": 1546887168
+  },
+  "measurementClaims": {
+    "accuracy": "not_established_on_product_audio",
+    "latency": "1.22 seconds for the production Silero-to-WebM-to-GigaAM control chain"
+  }
+}

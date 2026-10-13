@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{Grade, Specialization};
 
-pub const MATCHING_ALGORITHM_VERSION: &str = "deterministic-rules-v1";
+pub const MATCHING_ALGORITHM_VERSION: &str = "deterministic-rules-v2";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -68,7 +68,7 @@ pub struct EvidencePolicy {
 }
 
 impl EvidencePolicy {
-    fn accepts(&self, source: EvidenceSource) -> bool {
+    pub fn accepts(&self, source: EvidenceSource) -> bool {
         match source {
             EvidenceSource::Assessment => self.accept_assessments,
             EvidenceSource::Github => self.accept_github,
@@ -92,6 +92,8 @@ pub struct MatchScore {
     pub required_total: usize,
     pub desired_met: usize,
     pub desired_total: usize,
+    pub required_evidenced: usize,
+    pub desired_evidenced: usize,
     pub algorithm_version: &'static str,
 }
 
@@ -120,22 +122,69 @@ pub fn score(candidate: &RankableCandidate, need: &HiringNeed) -> MatchScore {
             .filter(|item| requirement_met(candidate, item))
             .count(),
         desired_total: desired.len(),
+        required_evidenced: required
+            .iter()
+            .filter(|item| requirement_evidence(&candidate.skills, item).supported())
+            .count(),
+        desired_evidenced: desired
+            .iter()
+            .filter(|item| requirement_evidence(&candidate.skills, item).supported())
+            .count(),
         algorithm_version: MATCHING_ALGORITHM_VERSION,
     }
 }
 
 fn requirement_met(candidate: &RankableCandidate, requirement: &Requirement) -> bool {
-    candidate.skills.iter().any(|skill| {
-        skill.skill_id == requirement.skill_id
-            && skill.status == EvidenceStatus::Confirmed
-            && skill
-                .sources
-                .iter()
-                .any(|source| requirement.evidence_policy.accepts(*source))
-            && skill
-                .evidence_grade
-                .is_some_and(|grade| grade >= requirement.minimum_grade)
-    })
+    requirement_evidence(&candidate.skills, requirement).meets
+}
+
+/// The aggregate skill grade belongs to an assessment. GitHub/FSP observations must never
+/// borrow it when that assessment is excluded by the employer's policy.
+pub struct RequirementEvidence {
+    pub meets: bool,
+    pub status: EvidenceStatus,
+    pub grade: Option<Grade>,
+    pub sources: Vec<EvidenceSource>,
+    pub accepted_sources: Vec<EvidenceSource>,
+}
+
+impl RequirementEvidence {
+    pub fn supported(&self) -> bool {
+        self.status != EvidenceStatus::Insufficient && !self.accepted_sources.is_empty()
+    }
+}
+
+#[must_use]
+pub fn requirement_evidence(
+    skills: &[SkillEvidence],
+    requirement: &Requirement,
+) -> RequirementEvidence {
+    let skill = skills
+        .iter()
+        .find(|skill| skill.skill_id == requirement.skill_id);
+    let status = skill.map_or(EvidenceStatus::Insufficient, |skill| skill.status);
+    let sources = skill.map_or_else(Vec::new, |skill| skill.sources.clone());
+    // FSP skill evidence is not persisted with competition provenance yet. In particular, a
+    // generic participation flag cannot satisfy a selected-competition policy.
+    let accepted_sources: Vec<_> = sources
+        .iter()
+        .copied()
+        .filter(|source| {
+            requirement.evidence_policy.accepts(*source)
+                && (*source != EvidenceSource::Fsp
+                    || requirement.evidence_policy.competition_selection == "system")
+        })
+        .collect();
+    let grade = skill.and_then(|skill| skill.evidence_grade);
+    RequirementEvidence {
+        meets: status == EvidenceStatus::Confirmed
+            && accepted_sources.contains(&EvidenceSource::Assessment)
+            && grade.is_some_and(|grade| grade >= requirement.minimum_grade),
+        status,
+        grade,
+        sources,
+        accepted_sources,
+    }
 }
 
 #[must_use]
@@ -174,14 +223,123 @@ fn compare_rank(left: &Ranked, right: &Ranked) -> Ordering {
         .cmp(&left.score.grade_matches)
         .then_with(|| right.score.required_met.cmp(&left.score.required_met))
         .then_with(|| right.score.desired_met.cmp(&left.score.desired_met))
+        .then_with(|| {
+            right
+                .score
+                .required_evidenced
+                .cmp(&left.score.required_evidenced)
+        })
+        .then_with(|| {
+            right
+                .score
+                .desired_evidenced
+                .cmp(&left.score.desired_evidenced)
+        })
         .then_with(|| right.confirmation.cmp(&left.confirmation))
         .then_with(|| right.fsp_verified.cmp(&left.fsp_verified))
         .then_with(|| left.id.cmp(&right.id))
 }
 
+/// Compare vacancies of different sizes by coverage, not raw counts. Stable tie-breakers
+/// (publication time and id) belong to the application, not the evidence calculation.
+pub fn compare_vacancy_fit(left: &MatchScore, right: &MatchScore) -> Ordering {
+    fn coverage(l: usize, lt: usize, r: usize, rt: usize) -> Ordering {
+        let (l, lt) = if lt == 0 { (1, 1) } else { (l, lt) };
+        let (r, rt) = if rt == 0 { (1, 1) } else { (r, rt) };
+        (r as u128 * lt as u128).cmp(&(l as u128 * rt as u128))
+    }
+    right
+        .grade_matches
+        .cmp(&left.grade_matches)
+        .then_with(|| {
+            coverage(
+                left.required_met,
+                left.required_total,
+                right.required_met,
+                right.required_total,
+            )
+        })
+        .then_with(|| {
+            coverage(
+                left.desired_met,
+                left.desired_total,
+                right.desired_met,
+                right.desired_total,
+            )
+        })
+        .then_with(|| {
+            coverage(
+                left.required_evidenced,
+                left.required_total,
+                right.required_evidenced,
+                right.required_total,
+            )
+        })
+        .then_with(|| {
+            coverage(
+                left.desired_evidenced,
+                left.desired_total,
+                right.desired_evidenced,
+                right.desired_total,
+            )
+        })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn github_cannot_borrow_a_disallowed_assessment_grade() {
+        let mut candidate = candidate("mixed", Grade::Middle, true, false);
+        candidate.skills[0].sources.push(EvidenceSource::Github);
+        let mut need = need();
+        need.requirements[0].evidence_policy.accept_assessments = false;
+        need.requirements[0].evidence_policy.accept_github = true;
+        let evidence = requirement_evidence(&candidate.skills, &need.requirements[0]);
+        assert!(!evidence.meets);
+        assert!(evidence.supported());
+        assert_eq!(score(&candidate, &need).required_met, 0);
+        assert_eq!(score(&candidate, &need).required_evidenced, 1);
+    }
+
+    #[test]
+    fn observed_technology_improves_fit_only_when_the_policy_accepts_it() {
+        let mut candidate = candidate("observed", Grade::Middle, false, false);
+        candidate.skills[0].status = EvidenceStatus::Evidence;
+        candidate.skills[0].sources = vec![EvidenceSource::Github];
+        let mut need = need();
+        assert_eq!(score(&candidate, &need).required_evidenced, 0);
+        need.requirements[0].evidence_policy.accept_github = true;
+        let score = score(&candidate, &need);
+        assert_eq!((score.required_met, score.required_evidenced), (0, 1));
+    }
+
+    #[test]
+    fn selected_competitions_require_provenance_and_never_prove_a_grade() {
+        let mut candidate = candidate("fsp", Grade::Middle, false, false);
+        candidate.skills[0].status = EvidenceStatus::Evidence;
+        candidate.skills[0].sources = vec![EvidenceSource::Fsp];
+        let mut need = need();
+        need.requirements[0].evidence_policy.accept_fsp = true;
+        need.requirements[0].evidence_policy.competition_selection = "selected".into();
+        need.requirements[0].evidence_policy.competition_ids = vec!["competition-other".into()];
+        assert_eq!(score(&candidate, &need).required_evidenced, 0);
+        assert_eq!(score(&candidate, &need).required_met, 0);
+    }
+
+    #[test]
+    fn vacancy_ranking_compares_coverage_instead_of_number_of_requirements() {
+        let candidate = candidate("candidate", Grade::Middle, true, false);
+        let mut full = score(&candidate, &need());
+        full.required_met = 1;
+        full.required_total = 1;
+        let mut partial = full.clone();
+        partial.required_met = 8;
+        partial.required_total = 10;
+        assert_eq!(compare_vacancy_fit(&full, &partial), Ordering::Less);
+        assert_eq!(compare_vacancy_fit(&partial, &full), Ordering::Greater);
+    }
 
     fn candidate(id: &str, grade: Grade, required: bool, desired: bool) -> RankableCandidate {
         RankableCandidate {

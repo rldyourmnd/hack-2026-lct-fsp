@@ -26,14 +26,15 @@ use crate::{
     GitHubGateway, GradeEligibilityView, GraphEdgeView, GraphNodeView, GraphView,
     HiringAssistantView, HiringFlowAnalyticsView, IdempotencyClaim, ImportConfirmInput,
     IntegrationError, InterviewAnswerInput, InterviewGateway, InterviewSpeechInput,
-    InterviewStartInput, InterviewView, InterviewsView, InvitationInput, InvitationNeedView,
-    InvitationView, InvitationsView, JobResultView, JobView, LlmGateway, MatchRequirementView,
-    MyTasksView, NeedInput, NeedPatch, NeedView, NeedsView, OfferedCompanyView, OfferedTaskView,
-    OnboardingView, PendingChallenge, PlatformRepository, ProfilePatch, ProfileView,
-    RepositoryError, RequirementInput, RequirementView, SalaryView, SelfSkillView, SessionView,
-    ShortlistInput, ShortlistMemberView, ShortlistSummaryView, ShortlistView, ShortlistsView,
-    SkillView, SkillsView, SourceConnectInput, SourceView, SourcesView, SpeechAudioView,
-    SpeechSynthesisGateway, TaskInput, TaskPeriodView, TaskResponseInput, TaskResponseView,
+    InterviewStartInput, InterviewTranscriptionInput, InterviewView, InterviewsView,
+    InvitationInput, InvitationNeedView, InvitationView, InvitationsView, JobResultView, JobView,
+    LlmGateway, MatchRequirementView, MyTasksView, NeedInput, NeedPatch, NeedView, NeedsView,
+    OfferedCompanyView, OfferedTaskView, OnboardingView, PendingChallenge, PlatformRepository,
+    ProfilePatch, ProfileView, RepositoryError, RequirementInput, RequirementView, SalaryView,
+    SelfSkillView, SessionView, ShortlistInput, ShortlistMemberView, ShortlistSummaryView,
+    ShortlistView, ShortlistsView, SkillView, SkillsView, SourceConnectInput, SourceView,
+    SourcesView, SpeechAudioView, SpeechRecognitionGateway, SpeechSynthesisGateway,
+    SpeechTranscriptView, TaskInput, TaskPeriodView, TaskResponseInput, TaskResponseView,
     TaskResponsesView, TaskReviewInput, TaskReviewOutcome, TaskView, TasksView, VacancyPageView,
     VacancyRequirementView, VacancySearch, VacancyView, VerificationDelivery, job_view,
     match_status, source_view,
@@ -90,6 +91,7 @@ pub struct PlatformService {
     fsp: Option<Arc<dyn FspGateway>>,
     interviews: Option<Arc<dyn InterviewGateway>>,
     speech: Option<Arc<dyn SpeechSynthesisGateway>>,
+    transcription: Option<Arc<dyn SpeechRecognitionGateway>>,
     grade_cooldown_days: u16,
     auth_key: Option<Vec<u8>>,
     /// Candidates with a profile review running, and whether a newer estimate awaits one.
@@ -111,6 +113,7 @@ impl PlatformService {
             fsp: None,
             interviews: None,
             speech: None,
+            transcription: None,
             grade_cooldown_days: 90,
             auth_key: None,
             reviews: Arc::default(),
@@ -188,6 +191,12 @@ impl PlatformService {
     #[must_use]
     pub fn with_speech(mut self, speech: Arc<dyn SpeechSynthesisGateway>) -> Self {
         self.speech = Some(speech);
+        self
+    }
+
+    #[must_use]
+    pub fn with_transcription(mut self, transcription: Arc<dyn SpeechRecognitionGateway>) -> Self {
+        self.transcription = Some(transcription);
         self
     }
 
@@ -292,6 +301,37 @@ impl PlatformService {
                 ApplicationError::new(503, "speech_unavailable", "Озвучивание временно недоступно")
             })?
             .synthesize(&question.delivery.speech_text)
+            .await
+            .map_err(integration_error)
+    }
+
+    pub async fn transcribe_interview_answer(
+        &self,
+        session: &SessionView,
+        interview_id: &str,
+        input: InterviewTranscriptionInput,
+    ) -> Result<SpeechTranscriptView, ApplicationError> {
+        let interview = self.get_interview(session, interview_id).await?;
+        let question = interview.current_question.ok_or_else(|| {
+            ApplicationError::new(409, "interview_completed", "Собеседование уже завершено")
+        })?;
+        if question.id != input.question_id {
+            return Err(ApplicationError::new(
+                409,
+                "interview_question_changed",
+                "Вопрос собеседования уже изменился",
+            ));
+        }
+        self.transcription
+            .as_ref()
+            .ok_or_else(|| {
+                ApplicationError::new(
+                    503,
+                    "speech_unavailable",
+                    "Распознавание речи временно недоступно",
+                )
+            })?
+            .transcribe(&input.audio_base64, &input.mime_type)
             .await
             .map_err(integration_error)
     }
@@ -1113,11 +1153,27 @@ impl PlatformService {
             .published_needs()
             .await
             .map_err(ApplicationError::storage)?;
-        // The mock sorts newest publication first and breaks ties by id.
+        let rankable = candidate
+            .rankable()
+            .filter(|_| candidate.profile.consents.processing);
+        // Score once per vacancy; filtering/pagination never changes the deterministic order.
+        let scores: std::collections::HashMap<_, _> = rankable
+            .as_ref()
+            .map(|candidate| {
+                needs
+                    .iter()
+                    .map(|need| (need.id.clone(), score(candidate, &need.need)))
+                    .collect()
+            })
+            .unwrap_or_default();
         needs.sort_by(|left, right| {
-            right
-                .published_at
-                .cmp(&left.published_at)
+            scores
+                .get(&left.id)
+                .zip(scores.get(&right.id))
+                .map_or(std::cmp::Ordering::Equal, |(left, right)| {
+                    fsp_domain::compare_vacancy_fit(left, right)
+                })
+                .then_with(|| right.published_at.cmp(&left.published_at))
                 .then_with(|| left.id.cmp(&right.id))
         });
         let filtered = needs
@@ -3142,12 +3198,15 @@ impl PlatformService {
                     candidate.profile.grade_confirmed_at.as_deref(),
                 )
                 .await?;
-            let github = self.github_signal(&candidate.profile.id).await?;
+            let (github, fsp) = self
+                .source_signals(&candidate.profile.id, need.as_ref())
+                .await?;
             items.push(anonymous_candidate(
                 candidate,
                 need.as_ref(),
                 &signals,
                 github,
+                fsp,
             ));
         }
         Ok(CandidatePageView {
@@ -3174,25 +3233,22 @@ impl PlatformService {
                 .map_err(ApplicationError::storage)?,
             None => None,
         };
-        let candidate = self
-            .repository
-            .candidate_index(candidate_id)
-            .await
-            .map_err(ApplicationError::storage)?
-            .filter(|item| item.profile.visible_to_employers(item.email_verified))
-            .ok_or_else(|| ApplicationError::new(404, "not_found", "Кандидат не найден"))?;
+        let candidate = self.candidate_for_company(company_id, candidate_id).await?;
         let signals = self
             .freshness_signals(
                 &candidate.profile.id,
                 candidate.profile.grade_confirmed_at.as_deref(),
             )
             .await?;
-        let github = self.github_signal(&candidate.profile.id).await?;
+        let (github, fsp) = self
+            .source_signals(&candidate.profile.id, need.as_ref())
+            .await?;
         Ok(anonymous_candidate(
             candidate,
             need.as_ref(),
             &signals,
             github,
+            fsp,
         ))
     }
 
@@ -3369,24 +3425,72 @@ impl PlatformService {
     /// The mock's `freshness()` inputs: the verified-grade signal plus every
     /// counted task response (not marked `needs_work`), assessment first.
     /// The anonymous GitHub projection of a candidate's latest report, if any.
-    async fn github_signal(
+    async fn source_signals(
         &self,
         candidate_id: &str,
-    ) -> Result<Option<fsp_domain::GitHubSignal>, ApplicationError> {
-        Ok(self
+        need: Option<&HiringNeedRecord>,
+    ) -> Result<
+        (
+            Option<fsp_domain::GitHubSignal>,
+            Option<crate::EmployerFspView>,
+        ),
+        ApplicationError,
+    > {
+        let sources = self
             .repository
             .sources(candidate_id)
             .await
-            .map_err(ApplicationError::storage)?
-            .into_iter()
+            .map_err(ApplicationError::storage)?;
+        let github = sources
+            .iter()
             .filter(|source| source.provider == fsp_domain::SourceProvider::Github)
             .find_map(|source| {
-                let analysis = source.analysis?;
-                let verified = analysis.ownership.is_some();
+                let analysis = source.analysis.as_ref()?;
                 analysis
                     .report
-                    .map(|report| report.employer_signal(verified))
-            }))
+                    .as_ref()
+                    .map(|report| report.employer_signal(analysis.ownership.is_some()))
+            });
+        let fsp = sources
+            .iter()
+            .find(|source| source.provider == fsp_domain::SourceProvider::Fsp)
+            .map(|source| {
+                let published = source
+                    .fsp_results
+                    .iter()
+                    .filter(|result| result.status == "published")
+                    .collect::<Vec<_>>();
+                crate::EmployerFspView {
+                    verified_participation: source.verified_participation,
+                    published_results: published.len(),
+                    podium_results: published
+                        .iter()
+                        .filter(|result| result.place.is_some_and(|place| (1..=3).contains(&place)))
+                        .count(),
+                    relevant_results: published
+                        .iter()
+                        .filter(|result| {
+                            need.is_some_and(|need| {
+                                need.need.requirements.iter().any(|requirement| {
+                                    let policy = &requirement.evidence_policy;
+                                    policy.accept_fsp
+                                        && (policy.competition_selection == "system"
+                                            || policy
+                                                .competition_ids
+                                                .contains(&result.competition_id))
+                                        && COMPETITIONS.iter().any(|(id, skills)| {
+                                            *id == result.competition_id
+                                                && skills.contains(&requirement.skill_id.as_str())
+                                        })
+                                })
+                            })
+                        })
+                        .count(),
+                    last_synced_at: source.last_synced_at.clone(),
+                    synthetic: source.synthetic,
+                }
+            });
+        Ok((github, fsp))
     }
 
     async fn freshness_signals(
@@ -3742,6 +3846,7 @@ fn anonymous_candidate(
     need: Option<&HiringNeedRecord>,
     signals: &[(String, &'static str)],
     github: Option<fsp_domain::GitHubSignal>,
+    fsp: Option<crate::EmployerFspView>,
 ) -> AnonymousCandidateView {
     let rankable = record.rankable().expect("visible candidate is rankable");
     let category = record
@@ -3766,6 +3871,17 @@ fn anonymous_candidate(
                 })
                 .collect(),
         });
+    let review = record.profile.estimate.as_ref().and_then(|estimate| {
+        estimate
+            .review
+            .as_ref()
+            .map(|review| crate::EmployerReviewView {
+                specialization: review.specialization,
+                grade: review.grade,
+                agrees: review.agrees,
+                computed_at: estimate.computed_at.clone(),
+            })
+    });
     AnonymousCandidateView {
         id: record.profile.id,
         alias: record.profile.alias,
@@ -3798,6 +3914,8 @@ fn anonymous_candidate(
         freshness: freshness_view(signals),
         r#match: candidate_match,
         github,
+        fsp,
+        review,
         simulation: true,
     }
 }
@@ -3822,6 +3940,8 @@ fn match_view(
         required_total: result.required_total,
         desired_met: result.desired_met,
         desired_total: result.desired_total,
+        required_evidenced: result.required_evidenced,
+        desired_evidenced: result.desired_evidenced,
         requirements,
         explanation: if result.grade_matches {
             format!(
@@ -3839,27 +3959,10 @@ fn match_requirement(
     skills: &[fsp_domain::SkillEvidence],
     requirement: &Requirement,
 ) -> MatchRequirementView {
-    let skill = skills
-        .iter()
-        .find(|item| item.skill_id == requirement.skill_id);
-    // Like the mock's match(): only an assessment the policy accepts counts
-    // toward `meets`; other sources keep the requirement at needs_verification.
-    let accepted_assessment = requirement.evidence_policy.accept_assessments
-        && skill.is_some_and(|item| {
-            item.sources
-                .contains(&fsp_domain::EvidenceSource::Assessment)
-        });
-    let meets = skill.is_some_and(|item| {
-        item.status == EvidenceStatus::Confirmed
-            && accepted_assessment
-            && item
-                .evidence_grade
-                .is_some_and(|grade| grade >= requirement.minimum_grade)
-    });
-    let evidence_status = skill.map_or(EvidenceStatus::Insufficient, |item| item.status);
-    let status = if meets {
+    let evidence = fsp_domain::requirement_evidence(skills, requirement);
+    let status = if evidence.meets {
         "meets"
-    } else if skill.is_none_or(|item| item.status == EvidenceStatus::Insufficient) {
+    } else if evidence.status == EvidenceStatus::Insufficient {
         "not_evidenced"
     } else {
         "needs_verification"
@@ -3868,18 +3971,20 @@ fn match_requirement(
         skill_id: requirement.skill_id.clone(),
         criticality: requirement.criticality,
         status,
-        evidence_status,
-        reason: if meets {
+        evidence_status: evidence.status,
+        minimum_grade: requirement.minimum_grade,
+        evidence_grade: evidence.grade,
+        reason: if evidence.meets {
             "Навык подтверждён проверкой нужного уровня, которую принимает работодатель."
         } else if status == "not_evidenced" {
             "Пока нет достаточных свидетельств по этому навыку."
-        } else if !accepted_assessment
-            && skill.is_some_and(|item| item.status == EvidenceStatus::Confirmed)
-        {
-            "Имеющееся подтверждение не соответствует политике этой потребности."
+        } else if evidence.accepted_sources.is_empty() {
+            "Имеющиеся источники не соответствуют политике этой потребности."
         } else {
             "Есть основания, но уровень по этому требованию ещё следует подтвердить."
         },
+        evidence_sources: evidence.sources,
+        accepted_sources: evidence.accepted_sources,
     }
 }
 

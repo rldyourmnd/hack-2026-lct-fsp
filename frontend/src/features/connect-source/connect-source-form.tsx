@@ -6,6 +6,7 @@ import { profileKey } from '@/entities/profile';
 import { useScope } from '@/entities/session';
 import { graphKey, skillsKey } from '@/entities/skill';
 import { authorizeGitHub, connectSource, type Source, sourcesKey } from '@/entities/source';
+import { vacanciesKey } from '@/entities/vacancy';
 import { describeError } from '@/shared/api';
 import { Button, Callout, TextField } from '@/shared/ui';
 
@@ -28,7 +29,7 @@ export function ConnectSourceForm({ provider, label, submitLabel, hint, placehol
     // A source that completes at once also updates the evidence, the estimate and the profile.
     onSuccess: async () => {
       await Promise.all(
-        [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope)].map((queryKey) =>
+        [sourcesKey(scope), skillsKey(scope), graphKey(scope), profileKey(scope), vacanciesKey(scope)].map((queryKey) =>
           queryClient.invalidateQueries({ queryKey }),
         ),
       );

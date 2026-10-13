@@ -6,6 +6,7 @@ import {
   candidateQuery,
   disclosureQuery,
   type MatchRequirement,
+  RequirementEvidence,
   RequirementStatusChip,
 } from '@/entities/candidate';
 import { companyQuery } from '@/entities/company';
@@ -82,7 +83,7 @@ function MatchRow({ requirement }: { requirement: MatchRequirement }) {
         <tr>
           <td colSpan={4} className={styles.detailCell}>
             <div className="stack">
-              <p>{requirement.reason}</p>
+              <RequirementEvidence requirement={requirement} />
               <p className="small muted">
                 Статус свидетельств по навыку: «{skillStatusView[requirement.evidenceStatus].label}». Названия проектов,
                 ссылки и фрагменты кода не показываются до согласия кандидата. Наблюдение в репозитории — основание, а
@@ -119,7 +120,12 @@ function MatchTab({ candidateId, needId }: { candidateId: string; needId: string
           {match.requiredMet} из {match.requiredTotal} обязательных требований подтверждены
         </StatusChip>
       </div>
-      {!match.gradeMatches && <p>{match.explanation}</p>}
+      <p>{match.explanation}</p>
+      <p className="small muted">
+        По принимаемым источникам есть основания для {match.requiredEvidenced} из {match.requiredTotal} обязательных и{' '}
+        {match.desiredEvidenced} из {match.desiredTotal} желательных требований. Наличие технологии не подтверждает
+        уровень.
+      </p>
       <TableWrap label="Проверка соответствия требованиям">
         <table className="table">
           <thead>
@@ -501,6 +507,49 @@ export function EmployerCandidatePage({ candidateId, needId, tab, shortlistId, o
               <DisclosureCard candidateId={candidateId} />
             </div>
           </Card>
+          {candidate.review && (
+            <Card
+              title="ИИ: дополнительная оценка"
+              subtitle={`По данным на ${formatDateTime(candidate.review.computedAt)}`}
+            >
+              <p>
+                {specializationLabel[candidate.review.specialization]} · {gradeLabel[candidate.review.grade]}
+              </p>
+              <p className="small">
+                {candidate.review.agrees
+                  ? 'Оценка ИИ согласуется с расчётом по правилам.'
+                  : 'Оценка ИИ расходится с расчётом по правилам — обсудите различия с кандидатом.'}
+              </p>
+              <p className="small muted">
+                Это второе мнение, а не подтверждённый грейд. Личные рекомендации доступны самому кандидату.
+              </p>
+            </Card>
+          )}
+          {candidate.fsp && (
+            <Card
+              title="ФСП: достижения"
+              subtitle={candidate.fsp.synthetic ? 'Демонстрационные данные' : 'Результаты подключённого источника'}
+            >
+              <div className="stack">
+                <p>
+                  {candidate.fsp.verifiedParticipation
+                    ? 'Участие подтверждено источником.'
+                    : 'Участие пока не подтверждено.'}
+                </p>
+                <p>
+                  Опубликованных результатов: {candidate.fsp.publishedResults}. Призовых мест:{' '}
+                  {candidate.fsp.podiumResults}.
+                </p>
+                {need && <p>Связаны с требованиями и политикой этой вакансии: {candidate.fsp.relevantResults}.</p>}
+                {candidate.fsp.lastSyncedAt && (
+                  <p className="small muted">Обновлено {formatDateTime(candidate.fsp.lastSyncedAt)}</p>
+                )}
+                <p className="small muted">
+                  Командный результат не подтверждает индивидуальный уровень технологии. Имена команд и ссылки скрыты.
+                </p>
+              </div>
+            </Card>
+          )}
           {candidate.github && <GitHubSignalCard signal={candidate.github} />}
         </div>
       </div>

@@ -242,6 +242,8 @@ mod tests {
                 required_total: 2,
                 desired_met: 0,
                 desired_total: 0,
+                required_evidenced: 1,
+                desired_evidenced: 0,
                 requirements: Vec::new(),
                 explanation: String::new(),
                 algorithm_version: "test",

@@ -202,7 +202,7 @@ from another tab shows «Статус уже изменился» and the curren
 
 ![Vacancies](screenshots/18-candidate-vacancies.png)
 
-Published vacancies of all companies, newest first, with filters for specialization, grade, work mode and required
+Published vacancies of all companies, best fit first (then newest publication), with filters for specialization, grade, work mode and required
 skill (kept in the URL) and paging. Each card shows the company, title, salary with tax basis, specialization, grade,
 work mode, required skills, the publication date, the candidate's fit computed by the server («Вы подходите по
 обязательным требованиям», «Часть требований стоит подтвердить», «Не хватает подтверждений…») and «Вы откликнулись».
@@ -219,6 +219,8 @@ application card asks for a cover letter (1–4000 characters) and what the comp
 preselected, source links separately, at least one), then «Откликнуться и открыть контакты» opens the application.
 Without a verified grade, questionnaire or processing consent the card says why and links to the fix; after applying
 it shows «Вы откликнулись» with the status link. A vacancy taken down meanwhile says so instead of sending.
+The sidebar shows the candidate's own AI notes with expandable recommendations, and links to the full profile,
+GitHub/FSP sources and skill evidence. Profile notes and vacancy fit refresh every 30 seconds in the foreground.
 
 ### `/candidate/applications` — «Отклики»
 
@@ -364,3 +366,9 @@ Graph views request generation only when selected. Pending generation shows a lo
 the server error and an explicit retry, with the list still selectable. Automatic retries are disabled for
 these potentially 45-second operations. [Issue #27](https://github.com/KirpaDmitriy/sport-programming-federation/issues/27)
 records the related browser finding and final delivery proof.
+
+
+Matching views also show the server's per-skill minimum and available grade, source provenance and sources accepted
+by the selected vacancy. Candidate vacancy pages link to their GitHub/FSP sources and show their own estimate/AI
+notes. Employer candidate pages show only aggregated FSP achievements and typed AI second-opinion classifications;
+private free-text advice and identifying source information never enter that projection.

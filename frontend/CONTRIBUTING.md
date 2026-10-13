@@ -1,6 +1,6 @@
-# Frontend rules
+# Contributing to the frontend
 
-Rules for changing the React application. Repository-wide rules are in [`../AGENTS.md`](../AGENTS.md); the domain
+Rules for changing the React application. Repository-wide rules are in [`../CONTRIBUTING.md`](../CONTRIBUTING.md); the domain
 is in [`../docs/product/BUSINESS_RULES.md`](../docs/product/BUSINESS_RULES.md); the structure is in
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -39,7 +39,8 @@ is in [`../docs/product/BUSINESS_RULES.md`](../docs/product/BUSINESS_RULES.md); 
 
 ## Checks
 
-Run `bun run verify` and `bun run e2e` (or `just verify` and `just e2e` from the root) before merging. Add or update
+For behavior changes, run `bun run verify` and `bun run e2e` (or `just verify` and `just e2e` from the root). Add or update
 tests with each behavior change ([`docs/TESTING.md`](docs/TESTING.md)), refresh screenshots and
 [`docs/SCREENS.md`](docs/SCREENS.md) when a screen changes, and report real results, including failures and skipped
-checks. Work on a named branch and merge through `dev` into `main`.
+checks. For documentation-only changes, validate references and run `git diff --check`.
+Work on a feature branch and merge through `danil`, `dev` and `main`, following the repository contribution guide.
