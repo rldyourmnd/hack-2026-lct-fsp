@@ -1,11 +1,11 @@
-<!-- nddev-public-hackathon -->
+<!-- nddev-private-hackathon -->
 # hack-2026-lct-fsp
 
 LCT 2026 FSP hackathon: Career reverse-hiring platform with assessments, anonymous profiles and employer offers. Rust + React.
 
 [NDDev OpenNetwork](https://github.com/NDDev-Technocracy-OpenNetwork) · [Repository](https://github.com/NDDev-Technocracy-OpenNetwork/hack-2026-lct-fsp)
 
-This repository is a hackathon prototype or supporting tool. Follow the project-specific setup below; cloud integrations require your own configuration and credentials.
+This is NDDev's private FSP hackathon and post-event maintenance repository. Follow the project-specific setup below; cloud integrations require your own configuration and credentials.
 
 ---
 
@@ -220,5 +220,5 @@ The former Python/FastAPI MVP is preserved at tag `archive/dima-mvp`; it is not 
 
 ## Competition submission and maintenance
 
-The FSP/LCT 2026 submission deadline was **2026-10-11 at 23:59 Moscow time (UTC+03:00)**, as specified by the owner. The shared upstream is frozen for submission changes. This NDDev OpenNetwork repository is a public showcase and post-event maintenance copy; changes here do not alter the upstream submission.
+The FSP/LCT 2026 submission deadline was **2026-10-11 at 23:59 Moscow time (UTC+03:00)**, as specified by the owner. The shared upstream is frozen for submission changes. This NDDev OpenNetwork repository is a private post-event maintenance copy; changes here do not alter the upstream submission.
 

@@ -17,20 +17,20 @@ provider:
 classification:
   portfolios:
   - portfolio:nddev-technocracy-opennetwork
-  visibility_contract: public
-  data_classification: public
+  visibility_contract: private
+  data_classification: private
 product:
-  purpose: Private FSP reverse-hiring platform combining a Python MVP and contract,
-    mock, frontend and backend modules.
+  purpose: Private FSP reverse-hiring platform with a Rust backend, React frontend,
+    shared API contract and stateful development mock.
   capabilities:
   - Provide reverse-hiring API and candidate workflows
   - Own the frontend/backend OpenAPI contract and stateful mock
   - Maintain the development stand and product traceability
   entrypoints:
   - change: Repository ownership and work rules
-    path: AGENTS.md
-  - change: Python MVP
-    path: app
+    path: CONTRIBUTING.md
+  - change: Rust backend
+    path: backend
   - change: Shared API contract
     path: contracts
   - change: Frontend
