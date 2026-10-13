@@ -1,7 +1,8 @@
 # Demo stand
 
 One DigitalOcean droplet (`fsp-career-demo`, Ubuntu 24.04, 8 vCPU / 16 GiB) serves the platform at
-<https://nddev.link> through Cloudflare Full (strict), with a Let's Encrypt origin certificate.
+<https://nddev.link> directly through nginx, with a Let's Encrypt certificate. Cloudflare provides DNS only;
+its reverse proxy and CDN are disabled for the application and OpenObserve domains.
 
 Before releasing or recovering deployment access, read the [production deployment runbook](../docs/DEPLOYMENT_RUNBOOK.md). It records the actually used private-controller path and the current CI-host recovery state.
 The original IP `188.166.88.183` retains its short-lived certificate for a canonical HTTPS redirect. Access material (SSH
@@ -241,16 +242,22 @@ helper lifecycle support alone does not make a historical binary a valid rollbac
 validates those values without sourcing secrets. Provisioning preserves the
 existing runtime hostname. Certificate renewal uses `/var/www/acme` over both
 HTTP and HTTPS; verify `certbot renew --cert-name nddev.link --dry-run` after
-DNS/proxy changes. Cloudflare uses Full (strict), minimum TLS 1.2, and respects
-origin cache headers. HTTPS responses advertise host-only HSTS for one week (`max-age=604800`), including
+DNS changes. The A records for `nddev.link` and `observe.nddev.link` point to `188.166.88.183` with
+`proxied=false` and a 300-second TTL. Keep them DNS-only: the owner requires direct access from Russia without
+Cloudflare CDN, edge caching or browser challenges. nginx handles HTTPS and HTTP redirects using publicly
+trusted certificates. This policy applies only to the two web records; preserve mail and domain-verification DNS.
+See [Cloudflare proxy status](https://developers.cloudflare.com/dns/proxy-status/) for the DNS-only behavior.
+HTTPS responses advertise host-only HSTS for one week (`max-age=604800`), including
 error responses; subdomains and preload are not opted in. Plain HTTP Docker responses omit HSTS.
 `/api/v1/` always returns one `Cache-Control: no-store`, including proxy-generated 429 responses. nginx
 suppresses upstream duplicates before setting `X-Content-Type-Options: nosniff`; direct API protection remains.
 Content-addressed assets use a one-year immutable cache only for 200/206/304 responses; asset errors return
-`Cache-Control: no-store` so browsers and the CDN cannot retain a missing file as a long-lived result.
+`Cache-Control: no-store` so browsers cannot retain a missing file as a long-lived result. Successful static-asset
+caching is local to the browser; there is no Cloudflare edge cache in the request path.
 The real renewal unit on the Snap installation is `snap.certbot.renew.timer`, not `certbot.timer`.
-Visitor IP headers are trusted only from the published Cloudflare networks in
-`nginx/fsp-cloudflare-real-ip.conf`; review this list during infrastructure upkeep.
+Direct clients retain their socket IP; arbitrary forwarded-IP headers are not trusted. The existing trust list in
+`nginx/fsp-cloudflare-real-ip.conf` applies only to requests that actually arrive from those networks and does not
+enable Cloudflare proxying.
 
 The sending domain is `auth.nddev.link`, region `eu-west-1`, sender
 `login@auth.nddev.link`. DKIM, SPF/return-path, alternative transport CNAME and

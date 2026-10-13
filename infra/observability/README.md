@@ -77,8 +77,12 @@ The dedicated nginx site handles HTTP-to-HTTPS redirects, TLS, WebSocket upgrade
 no-store responses. Public `/metrics` is blocked. OpenObserve ports 5080/5081 and its outbound network policy
 remain loopback-only. This site is independent of application releases and does not change browser intake.
 
-To reproduce the publication on the authorized stand, create the `observe.nddev.link` A record for the existing
-origin, issue the certificate through the existing ACME webroot, then run the reviewed publisher:
+The `observe.nddev.link` A record points directly to `188.166.88.183` with Cloudflare proxying disabled
+(`proxied=false`, TTL 300). This preserves access without Cloudflare CDN for the Russian audience. Account
+authentication and nginx's no-store policy still apply.
+
+To reproduce the publication on the authorized stand, create that DNS-only A record for the existing origin,
+issue the certificate through the existing ACME webroot, then run the reviewed publisher:
 
 ```sh
 certbot certonly --webroot -w /var/www/acme -d observe.nddev.link \

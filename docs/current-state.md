@@ -15,7 +15,7 @@ established by commit statuses and the newly generated deployment receipt, not t
 
 | Area | Current behavior | Source / proof |
 | --- | --- | --- |
-| Runtime | https://nddev.link; Rust API, PostgreSQL persistence, nginx, Cloudflare Full (strict), canonical IP redirect | [Infrastructure](../infra/README.md), real public browser acceptance |
+| Runtime | https://nddev.link; Rust API, PostgreSQL persistence, direct nginx HTTPS with Let's Encrypt, Cloudflare DNS-only, canonical IP redirect | [Infrastructure](../infra/README.md), real public browser acceptance |
 | Authentication | Resend OTP mail, random six-digit codes, challenge/session HMAC separation, durable issuance/attempt limits, secure session cookies; three explicitly disclosed seed addresses retain fixed demo codes | [Email adapter](../backend/crates/integration-email/src/lib.rs), PostgreSQL HTTP regressions, owner real-mail login |
 | Privacy and writes | Role/company scoping, anonymous candidate projections, selected disclosure, atomic idempotency, guarded terminal decisions | [Business rules](product/BUSINESS_RULES.md), Rust HTTP/storage and two-company browser scenarios |
 | Catalog | `catalog-v2`: five grades, 25 specializations and 255 skills (including 1C, ERP/SAP, analysis, design) in one data file shared by Rust, the contract and the mock; grouped selects and a searchable stack picker; a rollback guard refuses releases that cannot read catalog-v2 data | [Business rules](product/BUSINESS_RULES.md), catalog tests, release-safety |
