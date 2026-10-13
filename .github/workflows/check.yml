@@ -41,6 +41,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+      - name: Install and verify the PDF extraction sandbox
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils bubblewrap apparmor
+          sudo bash infra/install-pdf-sandbox.sh
       - name: Pinned Rust formatting, Clippy and library tests
         working-directory: backend
         run: |
