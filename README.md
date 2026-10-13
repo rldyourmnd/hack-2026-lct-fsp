@@ -3,7 +3,7 @@
 
 LCT 2026 FSP hackathon: Career reverse-hiring platform with assessments, anonymous profiles and employer offers. Rust + React.
 
-[NDDev OpenNetwork](https://github.com/NDDev-Technocracy-OpenNetwork) · [Repository](https://github.com/NDDev-Technocracy-OpenNetwork/hack-2026-lct-fsp)
+[NDDev OpenNetwork](https://github.com/NDDev-Technocracy-OpenNetwork) · [Repository](https://github.com/rldyourmnd/hack-2026-lct-fsp)
 
 This is NDDev's private FSP hackathon and post-event maintenance repository. Follow the project-specific setup below; cloud integrations require your own configuration and credentials.
 
@@ -96,7 +96,7 @@ Prerequisites: Git, Docker Engine or Docker Desktop, and the Compose plugin. Con
 application toolchains; no local Rust, Bun or provider credentials are needed for the base demo.
 
 ```sh
-git clone https://github.com/NDDev-Technocracy-OpenNetwork/hack-2026-lct-fsp.git
+git clone https://github.com/rldyourmnd/hack-2026-lct-fsp.git
 cd hack-2026-lct-fsp
 docker compose up --build --detach --wait
 ```

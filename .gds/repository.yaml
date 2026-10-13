@@ -7,16 +7,18 @@ repository:
   lifecycle: active
 provider:
   type: github
-  installation: installation:github-nddev-technocracy-opennetwork
+  installation: installation:github-personal
   repository_id: 1406058831
-  owner: NDDev-Technocracy-OpenNetwork
+  owner: rldyourmnd
   name: hack-2026-lct-fsp
   aliases:
   - owner: rldyourmnd
     name: sport-programming-federation
+  - owner: NDDev-Technocracy-OpenNetwork
+    name: hack-2026-lct-fsp
 classification:
   portfolios:
-  - portfolio:nddev-technocracy-opennetwork
+  - portfolio:rldyourmnd
   visibility_contract: private
   data_classification: private
 product:
@@ -41,7 +43,7 @@ policy:
   profiles:
   - repository-default
   - continuous-development
-  - organization-default
+  - personal-default
   rollout_ring: standard
 git:
   default_branch: main
