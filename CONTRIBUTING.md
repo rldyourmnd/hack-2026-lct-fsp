@@ -1,4 +1,4 @@
-> This is the NDDev OpenNetwork showcase and maintenance copy. The competition upstream is frozen at `6a5faa6` after the October 11, 2026 deadline (23:59 Moscow / October 12, 01:59 Almaty). Contribute through branches and pull requests in this repository only. The event workflow documented below is historical; do not push, open integration PRs or run private deployment controllers against the competition upstream.
+> This is NDDev's private OpenNetwork maintenance copy. The competition upstream is frozen at `6a5faa6` after the October 11, 2026 deadline (23:59 Moscow / October 12, 01:59 Almaty). Contribute through branches and pull requests in this repository only. The event workflow documented below is historical; do not push, open integration PRs or run private deployment controllers against the competition upstream.
 
 # Contributing
 
