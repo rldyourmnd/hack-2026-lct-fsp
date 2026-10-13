@@ -96,8 +96,8 @@ Prerequisites: Git, Docker Engine or Docker Desktop, and the Compose plugin. Con
 application toolchains; no local Rust, Bun or provider credentials are needed for the base demo.
 
 ```sh
-git clone -o upstream https://github.com/KirpaDmitriy/sport-programming-federation.git
-cd sport-programming-federation
+git clone https://github.com/NDDev-Technocracy-OpenNetwork/hack-2026-lct-fsp.git
+cd hack-2026-lct-fsp
 docker compose up --build --detach --wait
 ```
 

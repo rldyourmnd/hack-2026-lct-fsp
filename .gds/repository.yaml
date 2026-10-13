@@ -1,0 +1,67 @@
+schema_version: 1
+repository:
+  id: repo_01M47ANG92T6QV80TR8CHF2JTP
+  display_name: hack-2026-lct-fsp
+  roles:
+  - project
+  lifecycle: active
+provider:
+  type: github
+  installation: installation:github-nddev-technocracy-opennetwork
+  repository_id: 1406058831
+  owner: NDDev-Technocracy-OpenNetwork
+  name: hack-2026-lct-fsp
+  aliases:
+  - owner: rldyourmnd
+    name: sport-programming-federation
+classification:
+  portfolios:
+  - portfolio:nddev-technocracy-opennetwork
+  visibility_contract: public
+  data_classification: public
+product:
+  purpose: Private FSP reverse-hiring platform combining a Python MVP and contract,
+    mock, frontend and backend modules.
+  capabilities:
+  - Provide reverse-hiring API and candidate workflows
+  - Own the frontend/backend OpenAPI contract and stateful mock
+  - Maintain the development stand and product traceability
+  entrypoints:
+  - change: Repository ownership and work rules
+    path: AGENTS.md
+  - change: Python MVP
+    path: app
+  - change: Shared API contract
+    path: contracts
+  - change: Frontend
+    path: frontend
+  - change: Stand infrastructure
+    path: infra
+policy:
+  profiles:
+  - repository-default
+  - continuous-development
+  - organization-default
+  rollout_ring: standard
+git:
+  default_branch: main
+  integration: pull-request
+  branch_model: task-branches
+  handoff_pr: preferred
+  cleanup: merged-only
+verification:
+  commands:
+    lint:
+    - git diff --check
+    test:
+    - just verify
+  required:
+  - lint
+agent:
+  context_profile: project-default
+  generated_agents: false
+  serena:
+    enabled: false
+    provenance_required: false
+release:
+  mode: none
