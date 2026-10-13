@@ -3,7 +3,7 @@
   "compiled_policy": {
     "repository_id": "repo_01M47ANG92T6QV80TR8CHF2JTP",
     "bundle_version": "0.9.7-dev",
-    "digest": "sha256:c108bd23f1bbd3d21c568563618fcaa320283d66b805f20c6ef5b14ee1ca9316"
+    "digest": "sha256:3cb14efc2bdbf366674a0f566de5ceca3b20616ce433cd895858f5892d480948"
   },
   "sources": [
     {
@@ -15,12 +15,12 @@
       "digest": "sha256:0ea560cc2653184e07c6f744455f745a34f764a5c0dcda55f2dc76fa5296f2f0"
     },
     {
-      "id": "personal-default",
+      "id": "organization-default",
       "tier": "owner",
       "priority": 100,
       "distribution": "public",
-      "path": "policies/owners/personal-default.yaml",
-      "digest": "sha256:25d939880788c237ecffe8c4a87954e769a9b5e2624a55977f396a1cbfef0686"
+      "path": "policies/owners/organization-default.yaml",
+      "digest": "sha256:fe271769a3e50404a5073ca6d045ad19f784069e7d6fdceab80254c06781ed55"
     },
     {
       "id": "continuous-development",
@@ -399,10 +399,10 @@
       "operation": "set"
     },
     "/effective/rollout/mode": {
-      "source": "personal-default",
+      "source": "organization-default",
       "tier": "owner",
       "priority": 100,
-      "file": "policies/owners/personal-default.yaml",
+      "file": "policies/owners/organization-default.yaml",
       "operation": "set"
     },
     "/effective/security/external_write_requires_approval": {
