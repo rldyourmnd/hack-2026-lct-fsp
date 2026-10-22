@@ -34,9 +34,10 @@ competition-upstream freeze in the notice above remains in force.
    [private CI runbook](infra/ci/README.md). Preserve merge history; do not rewrite shared branches.
 5. Delete the feature branch after merging. Keep `rldyourmnd`, `KirpaDmitriy`, `dev` and `main` permanent.
 
-Only `main` is deployed to the stand. CI uses the external private controller, not GitHub Actions; its recovery
-status and release gates are documented in the runbook. Synchronize only with canonical `upstream`; the retired
-GitHub mirror must not be updated.
+Only `main` is the deployment line. The owned maintenance repository runs the `tests` and
+`OpenNetwork checks` GitHub Actions workflows; verify the applicable current-head results before
+merging. The external-controller runbook describes the historical competition setup. Keep the
+competition upstream frozen and integrate maintenance changes in this repository.
 
 ## Contract and code boundaries
 

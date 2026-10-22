@@ -211,7 +211,7 @@ in [current system state](docs/current-state.md).
 ## Contributing
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) for ownership, contract changes and required checks. Feature branches
-merge into `rldyourmnd` or `KirpaDmitriy`, then `dev`, then `main`; deployment uses `main`. The private CI workflow and its
+merge into `rldyourmnd` or `KirpaDmitriy`, then `dev`, then `main`; deployment uses `main`. The historical private CI workflow and its
 current recovery status are documented in the [CI runbook](infra/ci/README.md).
 
 The former Python/FastAPI MVP is preserved at tag `archive/dima-mvp`; it is not part of the current application.
