@@ -1,6 +1,6 @@
-> This is Danil's private hackathon maintenance copy. The competition upstream is frozen at `6a5faa6` after the October 11, 2026 deadline (23:59 Moscow / October 12, 01:59 Almaty). Contribute through branches and pull requests in this repository only. The event workflow documented below is historical; do not push, open integration PRs or run private deployment controllers against the competition upstream.
-
 # Contributing
+
+> This is Danil's post-event hackathon maintenance copy. The competition upstream is frozen at `6a5faa6` after the October 11, 2026 deadline (23:59 Moscow / October 12, 01:59 Almaty). Contribute through branches and pull requests in this repository only. The event workflow documented below is historical; do not push, open integration PRs or run private deployment controllers against the competition upstream.
 
 Use the [README](README.md) for setup and [business rules](docs/product/BUSINESS_RULES.md) for product behavior.
 Current code takes precedence over historical plans and delivery notes.
@@ -19,15 +19,20 @@ documentation affected by the final implementation.
 
 ## Branches and pull requests
 
+The owned maintenance copy uses GitHub logins for personal integration lanes. `danil` was renamed
+to `rldyourmnd`; `dima` was renamed to `KirpaDmitriy`, preserving both commit heads. Historical
+competition-controller sources retain the original upstream repository and lane names. The
+competition-upstream freeze in the notice above remains in force.
+
 1. Synchronize with the canonical `upstream` repository and create a feature branch. Use names such as
-   `feat/profile-search` or `fix/interview-timeout`; avoid the `danil/` and `dima/` prefixes because `danil`
-   and `dima` are permanent branch names.
+   `feat/profile-search` or `fix/interview-timeout`; use task prefixes rather than personal integration lane names. The permanent personal lanes are
+   `rldyourmnd` and `KirpaDmitriy`.
 2. Commit logical changes separately, with English Conventional Commit messages. Describe the behavior change
    and actual validation results in the pull request.
-3. Open the feature PR into the responsible maintainer's branch, `danil` or `dima`.
+3. Open the feature PR into the responsible maintainer's branch, `rldyourmnd` or `KirpaDmitriy`.
 4. Integrate the verified personal branch into `dev`, then `dev` into `main`, following the
    [private CI runbook](infra/ci/README.md). Preserve merge history; do not rewrite shared branches.
-5. Delete the feature branch after merging. Keep `danil`, `dima`, `dev` and `main` permanent.
+5. Delete the feature branch after merging. Keep `rldyourmnd`, `KirpaDmitriy`, `dev` and `main` permanent.
 
 Only `main` is deployed to the stand. CI uses the external private controller, not GitHub Actions; its recovery
 status and release gates are documented in the runbook. Synchronize only with canonical `upstream`; the retired

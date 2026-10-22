@@ -5,7 +5,7 @@ LCT 2026 FSP hackathon: Career reverse-hiring platform with assessments, anonymo
 
 [NDDev OpenNetwork](https://github.com/NDDev-Technocracy-OpenNetwork) · [Repository](https://github.com/rldyourmnd/hack-2026-lct-fsp)
 
-This is NDDev's private FSP hackathon and post-event maintenance repository. Follow the project-specific setup below; cloud integrations require your own configuration and credentials.
+This is NDDev's FSP hackathon and post-event maintenance repository. Follow the project-specific setup below; cloud integrations require your own configuration and credentials.
 
 ---
 
@@ -101,7 +101,7 @@ cd hack-2026-lct-fsp
 docker compose up --build --detach --wait
 ```
 
-Open **http://localhost:8080** and use a demo account above, or register a new local account with code `123456`.
+Open **[http://localhost:8080](http://localhost:8080)** and use a demo account above, or register a new local account with code `123456`.
 Compose starts PostgreSQL, the API, frontend, FSP simulator and interview service. Without Bifrost, interviews
 use the explicit offline rubric. GitHub analysis, PDF import, neural speech and observability require additional
 configuration; see the [backend guide](backend/README.md) and [operations guide](infra/README.md).
@@ -211,7 +211,7 @@ in [current system state](docs/current-state.md).
 ## Contributing
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) for ownership, contract changes and required checks. Feature branches
-merge into `danil` or `dima`, then `dev`, then `main`; deployment uses `main`. The private CI workflow and its
+merge into `rldyourmnd` or `KirpaDmitriy`, then `dev`, then `main`; deployment uses `main`. The private CI workflow and its
 current recovery status are documented in the [CI runbook](infra/ci/README.md).
 
 The former Python/FastAPI MVP is preserved at tag `archive/dima-mvp`; it is not part of the current application.
@@ -220,5 +220,4 @@ The former Python/FastAPI MVP is preserved at tag `archive/dima-mvp`; it is not 
 
 ## Competition submission and maintenance
 
-The FSP/LCT 2026 submission deadline was **2026-10-11 at 23:59 Moscow time (UTC+03:00)**, as specified by the owner. The shared upstream is frozen for submission changes. This NDDev OpenNetwork repository is a private post-event maintenance copy; changes here do not alter the upstream submission.
-
+The FSP/LCT 2026 submission deadline was **2026-10-11 at 23:59 Moscow time (UTC+03:00)**, as specified by the owner. The shared upstream is frozen for submission changes. This NDDev OpenNetwork repository is a post-event maintenance copy; changes here do not alter the upstream submission.
