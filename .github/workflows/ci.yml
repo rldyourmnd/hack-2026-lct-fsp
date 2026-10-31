@@ -29,7 +29,7 @@ jobs:
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: '1.4.2'
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/hosted-cache@c9e6e1a685586d354bb41e27ce85f8b505c10a73 # nddev-cicd-v0.6.14
+      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/hosted-cache@ab62f45b2a3067e5a7425d703f7fd07f1618b72c # nddev-cicd-v0.6.14
         with:
           ecosystems: bun
       - name: Install locked dependencies
@@ -58,7 +58,7 @@ jobs:
       - name: Select the toolchain pinned by rust-toolchain.toml
         working-directory: backend
         run: rustup toolchain install
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/hosted-cache@c9e6e1a685586d354bb41e27ce85f8b505c10a73 # nddev-cicd-v0.6.14
+      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/hosted-cache@ab62f45b2a3067e5a7425d703f7fd07f1618b72c # nddev-cicd-v0.6.14
         with:
           ecosystems: cargo
           working-directory: backend
@@ -77,7 +77,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@c9e6e1a685586d354bb41e27ce85f8b505c10a73 # nddev-cicd-v0.6.14
+      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@ab62f45b2a3067e5a7425d703f7fd07f1618b72c # nddev-cicd-v0.6.14
         with:
           capability: security
       - name: Lint and audit workflows
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/gate@c9e6e1a685586d354bb41e27ce85f8b505c10a73 # nddev-cicd-v0.6.14
+      - uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/gate@ab62f45b2a3067e5a7425d703f7fd07f1618b72c # nddev-cicd-v0.6.14
         with:
           needs: ${{ toJSON(needs) }}
           expected: '{"platform":"success","rust":"success","workflows":"success"}'
