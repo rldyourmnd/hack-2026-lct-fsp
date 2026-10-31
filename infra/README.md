@@ -214,6 +214,8 @@ Russian speech recognition; STT remains a separate runtime concern.
 
 For digital PDF import, provisioning installs `bubblewrap`, `poppler-utils` and the narrow executable profile
 [`apparmor/fsp-pdf-bwrap`](apparmor/fsp-pdf-bwrap), allowing user namespaces for `/usr/bin/bwrap` on Ubuntu 24.04.
+On Ubuntu 26.04 the distribution's enabled `bwrap-userns-restrict` profile already grants this, so the installer
+reloads it and installs no second profile for the same executable.
 Global unprivileged-userns restrictions stay enabled. The API unit permits `AF_NETLINK` for namespace setup;
 the parser still runs without host network/secrets, under process/time/output/concurrency limits.
 Set `FSP_PDF_IMPORT=1` in the private API environment and configure Bifrost. Startup probes the actual sandbox
