@@ -3,8 +3,17 @@
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 owned=/etc/apparmor.d/fsp-pdf-bwrap
-packaged=/etc/apparmor.d/bwrap
-if [[ -f "$packaged" ]]; then
+# The distribution's own bwrap profile: /etc/apparmor.d/bwrap where present, and
+# bwrap-userns-restrict on Ubuntu 26.04, which enables it by default. Either one
+# already grants bwrap its user namespace; adding ours would duplicate the attachment.
+packaged=""
+for candidate in /etc/apparmor.d/bwrap /etc/apparmor.d/bwrap-userns-restrict; do
+  if [[ -f "$candidate" ]]; then
+    packaged="$candidate"
+    break
+  fi
+done
+if [[ -n "$packaged" ]]; then
   if [[ -f "$owned" ]]; then
     if grep -q '^fsp-pdf-bwrap ' /sys/kernel/security/apparmor/profiles; then
       apparmor_parser -R "$owned"
