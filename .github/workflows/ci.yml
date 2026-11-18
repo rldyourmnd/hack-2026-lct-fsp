@@ -62,3 +62,19 @@ jobs:
   merge-stops:
     if: github.event_name == 'pull_request'
     uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+
+  gate:
+    needs: [platform, backend, compose, release-safety, workflows, merge-stops]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require the complete result
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          jq -e --arg event "$EVENT" '
+            .["merge-stops"].result == (if $event == "pull_request" then "success" else "skipped" end)
+            and ([del(.["merge-stops"])[] | .result] | length == 5 and all(. == "success"))
+          ' <<< "$RESULTS"
