@@ -11,6 +11,19 @@ export CARGO_BUILD_JOBS=2 CARGO_INCREMENTAL=0
 export CARGO_PROFILE_DEV_DEBUG=0 CARGO_PROFILE_TEST_DEBUG=0
 export CI=1
 cd "${2:?checkout required}"
+
+wait_for_postgres() {
+  local database=$1
+  # The image starts a socket-only server during initialization.
+  for _ in {1..60}; do
+    if docker exec "$database" pg_isready --host 127.0.0.1 --username postgres; then
+      return 0
+    fi
+    sleep 1
+  done
+  return 1
+}
+
 case "${1:?gate required}" in
   platform)
     for module in contracts/codegen mock-server frontend; do bun install --cwd "$module" --frozen-lockfile; done
@@ -31,7 +44,7 @@ case "${1:?gate required}" in
     POSTGRES_PASSWORD="$(python3 -c 'import secrets; print(secrets.token_hex(24))')"
     docker run --detach --name "$database" --label fsp.ci=true --memory=1g \
       -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD -p 127.0.0.1::5432 postgres:17-alpine
-    for _ in {1..60}; do docker exec "$database" pg_isready -U postgres && break; sleep 1; done
+    wait_for_postgres "$database"
     port="$(docker port "$database" 5432/tcp)"
     export FSP_TEST_DATABASE_URL="postgres://postgres:${POSTGRES_PASSWORD}@${port}/postgres"
     cd backend
@@ -64,7 +77,7 @@ case "${1:?gate required}" in
     database="fsp-ci-backup-$$"
     trap 'docker rm -f "$database" >/dev/null 2>&1 || true' EXIT
     docker run --detach --name "$database" --label fsp.ci=true --memory=512m -e POSTGRES_HOST_AUTH_METHOD=trust postgres:17-alpine
-    for _ in {1..60}; do docker exec "$database" pg_isready -U postgres && break; sleep 1; done
+    wait_for_postgres "$database"
     docker cp infra "$database:/tmp/fsp-infra"
     docker exec -e PGUSER=postgres "$database" bash /tmp/fsp-infra/tests/backup.sh
     ;;
