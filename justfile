@@ -1,4 +1,4 @@
-set dotenv-load := true
+set dotenv-load
 
 default:
     @just --list
@@ -76,4 +76,25 @@ docker-down:
 
 # Build a git ref on the demo stand and switch to it
 deploy ref="main":
-    infra/deploy.sh {{ref}}
+    infra/deploy.sh {{ ref }}
+
+# Runs one of the project's existing release gates.
+ci-gate gate:
+    bash infra/ci/gate.sh {{ quote(gate) }} .
+
+# Installs and checks the PDF sandbox on a disposable hosted runner.
+ci-backend-host:
+    sudo apt-get update
+    sudo apt-get install --yes --no-install-recommends apparmor bubblewrap poppler-utils
+    sudo bash infra/install-pdf-sandbox.sh
+
+# Checks the source of the shared CI and its host setup.
+check:
+    just --fmt --check
+    actionlint
+    shellcheck infra/ci/gate.sh infra/install-pdf-sandbox.sh
+
+# Audits workflow source and Git history.
+ci-workflows: check
+    zizmor --offline --no-progress .github
+    betterleaks git --no-banner --redact --log-opts="--all --full-history" .

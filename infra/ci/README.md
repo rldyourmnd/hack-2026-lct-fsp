@@ -6,6 +6,10 @@ The October 8 migration was explicitly authorized after canonical repository bil
 repository-level runner registration was denied to the collaborator. Historical failed Actions runs remain
 visible; they are superseded by the new `fsp/*` policy, never rewritten as successes.
 
+The public repository's `dev` workflow runs the four source gates on GitHub-hosted Ubuntu.
+The jobs use the same gate script with the hosted toolchain and disposable databases. The
+stand's protected deployment and live browser journey use the existing release controller.
+
 ## Gates and trust
 
 `gate.sh` preserves platform types/lint/contracts/components/build/browser acceptance, Rust fmt/clippy/tests

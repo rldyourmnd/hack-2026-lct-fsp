@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "repository": "rhysd/actionlint",
+      "tag": "v1.7.12",
+      "asset": 384924896,
+      "name": "actionlint_1.7.12_linux_amd64.tar.gz",
+      "file": "actionlint_1.7.12_linux_amd64.tar.gz",
+      "size": 2353908,
+      "sha256": "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8",
+      "members": [
+        {
+          "path": "actionlint",
+          "file": "actionlint",
+          "size": 6074530,
+          "sha256": "c872d6db8c6bf83a8eaa704fc93999f027d55dffbc63b8a6abdccb47df5f4cd4",
+          "executable": true
+        }
+      ]
+    },
+    {
+      "repository": "betterleaks/betterleaks",
+      "tag": "v1.10.1",
+      "asset": 740237681,
+      "name": "betterleaks_1.10.1_linux_x64.tar.gz",
+      "file": "betterleaks_1.10.1_linux_x64.tar.gz",
+      "size": 10305498,
+      "sha256": "c174b42d7aa60caf58c0c3e555c0e4bed01fe6b0d99a412bce777b5af4ce913e",
+      "members": [
+        {
+          "path": "betterleaks",
+          "file": "betterleaks",
+          "size": 25133216,
+          "sha256": "506082605cad984abd6ecf979a5f00fd6d701bc3ab2104a6029b1d068b3e320c",
+          "executable": true
+        }
+      ]
+    }
+  ]
+}

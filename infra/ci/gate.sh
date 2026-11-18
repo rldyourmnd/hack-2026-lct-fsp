@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # No GitHub, deployment or email credentials are passed to build/test processes.
 set -euo pipefail
-export HOME=/var/lib/fsp-ci/home
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin"
-export CARGO_HOME="$HOME/.cargo" RUSTUP_HOME="$HOME/.rustup"
-export CARGO_TARGET_DIR=/var/lib/fsp-ci/cache/target
+if [[ "${GITHUB_ACTIONS:-}" != true ]]; then
+  export HOME=/var/lib/fsp-ci/home
+  export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin"
+  export CARGO_HOME="$HOME/.cargo" RUSTUP_HOME="$HOME/.rustup"
+  export CARGO_TARGET_DIR=/var/lib/fsp-ci/cache/target
+fi
 export CARGO_BUILD_JOBS=2 CARGO_INCREMENTAL=0
 export CARGO_PROFILE_DEV_DEBUG=0 CARGO_PROFILE_TEST_DEBUG=0
 export CI=1
