@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  platform:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+    with:
+      hosted-runner: ubuntu-26.04
+      recipe: ci-gate
+      arguments: '["platform"]'
+      node-version: "26.13.1"
+      bun-version: "1.4.2"
+
+  backend:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+    with:
+      hosted-runner: ubuntu-26.04
+      prepare: ci-backend-host
+      recipe: ci-gate
+      arguments: '["backend"]'
+      rust-version: "1.99.0"
+      rust-components: clippy,rustfmt
+      timeout-minutes: 45
+
+  compose:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+    with:
+      hosted-runner: ubuntu-26.04
+      recipe: ci-gate
+      arguments: '["compose"]'
+      images: true
+      timeout-minutes: 45
+
+  release-safety:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+    with:
+      hosted-runner: ubuntu-26.04
+      recipe: ci-gate
+      arguments: '["release-safety"]'
+
+  workflows:
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+    with:
+      hosted-runner: ubuntu-26.04
+      recipe: ci-workflows
+      fetch-depth: 0
+      tools: zizmor@1.32.0
+      tool-assets: .github/ci-tools.json
+
+  merge-stops:
+    if: github.event_name == 'pull_request'
+    uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/merge-stops.yml@6bd06a55307dccfd7057c1c3260067eb8adc93a1 # v0.6.79
+
+  gate:
+    needs: [platform, backend, compose, release-safety, workflows, merge-stops]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require the complete result
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          jq -e --arg event "$EVENT" '
+            .["merge-stops"].result == (if $event == "pull_request" then "success" else "skipped" end)
+            and ([del(.["merge-stops"])[] | .result] | length == 5 and all(. == "success"))
+          ' <<< "$RESULTS"
