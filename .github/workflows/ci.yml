@@ -21,7 +21,7 @@ jobs:
       recipe: ci-gate
       arguments: '["platform"]'
       node-version: "26.13.1"
-      bun-version: "1.4.2"
+      bun-version: "1.4.4"
 
   backend:
     uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/recipe.yml@03d53ec146797bc27d7b8b37abbf766ab82041b6 # v0.6.81
@@ -30,7 +30,7 @@ jobs:
       prepare: ci-backend-host
       recipe: ci-gate
       arguments: '["backend"]'
-      rust-version: "1.99.0"
+      rust-version: "1.100.0"
       rust-components: clippy,rustfmt
       timeout-minutes: 45
 

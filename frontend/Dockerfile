@@ -1,6 +1,6 @@
 # The web application: a static Vite build served by unprivileged nginx, which also proxies /api/v1 to the API
 # on 127.0.0.1:4010 in the shared network namespace (see docker-compose.yml).
-FROM oven/bun:1.4.2-slim AS build
+FROM oven/bun:1.4.4-slim AS build
 
 WORKDIR /app/frontend
 COPY frontend/package.json frontend/bun.lock ./

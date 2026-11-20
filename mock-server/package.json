@@ -18,11 +18,11 @@
     "ajv-formats": "3.0.1",
     "pdfkit": "0.20.2"
   },
-  "packageManager": "bun@1.4.2",
+  "packageManager": "bun@1.4.4",
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
-    "@types/node": "26.6.4",
-    "@types/pdfkit": "0.17.6",
+    "@biomejs/biome": "2.6.8",
+    "@types/node": "26.6.6",
+    "@types/pdfkit": "0.17.7",
     "typescript": "7.0.2"
   }
 }
