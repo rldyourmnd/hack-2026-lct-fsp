@@ -1,6 +1,6 @@
 # The demo API: the stateful mock on Bun. It binds to loopback by design; the web container shares this
 # container's network namespace and is the only way in (see docker-compose.yml).
-FROM oven/bun:1.4.2-alpine
+FROM oven/bun:1.4.4-alpine
 
 WORKDIR /app/mock-server
 COPY mock-server/package.json mock-server/bun.lock ./
