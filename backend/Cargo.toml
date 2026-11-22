@@ -26,12 +26,13 @@ form_urlencoded = "1.2.2"
 http-body-util = "0.1.5"
 sqlx = { version = "0.9.0", default-features = false, features = [
     "postgres",
-    "runtime-tokio-rustls",
+    "runtime-tokio",
+    "tls-rustls",
     "migrate",
     "macros",
     "chrono",
 ] }
-reqwest = { version = "0.13.0", default-features = false, features = ["json", "rustls-tls"] }
+reqwest = { version = "0.13.0", default-features = false, features = ["json", "rustls"] }
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = "1.0.151"
 serde_path_to_error = "0.1.20"
